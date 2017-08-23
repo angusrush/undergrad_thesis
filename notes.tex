@@ -4179,11 +4179,13 @@ We picked this example because the collection $[A, B]$ of all functions between 
   \end{equation*}
 \end{note}
 
+For the remainder of this chapter, let $(\mathsf{C}, \otimes, 1)$ be a closed monoidal category with internal hom functor $[-,-]_{\mathsf{C}}$.
+
 \subsection{The evaluation map}
 The internal hom functor gives us a way to talk about evaluating morphisms $f\colon X \to Y$ without mentioning elements of $X$.
 \begin{definition}[evaluation map]
   \label{def:evaluationmap}
-  Let $(\mathsf{C}, \otimes)$ be a closed monoidal category (\hyperref[def:closedmonoidalcategory]{Definition \ref*{def:closedmonoidalcategory}}) with internal hom functor $[-,-]_{\mathsf{C}}$. Let $X \in \Obj(\mathsf{C})$. Then the adjunction
+  Let $X \in \Obj(\mathsf{C})$. Then the adjunction
   \begin{equation*}
     (-) \otimes X \dashv [X, -]_{\mathsf{C}}
   \end{equation*}
@@ -4238,16 +4240,16 @@ The internal hom functor gives us a way to talk about evaluating morphisms $f\co
 The evaluation map allows us to define composition of morphisms without talking about internal hom objects as if they have elements. 
 \begin{definition}[composition morphism]
   \label{def:compositionmorphism}
-  Let $(\mathsf{C}, \otimes)$ be a closed monoidal category. For $X$, $Y$, $Z \in \Obj(\mathsf{C})$, the \defn{composition morphism}
+  For $X$, $Y$, $Z \in \Obj(\mathsf{C})$, the \defn{composition morphism}
   \begin{equation*}
-    \circ_{X, Y, Z}\colon [Y, Z] \otimes [X, Y] \to [X, Y]
+    \circ_{X, Y, Z}\colon [Y, Z]_{\mathsf{C}} \otimes [X, Y]_{\mathsf{C}} \to [X, Z]_{\mathsf{C}}
   \end{equation*}
-  is the $(-) \otimes X \vdash [X, -]$-adjunct of the composition
+  is the $(-) \otimes X \vdash [X, -]_{\mathsf{C}}$-adjunct of the composition
   \begin{equation*}
     \begin{tikzcd}[column sep=huge]
-      {[Y, Z]} \otimes {[X, Y]} \otimes X 
-      \arrow[r, "{\left(1_{[Y, Z]}, \ev_{X, Y}\right)}"]
-      & {[Y, Z]} \otimes Y
+      {[Y, Z]_{\mathsf{C}}} \otimes {[X, Y]_{\mathsf{C}}} \otimes X 
+      \arrow[r, "{\left(1_{[Y, Z]_{\mathsf{C}}}, \ev_{X, Y}\right)}"]
+      & {[Y, Z]_{\mathsf{C}}} \otimes Y
       \arrow[r, "{\ev_{Y, Z}}"]
       & Z
     \end{tikzcd}.
@@ -4262,7 +4264,7 @@ The evaluation map allows us to define composition of morphisms without talking 
     \item The map $\ev_{Y, Z}$ turns $(g, f(x))$ into $g(f(x)) = (g \circ f)(x)$.
   \end{enumerate}
 
-  The evaluation morphism $\circ_{X, Y, Z}$ is then the currying of this, i.e. it sends
+  The evaluation morphism $\circ_{X, Y, Z}$ is the currying of this, i.e. it sends
   \begin{equation*}
     (f, g) \mapsto (f \circ g)(-).
   \end{equation*}
@@ -4277,20 +4279,46 @@ This definition generalizes to any closed monoidal category.
 
 \begin{definition}[dual object]
   \label{def:dualobject}
-  Let $(\mathsf{C}, \otimes, 1)$ be a closed monoidal category, $X \in \Obj(\mathsf{C})$. The \defn{dual object} to $X$, denoted $X^{*}$, is defined to be the object
+  Let $X \in \Obj(\mathsf{C})$. The \defn{dual object} to $X$, denoted $X^{*}$, is defined to be the object
   \begin{equation*}
     [X, 1]_{\mathsf{C}}.
   \end{equation*}
-  (Recall that $[-,-]_{\mathsf{C}}$ denotes the hom functor internal to $\mathsf{C}$.)
 
   That is to say, $X^{*}$ is the internal hom object modelling the hom set of morphisms from $X$ to the identity object $1$.
 \end{definition}
 
-The evaluation morphism has 
+\begin{notation}
+  It is easy to see that the evaluation morphism has a component
+  \begin{equation*}
+    \ev_{X^{*}, X}\colon X^{*} \otimes X \to 1.
+  \end{equation*}
+
+  To clean things up a bit, we will write $\ev_{X}$ instead of $\ev_{X^{*}, X}$.
+\end{notation}
 
 \begin{notation}
-  In many sources, e.g. DMOS (\cite{DMOS}), the dual object to $X$ is denoted $X^{\vee}$.
+  In many sources, e.g. DMOS (\cite{DMOS}), the dual object to $X$ is denoted $X^{\vee}$ instead of $X^{*}$.
 \end{notation}
+
+\begin{lemma}
+  There is a natural isomorphism between the functors
+  \begin{equation*}
+    \Hom_{\mathsf{C}}(-, X^{*})\qquad\text{and}\qquad \Hom_{\mathsf{C}}((-) \otimes X, 1).
+  \end{equation*}
+\end{lemma}
+\begin{proof}
+  For any $X$, $T \in \Obj(\mathsf{C})$, the definition of the internal hom $[-,-]_{\mathsf{C}}$ gives us a natural isomorphism
+  \begin{equation*}
+    \Hom_{\mathsf{C}}(T \otimes X, 1) \simeq \Hom_{\mathsf{C}}(T, [X, 1]_{\mathsf{C}}) = \Hom_{\mathsf{C}}(T, X^{*}).
+  \end{equation*}
+\end{proof}
+
+\begin{lemma}
+  The map $X \mapsto X^{*}$ can be made into a contravariant functor.
+\end{lemma}
+\begin{proof}
+  
+\end{proof}
 
 \section{Higher categories}
 This section follows \cite{baez-higher-categories} closely.
