@@ -3349,6 +3349,8 @@ To categorify this, one considers a functor from one category $\mathsf{J}$, call
   \end{equation*}
 \end{definition}
 
+One thinks of the functor $\mathcal{D}$ embedding the index category $M\textsf{J}$ into $\mathsf{C}$.
+
 \begin{definition}[cone]
   \label{def:cone}
   Let $\mathsf{C}$ be a category, $\mathsf{J}$ an index category, and $\mathcal{D}\colon \mathsf{J} \rightsquigarrow \mathsf{C}$ be a diagram. Let $\mathsf{1}$ be the category with one object and one morphism (\hyperref[eg:categorywithoneobject]{Example \ref*{eg:categorywithoneobject}}) and $\mathcal{F}_{X}$ the functor $1 \rightsquigarrow \mathsf{C}$ which picks out $X \in \Obj(\mathsf{C})$ (\hyperref[eg:functorfrom1category]{Example \ref*{eg:functorfrom1category}}). Let $\mathcal{K}$ be the unique functor $\mathsf{J} \rightsquigarrow \mathsf{1}$.
@@ -3383,6 +3385,7 @@ To categorify this, one considers a functor from one category $\mathsf{J}$, call
 \end{definition}
 
 \begin{note}
+  \label{note:alternatedefinitionofcone}
   Here is an alternate definition. Let $\Delta$ be the functor $\mathsf{C} \rightsquigarrow [\mathsf{J}, \mathsf{C}]$ (the category of functors $\mathsf{J} \rightsquigarrow \mathsf{C}$, see TODO) which assigns to each object $X \in \Obj(\mathsf{C})$ the constant functor $\Delta_{X}: \mathsf{J} \rightsquigarrow \mathsf{C}$, i.e. the functor which maps every object of $\mathsf{J}$ to $X$ and every morphism to $1_{X}$. A cone over $\mathcal{D}$ is then an object in the comma category (\hyperref[def:commacategory]{Definition \ref*{def:commacategory}}) $(\Delta \downarrow \mathcal{D})$ given by the diagram
   \begin{equation*}
     \begin{tikzcd}
@@ -4160,6 +4163,8 @@ We picked this example because the collection $[A, B]$ of all functions between 
   \begin{equation*}
     (-) \otimes X \dashv [X, -]_{\mathsf{C}}.
   \end{equation*}
+
+  The objects $[A, B]_{\mathsf{C}}$ are called \defn{internal hom objects}.
 \end{definition}
 \begin{notation}
   The convention at the nLab is to denote the internal hom by square braces $[A,B]$, and this is for the most part what we will do. Unfortunately, we have already used this notation for the \emph{regular} hom functor, so we will often add a subscript if the category in which the hom functor lives is not clear: $[-,-]_{\mathsf{C}}$ for a hom functor internal to $\mathsf{C}$, $[-,-]_{\mathsf{Set}}$ for the standard hom functor (or the hom functor internal to $\mathsf{Set}$, which amounts to the same). We will also occasionally denote the internal hom with a lower-case $\hom\colon \hom_{\mathsf{C}}(A, B)$ (a very common convention).
@@ -4178,6 +4183,21 @@ We picked this example because the collection $[A, B]$ of all functions between 
     T \mapsto \Hom_\mathsf{C}(T \otimes X, Y).
   \end{equation*}
 \end{note}
+
+\begin{example}
+  In many locally small categories whose objects can be thought of as ``sets with extra structure'' in a natural way, we can pile structure on top of the hom sets until they can be viewed as bona fide categorical objects. It often happens that these structured hom sets coincide (up to isomorphism) with the internal hom objects.
+
+  Take, for example $\mathsf{Vect}_{k}$. For any vector spaces $V$ and $W$, we can view $\Hom_{\mathsf{Vect}_{k}}(V, W)$ into a vector space by defining addition and scalar multiplication pointwise; we can then view $\Hom_{\mathsf{Vect}_{k}}(V, W)$ as an element of $\Obj(\mathsf{Vect}_{k})$. It turns out that this is precisely (up to ismorphism) the internal hom object $[V, W]_{\mathsf{Vect}_{k}}$.
+
+  To see this, we need to show that there is a natural bijection 
+  \begin{equation*}
+    \Hom_{\mathsf{Vect}_{k}}(A, \Hom_{\mathsf{Vect}_{k}}(B, C)) \simeq \Hom_{\mathsf{Vect}_{k}}(A \otimes B, C).
+  \end{equation*}
+
+  Suppose we are given a linear map $f\colon A \to \Hom_{\mathsf{Vect}_{k}}(B, C)$. If we act with this on an element of $A$, we get a linear map $B \to C$. If we evaluate this on an element of $B$, we get an element of $C$. Thus, we can view $f$ as a bilinear map $A \times B \to C$, hence as a linear map $A \otimes B \to C$.
+
+  Now suppose we are given a linear map $g\colon A \otimes B \to C$. We can view this as a bilinear map $A \times B \to C$, and by currying this we get a linear map $A \to \Hom_{\mathsf{Vect}_{k}}(B, C)$.
+\end{example}
 
 For the remainder of this chapter, let $(\mathsf{C}, \otimes, 1)$ be a closed monoidal category with internal hom functor $[-,-]_{\mathsf{C}}$.
 
@@ -4198,11 +4218,7 @@ The internal hom functor gives us a way to talk about evaluating morphisms $f\co
     \Hom_{\mathsf{C}}([X, Y]_{\mathsf{C}} \otimes X, Y) \overset{\sim}{\to} \Hom_{\mathsf{C}}([X, Y]_{\mathsf{C}}, [X, Y]_{\mathsf{C}}).
   \end{equation*}
 
-  The adjunct (\hyperref[def:adjunct]{Definition \ref*{def:adjunct}}) of $1_{[X, Y]_{\mathsf{C}}} \in \Hom_{\mathsf{C}}([X, Y]_{\mathsf{C}}, [X, Y]_{\mathsf{C}})$ is an object in 
-  \begin{equation*}
-    \Hom_{\mathsf{C}}\left( [X, Y]_{\mathsf{C}} \otimes X, Y \right),
-  \end{equation*}
-  denoted 
+  The adjunct (\hyperref[def:adjunct]{Definition \ref*{def:adjunct}}) of $1_{[X, Y]_{\mathsf{C}}} \in \Hom_{\mathsf{C}}([X, Y]_{\mathsf{C}}, [X, Y]_{\mathsf{C}})$ is an object in $\Hom_{\mathsf{C}}\left( [X, Y]_{\mathsf{C}} \otimes X, Y \right)$, denoted 
   \begin{equation*}
     \ev_{X, Y}\colon [X, Y]_{\mathsf{C}} \otimes X \to Y,
   \end{equation*}
@@ -4317,7 +4333,66 @@ This definition generalizes to any closed monoidal category.
   The map $X \mapsto X^{*}$ can be made into a contravariant functor.
 \end{lemma}
 \begin{proof}
-  
+  We need to figure out how our functor should act on morphisms. We define this by analogy with the familiar setting of vector spaces. Recall that for a linear map $L\colon V \to W$, the dual map $L^{t}\colon W^{*} \to V^{*}$ is defined by
+  \begin{equation*}
+    (L^{t}(w))(v) = w(L(v)).
+  \end{equation*}
+
+  By analogy, for $f \in \Hom_{\mathsf{C}}(X, Y)$, we should define the dual morphism $f^{t} \in \Hom_{\mathsf{C}}(B^{*}, A^{*})$ by demanding that the following diagram commutes.
+  \begin{equation*}
+    \begin{tikzcd}[row sep=huge, column sep=huge]
+      Y^{*} \otimes X
+      \arrow[r, "f^{t} \otimes 1_{X}"]
+      \arrow[d, swap, "1_{Y} \otimes f"]
+      & X^{*} \otimes X
+      \arrow[d, "\ev_{X}"]
+      \\
+      Y^{*} \otimes Y
+      \arrow[r, "\ev_{Y}"]
+      & 1
+    \end{tikzcd}
+  \end{equation*}
+
+  To check that this is functorial, we must check that the following diagram commutes.
+  \begin{equation*}
+    \begin{tikzcd}[row sep=huge, column sep=huge]
+      Z^{*} \otimes X
+      \arrow[r, "(f^{t} \circ g^{t}) \otimes 1_{X}"]
+      \arrow[d, swap, "1_{Z} \otimes (g \circ f)"]
+      & X^{*} \otimes X
+      \arrow[d, "\ev_{X}"]
+      \\
+      Z^{*} \otimes Z
+      \arrow[r, "\ev_{Z}"]
+      & 1
+    \end{tikzcd}
+  \end{equation*}
+
+  Let's add in some more objects and morphisms.
+  \begin{equation*}
+    \begin{tikzcd}[row sep=huge, column sep=huge]
+      Z^{*} \otimes X
+      \arrow[r, "g^{t} \otimes 1_{X}"]
+      \arrow[d, swap, "1_{Z^{*}} \otimes f"]
+      & Y^{*} \otimes X
+      \arrow[r, "f^{t} \otimes 1_{X}"]
+      \arrow[d, swap, "1_{Y^{*}} \otimes f"]
+      & X^{*} \otimes X
+      \arrow[dd, "\ev_{X}"]
+      \\
+      Z^{*} \otimes Y
+      \arrow[r, "g^{t} \otimes 1_{Y}"]
+      \arrow[d, swap, "1_{Z^{*}} \otimes g"]
+      & Y^{*} \otimes Y
+      \arrow[dr, "\ev_{Y}"]
+      \\
+      Z^{*} \otimes Z
+      \arrow[rr, swap, "\ev_{Z}"]
+      & & 1
+    \end{tikzcd}
+  \end{equation*}
+
+  That the top left square commutes is trivial, and the right and bottom squares commute by definition. Thus, the diagram commutes.
 \end{proof}
 
 \section{Higher categories}
