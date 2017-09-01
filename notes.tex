@@ -52,6 +52,7 @@
 \chead{Notes on Deligne's theorem} 
 \rhead{\today}
 
+% My commands
 \newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand{\tder}[2]{\frac{\text{d} #1}{\text{d} #2}}
 \newcommand{\R}{\mathbb{R}} 
@@ -78,32 +79,28 @@
 \newcommand{\End}{\mathrm{End}}
 \newcommand{\Nat}{\mathrm{Nat}}
 \newcommand{\Line}{\mathrm{Line}}
-\newcommand{\ev}{\text{eval}}
+\newcommand{\ev}{\mathrm{eval}}
 \newcommand{\coker}{\mathrm{coker}}
 
+% Second level of list uses empty bullets
 \renewcommand{\labelitemii}{$\circ$}
 
+% Declare theorem styles
 \theoremstyle{definition} 
 \newtheorem{definition}{Definition}[section]
-
 \newtheorem{example}{Example}[section]
-
 \newtheorem{counterexample}{Counterexample}[section]
 
+\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
-
 \newtheorem{lemma}{Lemma}[section]
-
 \newtheorem{corollary}{Corollary}[section]
 
+\theoremstyle{remark}
 \newtheorem{claim}{Claim}[section]
-
 \newtheorem{recipe}{Recipe}[section]
-
 \newtheorem{note}{Note}[section]
-
 \newtheorem{notation}{Notation}[section]
-
 \newtheorem{joke}{Joke}[section]
 
 \title{Notes on Deligne's theorem}
@@ -128,6 +125,7 @@ In this chapter we collect some basic definitions and corollaries so that we may
 \end{definition}
 
 \begin{lemma}
+  \label{lemma:monoidalmultiplicationbyunitbijective}
   The above definition is equivalent to the following.
 
   Let $M$ be a set, $\cdot$ an associative binary operation on $M$. Then we say $M$ is a \defn{monoid} if there is an element $1 \in M$ such that $1\cdot 1 = 1$ and the maps $M \to M$, $a \mapsto 1 \cdot a$ and $ a \mapsto a \cdot 1$ are bijections.
@@ -135,7 +133,7 @@ In this chapter we collect some basic definitions and corollaries so that we may
 \begin{proof}
   If $1 \cdot a = a$ for all $a$, then the maps $a \to 1\cdot a$ and $a \mapsto a \cdot 1$ are trivially bijections.
 
-  Now, if the map $a \mapsto 1 \cdot a$ is a bijection, then every element $a$ of $M$ can be written $1 \cdot a'$ for some $a'$ in $M$. Then
+  Now, if the map $a \mapsto 1 \cdot a$ is a bijection, then every element $a$ of $M$ can be written $a = 1 \cdot a'$ for some $a'$ in $M$. Then
   \begin{eqnarray*}
     1 \cdot a &=& 1 \cdot (1 \cdot a') \\
     &=& (1 \cdot 1) \cdot a' \\
@@ -640,6 +638,7 @@ In this chapter (and to some extent the following chapters), I will do my best t
     \item the category $R\text{-}\mathsf{Mod}$, whose objects are modules over a ring $R$ and whose morphisms are module homomorphisms;
 
     \item the category $\mathsf{Vect}_{k}$, whose objects are vector spaces over a field $k$ and whose morphisms are linear maps;
+    \item the category $\mathsf{FinVect}_{k}$, whose objects are finite-dimensional vector spaces over a field $k$ and whose morphisms are linear maps;
     \item the category $k\text{-}\mathsf{Alg}$, whose objects are algebras over a field $k$ and whose morphisms are algebra homomorphisms
   \end{itemize}
 \end{example}
@@ -663,7 +662,7 @@ In this chapter (and to some extent the following chapters), I will do my best t
 
 \begin{definition}[subcategory]
   \label{def:subcategory}
-  Let $\mathsf{C}$ be a category. A \defn{subcategory} $\mathsf{S}$ of $\mathsf{C}$ is defined as follows.
+  Let $\mathsf{C}$ be a category. A category $\mathsf{S}$ is a \defn{subcategory} of $\mathsf{C}$ if
   \begin{itemize}
     \item The objects $\Obj(\mathsf{S})$ of $\mathsf{S}$ are a subcollection of the objects of $\mathsf{C}$
 
@@ -683,6 +682,13 @@ In this chapter (and to some extent the following chapters), I will do my best t
   Let $\mathsf{C}$ be a category, $\mathsf{S} \subseteq \mathsf{C}$ a subcategory. We say that $\mathsf{S}$ is \defn{full} in $\mathsf{C}$ if for every $S$, $T \in \Obj(\mathsf{S})$, $\Hom_{\mathsf{S}}(S, T) = \Hom_{\mathsf{C}}(S, T)$.
 \end{definition}
 
+\begin{example}
+  \label{eg:finvectfullsubcategoryofvect}
+  Recall that $\mathsf{Vect}_{k}$ is the category of vector spaces over a field $k$, and $\mathsf{FinVect}_{k}$ is the category of finite dimensional vector spaces. 
+  
+  It is not difficult to see that $\mathsf{FinVect}_{k} \subseteq \mathsf{Vect}_{k}$: all finite dimensional vector spaces are vector spaces, and all linear maps between finite-dimensional vector spaces are maps between vector spaces. In fact, since for $V$ and $W$ finite-dimensional, one does not gain any maps by moving from $\Hom_{\mathsf{FinVect}_{k}}(V, W)$ to $\Hom_{\mathsf{Vect}_{k}}(V, W)$, $\mathsf{FinVect}_{k}$ is even a \emph{full} subcategory of $\mathsf{Vect}_{k}$.
+\end{example}
+
 \begin{definition}[isomorphism]
   \label{def:isomorphism}
   Let $\mathsf{C}$ be a category, $A$, $B \in \Obj(\mathsf{C})$. A morphism $f \in \Hom(A,B)$ is said to be an \defn{isomorphism} if there exists a morphism $g \in \Hom(B,A)$ such that 
@@ -694,15 +700,11 @@ In this chapter (and to some extent the following chapters), I will do my best t
 \begin{definition}[monomorphism]
   \label{def:monomorphism}
   Let $\mathsf{C}$ be a category, $A$, $B\in \Obj(\mathsf{C})$. A morphism $f\colon A \to B$ is said to be a \defn{monomorphism} if for all $Z \in \Obj(\mathsf{C})$ and all $g_{1}$, $g_{2}\colon Z \to A$, $f \circ g_{1} = f\circ g_{2}$ implies $g_{1} = g_{2}$.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       Z \arrow[r, shift left, "g_{1}"] \arrow[r, shift right, swap, "g_{2}"] & A \arrow[r, "f"] & B
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
 \end{definition}
 
 \begin{theorem}
@@ -730,15 +732,11 @@ In this chapter (and to some extent the following chapters), I will do my best t
 \begin{definition}[epimorphism]
   \label{def:epimorphism}
   Let $\mathsf{C}$ be a category, $A$, $B\in \Obj(\mathsf{C})$. A morphism $f\colon A \to B$ is said to be a \defn{epimorphism} if for all $Z \in \Obj(\mathsf{C})$ and all $g_{1}$, $g_{2}\colon B \to Z$, $g_{1} \circ f = g_{2}\circ f$ implies $g_{1} = g_{2}$.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       A \arrow[r, "f"] & B \arrow[r, shift left, "g_{1}"] \arrow[r, shift right, swap, "g_{2}"] & Z
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
 \end{definition}
 
 \begin{example}
@@ -812,9 +810,7 @@ Just as morphisms connect objects in the same category, functors allow us to con
 \end{example}
 
 One of the nice things about functors is that they map commutative diagrams to commutative diagrams. For example, if $\mathcal{F}$ is a contraviariant functor, then one might see the following.
-
-\begin{centering}
-
+\begin{equation*}
   \begin{tikzcd}
     A \arrow[rr, "h = g \circ f"] \arrow[rd,"f", swap] & & B \\
     & C \arrow[ur, "g", swap] 
@@ -826,9 +822,7 @@ One of the nice things about functors is that they map commutative diagrams to c
     \mathcal{F}(A) \arrow[rr, "\mathcal{F}(h) = \mathcal{F}(f) \circ \mathcal{F}(g)", leftarrow] \arrow[rd,"\mathcal{F}(f)", leftarrow, swap] & & \mathcal{F}(B) \\
     & \mathcal{F}(C) \arrow[ur, "\mathcal{F}(g)", leftarrow, swap] 
   \end{tikzcd}
-
-\end{centering}
-
+\end{equation*}
 \begin{definition}[full functor, faithful functor]
   \label{def:fullfaithfulfunctor}
   Let $\mathsf{C}$ and $\mathsf{D}$ be locally small categories (\hyperref[def:smalllocallysmallcategoryhomset]{Definition \ref*{def:smalllocallysmallcategoryhomset}}), and let $\mathcal{F}: \mathsf{C} \rightsquigarrow \mathsf{D}$. Then $\mathcal{F}$ induces a family of set-functions
@@ -849,6 +843,7 @@ One of the nice things about functors is that they map commutative diagrams to c
 \end{note}
 
 \begin{lemma}
+  \label{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}
   A fully faithful functor is injective on objects up to isomorphism. That is, if $\mathcal{F}\colon \mathsf{C} \rightsquigarrow \mathsf{D}$ is a fully faithful functor and $\mathcal{F}(A) \simeq \mathcal{F}(B)$, then $A \simeq B$.
 \end{lemma}
 \begin{proof}
@@ -891,16 +886,12 @@ One of the nice things about functors is that they map commutative diagrams to c
   \begin{itemize}
     \item for each object $A \in \Obj(\mathsf{C})$ a morphism $\eta_{A}\colon \mathcal{F}(A) \to \mathcal{G}(A)$, such that
     \item for all $A$, $B \in \Obj(C)$, for each morphism $f \in \Hom(A,B)$, the diagram
-
-      \begin{centering}
-
+      \begin{equation*}
         \begin{tikzcd}
           \mathcal{F}(A)\arrow[d, swap, "\eta_{A}"] \arrow[r, "\mathcal{F}(f)"] & \mathcal{F}(B)\arrow[d, "\eta_{B}"] \\
           \mathcal{G}(A) \arrow[r, swap, "\mathcal{G}(f)"] & \mathcal{G}(B) 
         \end{tikzcd}
-
-      \end{centering}
-
+      \end{equation*}
       commutes.
   \end{itemize}
 
@@ -939,9 +930,7 @@ In English: a natural transformation is a map between two functors.
   Because the determinant is defined by the same formula for each $K$, the action of $f$ commutes with $\det_{K}$: it doesn't matter whether we map the entries of $M$ with $f$ first and then take the determinant, or take the determinant first and then feed the result to $f$.
 
   That is to say, the following diagram commutes.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       \GL_{n}(K)
       \arrow[r, "\det_{K}"]
@@ -953,9 +942,7 @@ In English: a natural transformation is a map between two functors.
       \arrow[r, "\det_{K'}"]
       & K'^{*}
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   But this means that $\det$ is a natural transformation $\GL_{n} \Rightarrow \mathrm{(\,\cdot\,)^{*}}$.
 \end{example}
 
@@ -1176,7 +1163,7 @@ We can also compose natural transformations in a not so obvious way.
     \end{tikzcd};
   \end{equation*}
   if you do this you get \emph{another} natural transformation, with components $\mathcal{G}'(\Phi_{A}) \circ \Psi_{\mathcal{F}(A)}$. Why did we use the first definition rather than this one? 
-  
+
   It turns out that $\Psi_{\mathcal{F}(A)} \circ \mathcal{G}(\Phi_{A})$ and $\mathcal{G}'(\Phi_{A}) \circ \Psi_{\mathcal{F}(A)}$ are equal. To see this, note that from the morphism
   \begin{equation*}
     \Phi_{A}\colon \mathcal{F}(A) \to \mathcal{F}'(A),
@@ -1280,7 +1267,7 @@ We can also compose natural transformations in a not so obvious way.
 
 \begin{definition}[functor category]
   \label{def:functorcategory}
-  Let $\mathsf{C}$ and $\mathsf{D}$ be categories. The \defn{functor category} $\mathsf{D}^{\mathsf{C}}$ (or $[\mathsf{C}:\mathsf{D}]$) is the category whose objects are functors $\mathsf{C} \rightsquigarrow \mathsf{D}$, and whose morphisms are natural transformations between them.
+  Let $\mathsf{C}$ and $\mathsf{D}$ be categories. The \defn{functor category} $\mathsf{D}^{\mathsf{C}}$ (or $[\mathsf{C},\mathsf{D}]$) is the category whose objects are functors $\mathsf{C} \rightsquigarrow \mathsf{D}$, and whose morphisms are natural transformations between them.
 \end{definition}
 \begin{definition}[product category]
   \label{def:productcategory}
@@ -1305,15 +1292,11 @@ We would like to be able to express when two categories are the `same.' The corr
 \begin{definition}[categorical equivalence]
   \label{def:categoricalequivalence}
   Let $\mathsf{C}$ and $\mathsf{D}$ be categories. We say that $\mathsf{C}$ and $\mathsf{D}$ are \defn{equivalent} if there is a pair of functors
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       \mathsf{C} \arrow[r, rightsquigarrow, shift left, "\mathcal{F}"] & \arrow[l, shift left, rightsquigarrow, "\mathcal{G}"] \mathsf{D}
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   and natural isomorphisms $R\colon \mathcal{F} \Rightarrow \mathcal{G}$ and $S\colon \mathcal{G} \Rightarrow \mathcal{F}$ such that $S \circ R = 1_{\mathcal{F}}$ and $R \circ S = 1_{\mathcal{G}}$.
 \end{definition} 
 
@@ -1326,81 +1309,57 @@ We would like to be able to express when two categories are the `same.' The corr
 \begin{definition}[comma category]
   \label{def:commacategory}
   Let $\mathsf{A}$, $\mathsf{B}$, $\mathsf{C}$ be categories, $\mathcal{S}$ and $\mathcal{T}$ functors as follows.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
-      \mathsf{A}\arrow[r, rightsquigarrow, "\mathcal{S}"] & \mathsf{C} & \arrow[l, rightsquigarrow, swap, "\mathcal{T}"]\mathsf{B}
+      \mathsf{A}\arrow[r, rightsquigarrow, "\mathcal{S}"]  \mathsf{C} & \arrow[l, rightsquigarrow, swap, "\mathcal{T}"]\mathsf{B}
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   The \defn{comma category} $(\mathcal{S} \downarrow \mathcal{T})$ is the category whose
   \begin{itemize}
     \item objects are triples $(\alpha, \beta, f)$ where $\alpha\in\Obj(\mathsf{A})$, $\beta \in \Obj(\mathsf{B})$, and $f \in \Hom_{\mathsf{C}}(\mathcal{S}(\alpha), \mathcal{T}(\beta))$, and whose
     \item morphisms $(\alpha, \beta, f) \to (\alpha', \beta', f')$ are all pairs $(g, h)$, where $g\colon \alpha \to \alpha'$ and $h\colon \beta \to \beta'$, such that the diagram
   \end{itemize}
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       \mathcal{S}(\alpha) \arrow[r, "\mathcal{S}(g)"] \arrow[d, swap, "f"] & \mathcal{S}(\alpha') \arrow[d, "f'"]\\
       \mathcal{T}(\beta) \arrow[r, "\mathcal{T}(h)"] & \mathcal{T}(\beta') 
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   commutes.
 
 \end{definition}
 
-\begin{note}
+\begin{notation}
   We will often specify the comma category $(\mathcal{S} \downarrow \mathcal{T})$ by simply writing down the diagram
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       \mathsf{A}\arrow[r, rightsquigarrow, "\mathcal{S}"] & \mathsf{C} & \arrow[l, rightsquigarrow, swap, "\mathcal{T}"]\mathsf{B}
     \end{tikzcd}.
-
-  \end{centering}
-
-\end{note}
+  \end{equation*}
+\end{notation}
 
 Let us check in some detail that a comma category really is a category. To do so, we need to check the three properties listed in \hyperref[def:category]{Definition \ref*{def:category}}
 \begin{enumerate}
   \item We must be able to compose morphisms, i.e. we must have the following diagram.
-
-    \begin{centering}
-
+    \begin{equation*}
       \begin{tikzcd}
         {(\alpha, \beta, f)} \arrow[r, "{(g,h)}"] \arrow[rr, bend left, "{(g', h') \circ (g, h)}"] & {(\alpha', \beta', f')} \arrow[r, "{(g', h')}"] & {(\alpha'', \beta'', f'')}
       \end{tikzcd}
-
-    \end{centering}
-
+    \end{equation*}
     But we certainly do, since by definition, each square of the following diagram commutes,
-
-    \begin{centering}
-
+    \begin{equation*}
       \begin{tikzcd}
         \mathcal{S}(\alpha) \arrow[r, "\mathcal{S}(g)"] \arrow[d, swap, "f"] & \mathcal{S}(\alpha') \arrow[r, "\mathcal{S}(g')"] \arrow[d, swap, "f'"] & \mathcal{S}(a'') \arrow[d, "f''"] \\
         \mathcal{T}(\alpha) \arrow[r, "\mathcal{T}(h)"] & \mathcal{T}(\alpha') \arrow[r, "\mathcal{T}(h')"] & \mathcal{T}(a'') 
       \end{tikzcd}
-
-    \end{centering}
-
+    \end{equation*}
     so the square formed by taking the outside rectangle
-
-    \begin{centering}
-
+    \begin{equation*}
       \begin{tikzcd}[column sep=huge]
         \mathcal{S}(\alpha) \arrow[d, swap, "f"] \arrow[r, "\mathcal{S}(g') \circ \mathcal{S}(g)"] & \mathcal{S}(\alpha'') \arrow[d, "f''"] \\
         \mathcal{T}(\alpha) \arrow[r, "\mathcal{T}(h') \circ \mathcal{T}(h)"] & \mathcal{T}(\alpha'') \\
       \end{tikzcd}
-
-    \end{centering}
-
+    \end{equation*}
     commutes. But $\mathcal{S}$ and $\mathcal{T}$ are functors, so 
     \begin{equation*}
       \mathcal{S}(g') \circ \mathcal{S}(g) = \mathcal{S}(g' \circ g),
@@ -1438,16 +1397,12 @@ A special case of a comma category, the so-called \emph{slice category}, occurs 
   the morphisms $(\alpha, f) \to (\alpha', f')$ consist of maps $g\colon \alpha \to \alpha'$. This allows us to define a slice category more neatly.
 
   Let $\mathsf{A}$ be a category, $X \in \Obj(\mathsf{A})$. The \defn{slice category} $(\mathsf{A}\downarrow X)$ is the category whose objects are pairs $(\alpha, f)$, where $\alpha \in \Obj(A)$ and $f\colon \alpha \to X$, and whose morphisms $(\alpha, f) \to (\alpha', f')$ are maps $g:\alpha \to \alpha'$ such that the diagram
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[column sep=tiny, row sep=6ex]
       \alpha \arrow[rr, "g"] \arrow[rd, swap, "f"] & & \alpha' \arrow[dl, "f'"] \\
       & X
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   commutes.
 \end{definition}
 
@@ -1455,25 +1410,17 @@ One can also define a coslice category, which is what you get when you take a sl
 \begin{definition}[coslice category]
   \label{def:coslicecategory}
   Let $\mathsf{A}$ be a category, $X \in \Obj(A)$. The \defn{coslice category} $(X \downarrow \mathsf{A})$ is the comma category given by the diagram
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       \mathsf{1} \arrow[r, rightsquigarrow, "\mathcal{F}_{X}"] & \mathsf{A} & \arrow[l, rightsquigarrow, swap, "\mathrm{id}_{A}"] \mathsf{A}
     \end{tikzcd}.
-
-  \end{centering}
-  Its objects are ordered pairs $(\alpha, f)$, where $\alpha \in \Obj(A)$ and $f\colon X \to \alpha$, and whose morphisms $(\alpha, f) \to (\alpha', f')$ are $\mathsf{A}$-morphisms $g\colon \alpha \to \alpha'$ such that the diagram
-
-  \begin{centering}
-
+  \end{equation*}
+  \begin{equation*}
     \begin{tikzcd}[column sep=tiny, row sep=6ex]
       & X \arrow[dl, swap, "f"] \arrow[dr, "f'"] & \\
       \alpha \arrow[rr, swap, "g"] & & \alpha'
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   commutes.
 \end{definition}
 
@@ -1514,45 +1461,33 @@ The easiest way to do this in general is by using the idea of a \emph{universal 
   This means that, by \hyperref[def:isomorphism]{Definition \ref*{def:isomorphism}}, $f$ and $g$ are isomorphisms. They are clearly unique because of the uniqueness condition in the definition of an initial object. Thus, between any two initial objects there is a unique isomorphism, and we are done.
 
   Here is a bad picture of this proof.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       I \arrow[loop left, "1_{I} \,=\, g \circ f"] \arrow[r, bend left, "f"] & I' \arrow[l, bend left, "g"] \arrow[loop right, "1_{I'} \,=\, f \circ g"]
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
 \end{proof}
 
 \begin{definition}[category of morphisms from an object to a functor]
   \label{def:categoryofmorphismsfromanobjecttoafunctor}
   Let $\mathsf{C}$, $\mathsf{D}$ be categories, let $\mathcal{U}\colon \mathsf{D} \rightsquigarrow \mathsf{C}$ be a functor. Further let $X \in \Obj(C)$. The \defn{category of morphisms $(X \downarrow \mathcal{U})$} is the following comma category (see \hyperref[def:commacategory]{Definition \ref*{def:commacategory}}):
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       \mathsf{1} \arrow[r, rightsquigarrow, "\mathcal{F}_{X}"] & \mathsf{C} & \arrow[l, swap, rightsquigarrow, "\mathcal{U}"] \mathsf{D}
     \end{tikzcd}.
-
-  \end{centering}
-
+  \end{equation*}
   Just as for (co)slice categories (\hyperref[def:slicecategory]{Definitions \ref*{def:slicecategory} and \ref*{def:coslicecategory}}), there is some unpacking to be done. In fact, the unpacking is very similar to that of coslice categories. The LHS of the diagram collapses because the functor $\mathcal{F}_{X}$ picks out a single element $X$; therefore, the objects of $(X \downarrow \mathcal{U})$ are ordered pairs
   \begin{equation*}
     (\alpha, f):\qquad\alpha \in \Obj(\mathsf{D}),\quad f\colon X \to \mathcal{U}(\alpha),
   \end{equation*}
   and the morphisms $(\alpha, f) \to (\alpha', f')$ are morphisms $g\colon \alpha \to \alpha'$ such that the diagram
 
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[column sep=tiny, row sep=6ex]
       & X \arrow[dl, swap, "f"] \arrow[dr, "f'"] & \\
       \mathcal{U}(\alpha) \arrow[rr, swap, "\mathcal{U}(g)"] & & \mathcal{U}(\alpha')
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   commutes.
 
 \end{definition}
@@ -1562,26 +1497,18 @@ Just as slice categories are the opposite to coslice categories, we can take the
 \begin{definition}[category of morphisms from a functor to an object]
   \label{def:categoryofmorphismsfromafunctortoanobject}
   Let $\mathsf{C}$, $\mathsf{D}$ be categories, let $\mathcal{U}\colon \mathsf{D} \rightsquigarrow \mathsf{C}$ be a functor. The \defn{category of morphisms $(\mathcal{U} \downarrow X)$} is the comma category
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       \mathsf{D} \arrow[r, rightsquigarrow, "\mathcal{U}"] & \mathsf{C} & \arrow[l, rightsquigarrow, swap, "\mathcal{F}_X"] \mathsf{1}
     \end{tikzcd}.
-
-  \end{centering}
-
+  \end{equation*}
   The objects in this category are pairs $(\alpha, f)$, where $\alpha \in \Obj(\mathsf{D})$ and $f\colon \mathcal{U}(\alpha) \to X$. The morphisms $(\alpha, f) \to (\alpha', f')$ are morphisms $g\colon \alpha \to \alpha'$ such that the diagram
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[column sep=tiny, row sep=6ex]
       \mathcal{U}(\alpha) \arrow[rr, "\mathcal{U}(g)"] \arrow[dr, swap, "f"] & & \mathcal{U}(\alpha') \arrow[dl, "f'"] \\
       & X &
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   commutes.
 
 \end{definition}
@@ -1589,43 +1516,31 @@ Just as slice categories are the opposite to coslice categories, we can take the
 \begin{definition}[initial morphism]
   \label{def:initialmorphism}
   Let $\mathsf{C}$, $\mathsf{D}$ be categories, let $\mathcal{U}\colon \mathsf{D} \rightsquigarrow \mathsf{C}$ be a functor, and let $X \in \Obj(\mathsf{C})$. An \defn{initial morphism} (called a \emph{universal arrow} in \cite{maclane-categories}) is an initial object in the category $(X \downarrow \mathcal{U})$, i.e. the comma category which has the diagram
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       \mathsf{1} \arrow[r, rightsquigarrow, "\mathcal{F}_{X}"] & \mathsf{C} & \mathsf{D} \arrow[l, swap, rightsquigarrow, "\mathcal{U}"]
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
 \end{definition}
 This is not by any stretch of the imagination a transparent definition, but decoding it will be good practice. 
 
 The definition tells us that an initial morphism is an object in $(X \downarrow \mathcal{U})$, i.e. a pair $(I, \varphi)$ for $I \in \Obj(\mathsf{D})$ and $\varphi\colon X \to \mathcal{U}(\alpha)$. But it is not just any object; it is an initial object. This means that for any other object $(\alpha, f)$, there exists a unique morphism $(I, \varphi) \to (\alpha, f)$.
 But morphisms are simply maps $g\colon I \to \alpha$ such that the diagram
-
-\begin{centering}
-
+\begin{equation*}
   \begin{tikzcd}[column sep=tiny, row sep=6ex]
     & X \arrow[dl, swap, "\varphi"] \arrow[dr, "f"] & \\
     \mathcal{U}(I) \arrow[rr, swap, "\mathcal{U}(g)"] & & \mathcal{U}(\alpha)
   \end{tikzcd}
-
-\end{centering}
-
+\end{equation*}
 commutes.
 
 We can express this schematically via the following diagram (which is essentially the above diagram, rotated to agree with the literature).
-
-\begin{centering}
-
+\begin{equation*}
   \begin{tikzcd}[row sep=large]
     X \arrow[r, "\varphi"] \arrow[dr, swap, "f"] & \mathcal{U}(I) \arrow[d, "\mathcal{U}(g)"] & & I \arrow[d, "\exists!g"]\\
     & \mathcal{U}(\alpha) & & \alpha
   \end{tikzcd}
-
-\end{centering}
-
+\end{equation*}
 
 As always, there is a dual notion.
 \begin{definition}[terminal morphism]
@@ -1634,29 +1549,21 @@ As always, there is a dual notion.
 \end{definition}
 
 This time ``terminal object'' means a pair $(I, \varphi)$ such that there is a unique morphism $g\colon \alpha \to I$ such that the diagram
-
-\begin{centering}
-
+\begin{equation*}
   \begin{tikzcd}[column sep=tiny, row sep=6ex]
     \mathcal{U}(\alpha) \arrow[dr, swap, "f"] \arrow[rr, "\mathcal{U}(g)"] & & \mathcal{U}(I)\arrow[dl, "\varphi"] \\
     & X 
   \end{tikzcd}
-
-\end{centering}
-
+\end{equation*}
 commutes.
 
 Again, with the diagram helpfully rotated, we have the following.
-
-\begin{centering}
-
+\begin{equation*}
   \begin{tikzcd}[row sep=large]
     \mathcal{U}(\alpha) \arrow[d, swap, "\mathcal{U}(g)"] \arrow[rd, "f"] & & & \alpha \arrow[d, "\exists!g"]\\
     \mathcal{U}(I) \arrow[r, swap, "\varphi"] & X & & I
   \end{tikzcd}
-
-\end{centering}
-
+\end{equation*}
 \begin{definition}[universal property]
   \label{def:universalproperty}
   Strictly speaking, an object satisfying a universal property is just an object which is initial or terminal. However, enough interesting universal properties are constructed via comma categories that it will pay to study them in some detail.
@@ -1671,53 +1578,37 @@ Again, with the diagram helpfully rotated, we have the following.
     Let $V$ be a vector space over a field $k$, and let $A$ be an algebra over $k$. The tensor algebra $T(V)$ satisfies the following universal property.
 
     Any linear transformation $f\colon V \to A$ from $V$ to $A$ can be uniquely extended to an algebra homomorphism $T(V) \to A$ as indicated by the following commutative diagram.
-
-    \begin{centering}
-
+    \begin{equation*}
       \begin{tikzcd}[row sep=large]
         V \arrow[r, "i"] \arrow[dr, swap, "f"] & T(V) \arrow[d, "\tilde{f}"] \\
         & A
       \end{tikzcd}
-
-    \end{centering}
-
+    \end{equation*}
   \end{quote}
 
   As it turns out, it will take rather a lot of stretching.
 
   Let $\mathcal{U}\colon k\text{-}\mathsf{Alg} \rightsquigarrow \mathsf{Vect}_{k}$ be the forgetful functor which assigns to each algebra over a field $k$ its underlying vector space. Pick some $k$-vector space $V$. We consider the category $(V \downarrow \mathcal{U})$, which is given by the following diagram.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       \mathsf{1} \arrow[r, rightsquigarrow, "\mathcal{F}_{V}"] & \mathsf{Vect}_{k} &\arrow[l, swap, rightsquigarrow, "\mathcal{U}"] k\text{-}\mathsf{Alg} 
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
 
   By \hyperref[def:initialmorphism]{Definition \ref*{def:initialmorphism}}, the objects of $(V \downarrow \mathcal{U})$ are pairs $(A, L)$, where $A$ is a $k$-algebra and $L$ is a linear map $V \to \mathcal{U}(A)$. The morphisms are algebra homomorphisms $\rho\colon A \to A'$ such that the diagram
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[column sep=tiny, row sep=6ex]
       & V \arrow[dl, swap, "L"] \arrow[dr, "L'"] & \\
       \mathcal{U}(A) \arrow[rr, swap, "\mathcal{U}(\rho)"] & & \mathcal{U}(A')
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   commutes. An object $(T(V), i)$ is initial if for any object $(A, f)$ there exists a unique morphism $g\colon T(V) \to A$ such that the diagram
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=large]
       V \arrow[r, "i"] \arrow[dr, swap, "L"] & \mathcal{U}(T(V)) \arrow[d, "\mathcal{U}(g)"] & & T(V) \arrow[d, "\exists!g"] \\
       & \mathcal{U}(A) & & A
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   commutes.
 
   Thus, the pair $(i, T(V))$ is the initial object in the category $(V \downarrow \mathcal{U})$. We called $T(V)$ the \emph{tensor algebra} over $V$. 
@@ -1732,16 +1623,12 @@ Again, with the diagram helpfully rotated, we have the following.
   According to the excellent book \cite{sontz-principal-bundles-classical}, the tensor product satisfies the following universal property.
   \begin{quote}
     Let $V_{1}$ and $V_{2}$ be vector spaces. Then we say that a vector space $V_{3}$ together with a bilinear map $\iota\colon V_{1} \times V_{2} \to V_{3}$ has the \emph{universal property} provided that for any bilinear map $B\colon V_{1} \times V_{2} \to W$, where $W$ is also a vector space, there exists a unique linear map $L\colon V_{3} \to W$ such that $B = L\iota$. Here is a diagram describing this `factorization' of $B$ through $\iota$:
-
-    \begin{centering}
-
+    \begin{equation*}
       \begin{tikzcd}
         V_{1} \times V_{2} \arrow[r, "\iota"] \arrow[rd, swap, "B"] & V_{3} \arrow[d, "L"] \\
         & W
       \end{tikzcd}
-
-    \end{centering}
-
+    \end{equation*}
   \end{quote}
 
   It turns out that the tensor product defined in this way is neither an initial or final morphism. This is because in the category $\mathsf{Vect}_{k}$, there is no way of making sense of a bilinear map. 
@@ -1754,56 +1641,40 @@ Again, with the diagram helpfully rotated, we have the following.
   Here is the universal property for a product, taken verbatim from Wikipedia (\cite{wikipedia-product}).
   \begin{quote}
     Let $\mathsf{C}$ be a category with some objects $X_{1}$ and $X_{2}$. A product of $X_{1}$ and $X_{2}$ is an object $X$ (often denoted $X_{1}\times X_{2}$) together with a pair of morphisms $\pi_{1}\colon X \to X_{1}$ and $\pi_{2}\colon X \to X_{2}$ such that for every object $Y$ and pair of morphisms $f_{1}\colon Y \to X_{1}$, $f_{2}\colon Y \to X_{2}$, there exists a unique morphism $f\colon Y \to X_{1} \times X_{2}$ such that the following diagram commutes.
-
-    \begin{centering}
-
+    \begin{equation*}
       \begin{tikzcd}
         & Y \arrow[dl, swap, "f_{1}"] \arrow[d, "f"] \arrow[dr, "f_{2}"] & \\
         X_{1} & X_{1} \times X_{2} \arrow[l, "\pi_{1}"] \arrow[r, swap, "\pi_{2}"] & X_{2}
       \end{tikzcd}
-
-    \end{centering}
-
+    \end{equation*}
   \end{quote}
   Consider the comma category $(\Delta \downarrow (X_{1},X_{2}))$ (where $\Delta$ is the diagonal functor, see \hyperref[eg:diagonalfunctor]{Example \ref*{eg:diagonalfunctor}}) given by the following diagram.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[column sep=huge]
       \mathsf{C} \arrow[r, rightsquigarrow, "\Delta"] & \mathsf{C}\times\mathsf{C} & \mathsf{1} \arrow[l, swap, rightsquigarrow, "\mathcal{F}_{(X_{1},X_{2})}"]
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   The objects of this category are pairs $(A, (s,t))$, where $A \in \Obj(\mathsf{C})$ and 
   \begin{equation*}
     (s,t)\colon \Delta(A) = (A,A) \to (X_{1}, X_{2}).
   \end{equation*}
 
   The morphisms $(A, (s,t)) \to (B, (u,v))$ are morphisms $r\colon A \to B$ such that the diagram 
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[column sep=tiny, row sep=6ex]
       (A,A) \arrow[rr, "{(r, r)}"] \arrow[rd, swap, "{(s,t)}"] & & (B,B) \arrow[dl, "{(u,v)}"] \\
       & (X_{1}, X_{2}) & 
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   commutes.
 
   An object $(X_{1}\times X_{2}, (\pi_{1}, \pi_{2}))$ is final if for any other object $(Y, (f_{1},f_{2}))$, there exists a unique morphism $f\colon Y \to X_{1} \times X_{2}$ such that the diagram 
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=huge, column sep=huge]
       (Y, Y) \arrow[d, swap, "{(f, f)}"] \arrow[rd, "{(f_{1}, f_{2})}"] & & Y \arrow[d, "\exists!f"]\\
       (X_{1}\times X_{2}, X_{1}\times X_{2}) \arrow[r, swap, "{(\pi_{1}, \pi_{2})}"] &  (X_{1}, X_{2})& X_{1}\times X_{2}
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   commutes. If we re-arrange our diagram a bit, it is not too hard to see that it is equivalent to the one given above. Thus, we can say: a product of two sets $X_{1}$ and $X_{2}$ is a final object in the category $(\Delta \downarrow (X_{1}, X_{2}))$
 
 \end{example}
@@ -1836,9 +1707,7 @@ We saw in \hyperref[eg:universalpropertyofproducts]{Example \ref*{eg:universalpr
       \begin{itemize}
         \item $1_{X} \times 1_{Y} = 1_{X \times Y}$, and
         \item $\times$ respects composition as follows.
-
-          \begin{centering}
-
+          \begin{equation*}
             \begin{tikzcd}[column sep=large, row sep=small]
               {(X,Y)} \arrow[r, "{(f,g)}"] \arrow[rr, bend left, "{(f',g') \circ (f,g) = (f'\circ f, g'\circ g)}"] & {(X',Y')} \arrow[r, "{(f',g')}"] &  {(X'',Y'')} \\
               & \,\arrow[dd, rightsquigarrow, "\times"] & \\
@@ -1846,102 +1715,74 @@ We saw in \hyperref[eg:universalpropertyofproducts]{Example \ref*{eg:universalpr
               & \, & \\
               X\times Y \arrow[r, "f\times g"] \arrow[rr, bend right, swap, "f'\times g' \circ f \times g = (f'\circ f)\times(g'\circ g)"] & X' \times Y' \arrow[r, "f'\times g'"]& X''\times Y''
             \end{tikzcd}
-
-          \end{centering}
+          \end{equation*}
       \end{itemize}
   \end{itemize}
-  We know how $\times$ assigns objects in $\mathsf{C} \times \mathsf{C}$ to objects in $\mathsf{C}$. We need to study how $\times$ assigns to a morphism $(f,g)$ a morphism $f\times g$. We do this by diagram chasing.
-
-  Suppose we are given two maps $f\colon X_{1} \to X_{2}$ and $g\colon Y_{1} \to Y_{2}$. This induces a morphism $(f,g)$ in $\mathsf{C} \times \mathsf{C}$.
-
-  Recall the universal property for products: a product $X_{1}\times Y_{1}$ is a final object in the category $(\Delta \downarrow (X_{1}, Y_{1}))$. Objects in this category can be thought of as diagrams in $\mathsf{C} \times \mathsf{C}$.
-
-  \begin{centering}
-
-    \begin{tikzcd}[column sep=huge]
-      {(X_{1}\times Y_{1}, X_{1}\times Y_{1})} \arrow[r, "{\pi_{1}, \pi_{2}}"] & {(X_{1}, Y_{1})}
-    \end{tikzcd}.
-
-  \end{centering}
-
-  By assumption, we can take the product of both $X_{1}$ and $Y_{1}$, and $X_{2}$ and $Y_{2}$. This gives us two diagrams living in $\mathsf{C} \times \mathsf{C}$, which we can put next to each other. 
-
-  \begin{centering}
-
-    \begin{tikzcd}[column sep=huge]
-      {(X_{1} \times Y_{1}, X_{1} \times Y_{1})} \arrow[r, "{(\pi_{1}, \pi_{2})}"] & (X_{1}, Y_{1}) \\
-      {(X_{2} \times Y_{2}, X_{2} \times Y_{2})} \arrow[r, "{(\rho_{1}, \rho_{2})}"] & (X_{2}, Y_{2}) \\
-    \end{tikzcd}
-
-  \end{centering}
-
-  We can draw in our morphism $(f,g)$, and take its composition with $(\pi_{1}, \pi_{2})$.
-
-  \begin{centering}
-
-    \begin{tikzcd}[row sep=huge, column sep=huge]
-      {(X_{1} \times Y_{1}, X_{1} \times Y_{1})} \arrow[r, "{(\pi_{1}, \pi_{2})}"] \arrow[dr, swap, "{(f\circ \pi_{1}, g \circ \pi_{2})}"] & (X_{1}, Y_{1}) \arrow[d, "{(f,g)}"] \\
-      {(X_{2} \times Y_{2}, X_{2} \times Y_{2})} \arrow[r, swap, "{(\rho_{1}, \rho_{2})}"] & (X_{2}, Y_{2}) \\
-    \end{tikzcd}
-
-  \end{centering}
-
-  Now forget about the top right of the diagram. I'll erase it to make this easier.
-  \begin{equation*}
-    \begin{tikzcd}[row sep=huge, column sep=huge]
-      {(X_{1} \times Y_{1}, X_{1} \times Y_{1})}  \arrow[dr, "{(f\circ \pi_{1}, g \circ \pi_{2})}"] & \\
-      {(X_{2} \times Y_{2}, X_{2} \times Y_{2})} \arrow[r, swap, "{(\rho_{1}, \rho_{2})}"] & (X_{2}, Y_{2})
-    \end{tikzcd}
-  \end{equation*}
-  The universal property for products says that there exists a unique map $h\colon X_{1}\times Y_{1} \to X_{2}\times Y_{2}$ such that the diagram below commutes.
-
-  \begin{centering}
-
-    \begin{tikzcd}[row sep=huge, column sep=huge]
-      (X_{1} \times Y_{1}, X_{1} \times Y_{1}) \arrow[d, swap, "{(h, h)}"] \arrow[rd, "{(f \circ \pi_{1}, g \circ \pi_{2})}"] & & X_{1}\times Y_{1} \arrow[d, "\exists!h"]\\
-      (X_{2}\times Y_{2}, X_{2}\times Y_{2}) \arrow[r, swap, "{(\rho_{1}, \rho_{2})}"] &  (X_{1}, X_{2})& X_{2}\times Y_{2}
-    \end{tikzcd}
-
-  \end{centering}
-
-  And $h$ is what we will use for the product $f \times g$.
-
-  Of course, we must also check that $h$ behaves appropriately. Draw two copies of the diagram for the terminal object in $(\Delta\downarrow (X,Y))$ and identity arrows between them.
-
-  \begin{centering}
-
-    \begin{tikzcd}[row sep=huge, column sep=huge]
-      {(X\times Y, X \times Y)} \arrow[r, "{(\pi_{1}, \pi_{2})}"] \arrow[d, swap, "{(1_{X \times Y}, 1_{X \times Y})}"] & (X, Y) \arrow[d, "{(1_{X}, 1_{Y})}"] \\
-      {(X\times Y, X \times Y)} \arrow[r, swap, "{(\pi_{1}, \pi_{2})}"] & (X, Y)
-    \end{tikzcd}
-
-  \end{centering}
-
-  Just as before, we compose the morphisms to and from the top right to draw a diagonal arrow, and then erase the top right object and the arrows to and from it.
-
-  \begin{centering}
-
-    \begin{tikzcd}[row sep=huge, column sep=huge]
-      {(X\times Y, X \times Y)}  \arrow[d, swap, "{(1_{X \times Y},\, 1_{X \times Y}) = (1_{X}\times 1_{Y},\, 1_{X}\times 1_{Y})}"] \arrow[dr, "{(1_{X} \circ \pi_{1},\, 1_{Y} \circ \pi_{2})}"] & & X\times Y \arrow[d, "1_{X}\times1_{Y} = 1_{X}\times1_{Y}"] \\
-      {(X\times Y, X \times Y)} \arrow[r, swap, "{(\pi_{1}, \pi_{2})}"] & (X, Y) & X\times Y
-    \end{tikzcd}
-
-  \end{centering}
-
-  By definition, the arrow on the right is $1_{X}\times1_{Y}$. It is also $1_{X\times Y}$, and by the universal property it is unique. Therefore $1_{X\times Y} = 1_{X}\times 1_{Y}$.
-
-  Next, put three of these objects together. The proof of the last part is immediate.
-
-  \begin{centering}
-
-    \begin{tikzcd}[column sep=huge, row sep=huge]
-      {(X_{1} \times Y_{1}, X_{1} \times Y_{1})}  \arrow[d, "{(f\times g, f\times g)}"] \arrow[dd, bend right=70, swap, "{(f'\times g') \circ (f\times g)} = (g' \circ g) \times (f' \circ f)"]  & (X_{1}, Y_{1}) \arrow[d, swap, "{(f,g)}"] \arrow[dd, bend left=70, "{(g'\circ g, f' \circ f)}"] \\
-      {(X_{2} \times Y_{2}, X_{2} \times Y_{2})}\arrow[d, "{(f'\times g', f'\times g')}"]  & (X_{2}, Y_{2}) \arrow[d, swap, "{(f',g')}"] \\
-      {(X_{3} \times Y_{3}, X_{3} \times Y_{3})}  & (X_{3}, Y_{3})
-    \end{tikzcd}
-
-  \end{centering}
 \end{proof}
+We know how $\times$ assigns objects in $\mathsf{C} \times \mathsf{C}$ to objects in $\mathsf{C}$. We need to study how $\times$ assigns to a morphism $(f,g)$ a morphism $f\times g$. We do this by diagram chasing.
+
+Suppose we are given two maps $f\colon X_{1} \to X_{2}$ and $g\colon Y_{1} \to Y_{2}$. This induces a morphism $(f,g)$ in $\mathsf{C} \times \mathsf{C}$.
+
+Recall the universal property for products: a product $X_{1}\times Y_{1}$ is a final object in the category $(\Delta \downarrow (X_{1}, Y_{1}))$. Objects in this category can be thought of as diagrams in $\mathsf{C} \times \mathsf{C}$.
+\begin{equation*}
+  \begin{tikzcd}[column sep=huge]
+    {(X_{1}\times Y_{1}, X_{1}\times Y_{1})} \arrow[r, "{\pi_{1}, \pi_{2}}"] & {(X_{1}, Y_{1})}
+  \end{tikzcd}.
+\end{equation*}
+By assumption, we can take the product of both $X_{1}$ and $Y_{1}$, and $X_{2}$ and $Y_{2}$. This gives us two diagrams living in $\mathsf{C} \times \mathsf{C}$, which we can put next to each other. 
+\begin{equation*}
+  \begin{tikzcd}[column sep=huge]
+    {(X_{1} \times Y_{1}, X_{1} \times Y_{1})} \arrow[r, "{(\pi_{1}, \pi_{2})}"] & (X_{1}, Y_{1}) \\
+    {(X_{2} \times Y_{2}, X_{2} \times Y_{2})} \arrow[r, "{(\rho_{1}, \rho_{2})}"] & (X_{2}, Y_{2}) \\
+  \end{tikzcd}
+\end{equation*}
+We can draw in our morphism $(f,g)$, and take its composition with $(\pi_{1}, \pi_{2})$.
+\begin{equation*}
+  \begin{tikzcd}[row sep=huge, column sep=huge]
+    {(X_{1} \times Y_{1}, X_{1} \times Y_{1})} \arrow[r, "{(\pi_{1}, \pi_{2})}"] \arrow[dr, swap, "{(f\circ \pi_{1}, g \circ \pi_{2})}"] & (X_{1}, Y_{1}) \arrow[d, "{(f,g)}"] \\
+    {(X_{2} \times Y_{2}, X_{2} \times Y_{2})} \arrow[r, swap, "{(\rho_{1}, \rho_{2})}"] & (X_{2}, Y_{2}) \\
+  \end{tikzcd}
+\end{equation*}
+Now forget about the top right of the diagram. I'll erase it to make this easier.
+\begin{equation*}
+  \begin{tikzcd}[row sep=huge, column sep=huge]
+    {(X_{1} \times Y_{1}, X_{1} \times Y_{1})}  \arrow[dr, "{(f\circ \pi_{1}, g \circ \pi_{2})}"] & \\
+    {(X_{2} \times Y_{2}, X_{2} \times Y_{2})} \arrow[r, swap, "{(\rho_{1}, \rho_{2})}"] & (X_{2}, Y_{2})
+  \end{tikzcd}
+\end{equation*}
+The universal property for products says that there exists a unique map $h\colon X_{1}\times Y_{1} \to X_{2}\times Y_{2}$ such that the diagram below commutes.
+\begin{equation*}
+  \begin{tikzcd}[row sep=huge, column sep=huge]
+    (X_{1} \times Y_{1}, X_{1} \times Y_{1}) \arrow[d, swap, "{(h, h)}"] \arrow[rd, "{(f \circ \pi_{1}, g \circ \pi_{2})}"] & & X_{1}\times Y_{1} \arrow[d, "\exists!h"]\\
+    (X_{2}\times Y_{2}, X_{2}\times Y_{2}) \arrow[r, swap, "{(\rho_{1}, \rho_{2})}"] &  (X_{1}, X_{2})& X_{2}\times Y_{2}
+  \end{tikzcd}
+\end{equation*}
+And $h$ is what we will use for the product $f \times g$.
+
+Of course, we must also check that $h$ behaves appropriately. Draw two copies of the diagram for the terminal object in $(\Delta\downarrow (X,Y))$ and identity arrows between them.
+\begin{equation*}
+  \begin{tikzcd}[row sep=huge, column sep=huge]
+    {(X\times Y, X \times Y)} \arrow[r, "{(\pi_{1}, \pi_{2})}"] \arrow[d, swap, "{(1_{X \times Y}, 1_{X \times Y})}"] & (X, Y) \arrow[d, "{(1_{X}, 1_{Y})}"] \\
+    {(X\times Y, X \times Y)} \arrow[r, swap, "{(\pi_{1}, \pi_{2})}"] & (X, Y)
+  \end{tikzcd}
+\end{equation*}
+Just as before, we compose the morphisms to and from the top right to draw a diagonal arrow, and then erase the top right object and the arrows to and from it.
+\begin{equation*}
+  \begin{tikzcd}[row sep=huge, column sep=huge]
+    {(X\times Y, X \times Y)}  \arrow[d, swap, "{(1_{X \times Y},\, 1_{X \times Y}) = (1_{X}\times 1_{Y},\, 1_{X}\times 1_{Y})}"] \arrow[dr, "{(1_{X} \circ \pi_{1},\, 1_{Y} \circ \pi_{2})}"] & & X\times Y \arrow[d, "1_{X}\times1_{Y} = 1_{X}\times1_{Y}"] \\
+    {(X\times Y, X \times Y)} \arrow[r, swap, "{(\pi_{1}, \pi_{2})}"] & (X, Y) & X\times Y
+  \end{tikzcd}
+\end{equation*}
+By definition, the arrow on the right is $1_{X}\times1_{Y}$. It is also $1_{X\times Y}$, and by the universal property it is unique. Therefore $1_{X\times Y} = 1_{X}\times 1_{Y}$.
+
+Next, put three of these objects together. The proof of the last part is immediate.
+\begin{equation*}
+  \begin{tikzcd}[column sep=huge, row sep=huge]
+    {(X_{1} \times Y_{1}, X_{1} \times Y_{1})}  \arrow[d, "{(f\times g, f\times g)}"] \arrow[dd, bend right=70, swap, "{(f'\times g') \circ (f\times g)} = (g' \circ g) \times (f' \circ f)"]  & (X_{1}, Y_{1}) \arrow[d, swap, "{(f,g)}"] \arrow[dd, bend left=70, "{(g'\circ g, f' \circ f)}"] \\
+    {(X_{2} \times Y_{2}, X_{2} \times Y_{2})}\arrow[d, "{(f'\times g', f'\times g')}"]  & (X_{2}, Y_{2}) \arrow[d, swap, "{(f',g')}"] \\
+    {(X_{3} \times Y_{3}, X_{3} \times Y_{3})}  & (X_{3}, Y_{3})
+  \end{tikzcd}
+\end{equation*}
 The meaning of this theorem is that in any category where you can take products of the objects, you can also take products of the morphisms.
 
 \begin{theorem}
@@ -1952,9 +1793,7 @@ The meaning of this theorem is that in any category where you can take products 
 \end{theorem}
 \begin{proof}
   Consider the following diagram, which consists of four interwoven copies of the canonical projections. To make things simpler, I'll just number the projection maps.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=huge]
       &&&(A \times B) \times C 
       \arrow[dll, swap, "1"]
@@ -1974,15 +1813,11 @@ The meaning of this theorem is that in any category where you can take products 
       \arrow[ul, "7"]
       \arrow[urr, swap, "8"]
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   This diagram is commutative in a sort of trivial sense; there is at most one way of getting between any two objects.
 
   By composing projections, we can add two more arrows as follows: one from $(A \times B) \times C \to A \times B \to B$, and one from $A \times (B \times C) \to B \times C \to B$. This diagram is commutative since all we did is add compositions.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=huge]
       &&&(A \times B) \times C 
       \arrow[dll, swap, "1"]
@@ -2004,13 +1839,9 @@ The meaning of this theorem is that in any category where you can take products 
       \arrow[urr, swap, "8"]
       \arrow[ur, "5 \circ 8"]
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   Now focus on the triangle in the top right.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=large]
       & (A \times B) \times C 
       \arrow[dr, "2"]
@@ -2022,13 +1853,9 @@ The meaning of this theorem is that in any category where you can take products 
       \arrow[r, swap, "6"]
       & C
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   The universal property for products tells us that we get a unique morphism, $f\colon (A \times B) \times C \to B \times C$, which makes the triangle commute.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=large]
       & (A \times B) \times C 
       \arrow[dr, "2"]
@@ -2041,13 +1868,9 @@ The meaning of this theorem is that in any category where you can take products 
       \arrow[r, swap, "6"]
       & C
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   The same logic gives us another morphism $g\colon A\times(B \times C) \to A \times B$ such that the bottom left triangle commutes, so we might as well draw that in as well.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=huge]
       &&&(A \times B) \times C 
       \arrow[dll, swap, "1"]
@@ -2071,13 +1894,9 @@ The meaning of this theorem is that in any category where you can take products 
       \arrow[ur, "5 \circ 8"]
       \arrow[u, "g"]
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   So far, everything commutes since all the arrows we've added have been either from compositions or the universal property of products. We can compose projections again to get morphisms $(A \times B) \times C \to A \times B \to A$ and $A \times (B \times C) \to B \times C \to C$. We can also shift stuff around a bit so it's easier to draw.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=huge]
       &&(A \times B) \times C 
       \arrow[dl, swap, "1"]
@@ -2103,13 +1922,9 @@ The meaning of this theorem is that in any category where you can take products 
       \arrow[ul, "g"]
       \arrow[urr, swap, bend right, "6 \circ 8"]
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   Buried inside the above diagram is the following triangle.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=large]
       & (A \times B) \times C 
       \arrow[dl, swap, "3 \circ 1"]
@@ -2121,13 +1936,9 @@ The meaning of this theorem is that in any category where you can take products 
       \arrow[r, swap, "8"]
       & B \times C
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   The universal property for products gives us a unique map $r$ which makes the triangle commute.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=large]
       & (A \times B) \times C 
       \arrow[dl, swap, "3 \circ 1"]
@@ -2140,15 +1951,10 @@ The meaning of this theorem is that in any category where you can take products 
       \arrow[r, swap, "8"]
       & B \times C
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
 
   Similarly, we have a unique map $s$ which makes the triangle in the left of the diagram commute.
-
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=large]
       & A \times (B \times C)
       \arrow[d, "s"]
@@ -2161,13 +1967,9 @@ The meaning of this theorem is that in any category where you can take products 
       \arrow[r, swap, "2"]
       & C
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   With great difficulty we can add these to our diagram.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=huge]
       &&(A \times B) \times C 
       \arrow[dl, swap, "1"]
@@ -2195,9 +1997,7 @@ The meaning of this theorem is that in any category where you can take products 
       \arrow[from=uu, crossing over, crossing over clearance=4ex, bend left=50, "r"]
       \arrow[uu, crossing over, crossing over clearance=4ex, bend left=50, "s"]
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   Our diagram is still commutative.
 
   Now TODO
@@ -2213,19 +2013,15 @@ The meaning of this theorem is that in any category where you can take products 
   \begin{quote}
     An object $X_{1} \amalg X_{2}$ is called the coproduct of $X_{1}$ and $X_{2}$ if 
     \begin{enumerate}
-      \item there exist morphisms $i_{1}\colon X_{1} \to X_{1} \amalg X_{2}$ and $i_{2}\colon X_{2} \to X_{1} \amalg X_{2}$ such that
+      \item there exist morphisms $i_{1}\colon X_{1} \to X_{1} \amalg X_{2}$ and $i_{2}\colon X_{2} \to X_{1} \amalg X_{2}$ called \emph{canonical injections} such that
 
       \item for any object $Y$ and morphisms $f_{1}\colon X_{1} \to Y$ and $f_{2}\colon X_{2} \to Y$ there exists a unique morphism $f\colon X_{1} \amalg X_{2} \to Y$ such that $f_{1} = f \circ i_{1}$ and $f = f_{2} = f \circ i_{2}$, i.e. the following diagram commutes.
-
-        \begin{centering}
-
+        \begin{equation*}
           \begin{tikzcd}
             & Y & \\
             X_{1} \arrow[ur, "f_{1}"] \arrow[r, swap, "i_{1}"] & X_{1} \arrow[u, "f"] \amalg X_{2} & X_{2} \arrow[l, "i_{2}"] \arrow[ul, swap, "f_{2}"]
           \end{tikzcd}
-
-        \end{centering}
-
+        \end{equation*}
     \end{enumerate}
   \end{quote}
 \end{definition}
@@ -2242,27 +2038,19 @@ We have the following analog of \hyperref[thm:productisafunctor]{Theorem \ref*{t
 \end{theorem}
 \begin{proof}
   We verify that $\amalg$ allows us to define canonically a coproduct of morphisms. Let $X_{1}$, $X_{2}$, $Y_{1}$, $Y_{2} \in \Obj(C)$, and let $f\colon X_{1} \to Y_{1}$ and $g\colon X_{2} \to Y_{2}$. We have the following diagram.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=huge, column sep=huge]
       X_{1} \arrow[d, swap, "f"] \arrow[dr, "{i_{i,Y} \circ f}"] \arrow[r, "{i_{1, X}}"]& X_{1} \amalg X_{2} & X_{2} \arrow[dl, swap, "{i_{2, Y} \circ g}"] \arrow[ d, "g"] \arrow[l, swap, "{i_{2, X}}"] \\
       Y_{1} \arrow[r, "{i_{1, Y}}"]& Y_{1} \amalg Y_{2} & Y_{2} \arrow[l, swap, "{i_{2, Y}}"]
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   But by the universal property of coproducts, the diagonal morphisms induce a map $X_{1} \amalg X_{2} \to Y_{1} \amalg Y_{2}$, which we define to be $f \amalg g$.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=huge, column sep=huge]
       X_{1} \arrow[dr, swap, "{i_{i,Y} \circ f}"] \arrow[r, "{i_{1, X}}"]& X_{1} \arrow[d, "f \amalg g"] \amalg X_{2} & X_{2} \arrow[dl, "{i_{2, Y} \circ g}"] \arrow[l, swap, "{i_{2, X}}"] \\
       & Y_{1} \amalg Y_{2} &
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   The rest of the verification that $\amalg$ really is a functor is identical to that in \hyperref[thm:productisafunctor]{Theorem \ref*{thm:productisafunctor}}.
 \end{proof}
 
@@ -2274,33 +2062,32 @@ We have the following analog of \hyperref[thm:productisafunctor]{Theorem \ref*{t
   In $\mathsf{Vect}_{k}$, the direct sum $\oplus$ is the coproduct.
 \end{example}
 
-\subsection{Direct sums}
-\begin{definition}[category with direct sums]
-  \label{def:categorywithdirectsums}
-  We say that a category $\mathsf{C}$ \defn{has direct sums} if
+\subsection{Biproducts}
+\begin{definition}[category with biproducts]
+  \label{def:categorywithbiproducts}
+  We say that a category $\mathsf{C}$ \defn{has biproducts} if
   \begin{enumerate}
-    \item $\mathsf{C}$ has products,
-    \item $\mathsf{C}$ has coproducts, and
-    \item there is a natural isomorphsim (\hyperref[def:naturalisomorphism]{Definition \ref*{def:naturalisomorphism}}) between them.
+    \item there is a zero object (\hyperref[def:initialfinalzeroobject]{Definitionh \ref*{def:initialfinalzeroobject}}) $0 \in \Obj(\mathsf{C})$,
+    \item $\mathsf{C}$ has products $\times$,
+    \item $\mathsf{C}$ has coproducts $\amalg$, and
+    \item there is a natural isomorphsim (\hyperref[def:naturalisomorphism]{Definition \ref*{def:naturalisomorphism}}) $\Phi\colon \amalg \Rightarrow \times$.
   \end{enumerate}
-  We can cast this in the form of a commutative diagram.
-
-  \begin{centering}
+  We can cast this in the form of a diagram.
+  \begin{equation*}
     \begin{tikzcd}[column sep=huge]
       \mathsf{C} \times \mathsf{C}
-      \arrow[r, rightsquigarrow, bend left, ""{name=U, below}, "\times"]
-      \arrow[r, rightsquigarrow, bend right, ""{name=D, above}, swap, "\amalg"] & \mathsf{C} \qquad \arrow[Leftrightarrow, from=U , to=D,] 
+      \arrow[r, rightsquigarrow, bend right, ""{name=D, above}, swap, "\times"]
+      \arrow[r, rightsquigarrow, bend left, ""{name=U, below}, "\amalg"] & \mathsf{C} \qquad \arrow[Rightarrow, from=U , to=D, "\Phi"] 
     \end{tikzcd}
-
-  \end{centering}
+  \end{equation*}
 \end{definition}
 
 \begin{example}
-  In the category $\mathsf{Vect}_{k}$ of vector spaces over a field $k$, the direct sum $\oplus$ is a categorical direct sum.
+  In the category $\mathsf{Vect}_{k}$ of vector spaces over a field $k$, the direct sum $\oplus$ is a categorical biproduct.
 \end{example}
 
 \begin{example}
-  The category $\mathsf{Ab}$ of abelian groups has direct sums. 
+  The category $\mathsf{Ab}$ of abelian groups has biproducts. 
 \end{example} 
 
 \section{Monoidal categories}
@@ -2321,9 +2108,7 @@ A monoidal category will be a category in which the objects have the structure o
     \item Three natural isomorphisms (\hyperref[def:naturalisomorphism]{Definition \ref*{def:naturalisomorphism}}) subject to coherence conditions expressing the fact that the tensor product 
       \begin{itemize}
         \item is associative: there is a natural isomorphism $\alpha$
-
-          \begin{centering}
-
+          \begin{equation*}
             \begin{tikzcd}[column sep=huge]
               \mathsf{C} \times \mathsf{C} \times \mathsf{C} 
               \arrow[r, rightsquigarrow, bend left, anchor=south, "(\_ \otimes \_) \otimes \_", ""{name=U below}]
@@ -2331,18 +2116,14 @@ A monoidal category will be a category in which the objects have the structure o
               \arrow[Rightarrow, from=U , to=D, "\alpha"] 
               & \mathsf{C} \qquad
             \end{tikzcd}
-
-          \end{centering}
-
+          \end{equation*}
           called the \emph{associator}, with components
           \begin{equation*}
             \alpha_{A,B,C}\colon (A\otimes B)\otimes C \xrightarrow{\sim} A \otimes (B \otimes C)
           \end{equation*}
 
         \item has left and right identity: there are two natural isomorphisms $\lambda$
-
-          \begin{centering}
-
+          \begin{equation*}
             \begin{tikzcd}[column sep=huge]
               \mathsf{C} 
               \arrow[r, bend left, rightsquigarrow, "I \otimes \_"{name=U}]
@@ -2350,13 +2131,9 @@ A monoidal category will be a category in which the objects have the structure o
               \arrow[Rightarrow, from=U , to=D, "\lambda"] 
               &\mathsf{C}
             \end{tikzcd}
-
-          \end{centering}
-
+          \end{equation*}
           and $\rho$ 
-
-          \begin{centering}
-
+          \begin{equation*}
             \begin{tikzcd}[column sep=huge]
               \mathsf{C} 
               \arrow[r, bend left, rightsquigarrow, "\_ \otimes I"{name=U}]
@@ -2364,9 +2141,7 @@ A monoidal category will be a category in which the objects have the structure o
               \arrow[Rightarrow, from=U , to=D, "\rho"] 
               &\mathsf{C}
             \end{tikzcd}
-
-          \end{centering}
-
+          \end{equation*}
           respectively called the \emph{left unitor} and \emph{right unitor} with components
           \begin{equation*}
             \lambda_{A}\colon I \otimes A \xrightarrow{\sim} A
@@ -2380,36 +2155,37 @@ A monoidal category will be a category in which the objects have the structure o
   The coherence conditions are that the following diagrams commute for all $A$, $B$, $C$, and $D\in \Obj(C)$.
   \begin{itemize}
     \item The \emph{triangle diagram}
-
-      \begin{centering}
-
+      \begin{equation*}
         \begin{tikzcd}[column sep=tiny, row sep=6ex]
           (A \otimes I) \otimes B \arrow[rr, "\alpha_{A,I,B}"] \arrow[rd, swap, "\rho_{A} \otimes 1_{B}"] & & A \otimes(I \otimes B) \arrow[ld, "1_{A}\otimes \lambda_{B}"] \\
           & A \otimes B
         \end{tikzcd}
-
-      \end{centering}
-
+      \end{equation*}
     \item The \emph{home plate diagram}.\footnote{Unfortunately, the home plate, as drawn, is actually upside down.} (usually the \emph{pentagon diagram})
-
-      \begin{centering}
-
+      \begin{equation*}
         \begin{tikzcd}[row sep=huge]
-          &   (A \otimes (B \otimes C)) \otimes D \arrow[dr, "\alpha_{A,B\otimes C, D}"] &   & \\
-          ((A \otimes B) \otimes C) \otimes D \arrow[ur, "\alpha_{A,B,C}\otimes 1_{D}"] \arrow[dd, swap, "\alpha_{A\otimes B, C,D}"]&  & A \otimes ((B \otimes C) \otimes D) \arrow[dd, "1_{A}\otimes\alpha_{B,C,D}"]  \\
-          & & & &\\
-          (A \otimes B) \otimes (C \otimes D) \arrow[rr, swap, "\alpha_{A,B,C\otimes D}"] & & A \otimes(B \otimes (C \otimes D)) & 
+          & (A \otimes (B \otimes C)) \otimes D 
+          \arrow[dr, "\alpha_{A,B\otimes C, D}"] 
+          \\
+          ((A \otimes B) \otimes C) \otimes D 
+          \arrow[ur, "\alpha_{A,B,C}\otimes 1_{D}"] 
+          \arrow[dd, swap, "\alpha_{A\otimes B, C,D}"]
+          & & A \otimes ((B \otimes C) \otimes D) 
+          \arrow[dd, "1_{A}\otimes\alpha_{B,C,D}"]  
+          \\
+          \\
+          (A \otimes B) \otimes (C \otimes D) 
+          \arrow[rr, swap, "\alpha_{A,B,C\otimes D}"] 
+          & & A \otimes(B \otimes (C \otimes D))
         \end{tikzcd}
-
-      \end{centering}
-
+      \end{equation*}
   \end{itemize}
 
   More succinctly, a monoidal structure on a category $\mathsf{C}$ is a quintuple $(\otimes, 1, \alpha, \lambda, \rho)$. 
 \end{definition}
 
 \begin{notation}
-  This notation is prone to change. If the associator and unitors are not important or understood from context, for example, they are often left out. We will often say ``Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category.''
+  The notation $(\otimes, 1, \alpha, \lambda, \rho)$ is prone to change. If the associator and unitors are not important or understood from context, for example, they are often left out. We will often say ``Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category.''
 \end{notation}
 
 \begin{example}
@@ -2465,11 +2241,15 @@ A monoidal category will be a category in which the objects have the structure o
   Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. A \defn{monoidal subcategory} of $\mathsf{C}$ is a subcategory $\mathsf{S} \subseteq \mathsf{C}$ which is closed under the tensor product, and which contains $1$.
 \end{definition}
 
+\begin{example}
+  Recall that $\mathsf{FinVect}_{k}$ is the category of finite dimensional vector spaces over a field $k$. We saw in \hyperref[eg:finvectfullsubcategoryofvect]{Example \ref*{eg:finvectfullsubcategoryofvect}} that $\mathsf{FinVect}_{k}$ was a full subcategory of $\mathsf{Vect}_{k}$.
+
+  We have just seen that $\mathsf{Vect}_{k}$ is a monoidal category with unit object $1 = k$. Since $k$ is a one-dimensional vector space, $k \in \Obj(\mathsf{FinVect}_{k})$, and since the dimension of the tensor product of two finite-dimensional vector spaces is the product of their dimensions, the tensor product is closed in $\mathsf{FinVect}_{k}$. Hence $\mathsf{FinVect}_{k}$ is a monoidal subcategory of $\mathsf{Vect}_{k}$.
+\end{example}
+
 \begin{lemma}
   Let $\mathsf{C}$ be a category with monoidal structure $(\otimes, 1, \alpha, \lambda, \rho)$. Then for all $X$, $Y \in \Obj(\mathsf{C})$, the diagram
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=large]
       (1 \otimes X) \otimes Y 
       \arrow[d, swap, "{\alpha_{1, X, Y}}"]
@@ -2480,9 +2260,7 @@ A monoidal category will be a category in which the objects have the structure o
       \arrow[r, swap, "\lambda_{X \otimes Y}"]
       & X \otimes Y
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   commutes.
 \end{lemma}
 \begin{proof}
@@ -2492,7 +2270,7 @@ A monoidal category will be a category in which the objects have the structure o
 \begin{note}
   This insight is due to \cite{unapolagetic-mathematician-mac-lanes-theorem}.
 
-  The triangle and pentagon diagram are the first in a long list of hulking coherence diagrams designed to pacify categorical structures so that they behave like their algebraic counterparts. For a monoid, multiplication is associative by fiat, and the extension of this to $n$-fold products follows by a trivial application of induction. In monoidal categories, associators are isomorphisms rather than equalities, so we have to ensure $n$-ary associativity by hand.
+  The triangle and pentagon diagram are the first in a long list of hulking coherence diagrams designed to pacify categorical structures, coercing them into behaving like their algebraic counterparts. For a monoid, multiplication is associative by fiat, and the extension of this to $n$-fold products follows by a trivial application of induction. In monoidal categories, associators are isomorphisms rather than equalities, so we have to ensure $n$-ary associativity by hand.
 
   Having said that, these diagrams are not as unnatural as they appear. The pentagon diagram is exactly what you get when you write down all possible ways of bracketing the tensor product of four objects and draw arrows between the ones which differ by exactly one associator. Since the associators are isomorphsims, we are allowed to
 
@@ -2524,8 +2302,9 @@ A monoidal category will be a category in which the objects have the structure o
   are categorical equivalences.
 \end{definition}
 
+The following lemma is the categorification of \hyperref[lemma:monoidalmultiplicationbyunitbijective]{Lemma \ref*{lemma:monoidalmultiplicationbyunitbijective}}.
 \begin{lemma}
-  If $(\mathsf{C}, \otimes, 1)$ is a monoidal category and $L$ is an invertible object, then there is an object, unique up to isomorphism, such that $L^{-1} \in \Obj(\mathsf{C})$ such that $L \otimes L^{-1} \simeq L^{-1} \otimes L \simeq 1$. Furthermore, $L$ is invertible only if there exists such an $L^{-1}$.
+  If $(\mathsf{C}, \otimes, 1)$ is a monoidal category and $L$ is an invertible object, then there is an object $L^{-1} \in \Obj(\mathsf{C})$, unique up to isomorphism, such that $L \otimes L^{-1} \simeq L^{-1} \otimes L \simeq 1$. Furthermore, $L$ is invertible only if there exists such an $L^{-1}$.
 \end{lemma}
 \begin{proof}
   Suppose $L$ is invertible. Then the functor $\ell_{L}\colon A \mapsto L \otimes A$ is bijective up to isomorphism, i.e. for any $A \in \Obj(\mathsf{C})$, there is an object $A' \in \Obj(\mathsf{C})$, unique up to isomorphism, such that
@@ -2771,23 +2550,20 @@ A digression into the theory of braid groups would take us too far afield. The p
 \begin{definition}[braided monoidal category]
   \label{def:braidedmonoidalcategory}
   A catgory $\mathsf{C}$ with monoidal structure $(\otimes, 1, \alpha, \lambda, \rho)$ is \defn{braided} if for every two objects $A$ and $B \in \Obj(\mathsf{C})$, there is an isomorphism $\gamma_{A,B}\colon A \otimes B \to B \otimes A$ such that the following \emph{hexagon diagrams} commute.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       & A \otimes (B \otimes C) \arrow[r, "{\gamma_{A, B \otimes C}}"] & (B \otimes C) \otimes A \arrow[dr, "\alpha_{BCA}"] & \\
       (A \otimes B) \otimes C \arrow[ur, "\alpha_{ABC}"] \arrow[dr, swap, "\gamma_{AB} \otimes 1"] & & & B \otimes (C \otimes A) \\
       & (B \otimes A) \otimes C \arrow[r, swap, "\alpha_{BAC}"] & (B \otimes A) \otimes C \arrow[ur, swap, "1 \otimes \gamma"]
     \end{tikzcd}
-
+  \end{equation*}
+  \begin{equation*}
     \begin{tikzcd}
       & (A \otimes B) \otimes C \arrow[r, "{\gamma_{A \otimes B, C}}"] & C \otimes (A \otimes B) \arrow[dr, "\alpha^{-1}_{CAB}"] \\
       A \otimes (B \otimes C) \arrow[ur, "\alpha_{ABC}^{-1}"] \arrow[dr, swap, "1 \otimes \gamma_{BC}"] & & & (C \otimes A) \otimes B \\
       & A \otimes (C \otimes B) \arrow[r, swap, "\alpha^{-1}_{ACB}"] & (A \otimes C) \otimes B \arrow[ur, swap, "\gamma_{AC} \otimes 1"]
     \end{tikzcd} 
-
-  \end{centering}
-
+  \end{equation*}
   The collection of such $\gamma$ form a natural isomorphism betweem the bifunctors 
   \begin{equation*}
     (A, B) \mapsto A \otimes B\qquad\text{and}\qquad (A,B) \mapsto B \otimes A,
@@ -2797,10 +2573,8 @@ A digression into the theory of braid groups would take us too far afield. The p
 
 \begin{definition}[braided monoidal functor]
   \label{def:braidedmonoidalfunctor}
-   A lax monoidal functor $(\mathcal{F}, \Phi, \phi)$ (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}}) is \defn{braided monoidal} if it makes the following diagram commute.
-
-  \begin{centering}
-
+  A lax monoidal functor $(\mathcal{F}, \Phi, \phi)$ (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}}) is \defn{braided monoidal} if it makes the following diagram commute.
+  \begin{equation*}
     \begin{tikzcd}[row sep=huge, column sep=huge]
       \mathcal{F}(x) \otimes \mathcal{F}(y)
       \arrow[r, "{\gamma_{\mathcal{F}(x), \mathcal{F}(y)}}"]
@@ -2812,16 +2586,14 @@ A digression into the theory of braid groups would take us too far afield. The p
       \arrow[r, "{\mathcal{F}(\gamma_{x, y})}"]
       & \mathcal{F}(y \otimes x)
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   \begin{note}
     There are no extra conditions imposed on a monoidal natural transformation to turn it into a braided natural transformation. 
   \end{note}
 \end{definition}
 
 \subsection{Symmetric monoidal categories}
-Until now, we have been calling the bifunctor $\otimes$ in \hyperref[def:monoidalcategory]{Definition \ref*{def:monoidalcategory}} a tensor product. This has been an abuse of terminology: in general, one defines tensor products not to be those bifunctors which come from any monoidal category, but only those which come from symmetric monoidal categories. We will define these shortly.
+Until now, we have been calling the bifunctor $\otimes$ in \hyperref[def:monoidalcategory]{Definition \ref*{def:monoidalcategory}} a tensor product. This has been an abuse of terminology: in general, one defines tensor products not to be those bifunctors which come from any monoidal category, but only those which come from \emph{symmetric} monoidal categories. We will define these shortly.
 
 Conceptually, passing from the definition of a braided monoidal category to that of a symmetric monoidal category is rather simple. One only requires that for any two objects $A$ and $B$, $\gamma_{BA} = \gamma_{AB}^{-1}$, i.e. $\gamma_{BA} \circ \gamma_{AB} = 1_{A \otimes B}$.
 
@@ -2919,9 +2691,7 @@ If we are to replace hom-sets with more general objects belonging to a generic e
     \item for each object $A \in \Obj(\mathsf{C})$ a morphism $j_{A}: 1 \to \Hom_{\mathsf{C}}(A, A)$ called the identity element
   \end{itemize}
   such that the following diagrams commute.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=large]
       (\mathsf{C}(C, D) \times \mathsf{C}(B, C)) \times \mathsf{C}(A, B)
       \arrow[rr, "\alpha"]
@@ -2935,11 +2705,8 @@ If we are to replace hom-sets with more general objects belonging to a generic e
       & \mathsf{C}(C, D) \times \mathsf{C}(A, C)
       \arrow[l, swap, "\circ"]
     \end{tikzcd}
-
-  \end{centering}
-
-  \begin{centering}
-
+  \end{equation*}
+  \begin{equation*}
     \begin{tikzcd}[row sep=large]
       \mathsf{C}(B, B) \times \mathsf{C}(A, B)
       \arrow[r, "\circ"]
@@ -2954,9 +2721,7 @@ If we are to replace hom-sets with more general objects belonging to a generic e
       \arrow[ul, "\rho"]
       \arrow[u, swap, "1 \times j"]
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   The first diagram enforces associativity; the second ensures that composition is unital.
 \end{definition}
 
@@ -2981,11 +2746,11 @@ To categorify this, one considers a functor from one category $\mathsf{J}$, call
   \end{equation*}
 \end{definition}
 
-One thinks of the functor $\mathcal{D}$ embedding the index category $M\textsf{J}$ into $\mathsf{C}$.
+One thinks of the functor $\mathcal{D}$ embedding the index category $\textsf{J}$ into $\mathsf{C}$.
 
 \begin{definition}[cone]
   \label{def:cone}
-  Let $\mathsf{C}$ be a category, $\mathsf{J}$ an index category, and $\mathcal{D}\colon \mathsf{J} \rightsquigarrow \mathsf{C}$ be a diagram. Let $\mathsf{1}$ be the category with one object and one morphism (\hyperref[eg:categorywithoneobject]{Example \ref*{eg:categorywithoneobject}}) and $\mathcal{F}_{X}$ the functor $1 \rightsquigarrow \mathsf{C}$ which picks out $X \in \Obj(\mathsf{C})$ (\hyperref[eg:functorfrom1category]{Example \ref*{eg:functorfrom1category}}). Let $\mathcal{K}$ be the unique functor $\mathsf{J} \rightsquigarrow \mathsf{1}$.
+  Let $\mathsf{C}$ be a category, $\mathsf{J}$ an index category, and $\mathcal{D}\colon \mathsf{J} \rightsquigarrow \mathsf{C}$ be a diagram. Let $\mathsf{1}$ be the category with one object and one morphism (\hyperref[eg:categorywithoneobject]{Example \ref*{eg:categorywithoneobject}}) and $\mathcal{F}_{X}$ the functor $1 \rightsquigarrow \mathsf{C}$ which picks out $X \in \Obj(\mathsf{C})$ (see e.g. \hyperref[eg:functorfrom1category]{Example \ref*{eg:functorfrom1category}}). Let $\mathcal{K}$ be the unique functor $\mathsf{J} \rightsquigarrow \mathsf{1}$.
   \begin{equation*} 
     \begin{tikzcd}
       \mathsf{1}
@@ -3121,59 +2886,58 @@ The categorical definitions of cones and cocones allow us to define limits and c
       & \mathcal{D}(J)
     \end{tikzcd}
   \end{equation*}
- \end{note} 
+\end{note} 
 
-\section{Less basic definitions}
+\section{Kernels and cokernels}
 In what follows, $\mathsf{C}$ will be a category and $A$, $B$, etc. objects in $\Obj(\mathsf{C})$.
+\subsection{Kernels}
 \begin{definition}[pullback]
   \label{def:pullback}
   Let $f$, $g$ be morphisms as follows.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       & B \arrow[d, "g"] \\
       A \arrow[r, swap, "f"] & C
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   A \defn{pullback of $f$ along $g$} (also called a pullback of $g$ over $f$, sometimes notated $A \times_{C} B$) is a commuting square 
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       U \arrow[r, "q"] \arrow[d, "p", swap] & B \arrow[d, "g"] \\
       A \arrow[r, swap, "f"] & C
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   such that for any other commuting square
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       V \arrow[r, "t"] \arrow[d, "s", swap] & B \arrow[d, "g"] \\
       A \arrow[r, swap, "f"] & C
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   there is a unique morphism $h\colon V \to U$ such that the diagram
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       V \arrow[rrd, bend left, "t"] \arrow[rd, dashed, "\exists!h"] \arrow[rdd, bend right, swap, "s"] &   &  \\
       & U \arrow[r, "q"] \arrow[d, swap, "p"] & B \arrow[d, "g"] \\
       & A \arrow[r, swap, "f"] & C
     \end{tikzcd}
-
-  \end{centering}
-
-  commutes.
+  \end{equation*}
 \end{definition}
+\begin{note}
+  Here is another definition: the pullback $A \times_{C} B$ is the limit of the diagram
+  \begin{equation*}
+    \begin{tikzcd}
+      & B
+      \arrow[d, "g"]
+      \\
+      A
+      \arrow[r, swap, "f"]
+      & C
+    \end{tikzcd}
+  \end{equation*}
+
+  This might at first seem odd; after all, don't we also need an arrow $A \times_{C} B \to C$? But this arrow is completely determined by the commutativity conditions, so it is superfluous.
+\end{note}
 \begin{example}
   In $\mathsf{Set}$, $U$ is given (up to unique isomorphism) by 
   \begin{equation*}
@@ -3212,56 +2976,117 @@ In what follows, $\mathsf{C}$ will be a category and $A$, $B$, etc. objects in $
   and $\iota$ is the obvious injection $\ker(f) \to V$.
 \end{example}
 
+\begin{lemma}
+  \label{lemma:canonicalinjectionismono}
+  Let $f\colon A \to B$, and let $(\iota, \ker(f))$ be the kernel of $f$. Then $\iota$ is a monomorphism (\hyperref[def:monomorphism]{Definition \ref*{def:monomorphism}}).
+\end{lemma}
+\begin{proof}
+  Suppose we have an object $Z \in \Obj(\mathsf{C})$ and two morphisms $g_{1}$, $g_{2}\colon Z \to \ker(f)$. We have the following diagram.
+  \begin{equation*}
+    \begin{tikzcd}
+      Z
+      \arrow[rd, shift left, "g_{1}"]
+      \arrow[rd, shift right, swap, "g_{2}"]
+      \\
+      & \ker(f)
+      \arrow[r]
+      \arrow[d, "\iota"]
+      & 0
+      \arrow[d]
+      \\
+      & A
+      \arrow[r, "f"]
+      & B
+    \end{tikzcd}
+  \end{equation*}
+  Further suppose that $\iota \circ g_{1} = \iota \circ g_{2}$.
+  \begin{equation*}
+    \begin{tikzcd}
+      Z
+      \arrow[rd, shift left, "g_{1}"]
+      \arrow[rd, shift right, swap, "g_{2}"]
+      \arrow[rrd, bend left]
+      \arrow[rdd, bend right, swap, "\iota \circ g_{1} = \iota \circ g_{2}"]
+      \\
+      & \ker(f)
+      \arrow[r]
+      \arrow[d, swap, "\iota"]
+      & 0
+      \arrow[d]
+      \\
+      & A
+      \arrow[r, "f"]
+      & B
+    \end{tikzcd}
+  \end{equation*}
+
+  Now pretend that we don't know about $g_{1}$ and $g_{2}$.
+  \begin{equation*}
+    \begin{tikzcd}
+      Z
+      \arrow[rrd, bend left]
+      \arrow[rdd, bend right, swap, "\iota \circ g_{1} = \iota \circ g_{2}"]
+      \\
+      & \ker(f)
+      \arrow[r]
+      \arrow[d, swap, "\iota"]
+      & 0
+      \arrow[d]
+      \\
+      & A
+      \arrow[r, "f"]
+      & B
+    \end{tikzcd}
+  \end{equation*}
+
+  The universal property for kernels tells us that there is a unique map $Z \to \ker(f)$ making the above diagram commute. But that means that $g_{1}$ and $g_{2}$ must be the same map, i.e. $g_{1} = g_{2}$.
+\end{proof}
+
+\subsection{Cokernels}
 Pushouts are the dual notion to pullbacks.
 \begin{definition}[pushouts]
   \label{def:pushout}
   Let $f$, $g$ be morphisms as follows.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       C \arrow[r, "g"] \arrow[d, swap, "f"] & B \\
       A
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   The \defn{pushout of $f$ along $g$} (or $g$ along $f$) is a commuting square
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       C \arrow[r, "g"] \arrow[d, swap, "f"] & B \arrow[d, "q"] \\
       A \arrow[r, swap, "p"] & U
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   such that for any other commuting square
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       C \arrow[r, "g"] \arrow[d, swap, "f"] & B \arrow[d, "t"] \\
       A \arrow[r, swap, "s"] & V
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   there exists a unique morphism $h\colon U \to V$ such that the diagram 
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       C \arrow[r, "g"] \arrow[d, swap, "f"] & B \arrow[d, "q"] \arrow[ddr, bend left, "t"] & \\
       A \arrow[drr, bend right, swap, "s"] \arrow[r, swap, "p"] & U \arrow[dr, dashed, "\exists!h"] & \\
       & & V
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   commutes.
 \end{definition}
+
+\begin{note}
+  As with pullbacks, we can also define a pushout as the colimit of the following diagram.
+  \begin{equation*}
+    \begin{tikzcd}
+      C \arrow[r, "g"] \arrow[d, swap, "f"] & B \\
+      A
+    \end{tikzcd}
+  \end{equation*}
+\end{note}
 
 \begin{example}
   Let us construct the pushout in $\mathsf{Set}$. If we ignore the object $C$ and the morphisms $f$ and $g$, we discover that $U$ must satisfy the universal property of the coproduct of $A$ and $B$. Let us therefore make the ansatz that $U = A \amalg B = A \sqcup B$ and see what happens when we add $C$, $f$, and $g$ back in. 
@@ -3276,16 +3101,12 @@ Pushouts are the dual notion to pullbacks.
 \begin{definition}[cokernel of a morphism]
   \label{def:cokernalofmorphism}
   Let $\mathsf{C}$ be a category with terminal object $1$. The \defn{cokernel} of a morphism $f\colon A \to B$ is the pushout of $f$ along the unique morphism $A \to 1$.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       A \arrow[r, "f"] \arrow[d] & B \arrow[d, "\pi"] \\
       1 \arrow[r] & \coker(f)
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
 \end{definition}
 
 \begin{example}
@@ -3295,6 +3116,14 @@ Pushouts are the dual notion to pullbacks.
   \end{equation*}
   where $\sim$ is the relation generated by $f(v) \sim 0$ for all $v \in V$. But this relation is exactly the one which mods out by $\mathrm{im}(f)$, so $\coker(f) = W / \mathrm{im}(f)$.
 \end{example}
+
+\begin{lemma}
+  \label{lemma:canonicalsurjectionisepi}
+  For any morphism $f\colon A \to B$, the canonical projection $\pi\colon B \to \coker(f)$ is an epimorphism.
+\end{lemma}
+\begin{proof}
+  The proof is dual to the proof that the canonical injection $\iota$ is mono (\hyperref[lemma:canonicalinjectionismono]{Lemma \ref*{lemma:canonicalinjectionismono}}).
+\end{proof}
 
 \begin{definition}[normal monomorphism]
   \label{def:normalmonomorphism}
@@ -3308,34 +3137,26 @@ Pushouts are the dual notion to pullbacks.
 
 \begin{example}
   In $\mathsf{Vect}_{k}$, monomorphisms are injective linear maps (\hyperref[eg:monomorphismsinkvect]{Example \ref*{eg:monomorphismsinkvect}}). If $f$ is injective then sequence
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       \{0\} \arrow[r] & V \arrow[r, "f"] & W \arrow[r, "\pi"] & W/\mathrm{im}(f) \arrow[r], & \{0\}
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   is exact, and we always have that $\mathrm{im}(f) = \ker(\pi)$. Thus in $\mathsf{Vect}_{k}$, every monomorphism is normal.
 \end{example}
 
 \begin{definition}[conormal epimorphism]
   \label{def:conormalepimorphism}
-  An epimorphism $f\colon A \to B$ is \defn{conormal} if it is the image of some morphism. That is to say, if there exists an object $C$ and a morphism $g\colon C \to A$ such that $(B, f)$ is the kernel of $g$.
+  An epimorphism $f\colon A \to B$ is \defn{conormal} if it is the cokernel of some morphism. That is to say, if there exists an object $C$ and a morphism $g\colon C \to A$ such that $(B, f)$ is the cokernel of $g$.
 \end{definition}
 
 \begin{example}
   In $\mathsf{Vect}_{k}$, epimorphisms are surjective linear maps. If $f\colon V \to W$ is a surjective linear map, then the sequence
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       \{0\} \arrow[r] & \ker(f) \arrow[r, "\iota"] & V \arrow[r, "f"] & W \arrow[r] & \{0\}
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   is exact. But then $\mathrm{im}(\iota) = \ker(f)$, so $f$ is conormal. Thus in $\mathsf{Vect}_{k}$, every epimorphism is conormal.
 \end{example}
 
@@ -3365,9 +3186,7 @@ A morphism in $\mathsf{C} \times \mathsf{C}^{\text{op}}$ between two objects $(A
   f'\colon B' \to A'\qquad\text{and}\qquad f\colon A \to B,
 \end{equation*}
 where $A$, $B \in \Obj(\mathsf{C})$ and $A'$, $B' \in \Obj(\mathsf{C}^{\text{op}})$. We can draw this as follows.
-
-\begin{centering}
-
+\begin{equation*}
   \begin{tikzcd}[row sep=tiny]
     A' 
     & B'
@@ -3377,9 +3196,7 @@ where $A$, $B \in \Obj(\mathsf{C})$ and $A'$, $B' \in \Obj(\mathsf{C}^{\text{op}
     \arrow[r, "f"]
     & B
   \end{tikzcd}
-
-\end{centering}
-
+\end{equation*}
 We have to send this to a set-function $\Hom_{\mathsf{C}}(A', A) \to \Hom_{\mathsf{C}}(B', B)$. The way to do this is as follows: send each $m \in \Hom(A', A)$ to the element
 \begin{equation*}
   f \circ m \circ f' \in \Hom_{\mathsf{C}}(B', B).
@@ -3392,9 +3209,7 @@ Of course, we should check that this \emph{really is} a functor, i.e. that it tr
 \end{equation*}
 
 Next, we have to check that compositions work the way they're supposed to. Suppose we have objects and morphisms like this:
-
-\begin{centering}
-
+\begin{equation*}
   \begin{tikzcd}[row sep=tiny]
     A'
     & B'
@@ -3408,8 +3223,7 @@ Next, we have to check that compositions work the way they're supposed to. Suppo
     \arrow[r, "g"]
     & C
   \end{tikzcd}
-
-\end{centering}
+\end{equation*}
 where the primed stuff is in $\mathsf{C}^{\text{op}}$ and the unprimed stuff is in $\mathsf{C}$. This can be viewed as three objects $(A', A)$, etc. in $\mathsf{C}^{\text{op}} \times \mathsf{C}$ and two morphisms  $(f', f)$ and $(g', g)$ between them.
 
 Okay, so we can compose $(f', f)$ and $(g', g)$ to get a morphism 
@@ -3458,7 +3272,7 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
   \label{def:curriedhomfunctor}
   Let $\mathsf{C}$ be a locally small category, $A \in \Obj(\mathsf{C})$. We can construct from the hom functor $\Hom_{\mathsf{C}}$
   \begin{itemize}
-    \item a covariant functor $h^{A}\colon \mathsf{C} \rightsquigarrow \mathsf{Set}$ which maps
+    \item a functor $h^{A}\colon \mathsf{C} \rightsquigarrow \mathsf{Set}$ which maps
       \begin{itemize}
         \item an object $B \in \Obj(\mathsf{C})$ to the set $\Hom_{\mathsf{C}}(A, B)$, and
 
@@ -3468,7 +3282,7 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
           \end{equation*} 
       \end{itemize}
 
-    \item a contravariant functor $h_{A}\colon \mathsf{C} \rightsquigarrow \mathsf{Set}$ (or equivalently a covariant functor $\mathsf{C}^{\text{op}} \to \mathsf{Set}$) which maps
+    \item a functor $h_{A}\colon \mathsf{C}^{\text{op}} \rightsquigarrow \mathsf{Set}$ which maps
       \begin{itemize}
         \item an object $B \in \Obj(\mathsf{C})$ to the set $\Hom_{\mathsf{C}}(B, A)$, and
 
@@ -3507,9 +3321,7 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
   Now suppose we are given a group homomorphism $\Z \to G$. This sends $1$ to some element $g \in G$, and this completely determines the rest of the homomorphism. Thus, we have an injection $\Hom_{\mathsf{Grp}(\Z, G)} \hookrightarrow \mathcal{U}(G)$.
 
   All that is left is to show that $\eta$ satisfies the naturality condition. Let $F$ and $H$ be groups, and $f\colon G \to H$ a homomorphism. We need to show that the following diagram commutes.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       \mathcal{U}(G)
       \arrow[r, "\mathcal{U}(f)"]
@@ -3521,9 +3333,7 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
       \arrow[r, "h^{\Z}(f)"]
       & \Hom_{\mathsf{Grp}}(\Z, H)
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   The upper path from top left to bottom right assigns to each $g \in G$ the function $\Z \to G$ which maps $1 \mapsto f(g)$. Walking down $\eta_{G}$ from $\mathcal{U}(G)$ to $\Hom_{\mathsf{Grp}}(\Z, G)$, $g$ is mapped to the function $\Z \to G$ which maps $1 \mapsto g$. Walking right, we compose this function with $f$ to get a new function $\Z \to H$ which sends $1 \mapsto f(g)$. This function is really the image of a homomorphism and is therefore unique, so the diagram commutes.
 
   In fact, most forgetful functors to $\mathsf{Set}$ are representable.
@@ -3536,10 +3346,8 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
 \begin{proof}
   A natural transformation $\Phi\colon h^{A} \Rightarrow \mathcal{F}$ consists of a collection of $\mathsf{Set}$-morphisms (that is to say, functions) $\Phi_{B}\colon \Hom_{\mathsf{C}}(A, B) \to \mathcal{F}(B)$, one for each $B \in \Obj(\mathsf{C})$. We need to show that to each element of $\mathcal{F}(A)$ there corresponds exactly one $\Phi$. We will do this by showing that any $\Phi$ is completely determined by where $\Phi_{A}$ sends the identity morphism $1_{A} \in \Hom_{\mathsf{C}}(A, A)$, so there is exactly one natural transformation for each place $\Phi$ can send $1_{A}$.
 
-  The proof can be illustrated by the following commutative diagram.
-
-  \begin{centering}
-
+  The proof that this is the case can be illustrated by the following commutative diagram.
+  \begin{equation*}
     \begin{tikzcd}
       \Hom(A, A)
       \arrow[rrr, "h^{A}(f)"]
@@ -3561,9 +3369,7 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
       \arrow[rrr, swap, "\mathcal{F}(f)"]
       & & & \mathcal{F}(B)
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   Any natural transformation $\Phi$ has a component $\Phi_{A}$, and $\Phi_{A}$ has to send the identity transformation $1_{A}$ \emph{somewhere}. It can send it to any element of $\mathcal{F}(A)$; let's call $\Phi_{A}(1_{A}) = a$.
 
   Now the naturality conditions force our hand. For any $B \in \Obj(\mathsf{C})$ and any $f\colon A \to B$, $\Phi_{B}(f)$ \emph{has to} be equal to $(\mathcal{F}f)(a)$. We get no choice in the matter.
@@ -3583,13 +3389,13 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
   So we have taken our original category and embedded in a category of ``sets with structure.''
 \end{quote}
 
-\begin{definition}[yoneda embedding]
+\begin{definition}[Yoneda embedding]
   \label{def:yonedaembedding}
-  Let $\mathsf{C}$, $\mathsf{D}$ be locally small functors, $\mathcal{F}\colon \mathsf{C} \rightsquigarrow \mathsf{D}$ be a functor. The \defn{Yoneda embedding} is the induced functor
+  Let $\mathsf{C}$, $\mathsf{D}$ be locally small categories. The \defn{Yoneda embedding} is the functor
   \begin{equation*}
-    \mathcal{Y}\colon \mathsf{C} \rightsquigarrow [\mathsf{C}^{\text{op}}, \mathsf{Set}],
+    \mathcal{Y}\colon \mathsf{C}^{\text{op}} \rightsquigarrow [\mathsf{C}, \mathsf{Set}], \qquad A \mapsto h^{A}.
   \end{equation*}
-  where the notation $[\mathsf{C}^{\text{op}}, \mathsf{Set}]$ was defined in \hyperref[def:functorcategory]{Definition \ref*{def:functorcategory}}.
+  where the notation $[\mathsf{C}, \mathsf{Set}]$ was defined in \hyperref[def:functorcategory]{Definition \ref*{def:functorcategory}}.
 \end{definition}
 \begin{lemma}
   The Yoneda embedding is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}).
@@ -3597,16 +3403,44 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
 \begin{proof}
   We have to show that for all $A$, $B \in \Obj(\mathsf{C})$, the map
   \begin{equation*}
-    \mathcal{Y}_{A, B}\colon \Hom_{\mathsf{C}}(A, B) \to \Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(h^{A}, h^{B})
+    \mathcal{Y}_{A, B}\colon \Hom_{\mathsf{C}}(B, A) \to \Hom_{[\mathsf{C}, \mathsf{Set}]}(h^{A}, h^{B})
   \end{equation*}
   is a bijection.
 
   Fix $B \in \Obj(\mathsf{C})$, and consider the functor $h^{B}$. By the Yoneda lemma, there is a bijection between $\Nat(h^{A}, h^{B})$ and $h^{B}(A)$. By definition,
   \begin{equation*}
-    h^{B}(A) = \Hom_{\mathsf{C}}(A, B).
+    h^{B}(A) = \Hom_{\mathsf{C}}(B, A).
   \end{equation*}
 
-  But $\Nat(h^{A}, h^{B})$ is nothing else but $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(h^{A}, h^{B})$, so we are done.
+  But $\Nat(h^{A}, h^{B})$ is nothing else but $\Hom_{[\mathsf{C}, \mathsf{Set}]}(h^{A}, h^{B})$, so we are done.
+\end{proof}
+
+The above is sometimes referred to as the \emph{covariant} Yoneda lemma. We also have the following.
+\begin{definition}[contravariant Yoneda embedding]
+  \label{def:contravariantyonedaembedding}
+  For any $A \in \Obj(\mathsf{C})$, the \emph{contravariant Yoneda embedding} is the functor
+  \begin{equation*}
+    \mathsf{C} \rightsquigarrow [\mathsf{C}^{\text{op}}, \mathsf{Set}];\qquad A \mapsto h_{A}.
+  \end{equation*}
+\end{definition}
+\begin{theorem}
+  The contravariant Yoneda embedding is also fully faithful.
+\end{theorem}
+\begin{proof}
+  The proof is the same as the covariant case, mutatis mutandis.
+\end{proof}
+
+Here is the situation in which the Yoneda lemma is most commonly used.
+\begin{corollary}
+  \label{cor:yonedaembeddingrespectsisomorphisms}
+  Let $\mathsf{C}$ be a locally small category. Suppose for all $A \in \Obj(\mathsf{C})$, there is a bijection
+  \begin{equation*}
+    \Hom_{\mathsf{C}}(A, B) \stackrel{\sim}{\to} \Hom_{\mathsf{C}}(A, B')
+  \end{equation*}
+  which furthermore is natural in $A$. Then $B \simeq B'$
+\end{corollary}
+\begin{proof}
+  We have a natural bijection $h_{B} \Rightarrow h_{B'}$. Since the contravariant Yoneda embedding is fully faithful, it is injective on objects up to isomorphism (\hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}). Thus, $h_{B} \stackrel{\sim}{\Rightarrow} h_{B'} \implies B \simeq B'$.
 \end{proof}
 
 \section{Adjunctions}
@@ -3647,26 +3481,20 @@ This mathematical structure turns out to be a recurring theme in the study of ca
 \begin{definition}[hom-set adjunction]
   \label{def:homsetadjunction}
   Let $\mathsf{C}$, $\mathsf{D}$ be categories and $\mathcal{F}$, $\mathcal{G}$ functors as follows.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       \mathsf{C} 
       \arrow[r, rightsquigarrow, bend left, "\mathcal{F}"]
       & \mathsf{D}
       \arrow[l, rightsquigarrow, bend left, "\mathcal{G}"]
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   We say that \defn{$\mathcal{F}$ is left-adjoint to $\mathcal{G}$} (or equivalently $\mathcal{G}$ is right-adjoint to $\mathcal{F}$) and write $\mathcal{F} \dashv \mathcal{G}$ if there is a natural isomorphism
   \begin{equation*}
     \Phi\colon \Hom_{\mathsf{D}}(\mathcal{F}(-), -) \Rightarrow \Hom_{\mathsf{C}}(-, \mathcal{G}(-)),
   \end{equation*}
   which fits between $\mathcal{F}$ and $\mathcal{G}$ like this.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[column sep=huge]
       \mathsf{C}^{\text{op}} \times \mathsf{D} 
       \arrow[r, bend left, rightsquigarrow, anchor=s, "{\Hom_{\mathsf{D}}(\mathcal{F}(-), -)}", ""{name=U, below}]
@@ -3674,9 +3502,7 @@ This mathematical structure turns out to be a recurring theme in the study of ca
       \arrow[from=U, to=D, Rightarrow, "\Phi"]
       & \mathsf{Set}\qquad
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   The natural isomorphsim amounts to a family of bijections
   \begin{equation*}
     \Phi_{A, B}\colon \Hom_{\mathsf{D}}(\mathcal{F}(A), B) \to \Hom_{\mathsf{C}}(A, \mathcal{G}(B))
@@ -3733,7 +3559,7 @@ Here are two equivalent definitions which are often used.
       \mathsf{D} 
       \arrow[r, rightsquigarrow, bend left, "\mathcal{F} \circ \mathcal{G}"{name=U}]
       \arrow[r, rightsquigarrow, swap, bend right, "1_{\mathsf{D}}"{name=D}]
-      \arrow[from=U, to=D, Rightarrow, "\epsilon"]
+      \arrow[from=U, to=D, Rightarrow, "\varepsilon"]
       & \mathsf{D}
     \end{tikzcd}.
   \end{equation*}
@@ -3914,9 +3740,7 @@ Let $S$ be any other set, and consider a function $f\colon S \to [X, Y]$. For ea
 \end{equation*}
 
 Let's check this. First, we need to figure out how our functors act on functions. The first one is the most complicated, so let's get it out of the way. Suppose we have sets and functions like so.
-
-\begin{centering}
-
+\begin{equation*}
   \begin{tikzcd}[row sep=tiny]
     A''
     & B''
@@ -3930,9 +3754,7 @@ Let's check this. First, we need to figure out how our functors act on functions
     \arrow[r, "f"]
     & B
   \end{tikzcd}
-
-\end{centering}
-
+\end{equation*}
 We want our functor to map
 \begin{equation*}
   (A'', A', A) \mapsto [A'', [A', A]] = \Hom_{\mathsf{Set}}(A'', \Hom_{\mathsf{Set}}(A', A)),
@@ -3997,7 +3819,7 @@ We know that $f \circ m \circ (f', f'')\colon (b'', b') \mapsto b$, i.e.
 \begin{equation*}
   f(m(f''(b''), f'(b'))) = b.
 \end{equation*}
-If we can show that this is \emph{also} what $[f', f] \circ \Phi_{[B'' \times B', B]}(m) \circ f''$ is equal to, we are done.
+If we can show that this is \emph{also} what $[f', f] \circ \Phi_{[B'' \times B', B]}(m) \circ f''$ is equal to when evaluated on $b'$, we are done.
 
 Well, let's go through what this definition means. First, we take $b''$ and feed it to $f''$. Next, we let $\Phi_{[B'' \times B', B]}(m)$ act on the result, i.e. we fill the first argument of $m$ with $f''(b'')$. What we get is the following:
 \begin{equation*}
@@ -4045,9 +3867,9 @@ We picked this example because the collection $[A, B]$ of all functions between 
 \end{note}
 
 \begin{example}
-  In many locally small categories whose objects can be thought of as ``sets with extra structure'' in a natural way, we can pile structure on top of the hom sets until they themselves can be viewed as bona fide categorical objects. It often happens that these beefed-up hom sets coincide (up to isomorphism) with the internal hom objects.
+  In many locally small categories whose objects can be thought of as ``sets with extra structure'' in a natural way, it is possible to pile structure on top of the hom sets until they themselves can be viewed as bona fide categorical objects. It often happens that these beefed-up hom sets coincide (up to isomorphism) with the internal hom objects.
 
-  Take for example $\mathsf{Vect}_{k}$. For any vector spaces $V$ and $W$, we can turn $\Hom_{\mathsf{Vect}_{k}}(V, W)$ into a vector space by defining addition and scalar multiplication pointwise; we can then view $\Hom_{\mathsf{Vect}_{k}}(V, W)$ as an element of $\Obj(\mathsf{Vect}_{k})$. It turns out that this is precisely (up to isomorphism) the internal hom object $[V, W]_{\mathsf{Vect}_{k}}$.
+  Take for example $\mathsf{Vect}_{k}$. For any vector spaces $V$ and $W$, we can turn $\Hom_{\mathsf{Vect}_{k}}(V, W)$ into a vector space by defining addition and scalar multiplication pointwise; we can then view $\Hom_{\mathsf{Vect}_{k}}(V, W)$ as belonging to $\Obj(\mathsf{Vect}_{k})$. It turns out that this is precisely (up to isomorphism) the internal hom object $[V, W]_{\mathsf{Vect}_{k}}$.
 
   To see this, we need to show that there is a natural bijection 
   \begin{equation*}
@@ -4060,6 +3882,28 @@ We picked this example because the collection $[A, B]$ of all functions between 
 \end{example}
 
 For the remainder of this chapter, let $(\mathsf{C}, \otimes, 1)$ be a closed monoidal category with internal hom functor $[-,-]_{\mathsf{C}}$.
+
+In a closed monoidal category, the adjunction between the internal hom and the tensor product even holds internally.
+\begin{lemma}
+  For any $X$, $Y$, $Z \in \Obj(\mathsf{C})$ there is a natural isomorphism
+  \begin{equation*}
+    [X \otimes Y, Z]_{\mathsf{C}} \stackrel{\sim}{\to} [X, [Y, Z]_{\mathsf{C}}]_{\mathsf{C}}.
+  \end{equation*}
+\end{lemma}
+\begin{proof}
+  Let $A \in \Obj(\mathsf{C})$. We have the following string of natural bijections.
+  \begin{align*}
+    \Hom_{\mathsf{C}}(A, [X \otimes Y, Z]_{\mathsf{C}}) &\simeq \Hom_{\mathsf{C}}(A \otimes (X \otimes Y), Z) \\
+    &\simeq \Hom_{\mathsf{C}}((A \otimes X) \otimes Y, Z) \\
+    &\simeq \Hom_{\mathsf{C}}(A \otimes X, [Y, Z]_{\mathsf{C}}) \\
+    &\simeq \Hom_{\mathsf{C}}(A, [X, [Y, Z]_{\mathsf{C}}]_{\mathsf{C}}).
+  \end{align*}
+
+  Since this is true for each $A$ we have, by \hyperref[cor:yonedaembeddingrespectsisomorphisms]{Corollary \ref*{cor:yonedaembeddingrespectsisomorphisms}},
+  \begin{equation*}
+    [X \otimes Y, Z]_{\mathsf{C}} \stackrel{\sim}{\to} [X, [Y, Z]_{\mathsf{C}}]_{\mathsf{C}}.
+  \end{equation*}
+\end{proof}
 
 \subsection{The evaluation map}
 The internal hom functor gives us a way to talk about evaluating morphisms $f\colon X \to Y$ without mentioning elements of $X$.
@@ -4087,7 +3931,7 @@ The internal hom functor gives us a way to talk about evaluating morphisms $f\co
 
 \begin{example}
   \label{eg:evaluationmapinset}
-  As we saw in \hyperref[eg:setisamonoidalcategory]{Example \ref*{eg:setisamonoidalcategory}}, the category $\mathsf{Set}$ is a monoidal category whose bifunctor is given by the cartesian product. The internal hom is simply the regular hom functor 
+  As we saw in \hyperref[eg:setisamonoidalcategory]{Example \ref*{eg:setisamonoidalcategory}}, the category $\mathsf{Set}$ is a monoidal category with a bifunctor given by the cartesian product. The internal hom is simply the regular hom functor 
   \begin{equation*}
     \Hom_{\mathsf{Set}}(-,-) = [-,-].
   \end{equation*}
@@ -4213,7 +4057,7 @@ This definition generalizes to any closed monoidal category.
     \end{tikzcd}
   \end{equation*}
 
-  To check that this is functorial, we must check that the following diagram commutes.
+  To check that this is functorial, we must check that it respects compositions, i.e. that the following diagram commutes.
   \begin{equation*}
     \begin{tikzcd}[row sep=huge, column sep=huge]
       Z^{*} \otimes X
@@ -4252,10 +4096,11 @@ This definition generalizes to any closed monoidal category.
     \end{tikzcd}
   \end{equation*}
 
-  We want to show that the outer square commutes. But it clearly does: that the top left square commutes is trivial, and the right and bottom squares are the commutativity conditions defining $f^{t}$ and $g^{t}$.
+  We want to show that the outer square commutes. But it clearly does: that the top left square commutes is trivial, and the right and bottom `squares' are the commutativity conditions defining $f^{t}$ and $g^{t}$.
 \end{proof}
 
 \section{Abelian categories}
+This section draws heavily from \cite{EGNO-tensor-categories}.
 \subsection{Additive categories}
 Recall that $\mathsf{Ab}$ is the category of abelian groups (\hyperref[def:abeliangroup]{Definition \ref*{def:abeliangroup}}).
 \begin{definition}[$\mathsf{Ab}$-enriched category]
@@ -4278,7 +4123,7 @@ Recall that $\mathsf{Ab}$ is the category of abelian groups (\hyperref[def:abeli
 
 \begin{definition}[additive category]
   \label{def:additivecategory}
-  A category $\mathsf{C}$ is \defn{additive} if it has direct sums and is $\mathsf{Ab}$-enriched.
+  A category $\mathsf{C}$ is \defn{additive} if it has biproducts (\hyperref[def:categorywithbiproducts]{Definition \ref*{def:categorywithbiproducts}}) and is $\mathsf{Ab}$-enriched.
 \end{definition}
 
 \begin{example}
@@ -4300,11 +4145,85 @@ Recall that $\mathsf{Ab}$ is the category of abelian groups (\hyperref[def:abeli
 \begin{example}
   The category $\mathsf{Vect}_{k}$ is additive. Since vector spaces are in particular abelian groups under addition, it is naturally $\mathsf{Ab}$-enriched,
 \end{example}
-\subsection{Abelian categories, linear categories}
+
+\begin{definition}[additive functor]
+  \label{def:additivefunctor}
+  Let $\mathcal{F}\colon \mathsf{C} \rightsquigarrow \mathsf{D}$ be a functor between additive categories. We say that $\mathcal{F}$ is \defn{additive} if for each $X$, $Y \in \Obj(\mathsf{C})$ the map
+  \begin{equation*}
+    \Hom_{\mathsf{C}}(X, Y) \to \Hom_{\mathsf{D}}(\mathcal{F}(X), \mathcal{F}(Y))
+  \end{equation*}
+  is a homomorphism of abelian groups.
+\end{definition}
+
+\begin{lemma}
+  For any additive functor $\mathcal{F}\colon \mathsf{C} \rightsquigarrow \mathsf{D}$, there exists a natural isomorphism 
+  \begin{equation*}
+    \Phi\colon \mathcal{F}(-) \oplus \mathcal{F}(-) \Rightarrow \mathcal{F}(- \oplus -).
+  \end{equation*}
+\end{lemma}
+\begin{proof}
+  The commutativity of the following diagram is immediate.
+  \begin{equation*}
+    \begin{tikzcd}[column sep=huge, row sep=huge]
+      \mathcal{F}(X \oplus Y)
+      \arrow[r, "\mathcal{F}(f \oplus g)"]
+      \arrow[d, swap, "\Phi_{X, Y}"]
+      & \mathcal{F}(X' \oplus Y')
+      \arrow[d, "\Phi_{X', Y'}"]
+      \\
+      \mathcal{F}(X) \oplus \mathcal{F}(Y)
+      \arrow[r, "\mathcal{F}(f) \oplus \mathcal{F}(g)"]
+      & \mathcal{F}(X') \oplus \mathcal{F}(Y')
+    \end{tikzcd}
+  \end{equation*}
+
+  The $(X, Y)$-component $\Phi_{X, Y}$ is an isomorphism because
+\end{proof}
+
+\begin{definition}[$k$-linear category]
+  \label{def:linearcategory}
+
+\end{definition}
+
+\begin{example}
+  The category $\mathsf{Vect}_{k}$ is $k$-linear.
+\end{example}
+
+\begin{definition}[$k$-linear functor]
+  \label{def:linearfunctor}
+  let $\mathsf{C}$ and $\mathsf{D}$ be two $k$-linear categories, and $\mathcal{F}\colon \mathsf{C} \rightsquigarrow \mathsf{D}$ a functor. Suppose that for all objects $C$, $D \in \Obj(\mathsf{C})$ all morphisms $f$, $g\colon C \to D$, and all $\alpha$, $\beta \in k$, we have
+  \begin{equation*}
+    \mathcal{F}(\alpha f + \beta g) = \alpha \mathcal{F}(f) + \beta \mathcal{G}(g).
+  \end{equation*}
+
+  Then we say that $\mathcal{F}$ is \defn{$k$-linear}.
+\end{definition}
+
+\subsection{Pre-abelian categories}
 \begin{definition}[pre-abelian category]
   \label{def:preabeliancategory}
-  A category  $\mathsf{C}$ is \defn{pre-abelian} if it is additive and every morphism has a kernel and a cokernel.
+  A category  $\mathsf{C}$ is \defn{pre-abelian} if it is additive and every morphism has a kernel (\hyperref[def:kernelofmorphism]{Definition \ref*{def:kernelofmorphism}}) and a cokernel (\hyperref[def:cokernalofmorphism]{Definition \ref*{def:cokernalofmorphism}}).
 \end{definition}
+
+\begin{definition}[zero morphism]
+  \label{def:zeromorphism}
+  Let $\mathsf{C}$ be a category with zero object $0$. For any two objects $A$, $B \in \Obj(\mathsf{C})$, the \defn{zero morphism} $0_{A,B}$ is the unique morphism
+  \begin{equation*}
+    \begin{tikzcd}
+      A
+      \arrow[r]
+      & 0
+      \arrow[r]
+      & B
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
+
+\begin{notation}
+  It will often be clear what the source and destination of the zero morphism are; in this case we will drop the subscripts, writing $0$ instead of $0_{AB}$.
+\end{notation}
+
+It is easy to see that the left- or right-composition of the zero morphism with any other morphism results in the zero morphism: $f \circ 0 = 0$ and $0 \circ g = 0$.
 
 \begin{lemma}
   Every morphism $f\colon A \to B$ in a pre-abelian catgory has a canonical decomposition
@@ -4316,40 +4235,213 @@ Recall that $\mathsf{Ab}$ is the category of abelian groups (\hyperref[def:abeli
       \arrow[r, "\bar{f}"]
       & \ker(\coker(f))
       \arrow[r, "i"]
-      & B.
+      & B
+    \end{tikzcd},
+  \end{equation*}
+  where $p$ is an epimorphism (\hyperref[def:epimorphism]{Definition \ref*{def:epimorphism}}) and $i$ is a monomorphism (\hyperref[def:monomorphism]{Definition \ref*{def:monomorphism}}).
+\end{lemma}
+\begin{proof}
+  We start with a map
+  \begin{equation*}
+    \begin{tikzcd}
+      A 
+      \arrow[r, "f"]
+      & B
+    \end{tikzcd}.
+  \end{equation*}
+
+  Since we are in a pre-abelian category, we are guaranteed that $f$ has a kernel $(\ker(f), \iota)$ and a cokernel $(\coker(f), \pi)$. From the universality squares it is immediate that $f \circ \iota = 0$ and $\pi \circ f = 0$ This tells us that the composition $\pi \circ f \circ \iota = 0$, so the following commutes.
+  \begin{equation*}
+    \begin{tikzcd}
+      & A
+      \arrow[r, "f"]
+      & B
+      \arrow[dr, "\pi"]
+      \\
+      \ker(f)
+      \arrow[ur, "\iota"]
+      \arrow[dr]
+      & & & \coker(f)
+      \\
+      & 0
+      \arrow[r]
+      & 0
+      \arrow[ur]
     \end{tikzcd}
   \end{equation*}
-\end{lemma}
-
-\begin{definition}[abelian category]
-  \label{def:abeliancategory}
-\end{definition}
-\begin{example}
-  As we have seen, the category $\mathsf{Vect}_{k}$ is abelian. It is clearly additive; it is pre-abelian since the zero vector space $0$ is the zero object and there is only one linear map $0 \to 0$, the zero morphism; that it is binormal (hence abelian) follows from basic linear algebra.
-\end{example}
-
-\begin{definition}[$k$-linear category]
-  \label{def:linearcategory}
-  Let $k$ be a field. A category $\mathsf{C}$ is called \defn{$k$-linear} if 
-  \begin{enumerate}
-    \item it is an abelian category, and
-    \item its hom-sets are $k$-vector spaces with their additive structure given by the abelian groups from the category's abelian structure.
-  \end{enumerate}
-\end{definition}
-
-\begin{example}
-  The category $\mathsf{Vect}_{k}$ is $k$-linear.
-\end{example}
-
-\begin{definition}[$k$-linear functor]
-  \label{def:linearfunctor}
-  let $\mathsf{C}$ and $\mathsf{D}$ be two $k$-linear categories, and $\mathcal{F}\colon \mathsf{C} \rightsquigarrow \mathsf{D}$ a functor. Suppose that for all objects $C$, $D \in \Obj(\mathsf{C})$ all morphisms $f$, $g\colon C \to D$, and all $\alpha$ $\beta \in k$, we have
+  We know that $\pi$ has a kernel $(\ker(\pi), i)$ and $\iota$ has a cokernel $(\coker(\iota), p)$, so we can add their commutativity squares as well.
   \begin{equation*}
-    \mathcal{F}(\alpha f + \beta g) = \alpha \mathcal{F}(f) + \beta \mathcal{G}(g).
+    \begin{tikzcd}
+      & A
+      \arrow[r, "f"]
+      \arrow[d, "p"]
+      & B
+      \arrow[dr, "\pi"]
+      \\
+      \ker(f)
+      \arrow[ur, "\iota"]
+      \arrow[dr]
+      & \coker(\iota)
+      & \ker(\pi)
+      \arrow[u, "i"]
+      \arrow[d]
+      & \coker(f)
+      \\
+      & 0
+      \arrow[u]
+      \arrow[r]
+      & 0
+      \arrow[ur]
+    \end{tikzcd}
   \end{equation*}
 
-  Then we say that $\mathcal{F}$ is \defn{$k$-linear}.
+  If we squint hard enough, we can see the following diagram.
+  \begin{equation*}
+    \begin{tikzcd}
+      A
+      \arrow[rrd, bend left]
+      \arrow[rdd, bend right, swap, "f"]
+      \\
+      & \ker(\pi)
+      \arrow[r]
+      \arrow[d, "i"]
+      & 0
+      \arrow[d]
+      \\
+      & B
+      \arrow[r, "\pi"]
+      & \coker(f)
+    \end{tikzcd}
+  \end{equation*}
+  The outer square commutes because $\pi \circ f = 0$, so the universal property for $\ker(\pi)$ gives us a unique morphism $A \to \ker(\pi)$. Let's add this to our diagram, along with a morphism $0 \to \ker(\pi)$ which trivially keeps everything commutative.
+  \begin{equation*}
+    \begin{tikzcd}
+      & A
+      \arrow[r, "f"]
+      \arrow[d, "p"]
+      \arrow[dr]
+      & B
+      \arrow[dr, "\pi"]
+      \\
+      \ker(f)
+      \arrow[ur, "\iota"]
+      \arrow[dr]
+      & \coker(\iota)
+      & \ker(\pi)
+      \arrow[u, "i"]
+      \arrow[d]
+      & \coker(f)
+      \\
+      & 0
+      \arrow[u]
+      \arrow[r]
+      \arrow[ur]
+      & 0
+      \arrow[ur]
+    \end{tikzcd}
+  \end{equation*}
+
+  Again, buried in the bowels of our new diagram, we find the following.
+  \begin{equation*}
+    \begin{tikzcd}
+      \ker(f)
+      \arrow[r, "\iota"]
+      \arrow[d]
+      & A
+      \arrow[d, "\pi"]
+      \arrow[ddr, bend left]
+      \\
+      0
+      \arrow[r]
+      \arrow[drr, bend right]
+      & \coker(\iota)
+      \\
+      & & \ker(\pi)
+    \end{tikzcd}
+  \end{equation*}
+  And again, the universal property of cokernels gives us a unique morphism $\coker(\iota) \to \ker(\pi)$.
+  \begin{equation*}
+    \begin{tikzcd}
+      & A
+      \arrow[r, "f"]
+      \arrow[d, "p"]
+      \arrow[dr]
+      & B
+      \arrow[dr, "\pi"]
+      \\
+      \ker(f)
+      \arrow[ur, "\iota"]
+      \arrow[dr]
+      & \coker(\iota)
+      \arrow[r, "\bar{f}"]
+      & \ker(\pi)
+      \arrow[u, "i"]
+      \arrow[d]
+      & \coker(f)
+      \\
+      & 0
+      \arrow[u]
+      \arrow[r]
+      \arrow[ur]
+      & 0
+      \arrow[ur]
+    \end{tikzcd}
+  \end{equation*}
+
+  The fruit of our laborious construction is a commuting square
+  \begin{equation*}
+    \begin{tikzcd}
+      A
+      \arrow[r, "f"]
+      \arrow[d, swap, "p"]
+      & B
+      \arrow[d, "i"]
+      \\
+      \coker(\iota)
+      \arrow[r, "\bar{f}"]
+      & \ker(\pi)
+    \end{tikzcd}
+  \end{equation*}
+  We have seen (\hyperref[lemma:canonicalinjectionismono]{Lemma \ref*{lemma:canonicalinjectionismono}}) that $\iota$ is mono, and (\hyperref[lemma:canonicalsurjectionisepi]{Lemma \ref*{lemma:canonicalsurjectionisepi}}) is epi. 
+  
+  Now we abuse terminology by calling $\iota = \ker(f)$ and $\pi = \coker(f)$. Then we have the required decomposition.
+\end{proof} 
+
+\begin{note}
+  The abuse of notation above is ubiquitous.
+\end{note}
+
+\subsection{Abelian categories}
+\begin{definition}[abelian category]
+  \label{def:abeliancategory}
+  A pre-abelian category $\mathsf{C}$ is \defn{abelian} if for each morphism $f$, the canonical morphism
+  \begin{equation*}
+    \bar{f}\colon \coker(\ker(f)) \to \ker(\coker(f))
+  \end{equation*}
+  is an isomorphism.
 \end{definition}
+
+\begin{lemma}
+  In an abelian category, every morphism decomposes into the composition of an epimorphism and a monomorphism.
+\end{lemma}
+\begin{proof}
+  For any morphism $f$, bracketing the decomposition $f = i \circ \bar{f} \circ p$ either as
+  \begin{equation*}
+    (i \circ \bar{f}) \circ p\qquad\text{or}\qquad i \circ (\bar{f} \circ p).
+  \end{equation*}
+  gives such a composition.
+\end{proof}
+
+\begin{note}
+  The above decomposition is unique up to unique isomorphism.
+\end{note}
+
+\begin{theorem}
+  All abelian categories are binormal (\hyperref[def:binormalcategory]{Definition \ref*{def:binormalcategory}}).
+\end{theorem}
+\begin{proof}
+  We have seen that 
+\end{proof}
 
 \section{Higher categories}
 This section follows \cite{baez-higher-categories} closely.
@@ -4357,9 +4449,7 @@ This section follows \cite{baez-higher-categories} closely.
 One of the main benefits of categories is that they let us distinguish between different notions of sameness. In a set, two elements are either the same or different, and that is that. In a category, however, objects can be the same in certain ways without being identical: there are many $n$-dimensional real vector spaces, but they are all isomorphic. However this notion of `sameness without identity' is not omnipresent in category theory; we still have to resort to the limited, set-theoretic sense of equivalence when talking about morphisms.
 
 In higher category theory, this is remedied by introducing 2-morphisms, which are `morphisms between morphisms.' We can then say that two 1-morphisms are isomorphic if there is a pair of mutually inverse 2-morphisms between them. If you take a category and add 2-morphisms, what you get is called a 2-category.
-
-\begin{centering}
-
+\begin{equation*}
   \begin{tikzcd}[row sep=huge, column sep=huge]
     A 
     \arrow[r, bend left, "f", ""{name=UL, anchor=south east}, ""{name=UR, anchor=south west}]
@@ -4368,15 +4458,14 @@ In higher category theory, this is remedied by introducing 2-morphisms, which ar
     \arrow[Leftarrow, from=UR , to=DR,] 
     & B
   \end{tikzcd}
-
-\end{centering}
-
+\end{equation*}
 Of course, we now have no notion of isomorphism for 2-categories, so we must add 3-morphisms, etc. The result of the $n$th iteration of this procedure is called an $n$-category. If you keep going forever (or more rigorously, formally consider the object you'd get if you did), you get an $\infty$-category.
 
 You may have noticed that we have been using the same notation ($\Rightarrow$) for 2-morphisms and natural transformations. The reason for this is that natural transformations are the morphisms in the 2-category $\mathsf{Cat}$ of (small) categories.
 
-\chapter{Sheaves}
-\section{Presheaves}
+\chapter{A few concepts from algebraic geometry}
+\section{Sheaves}
+\subsection{Presheaves}
 
 \begin{definition}[category of opens] 
   \label{def:opencategory} 
@@ -4433,7 +4522,7 @@ Of course, we must check that $\mathsf{Open}(X)$ really is a category.
 
 \end{example}
 
-\section{Sheaves}
+\subsection{Sheaves}
 \begin{definition}[sheaf]
   \label{def:sheaf}
   Let $X$ be a topological space. A presheaf $\mathcal{F}$ on $X$ is called a \defn{sheaf} if it satisfies the following:
@@ -4542,7 +4631,7 @@ We now drop the open set in the notation of an element of a stalk, writing $[f]$
   Thus each stalk of $\mathcal{C}_{X}$ has a unique maximal ideal.
 \end{example}
 
-\section{Ringed spaces}
+\subsection{Ringed spaces}
 \begin{definition}[ringed space] 
   \label{def:ringedspace} A \defn{ringed space} is a double $(X, \mathcal{O}_{X})$, where $X$ is a topological space and $\mathcal{O}_{X}$ is a sheaf of rings on $X$.
 \end{definition}
@@ -4612,6 +4701,8 @@ First, we need to define a homomorphism of presheaves. Since we defined a preshe
   \label{def:locallyisomorphic}
   Let $X$ be a topological space, $\mathcal{F}$, and let $\mathcal{G}$ be $\mathsf{C}$-sheaves on $X$. We say that $\mathcal{F}$ is \defn{locally isomorphic} to $\mathcal{G}$ if for every $x \in X$, there exists a neighborhood $U$ of $x$ such that the restriction sheaf (\hyperref[def:restrictionsheaf]{Definition \ref*{def:restrictionsheaf}}) $\mathcal{F}|_{U}$ is sheaf-isomorphic to $\mathcal{G}$.
 \end{definition}
+
+\section{Schemes}
 
 \chapter{Spinors} 
 \section{A few more algebraic concepts}
@@ -4764,16 +4855,12 @@ Clifford algebras can be defined as universal objects in an appropriate category
 \begin{definition}[category $\mathsf{Cliff}(V,q)$]
   \label{def:cliffordcategory}
   $\mathsf{Cliff}(V,q)$ is the category whose objects are Clifford maps $f\colon V \to A$ to some associative unital $k$-algebra $A$ and whose morphisms are algebra homomorphisms $\rho\colon A \to A'$ such that the diagram
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       & V \arrow[dl, swap, "f"] \arrow[dr, "f'"] & \\
       A \arrow[rr, "\rho"] & & A'
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   commutes.
 \end{definition}
 
@@ -4784,32 +4871,24 @@ Clifford algebras can be defined as universal objects in an appropriate category
 
 \begin{theorem}
   The Clifford algebra always exists. That is to say for any quadratic vector space $(V, q)$ there is a pair $(\iota, \cliff(V,q))$ where $\iota$ is a Clifford map and $\cliff(V,q)$ is an associative unital algebra such that for any Clifford map $f\colon V \to A$, there is a unique algebra homomorphism $\cliff(f)\colon \cliff(V) \to A$ such that the following diagram commutes.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       & V \arrow[dr, "f"] \arrow[dl, swap, "\iota"] & \\
       \cliff(V,q) \arrow[rr, "\cliff(f)"] & & A
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
 \end{theorem}
 \begin{proof}
   Denote by $T(V)$ the tensor algebra over $V$ and by $\phi$ the canonical injection $V 
   \hookrightarrow T(V)$.
 
   The universal property of the tensor algebra tells us that any linear map $f\colon V \to A$ to an associative, unital algebra $A$ can be extended to a unique algebra homomorphism $\bar{f}\colon T(V) \to A$ making the following diagram commute.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       & V \arrow[dr, "f"] \arrow[dl, swap, "\phi"] & \\
       T(V) \arrow[rr, "\bar{f}"] & & A
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   Now consider the case in which $V$ is taken to be a quadratic vector space $(V,q)$ and $f$ is Clifford. Then the algebra homomorphism $\bar{f}$ has the property that for any $v \in V^{\otimes 1}$, $\bar{f}(v \otimes v + q(v) 1) = 0$. Thus, all elements of $T(V)$ which can be written in the form
   \begin{equation*}
     v \otimes v + q(v)1,\qquad v \in V^{\otimes 1}
@@ -4817,17 +4896,13 @@ Clifford algebras can be defined as universal objects in an appropriate category
   are in the kernel of $\bar{f}$, and so must be the ideal generated by such elements, which we will call $\mathscr{I}_{q}$. We can take the quotient $T(V)/\mathscr{I}_{q}$, calling the associated canonical projection $\pi_{q}\colon T(V) \to T(V)/\mathscr{I}_{q}$.
 
   Since $\mathscr{I}_{q}$ is in the kernel of $f$, we can replace $f$ by a map $\tilde{f}\colon T(V)/\mathscr{I}_{q} \to A$. This allows us to fill in the diagram below.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[column sep=huge]
       T(V) \arrow[dd, swap, "\pi_{q}"] \arrow[drr, bend left, "\bar{f}"] & & \\
       & V \arrow[ul, swap, "\phi"] \arrow[dl, "\pi_{q} \circ \phi"] \arrow[r, "f"] & A \\
       {T(V)/\mathscr{I}_{q}} \arrow[urr, bend right, swap, "\tilde{f}"]
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   Notice that $\pi_{q} \circ \phi$ is Clifford. 
 
   The above discussion means that for any Clifford map $f\colon V \to A$, we have a unique algebra homomorphism $\tilde{f}\colon T(V)/\mathscr{I}_{q} \to A$ such that the diagram above commutes. But that means that the pair $(\pi_{q} \circ \phi, T(V)/\mathscr{I}_{q})$ satisfies the universal property for Clifford algebras. Thus we must have that, up to a unique isomorphism, $\cliff(V,q) = T(V)/\mathscr{I}_{q}$, and $\iota = \pi_{q} \circ \phi$.
@@ -4841,31 +4916,23 @@ Clifford algebras can be defined as universal objects in an appropriate category
   We need two pieces of information to determine that $\cliff$ is a functor: how it acts on the objects $(V,q)$ of $\mathsf{QVec}$, and how it acts on the morphisms $f\colon V \to V'$. We have studied in some detail how it acts on objects by sending $(V,q)$ to $\cliff(V,q)$. Now we must see how it acts on morphisms.
 
   By definition, the morphisms $(V,q) \to (V', q')$ in $\mathsf{QVec}$ are linear maps $L\colon V \to V'$ which preserve the quadratic form. We can write down the following commutative diagram.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=huge, column sep=huge]
       {(V,q)} \arrow[dr, "\iota_{V'} \circ L"] \arrow[d, swap, "\iota_{V}"] \arrow[r, "L"] & {(V', q')} \arrow[d, "\iota_{V'}"] \\
       {\cliff(V,q)} & {\cliff(V', q')}
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   Notice that the map $L$ preserves the quadratic form $q$ and $\iota_{V'}$ is Clifford. Thus, we have 
   \begin{equation*}
     [(\iota_{V'} \circ L)(v)]^{2} = [\iota_{V'}(L(v))]^2 = \iota_{V'}(L(v)^2) = \iota_{V'}(-q'(L(v))) = \iota_{V'}(-q(v)1) = -q(v) 1,
   \end{equation*}
   so the map $\iota_{V'} \circ L$ is Clifford. But the universal property of Clifford algebras guarantees us that any Clifford map from $(V,q)$ to an associative, unital algebra (of which $\cliff(V', q')$ is an example) must factor through $\cliff(V,q)$! This gives us, for any such $L$, a unique map $\cliff(V,q) \to \cliff(V', q')$ which we will call $\cliff(L)$. This fills in the diagram as follows.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=huge, column sep=huge]
       {(V,q)} \arrow[dr, "\iota_{V'} \circ L"] \arrow[d, swap, "\iota_{V}"] \arrow[r, "L"] & {(V', q')} \arrow[d, "\iota_{V'}"] \\
       {\cliff(V,q)} \arrow[r, swap, "\exists!\cliff(L)"] & {\cliff(V', q')}
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   Checking that the assignment $L \to \cliff(L)$ really is functorial amounts to checking that it is covariant and that it is associative, both of which follow from juxtaposition of diagrams.
 \end{proof}
 
@@ -4875,15 +4942,12 @@ Clifford algebras can be defined as universal objects in an appropriate category
     \Or(V) = \left\{ M \in \GL(V)\,\big|\, M^{*}q = q \right\}.
   \end{equation*}
   The functoriality of $\cliff$ means that any $M \in \Or(V)$ induces an algebra automorphsim of $\cliff(M)$, the unique map which makes the following diagram commute.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}
       V \arrow[d, swap, "\iota"] \arrow[r, "M"] & V \arrow[d, "\iota"] \\
       \cliff(V, q) \arrow[r, "\cliff(M)"] & \cliff(V, q)
     \end{tikzcd}
-
-  \end{centering}
+  \end{equation*}
   To put it another way, \hyperref[thm:cliffordmapisafunctor]{Theorem \ref*{thm:cliffordmapisafunctor}} ensures us of an embedding $\Or(V,q) \hookrightarrow \mathrm{Aut}(\cliff(V,q))$.
 \end{note}
 
@@ -5351,16 +5415,12 @@ However, there is a pesky minus sign in the LHS of the above. We can rectify thi
 
 \begin{theorem}
   Let $V$ be a finite-dimensional vector space over a spin field $k$, and suppose $q$ is a non-degenerate quadratic form on $V$. Then there are short exact sequences
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tikzcd}[row sep=tiny]
       0 \arrow[r] & F \arrow[r] & \arrow[r, "\tAd"] \Spin(V, q) & \arrow[r] \SO(V, q) & 1 \\
       0 \arrow[r] & F \arrow[r] & \Pin(V, q) \arrow[r, "\tAd"] & \arrow[r] \Or(V, q) & 1 \\
     \end{tikzcd}
-
-  \end{centering}
-
+  \end{equation*}
   where
   \begin{equation*}
     F = \left\{ \varphi \in k\,\big|\, \varphi^{2} = \pm 1 \right\} =
@@ -5444,18 +5504,14 @@ In this chapter we give some basic definitions of various super-* structures. Ca
     \alpha(\varphi_{1}\varphi_{2}) = \alpha(\varphi_{1})\alpha(\varphi_{2});
   \end{equation*}
   this gives us the following multiplication table.
-
-  \begin{centering}
-
+  \begin{equation*}
     \begin{tabular}[c]{c | c c}
       $\times$ & $\cliff^{0}(V,q)$ & $\cliff^{1}(V,q)$ \\
       \hline
       $\cliff^{0}(V,q)$ & $\cliff^{0}(V,q)$ & $\cliff^{1}(V,q)$\\
       $\cliff^{1}(V,q)$ & $\cliff^{1}(V,q)$ & $\cliff^{0}(V,q)$\\
     \end{tabular}
-
-  \end{centering}
-
+  \end{equation*}
   Thus, $\cliff(V,q)$ is a superalgebra.
 
 \end{example}
@@ -5660,6 +5716,23 @@ If $R$ is supercommutative and $A$ is a left supermodule, we can make $A$ into a
 \end{definition}
 As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd}, and elements of $V_{1} \cup V_{2} \setminus \{0\}$ are \emph{homogeneous}.
 
+\begin{definition}[dimension of a $\Z_{2}$-graded vector space]
+  \label{def:dimensionofaz2gradedvectorspace}
+  Let 
+  \begin{equation*}
+    V = V_{0} \oplus V_{1}.
+  \end{equation*}
+  be a $\Z_{2}$-graded vector space. The \defn{dimension} of $V$ is
+  \begin{equation*}
+    (\dim V_{0}| \dim V_{1}) \in (\N \cup \{\infty\})^{2}.
+  \end{equation*}
+\end{definition} 
+
+\begin{definition}[finite-dimensional $\Z_{2}$-graded vector space]
+  \label{def:finitedimensionalz2gradedvectorspace}
+  We say that a $\Z_{2}$-graded vector space $V$ is \defn{finite dimensional} if $V_{1}$ and $V_{2}$ are.
+\end{definition}
+
 \begin{definition}[$\Z_{2}$-graded vector space morphism]
   \label{def:z2gradedvectorspacemorphism}
   Let $V$ and $W$ be $\Z_{2}$-graded vector spaces. A \defn{morphism} from $V$ to $W$ (also called a \defn{$\Z_{2}$-graded linear map}) is a linear map $V \to W$ which preserves the grading, i.e. which maps $V_{0} \to W_{0}$ and $V_{1} \to W_{1}$.
@@ -5674,16 +5747,11 @@ As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd
 \end{definition} 
 \begin{definition}[tensor product of $\Z_{2}$-graded vector spaces]
   \label{def:tensorproduttofz2gradedvectorspaces}
-  Let $V$ and $W$ be $\Z_{2}$-graded vector spaces. Their \defn{tensor product} denoted $V \otimes W$, is the $\Z_{2}$-graded vector space with grading
+  Let $V$ and $W$ be $\Z_{2}$-graded vector spaces. Their \defn{tensor product} denoted $V \otimes W$, is the tensor product of the underlying ungraded vector spaces, with the grading
   \begin{equation*}
     (V \otimes W)_{0} = (V_{0} \otimes W_{0})\oplus(V_{1} \otimes V_{1}),\qquad (V \otimes W)_{1} = (V_{0} \otimes W_{1})\oplus(V_{1} \otimes V_{0}).
   \end{equation*}
 \end{definition}
-
-\begin{lemma}
-  The $\Z_{2}$-graded tensor product can be extended to a bifunctor
-\end{lemma}
-
 
 \chapter{Superalgebra in categories}
 \section{Supercommutativity in symmetric monoidal categories}
@@ -5700,10 +5768,15 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   We call this category the category of $\Z_{2}$-graded vector spaces rather than the category of super vector spaces because we will reserve the latter name for the category with the appropriate symmetric monoidal structure, i.e. that which yields the Koszul sign rule. We will explore this structure now.
 \end{note}
 
-To make $\mathsf{Vect}_{k}^{\Z_{2}}$ into a symmetric monoidal category, we will have to 
 \begin{lemma}
-  The $\Z_{2}$-graded tensor product can be extended to a bifunctor $d$
+  The $\Z_{2}$-graded tensor product (\hyperref[def:z2gradedtensorproduct]{Definition \ref*{def:z2gradedtensorproduct}}) can be extended to a bifunctor 
+  \begin{equation*}
+    \otimes\colon \mathsf{Vect}_k^{\Z_{2}} \times \mathsf{Vect}_k^{\Z_{2}} \rightsquigarrow \mathsf{Vect}_k^{\Z_{2}}.
+  \end{equation*}
 \end{lemma}
+\begin{proof}
+  The behavior of the $\Z_{2}$ tensor product on objects and morphisms is inherited from the ungraded tensor product. It is not hard to check that the tensor product of two $\Z_{2}$-graded linear maps defined in this way is $\Z_{2}$-graded.
+\end{proof}
 
 \begin{theorem}
   There are, up to braided monoidal equivalence of categories (that is to say, a categorical equivalence \hyperref[def:categoricalequivalence]{Definition \ref*{def:categoricalequivalence}} whose functors are braided monoidal (\hyperref[def:braidedmonoidalfunctor]{Definition \ref*{def:braidedmonoidalfunctor}})), only two choices for a symmetric braiding $\gamma$ (\hyperref[def:symmetricmonoidalcategory]{Definition \ref*{def:symmetricmonoidalcategory}}) on $\mathsf{Vect}_{k}^{\Z_{2}}$, with components
@@ -5727,6 +5800,34 @@ To make $\mathsf{Vect}_{k}^{\Z_{2}}$ into a symmetric monoidal category, we will
 \begin{proof}
   Consider the category $\Line(\mathsf{Vect}_{k}^{\Z_{2}})$
 \end{proof}
+
+\begin{definition}[category of super vector spaces]
+  \label{def:categoryofsupervectorspaces}
+  The \defn{category of super vector spaces}, denoted $\mathsf{SVect}_{k}$, is the category $\mathsf{Vect}_{k}^{\Z_{2}}$ together with the super braiding $\gamma$.
+\end{definition}
+
+\begin{lemma}
+  The evident forgetful functor 
+  \begin{equation*}
+    \mathcal{U}\colon \mathsf{SVect}_{k} \rightsquigarrow \mathsf{Vect}_{k}
+  \end{equation*}
+  is strong monoidal (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}}).
+\end{lemma}
+\begin{proof}
+  We need to find a natural isomorphism $\Phi$ with components 
+  \begin{equation*}
+    \Phi_{X, Y}\colon \mathcal{U}(X) \otimes \mathcal{U}(Y) \to \mathcal{U}(X \otimes Y)
+  \end{equation*}
+  and a isomorphism
+  \begin{equation*}
+    \varphi\colon 1_{\mathsf{Vect}_{k}} \to \mathcal{U}(\mathsf{SVect}_{k})
+  \end{equation*}
+  which make some diagrams commute.
+
+  But the tensor product on $\mathsf{SVect}_{k}$ is inherited from that on $\mathsf{Vect}_{k}$, so we can take $\Phi_{X, Y}$ to be the identity transformation for all $X$ and $Y$, and since the field $k$ is the identity object in both categories, we can take $\varphi = 1_{k}$.
+
+  The necessary diagrams in \hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}} commute trivially with these definitions.
+\end{proof} 
 
 \begin{thebibliography}{9}
     \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
@@ -5807,8 +5908,11 @@ To make $\mathsf{Vect}_{k}^{\Z_{2}}$ into a symmetric monoidal category, we will
     \url{https://www.ncatlab.org/}
 
     \bibitem{wikipedia-product} 
-    \textit{Wikipedia - Product (Category Theory}.
+    \textit{Wikipedia - Product (Category Theory)}.
     \url{https://en.wikipedia.org/wiki/Product\_(category\_theory)}
 
+    \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
+    \textit{Tensor Categories}.
+    American Mathematical Society, 2015.
 \end{thebibliography}
 \end{document}
