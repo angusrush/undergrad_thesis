@@ -2100,23 +2100,23 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
   \label{def:curriedhomfunctor}
   Let $\mathsf{C}$ be a locally small category, $A \in \Obj(\mathsf{C})$. We can construct from the hom functor $\Hom_{\mathsf{C}}$
   \begin{itemize}
-    \item a functor $h^{A}\colon \mathsf{C} \rightsquigarrow \mathsf{Set}$ which maps
+    \item a functor $Y^{A}\colon \mathsf{C} \rightsquigarrow \mathsf{Set}$ which maps
       \begin{itemize}
         \item an object $B \in \Obj(\mathsf{C})$ to the set $\Hom_{\mathsf{C}}(A, B)$, and
 
         \item a morphism $f\colon B \to B'$ to a $\mathsf{Set}$-function
           \begin{equation*}
-            h^{A}(f)\colon \Hom_{\mathsf{C}}(A, B) \to \Hom_{\mathsf{C}}(A, B'); \qquad m \mapsto f \circ m.
+            Y^{A}(f)\colon \Hom_{\mathsf{C}}(A, B) \to \Hom_{\mathsf{C}}(A, B'); \qquad m \mapsto f \circ m.
           \end{equation*} 
       \end{itemize}
 
-    \item a functor $h_{A}\colon \mathsf{C}^{\text{op}} \rightsquigarrow \mathsf{Set}$ which maps
+    \item a functor $Y_{A}\colon \mathsf{C}^{\text{op}} \rightsquigarrow \mathsf{Set}$ which maps
       \begin{itemize}
         \item an object $B \in \Obj(\mathsf{C})$ to the set $\Hom_{\mathsf{C}}(B, A)$, and
 
         \item a morphism $f\colon B \to B'$ to a $\mathsf{Set}$-function
           \begin{equation*}
-            h_{A}(f)\colon \Hom_{\mathsf{C}}(B', A) \to \Hom_{\mathsf{C}}(B, A); \qquad m \mapsto m \circ f.
+            Y_{A}(f)\colon \Hom_{\mathsf{C}}(B', A) \to \Hom_{\mathsf{C}}(B, A); \qquad m \mapsto m \circ f.
           \end{equation*} 
       \end{itemize}
   \end{itemize}
@@ -2151,7 +2151,7 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
 
   In fact this bijection is natural in $X$. That is to say, there is a natural bijection between the following functors $\mathsf{C}^{\text{op}} \to \mathsf{Set}$:
   \begin{equation*}
-    h_{A \times B}\colon X \to \Hom_{\mathsf{C}}(X, A \times B)\qquad\text{and}\qquad h_{A} \times h_{B}\colon X \to \Hom_{\mathsf{C}}(X, A) \times \Hom_{\mathsf{C}}(X, B).
+    Y_{A \times B}\colon X \to \Hom_{\mathsf{C}}(X, A \times B)\qquad\text{and}\qquad Y_{A} \times Y_{B}\colon X \to \Hom_{\mathsf{C}}(X, A) \times \Hom_{\mathsf{C}}(X, B).
   \end{equation*}
 
   Let's prove naturality. Let
@@ -2196,18 +2196,18 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
   \end{equation*}
   and vice versa. Similar reasoning yields a natural bijection between the following functors $\mathsf{C} \rightsquigarrow \mathsf{Set}$:
   \begin{equation*}
-    h^{A \amalg B} \Rightarrow h^{A} \times h^{B}.
+    Y^{A \amalg B} \Rightarrow Y^{A} \times Y^{B}.
   \end{equation*}
 
-  The exponential is a little bit more complicated: it allows us to trade between a morphism
+  The exponential is a little bit more complicated: it allows us to trade a morphism
   \begin{equation*}
     X \times A \to B
   \end{equation*}
-  and a morphism 
+  for a morphism 
   \begin{equation*}
-    X \to B^{A}.
+    X \to B^{A},
   \end{equation*}
-  That is to say, we have a bijection between two functors $\mathsf{C}^{\text{op}} \rightsquigarrow \mathsf{Set}$
+  and vice versa.  That is to say, we have a bijection between two functors $\mathsf{C}^{\text{op}} \rightsquigarrow \mathsf{Set}$
   \begin{equation*}
     X \mapsto \Hom_{\mathsf{C}}(X \times A, B)\qquad\text{and}\qquad X \mapsto \Hom_{\mathsf{C}}(X, B^{A}).
   \end{equation*}
@@ -2221,8 +2221,8 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
   \begin{equation*}
     \eta\colon \mathcal{F} \Rightarrow 
     \begin{cases}
-      h^{A}, & \text{if $\mathcal{F}$ is covariant} \\
-      h_{A}, & \text{if $\mathcal{F}$ is contravariant.}
+      Y^{A}, & \text{if $\mathcal{F}$ is covariant} \\
+      Y_{A}, & \text{if $\mathcal{F}$ is contravariant.}
     \end{cases}
   \end{equation*}
 \end{definition}
@@ -2230,7 +2230,7 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
 \begin{example}
   Consider the forgetful functor $\mathcal{U}\colon \mathsf{Grp} \rightsquigarrow \mathsf{Set}$ which sends a group to its underlying set, and a group homomorphism to its underlying function. This functor is represented by the group $\Z$.
 
-  To see this, we have to check that there is a natural isomorphism $\eta$ between $\mathcal{U}$ and $h^{\Z} = \Hom_{\mathsf{Grp}}(\Z, -)$. That is to say, for each group $G$, there a $\mathsf{Set}$-isomorphism (i.e. a bijection)
+  To see this, we have to check that there is a natural isomorphism $\eta$ between $\mathcal{U}$ and $Y^{\Z} = \Hom_{\mathsf{Grp}}(\Z, -)$. That is to say, for each group $G$, there a $\mathsf{Set}$-isomorphism (i.e. a bijection)
   \begin{equation*}
     \eta_{G}\colon \mathcal{U}(G) \to \Hom_{\mathsf{Grp}}(\Z, G)
   \end{equation*}
@@ -2250,16 +2250,16 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
       \arrow[d, "\eta_{H}"]
       \\
       \Hom_{\mathsf{Grp}}(\Z, G)
-      \arrow[r, "h^{\Z}(f)"]
+      \arrow[r, "Y^{\Z}(f)"]
       & \Hom_{\mathsf{Grp}}(\Z, H)
     \end{tikzcd}
   \end{equation*}
   The upper path from top left to bottom right assigns to each $g \in G$ the function $\Z \to G$ which maps $1 \mapsto f(g)$. Walking down $\eta_{G}$ from $\mathcal{U}(G)$ to $\Hom_{\mathsf{Grp}}(\Z, G)$, $g$ is mapped to the function $\Z \to G$ which maps $1 \mapsto g$. Walking right, we compose this function with $f$ to get a new function $\Z \to H$ which sends $1 \mapsto f(g)$. This function is really the image of a homomorphism and is therefore unique, so the diagram commutes.
-
-  In fact, most forgetful functors to $\mathsf{Set}$ are representable.
 \end{example}
 
 \subsection{The Yoneda embedding}
+The Yoneda embedding is a very powerful tool which allows us to prove things about any locally small category by embedding that category into $\mathsf{Set}$, and using the structure which $\mathsf{Set}$ has. 
+
 In the thread \cite{baez-categories-usenet} on the sci.math google group, John Baez explains the importance of the Yoneda lemma in the following way.
 
 \begin{quote}
@@ -2272,17 +2272,34 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
   So we have taken our original category and embedded in a category of ``sets with structure.''
 \end{quote}
 
+\begin{definition}[Yoneda embedding]
+  \label{def:yonedaembedding}
+  Let $\mathsf{C}$, $\mathsf{D}$ be locally small categories. The \defn{Yoneda embedding} is the functor
+  \begin{equation*}
+    \mathcal{Y}\colon \mathsf{C}^{\text{op}} \rightsquigarrow [\mathsf{C}, \mathsf{Set}], \qquad A \mapsto Y^{A}.
+  \end{equation*}
+  where the notation $[\mathsf{C}, \mathsf{Set}]$ was defined in \hyperref[def:functorcategory]{Definition \ref*{def:functorcategory}}.
+
+  Of course, we also need to say how $Y^{(-)}$ behaves on morphisms. Let $f\colon A \to B$.
+\end{definition}
+\begin{note}
+  Many sources define the Yoneda embedding instead to be
+  \begin{equation*}
+    \mathsf{C} \rightsquigarrow [\mathsf{C}^{\text{op}}, \mathsf{Set}];\qquad A \mapsto Y_{A}.
+  \end{equation*}
+\end{note}
+
 \begin{theorem}[Yoneda lemma]
-  Let $\mathcal{F}$ be a functor from $\mathsf{C}$ to $\mathsf{Set}$. Let $A \in \Obj(\mathsf{C})$. Then there is a set-isomorphism (i.e. a bijection) between the set $\Nat(h^{A}, \mathcal{F})$ of natural transformations $h^{A} \Rightarrow \mathcal{F}$ and the set $\mathcal{F}(A)$. Furthermore, this isomorphism is natural in $A$.
+  Let $\mathcal{F}$ be a (covariant) functor from $\mathsf{C}$ to $\mathsf{Set}$. Let $A \in \Obj(\mathsf{C})$. Then there is a set-isomorphism (i.e. a bijection) $\eta$ between the set $\Nat(Y^{A}, \mathcal{F})$ of natural transformations $Y^{A} \Rightarrow \mathcal{F}$ and the set $\mathcal{F}(A)$. Furthermore, this isomorphism is natural in $A$.
 \end{theorem}
 \begin{proof}
-  A natural transformation $\Phi\colon h^{A} \Rightarrow \mathcal{F}$ consists of a collection of $\mathsf{Set}$-morphisms (that is to say, functions) $\Phi_{B}\colon \Hom_{\mathsf{C}}(A, B) \to \mathcal{F}(B)$, one for each $B \in \Obj(\mathsf{C})$. We need to show that to each element of $\mathcal{F}(A)$ there corresponds exactly one $\Phi$. We will do this by showing that any $\Phi$ is completely determined by where $\Phi_{A}$ sends the identity morphism $1_{A} \in \Hom_{\mathsf{C}}(A, A)$, so there is exactly one natural transformation for each place $\Phi$ can send $1_{A}$.
+  A natural transformation $\Phi\colon Y^{A} \Rightarrow \mathcal{F}$ consists of a collection of $\mathsf{Set}$-morphisms (that is to say, functions) $\Phi_{B}\colon \Hom_{\mathsf{C}}(A, B) \to \mathcal{F}(B)$, one for each $B \in \Obj(\mathsf{C})$. We need to show that to each element of $\mathcal{F}(A)$ there corresponds exactly one $\Phi$. We will do this by showing that any $\Phi$ is completely determined by where $\Phi_{A}$ sends the identity morphism $1_{A} \in \Hom_{\mathsf{C}}(A, A)$, so there is exactly one natural transformation for each place $\Phi$ can send $1_{A}$.
 
   The proof that this is the case can be illustrated by the following commutative diagram.
   \begin{equation*}
     \begin{tikzcd}
       \Hom(A, A)
-      \arrow[rrr, "h^{A}(f)"]
+      \arrow[rrr, "Y^{A}(f)"]
       \arrow[ddd, swap, "\Phi_{A}"]
       & & & \Hom(A, B)
       \arrow[ddd, "\Phi_{B}"]
@@ -2302,39 +2319,45 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
       & & & \mathcal{F}(B)
     \end{tikzcd}
   \end{equation*}
-  The natural transformation $\Phi\colon h^{A} \Rightarrow \mathcal{F}$ has a component $\Phi_{A}\colon \Hom_{\mathsf{C}}(A, A) \to \mathcal{F}(A)$, and $\Phi_{A}$ has to send the identity transformation $1_{A}$ \emph{somewhere}. It can send it to any element of $\mathcal{F}(A)$; let's call $\Phi_{A}(1_{A}) = a$.
+  The natural transformation $\Phi\colon Y^{A} \Rightarrow \mathcal{F}$ has a component $\Phi_{A}\colon \Hom_{\mathsf{C}}(A, A) \to \mathcal{F}(A)$, and $\Phi_{A}$ has to send the identity transformation $1_{A}$ \emph{somewhere}. It can send it to any element of $\mathcal{F}(A)$; let's call $\Phi_{A}(1_{A}) = a$.
 
   Now the naturality conditions force our hand. For any $B \in \Obj(\mathsf{C})$ and any $f\colon A \to B$, the naturality square above means that $\Phi_{B}(f)$ \emph{has to} be equal to $(\mathcal{F}f)(a)$. We get no choice in the matter.
 
   But this completely determines $\Phi$! So we have shown that there is exactly one natural transformation for every element of $\mathcal{F}(A)$. We are done!
 
-  Almost. We still have to show that the bijection we constructed above is natural. To that end, let $f\colon A \to A'$. We need to show that the following square commutes.
-\end{proof}
-
-\begin{definition}[Yoneda embedding]
-  \label{def:yonedaembedding}
-  Let $\mathsf{C}$, $\mathsf{D}$ be locally small categories. The \defn{Yoneda embedding} is the functor
+  Well, almost. We still have to show that the bijection we constructed above is natural. To that end, let $g\colon A \to A'$. We need to show that the following square commutes.
   \begin{equation*}
-    \mathcal{Y}\colon \mathsf{C}^{\text{op}} \rightsquigarrow [\mathsf{C}, \mathsf{Set}], \qquad A \mapsto h^{A}.
+    \begin{tikzcd}
+      \Nat(Y^{A}, \mathcal{F})
+      \arrow[r, "\eta_{A}"]
+      \arrow[d, swap, "{\Nat(Y^{g}, \mathcal{F})}"]
+      & \mathcal{F}(A)
+      \arrow[d, "\mathcal{F}(g)"]
+      \\
+      \Nat(Y^{A'}, \mathcal{F})
+      \arrow[r, "\eta_{A'}"]
+      & \mathcal{F}(A')
+    \end{tikzcd}
   \end{equation*}
-  where the notation $[\mathsf{C}, \mathsf{Set}]$ was defined in \hyperref[def:functorcategory]{Definition \ref*{def:functorcategory}}.
-\end{definition}
+
+  This deserves a lot of explanation. I haven't defined
+\end{proof}
 \begin{lemma}
   The Yoneda embedding is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}).
 \end{lemma}
 \begin{proof}
   We have to show that for all $A$, $B \in \Obj(\mathsf{C})$, the map
   \begin{equation*}
-    \mathcal{Y}_{A, B}\colon \Hom_{\mathsf{C}}(B, A) \to \Hom_{[\mathsf{C}, \mathsf{Set}]}(h^{A}, h^{B})
+    \mathcal{Y}_{A, B}\colon \Hom_{\mathsf{C}}(B, A) \to \Hom_{[\mathsf{C}, \mathsf{Set}]}(Y^{A}, Y^{B})
   \end{equation*}
   is a bijection.
 
-  Fix $B \in \Obj(\mathsf{C})$, and consider the functor $h^{B}$. By the Yoneda lemma, there is a bijection between $\Nat(h^{A}, h^{B})$ and $h^{B}(A)$. By definition,
+  Fix $B \in \Obj(\mathsf{C})$, and consider the functor $Y^{B}$. By the Yoneda lemma, there is a bijection between $\Nat(Y^{A}, Y^{B})$ and $Y^{B}(A)$. By definition,
   \begin{equation*}
-    h^{B}(A) = \Hom_{\mathsf{C}}(B, A).
+    Y^{B}(A) = \Hom_{\mathsf{C}}(B, A).
   \end{equation*}
 
-  But $\Nat(h^{A}, h^{B})$ is nothing else but $\Hom_{[\mathsf{C}, \mathsf{Set}]}(h^{A}, h^{B})$, so we are done.
+  But $\Nat(Y^{A}, Y^{B})$ is nothing else but $\Hom_{[\mathsf{C}, \mathsf{Set}]}(Y^{A}, Y^{B})$, so we are done.
 \end{proof}
 
 The above is sometimes referred to as the \emph{covariant} Yoneda lemma. We also have the following.
@@ -2342,7 +2365,7 @@ The above is sometimes referred to as the \emph{covariant} Yoneda lemma. We also
   \label{def:contravariantyonedaembedding}
   For any $A \in \Obj(\mathsf{C})$, the \emph{contravariant Yoneda embedding} is the functor
   \begin{equation*}
-    \mathsf{C} \rightsquigarrow [\mathsf{C}^{\text{op}}, \mathsf{Set}];\qquad A \mapsto h_{A}.
+    \mathsf{C} \rightsquigarrow [\mathsf{C}^{\text{op}}, \mathsf{Set}];\qquad A \mapsto Y_{A}.
   \end{equation*}
 \end{definition}
 \begin{theorem}
@@ -2362,7 +2385,7 @@ Here is a situation in which the Yoneda lemma is commonly used.
   which is natural in $A$. Then $B \simeq B'$
 \end{corollary}
 \begin{proof}
-  We have a natural bijection $h_{B} \Rightarrow h_{B'}$. Since the contravariant Yoneda embedding is fully faithful, it is injective on objects up to isomorphism (\hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}). Thus, since $h_{B}$ and $h_{B'}$ are isomorphic, so must be $B \simeq B'$.
+  We have a natural bijection $Y_{B} \Rightarrow Y_{B'}$. Since the contravariant Yoneda embedding is fully faithful, it is injective on objects up to isomorphism (\hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}). Thus, since $Y_{B}$ and $Y_{B'}$ are isomorphic, so must be $B \simeq B'$.
 \end{proof}
 
 We have now built up enough machinery to make the proof of the associativity of the categorical product trivial. We will need to accept the trivial assertion that the cartesian product of sets is associative, i.e. for $A$, $B$, and $C$ sets, $(A \times B) \times C \simeq A \times (B \times C)$.
