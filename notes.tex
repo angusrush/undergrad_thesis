@@ -639,7 +639,7 @@ In this chapter (and to some extent the following chapters), I will do my best t
 
     \item the category $\mathsf{Vect}_{k}$, whose objects are vector spaces over a field $k$ and whose morphisms are linear maps;
     \item the category $\mathsf{FinVect}_{k}$, whose objects are finite-dimensional vector spaces over a field $k$ and whose morphisms are linear maps;
-    \item the category $k\text{-}\mathsf{Alg}$, whose objects are algebras over a field $k$ and whose morphisms are algebra homomorphisms
+    \item the category $\mathsf{Alg}_{k}$, whose objects are algebras over a field $k$ and whose morphisms are algebra homomorphisms
   \end{itemize}
 \end{example}
 
@@ -1712,8 +1712,10 @@ Again, with the diagram helpfully rotated, we have the following.
 
 \end{example}
 
-\section{Cartesian Closed Categories}
-This section loosely follows \cite{awodey-category-theory-foundations-videos}.
+\section{Cartesian closed categories}
+This section loosely follows \cite{awodey-category-theory-foundations-videos}. 
+
+Cartesian closed categories are the prototype for a lot of structures relating to monoidal categories. 
 \subsection{Products}
 We saw in \hyperref[eg:universalpropertyofproducts]{Example \ref*{eg:universalpropertyofproducts}} the definition for a categorical product. In some categories, we can naturally take the product of any two objects; one generally says that such a category \emph{has products}. We formalize that in the following.
 
@@ -1831,7 +1833,26 @@ The product is, in an appropriate way, commutative.
   \end{equation*}
 \end{lemma}
 \begin{proof}
-  
+  We define a natural transformation $\Phi$ whose components are 
+  \begin{equation*}
+    \Phi_{A, B}\colon A \times B \to B \times A
+  \end{equation*}
+  as follows. Denote the canonical projections for the product $A \times B$ by $\pi_{A}$ and $\pi_{B}$. Then $(\pi_{B}, \pi_{A})$ is a map $A \times B \to (B, A)$, and the universal property for products gives us a map $A \times B \to B \times A$. We can pull the same trick to go from $B \times A$ to $A \times B$, using the pair $(\pi_{A}, \pi_{B})$ and the universal property. Furthermore, these maps are inverse to each other, so $\Phi_{A, B}$ is an isomorphism.
+
+  We need only check naturality, i.e. that for $f\colon A \to A'$, $g\colon B \to B'$, the following square commutes.
+  \begin{equation*}
+    \begin{tikzcd}
+      A \times B
+      \arrow[r]
+      \arrow[d, swap]
+      & A' \times B'
+      \arrow[d]
+      \\
+      B \times A
+      \arrow[r]
+      & B' \times A'
+    \end{tikzcd}
+  \end{equation*}
 \end{proof}
 
 \begin{note}
@@ -1962,10 +1983,11 @@ Astonishingly, we can talk about functional evaluation purely in terms of produc
       \arrow[ur, mapsto, swap, "f"]
     \end{tikzcd}
   \end{equation*}
+  Furthermore, $\bar{f}$ is unique since if it sent $x$ to any function other than $f$ the diagram would not commute.
 \end{example}
 
 \begin{example}
-  One might suspect that the above generalizes to all sorts of categories. For example, one might hope that in $\mathsf{Set}$, the exponential $H^{G}$ of two groups $G$ and $H$ would somehow capture all homomorphisms $G \to H$. This turns out to be impossible; we will see why in REF.
+  One might suspect that the above generalizes to all sorts of categories. For example, one might hope that in $\mathsf{Grp}$, the exponential $H^{G}$ of two groups $G$ and $H$ would somehow capture all homomorphisms $G \to H$. This turns out to be impossible; we will see why in REF.
 \end{example}
 
 \subsection{Cartesian closed categories}
@@ -2132,11 +2154,11 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
     h_{A \times B}\colon X \to \Hom_{\mathsf{C}}(X, A \times B)\qquad\text{and}\qquad h_{A} \times h_{B}\colon X \to \Hom_{\mathsf{C}}(X, A) \times \Hom_{\mathsf{C}}(X, B).
   \end{equation*}
 
-  Let 
+  Let's prove naturality. Let
   \begin{equation*}
     \Phi_{X}\colon \Hom(X, A \times B) \to \Hom(X \times A, X \times B);\qquad f \mapsto (\pi_{A} \circ f, \pi_{B} \circ f)
   \end{equation*}
-  be the components of the above natural transformation, and let $g\colon X' \to X$. Naturality follows from the fact that the diagram below commutes.
+  be the components of the above transformation, and let $g\colon X' \to X$. Naturality follows from the fact that the diagram below commutes.
   \begin{equation*}
     \begin{tikzcd}[row sep=huge, column sep=huge]
       \Hom(X, A \times B)
@@ -2172,7 +2194,7 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
   \begin{equation*}
     A \amalg B \to X,
   \end{equation*}
-  and vice versa. Similar reasoning yields a natural bijection between the following functors $\mathsf{C} \to \mathsf{Set}$:
+  and vice versa. Similar reasoning yields a natural bijection between the following functors $\mathsf{C} \rightsquigarrow \mathsf{Set}$:
   \begin{equation*}
     h^{A \amalg B} \Rightarrow h^{A} \times h^{B}.
   \end{equation*}
@@ -2185,7 +2207,7 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
   \begin{equation*}
     X \to B^{A}.
   \end{equation*}
-  That is to say, we have a bijection between two functors $\mathsf{C}^{\text{op}} \to \mathsf{Set}$
+  That is to say, we have a bijection between two functors $\mathsf{C}^{\text{op}} \rightsquigarrow \mathsf{Set}$
   \begin{equation*}
     X \mapsto \Hom_{\mathsf{C}}(X \times A, B)\qquad\text{and}\qquad X \mapsto \Hom_{\mathsf{C}}(X, B^{A}).
   \end{equation*}
@@ -2251,7 +2273,7 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
 \end{quote}
 
 \begin{theorem}[Yoneda lemma]
-  Let $\mathcal{F}$ be a functor from $\mathsf{C}$ to $\mathsf{Set}$. Let $A \in \Obj(\mathsf{C})$. Then there is a set-isomorphism (i.e. a bijection) between the set $\Nat(h^{A}, \mathcal{F})$ of natural transformations $h^{A} \Rightarrow \mathcal{F}$ and the set $\mathcal{F}(A)$.
+  Let $\mathcal{F}$ be a functor from $\mathsf{C}$ to $\mathsf{Set}$. Let $A \in \Obj(\mathsf{C})$. Then there is a set-isomorphism (i.e. a bijection) between the set $\Nat(h^{A}, \mathcal{F})$ of natural transformations $h^{A} \Rightarrow \mathcal{F}$ and the set $\mathcal{F}(A)$. Furthermore, this isomorphism is natural in $A$.
 \end{theorem}
 \begin{proof}
   A natural transformation $\Phi\colon h^{A} \Rightarrow \mathcal{F}$ consists of a collection of $\mathsf{Set}$-morphisms (that is to say, functions) $\Phi_{B}\colon \Hom_{\mathsf{C}}(A, B) \to \mathcal{F}(B)$, one for each $B \in \Obj(\mathsf{C})$. We need to show that to each element of $\mathcal{F}(A)$ there corresponds exactly one $\Phi$. We will do this by showing that any $\Phi$ is completely determined by where $\Phi_{A}$ sends the identity morphism $1_{A} \in \Hom_{\mathsf{C}}(A, A)$, so there is exactly one natural transformation for each place $\Phi$ can send $1_{A}$.
@@ -2280,13 +2302,14 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
       & & & \mathcal{F}(B)
     \end{tikzcd}
   \end{equation*}
-  Any natural transformation $\Phi$ has a component $\Phi_{A}$, and $\Phi_{A}$ has to send the identity transformation $1_{A}$ \emph{somewhere}. It can send it to any element of $\mathcal{F}(A)$; let's call $\Phi_{A}(1_{A}) = a$.
+  The natural transformation $\Phi\colon h^{A} \Rightarrow \mathcal{F}$ has a component $\Phi_{A}\colon \Hom_{\mathsf{C}}(A, A) \to \mathcal{F}(A)$, and $\Phi_{A}$ has to send the identity transformation $1_{A}$ \emph{somewhere}. It can send it to any element of $\mathcal{F}(A)$; let's call $\Phi_{A}(1_{A}) = a$.
 
-  Now the naturality conditions force our hand. For any $B \in \Obj(\mathsf{C})$ and any $f\colon A \to B$, $\Phi_{B}(f)$ \emph{has to} be equal to $(\mathcal{F}f)(a)$. We get no choice in the matter.
+  Now the naturality conditions force our hand. For any $B \in \Obj(\mathsf{C})$ and any $f\colon A \to B$, the naturality square above means that $\Phi_{B}(f)$ \emph{has to} be equal to $(\mathcal{F}f)(a)$. We get no choice in the matter.
 
   But this completely determines $\Phi$! So we have shown that there is exactly one natural transformation for every element of $\mathcal{F}(A)$. We are done!
+
+  Almost. We still have to show that the bijection we constructed above is natural. To that end, let $f\colon A \to A'$. We need to show that the following square commutes.
 \end{proof}
-TODO: add proof that the above bijection is natural in $A$.
 
 \begin{definition}[Yoneda embedding]
   \label{def:yonedaembedding}
@@ -4769,7 +4792,7 @@ We now drop the open set in the notation of an element of a stalk, writing $[f]$
   \begin{equation*}
     \varphi([f][g]) = \varphi([fg]) = (fg)(x) = f(x)g(x) = \varphi([f])\varphi([g]),
   \end{equation*}
-  and similarly for addition. It is also surjective; to see this, we need only find a single function which maps to any $r \in \R$. (the constant function will do.)
+  and similarly for addition. It is also surjective; to see this, we need only find a single function which maps to any $r \in \R$. (The constant function will do.)
 
   Denote $\ker(\varphi) = \mathfrak{m}_{x}$. By the first isomorphism theorem,
   \begin{equation*}
