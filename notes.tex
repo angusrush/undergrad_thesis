@@ -81,6 +81,7 @@
 \newcommand{\Line}{\mathrm{Line}}
 \newcommand{\ev}{\mathrm{eval}}
 \newcommand{\coker}{\mathrm{coker}}
+\newcommand{\im}{\mathrm{im}}
 
 % Second level of list uses empty bullets
 \renewcommand{\labelitemii}{$\circ$}
@@ -656,9 +657,9 @@ In this chapter (and to some extent the following chapters), I will do my best t
 There are many ways we can use existing categories to create new ones.
 \begin{definition}[opposite category]
   \label{def:oppositecategory}
-  Let $\mathsf{C}$ be a category. The \defn{opposite category} $\mathsf{C}^{\text{op}}$ is the category whose objects are the same as the objects $\Obj(\mathsf{C})$ and whose morphisms $f \in \Hom_{\mathsf{C}^{\text{op}}}(A, B)$ are defined to be the morphisms $\Hom_{\mathsf{C}}(B, A)$.
+  Let $\mathsf{C}$ be a category. The \defn{opposite category} $\mathsf{C}^{\mathrm{op}}$ is the category whose objects are the same as the objects $\Obj(\mathsf{C})$ and whose morphisms $f \in \Hom_{\mathsf{C}^{\mathrm{op}}}(A, B)$ are defined to be the morphisms $\Hom_{\mathsf{C}}(B, A)$.
 
-  That is to say, the opposite category is the category one gets by formally reversing all the arrows in a category. If $f \in \Hom_{\mathsf{C}}(A, B)$, i.e. $f \colon A \to B$, then in $\mathsf{C}^{\text{op}}$, $f\colon B \to A$. 
+  That is to say, the opposite category is the category one gets by formally reversing all the arrows in a category. If $f \in \Hom_{\mathsf{C}}(A, B)$, i.e. $f \colon A \to B$, then in $\mathsf{C}^{\mathrm{op}}$, $f\colon B \to A$. 
 \end{definition} 
 
 \begin{definition}[product category]
@@ -813,7 +814,7 @@ Just as morphisms connect objects in the same category, functors allow us to con
 
 \begin{note}
   \label{note:contravariantfunctorisfunctorfromoppositecategory}
-  One can also define a contravariant functor $\mathsf{C} \rightsquigarrow \mathsf{D}$ as a covariant functor $\mathsf{C}^{\text{op}} \rightsquigarrow \mathsf{D}$.
+  One can also define a contravariant functor $\mathsf{C} \rightsquigarrow \mathsf{D}$ as a covariant functor $\mathsf{C}^{\mathrm{op}} \rightsquigarrow \mathsf{D}$.
 \end{note}
 
 \begin{note}
@@ -1305,6 +1306,52 @@ We can also compose natural transformations in a not so obvious way.
   \label{def:naturalisomorphism}
   A \defn{natural isomorphism} $\eta\colon \mathcal{F} \Rightarrow \mathcal{G}$ is a natural transformation such that each $\eta_{A}$ is an isomorphism.
 \end{definition}
+
+\begin{lemma}
+  \label{lemma:naturalisomorphismshaveinverses}
+  If we have a natural isomorphism $\eta\colon \mathcal{F} \Rightarrow \mathcal{G}$, we can construct a natural isomorphism $\eta^{-1}\colon \mathcal{G} \Rightarrow \mathcal{F}$.
+\end{lemma}
+\begin{proof}
+  The natural transformation gives us for any two objects $A$ and $B$ and morphism $f\colon A \to B$ a naturality square
+  \begin{equation*}
+    \begin{tikzcd}
+      \mathcal{F}(A)
+      \arrow[r, "\mathcal{F}(f)"]
+      \arrow[d, swap, "\eta_{A}"]
+      & \mathcal{F}(B)
+      \arrow[d, "\eta_{B}"]
+      \\
+      \mathcal{G}(A)
+      \arrow[r, "\mathcal{G}(f)"]
+      & \mathcal{G}(B)
+    \end{tikzcd}
+  \end{equation*}
+  which tells us that 
+  \begin{equation*}
+    \eta_{B} \circ \mathcal{F}(f) = \mathcal{G}(f) \circ \eta_{A}.
+  \end{equation*}
+
+  Since $\eta$ is a natural isomorphism, its components $\eta_{A}$ are isomorphisms, so they have inverses $\eta_{A}^{-1}$. Actint on the above equation with $\eta_{A}^{-1}$ from the right and $\eta_{B}^{-1}$ from the left, we find
+  \begin{equation*}
+    \mathcal{F}(f) \circ \eta_{A}^{-1} = \eta_{B}^{-1} \circ \mathcal{G}(f),
+  \end{equation*}
+  i.e. the following diagram commutes.
+  \begin{equation*}
+    \begin{tikzcd}
+      \mathcal{G}(A)
+      \arrow[r, "\mathcal{G}(f)"]
+      \arrow[d, swap, "\eta_{A}^{-1}"]
+      & \mathcal{G}(B)
+      \arrow[d, "\eta_{B}^{-1}"]
+      \\
+      \mathcal{F}(A)
+      \arrow[r, "\mathcal{F}(f)"]
+      & \mathcal{F}(B)
+    \end{tikzcd}
+  \end{equation*}
+
+  But this is just the naturality square for a natural isomorphism $\eta^{-1}$ with components $(\eta^{-1})_{A} = (\eta_{A})^{-1}$.
+\end{proof}
 
 We would like to be able to express when two categories are the `same.' The correct notion of sameness is provided by the following definition.
 
@@ -2005,15 +2052,15 @@ Astonishingly, we can talk about functional evaluation purely in terms of produc
 \subsection{The Hom functor} \label{section:homfunctor}
 Given any locally small category (\hyperref[def:smalllocallysmallcategoryhomset]{Definition \ref*{def:smalllocallysmallcategoryhomset}}) $\mathsf{C}$ and two objects $A$, $B \in \Obj(\mathsf{C})$, we have thus far notated the set of all morphisms $A \to B$ by $\Hom_{\mathsf{C}}(A, B)$. This may have seemed a slightly odd notation, but there was a good reason for it: $\Hom_{\mathsf{C}}$ is really a functor.
 
-To be more explicit, we can view $\Hom_{\mathsf{C}}$ as a functor $\mathsf{C}^{\text{op}} \times \mathsf{C} \rightsquigarrow \mathsf{Set}$, which sends each pair $(A', A) \in \Obj(\mathsf{C}^{\text{op}} \times \mathsf{C})$ to the set $\Hom_{\mathsf{C}}(A', A)$ of morphisms $A' \to A$. 
+To be more explicit, we can view $\Hom_{\mathsf{C}}$ as a functor $\mathsf{C}^{\mathrm{op}} \times \mathsf{C} \rightsquigarrow \mathsf{Set}$, which sends each pair $(A', A) \in \Obj(\mathsf{C}^{\mathrm{op}} \times \mathsf{C})$ to the set $\Hom_{\mathsf{C}}(A', A)$ of morphisms $A' \to A$. 
 
-This is fine, and probably the definition you were expecting, but we're not done: as a functor it also has to send the morphisms in $\mathsf{C} \times \mathsf{C}^{\text{op}}$ to $\mathsf{Set}$-arrows. How does \emph{that} work?
+This is fine, and probably the definition you were expecting, but we're not done: as a functor it also has to send the morphisms in $\mathsf{C} \times \mathsf{C}^{\mathrm{op}}$ to $\mathsf{Set}$-arrows. How does \emph{that} work?
 
-A morphism in $\mathsf{C} \times \mathsf{C}^{\text{op}}$ between two objects $(A', A)$ and $(B', B)$ is an ordered pair $(f', f)$ of two morphisms:
+A morphism in $\mathsf{C} \times \mathsf{C}^{\mathrm{op}}$ between two objects $(A', A)$ and $(B', B)$ is an ordered pair $(f', f)$ of two morphisms:
 \begin{equation*}
   f'\colon B' \to A'\qquad\text{and}\qquad f\colon A \to B,
 \end{equation*}
-where $A$, $B \in \Obj(\mathsf{C})$ and $A'$, $B' \in \Obj(\mathsf{C}^{\text{op}})$. We can draw this as follows.
+where $A$, $B \in \Obj(\mathsf{C})$ and $A'$, $B' \in \Obj(\mathsf{C}^{\mathrm{op}})$. We can draw this as follows.
 \begin{equation*}
   \begin{tikzcd}[row sep=tiny]
     A' 
@@ -2052,13 +2099,13 @@ Next, we have to check that compositions work the way they're supposed to. Suppo
     & C
   \end{tikzcd}
 \end{equation*}
-where the primed stuff is in $\mathsf{C}^{\text{op}}$ and the unprimed stuff is in $\mathsf{C}$. This can be viewed as three objects $(A', A)$, etc. in $\mathsf{C}^{\text{op}} \times \mathsf{C}$ and two morphisms  $(f', f)$ and $(g', g)$ between them.
+where the primed stuff is in $\mathsf{C}^{\mathrm{op}}$ and the unprimed stuff is in $\mathsf{C}$. This can be viewed as three objects $(A', A)$, etc. in $\mathsf{C}^{\mathrm{op}} \times \mathsf{C}$ and two morphisms  $(f', f)$ and $(g', g)$ between them.
 
 Okay, so we can compose $(f', f)$ and $(g', g)$ to get a morphism 
 \begin{equation*}
   (g', g) \circ (f', f) = (f' \circ g', g \circ f)\colon (A', A) \to (C', C).
 \end{equation*}
-Note that the order of the composition in the first argument has been turned around: this is expected since the first argument lives in $\mathsf{C}^{\text{op}}$. To check that $\Hom_{\mathsf{C}}$ handles compositions correctly, we need to verify that 
+Note that the order of the composition in the first argument has been turned around: this is expected since the first argument lives in $\mathsf{C}^{\mathrm{op}}$. To check that $\Hom_{\mathsf{C}}$ handles compositions correctly, we need to verify that 
 \begin{equation*}
   \Hom_{\mathsf{C}}(g, g') \circ \Hom_{\mathsf{C}}(f, f') = \Hom_{\mathsf{C}}(f' \circ g', g \circ f).
 \end{equation*}
@@ -2075,7 +2122,7 @@ Let's formalize this in a definition.
   \label{def:homfunctor}
   Let $\mathsf{C}$ be a locally small category. The \defn{hom functor} $\Hom_{\mathsf{C}}$ is the functor 
   \begin{equation*}
-    \mathsf{C}^{\text{op}} \times \mathsf{C} \rightsquigarrow \mathsf{Set}
+    \mathsf{C}^{\mathrm{op}} \times \mathsf{C} \rightsquigarrow \mathsf{Set}
   \end{equation*}
   which sends the object $(A', A)$ to the set $\Hom_{\mathsf{C}}(A', A)$ of morphisms $A' \to A$, and the morphism $(f', f)\colon (A', A) \to (B', B)$ to the function
   \begin{equation*}
@@ -2110,7 +2157,7 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
           \end{equation*} 
       \end{itemize}
 
-    \item a functor $Y_{A}\colon \mathsf{C}^{\text{op}} \rightsquigarrow \mathsf{Set}$ which maps
+    \item a functor $Y_{A}\colon \mathsf{C}^{\mathrm{op}} \rightsquigarrow \mathsf{Set}$ which maps
       \begin{itemize}
         \item an object $B \in \Obj(\mathsf{C})$ to the set $\Hom_{\mathsf{C}}(B, A)$, and
 
@@ -2149,14 +2196,14 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
     \Hom_{\mathsf{C}}(X, A \times B) \simeq \Hom_{\mathsf{C}}(X, A) \times \Hom_{\mathsf{C}}(X, B).
   \end{equation*}
 
-  In fact this bijection is natural in $X$. That is to say, there is a natural bijection between the following functors $\mathsf{C}^{\text{op}} \to \mathsf{Set}$:
+  In fact this bijection is natural in $X$. That is to say, there is a natural bijection between the following functors $\mathsf{C}^{\mathrm{op}} \to \mathsf{Set}$:
   \begin{equation*}
     Y_{A \times B}\colon X \to \Hom_{\mathsf{C}}(X, A \times B)\qquad\text{and}\qquad Y_{A} \times Y_{B}\colon X \to \Hom_{\mathsf{C}}(X, A) \times \Hom_{\mathsf{C}}(X, B).
   \end{equation*}
 
   Let's prove naturality. Let
   \begin{equation*}
-    \Phi_{X}\colon \Hom(X, A \times B) \to \Hom(X \times A, X \times B);\qquad f \mapsto (\pi_{A} \circ f, \pi_{B} \circ f)
+    \Phi_{X}\colon \Hom(X, A \times B) \to \Hom(X, A) \times \Hom(X, B);\qquad f \mapsto (\pi_{A} \circ f, \pi_{B} \circ f)
   \end{equation*}
   be the components of the above transformation, and let $g\colon X' \to X$. Naturality follows from the fact that the diagram below commutes.
   \begin{equation*}
@@ -2207,7 +2254,7 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
   \begin{equation*}
     X \to B^{A},
   \end{equation*}
-  and vice versa.  That is to say, we have a bijection between two functors $\mathsf{C}^{\text{op}} \rightsquigarrow \mathsf{Set}$
+  and vice versa.  That is to say, we have a bijection between two functors $\mathsf{C}^{\mathrm{op}} \rightsquigarrow \mathsf{Set}$
   \begin{equation*}
     X \mapsto \Hom_{\mathsf{C}}(X \times A, B)\qquad\text{and}\qquad X \mapsto \Hom_{\mathsf{C}}(X, B^{A}).
   \end{equation*}
@@ -2265,7 +2312,7 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
 \begin{quote}
   Category theory can be viewed in many ways, but one is as a massive generalization of set theory.  The category $\mathsf{Set}$ has sets as objects and functions between them as morphisms.  In practice, other categories are often built by taking as objects ``sets with extra structure'' and as morphisms ``functions preserving the extra structure.''  For example, $\mathsf{Vect}$ is the category whose objects are vector spaces and whose morphisms are linear functions.  The extra structure in this case is the linear structure.  One can easily list hundreds more such examples.  
 
-  However, an abstract category needn't have as its objects ``sets with structure'' -- its objects are simply abstract thingamabobs!  (I would have said ``simply abstract objects'', but that would sound circular here, since it is, so I resorted to a more technical term.)  At this point the Yoneda lemma leaps to our rescue by saying that all (small enough) categories can be embedded in categories in which the objects are sets with structure and the morphisms are structure-preserving functions between these.  
+  However, an abstract category needn't have as its objects ``sets with structure''---its objects are simply abstract thingamabobs!  (I would have said ``simply abstract objects'', but that would sound circular here, since it is, so I resorted to a more technical term.)  At this point the Yoneda lemma leaps to our rescue by saying that all (small enough) categories can be embedded in categories in which the objects are sets with structure and the morphisms are structure-preserving functions between these.  
 
   Here's the basic idea of how it works, in watered-down form.  To each object $x$, we associate the set $S(x)$ of all morphisms \textit{to} $x$ from all other objects.  This set has a certain structure which one can work out, and a morphism $f\colon x \to y$ gives rise to a structure-preserving function $S(f)$ from $S(x)$ to $S(y)$ in the obvious way: given a morphism from something to $x$, just compose it with $f$ to get a morphism to $y$.
 
@@ -2276,32 +2323,28 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
   \label{def:yonedaembedding}
   Let $\mathsf{C}$, $\mathsf{D}$ be locally small categories. The \defn{Yoneda embedding} is the functor
   \begin{equation*}
-    \mathcal{Y}\colon \mathsf{C}^{\text{op}} \rightsquigarrow [\mathsf{C}, \mathsf{Set}], \qquad A \mapsto Y^{A}.
+    \mathcal{Y}\colon \mathsf{C} \rightsquigarrow [\mathsf{C}^{\mathrm{op}}, \mathsf{Set}], \qquad A \mapsto Y_{A} = \Hom_{\mathsf{C}}(-, A).
   \end{equation*}
-  where the notation $[\mathsf{C}, \mathsf{Set}]$ was defined in \hyperref[def:functorcategory]{Definition \ref*{def:functorcategory}}.
+  where the notation $[\mathsf{C}^{\mathrm{op}}, \mathsf{Set}]$, defined in \hyperref[def:functorcategory]{Definition \ref*{def:functorcategory}}, is the category of functors $\mathsf{C}^{\mathrm{op}} \rightsquigarrow \mathsf{Set}$.
 
-  Of course, we also need to say how $Y^{(-)}$ behaves on morphisms. Let $f\colon A \to B$.
+  Of course, we also need to say how $\mathcal{Y}$ behaves on morphisms. Let $f\colon A \to A'$. Then $\mathcal{Y}(f)$ will be a morphism from $Y_{A}$ to $Y_{A'}$, i.e. a natural transformation $Y_{A} \Rightarrow Y_{A'}$. We can specify how it behaves by specifying its components $(\mathcal{Y}(f))_{B}$. 
+
+  Plugging in definitions, we find that $(\mathcal{Y}(f))_{B}$ is a map $\Hom_{\mathsf{C}}(B, A) \to \Hom_{\mathsf{C}}(B, A')$. But we know how to get such a map---we can compose all of the maps $B \to A$ with $f$ to get maps $B \to A'$. So $\mathcal{Y}(f)$, as a natural transformation $\Hom_{\mathsf{C}}(-, A) \to \Hom_{\mathsf{C}}(-, A')$, simply composes everything in sight with $f$.
 \end{definition}
-\begin{note}
-  Many sources define the Yoneda embedding instead to be
-  \begin{equation*}
-    \mathsf{C} \rightsquigarrow [\mathsf{C}^{\text{op}}, \mathsf{Set}];\qquad A \mapsto Y_{A}.
-  \end{equation*}
-\end{note}
 
 \begin{theorem}[Yoneda lemma]
-  Let $\mathcal{F}$ be a (covariant) functor from $\mathsf{C}$ to $\mathsf{Set}$. Let $A \in \Obj(\mathsf{C})$. Then there is a set-isomorphism (i.e. a bijection) $\eta$ between the set $\Nat(Y^{A}, \mathcal{F})$ of natural transformations $Y^{A} \Rightarrow \mathcal{F}$ and the set $\mathcal{F}(A)$. Furthermore, this isomorphism is natural in $A$.
+  Let $\mathcal{F}$ be a functor from $\mathsf{C}^{\mathrm{op}}$ to $\mathsf{Set}$. Let $A \in \Obj(\mathsf{C})$. Then there is a set-isomorphism (i.e. a bijection) $\eta$ between the set $\Nat(Y_{A}, \mathcal{F})$ of natural transformations $Y_{A} \Rightarrow \mathcal{F}$ and the set $\mathcal{F}(A)$. Furthermore, this isomorphism is natural in $A$.
 \end{theorem}
 \begin{proof}
-  A natural transformation $\Phi\colon Y^{A} \Rightarrow \mathcal{F}$ consists of a collection of $\mathsf{Set}$-morphisms (that is to say, functions) $\Phi_{B}\colon \Hom_{\mathsf{C}}(A, B) \to \mathcal{F}(B)$, one for each $B \in \Obj(\mathsf{C})$. We need to show that to each element of $\mathcal{F}(A)$ there corresponds exactly one $\Phi$. We will do this by showing that any $\Phi$ is completely determined by where $\Phi_{A}$ sends the identity morphism $1_{A} \in \Hom_{\mathsf{C}}(A, A)$, so there is exactly one natural transformation for each place $\Phi$ can send $1_{A}$.
+  A natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$ consists of a collection of $\mathsf{Set}$-morphisms (that is to say, functions) $\Phi_{B}\colon \Hom_{\mathsf{C}}(B, A) \to \mathcal{F}(A)$, one for each $B \in \Obj(\mathsf{C})$. We need to show that to each element of $\mathcal{F}(A)$ there corresponds exactly one $\Phi$. We will do this by showing that any $\Phi$ is completely determined by where $\Phi_{A}$ sends the identity morphism $1_{A} \in \Hom_{\mathsf{C}}(A, A)$, so there is exactly one natural transformation for each place $\Phi$ can send $1_{A}$.
 
   The proof that this is the case can be illustrated by the following commutative diagram.
   \begin{equation*}
     \begin{tikzcd}
       \Hom(A, A)
-      \arrow[rrr, "Y^{A}(f)"]
+      \arrow[rrr, "Y_{A}(f)"]
       \arrow[ddd, swap, "\Phi_{A}"]
-      & & & \Hom(A, B)
+      & & & \Hom(B, A)
       \arrow[ddd, "\Phi_{B}"]
       \\
       & 1_{A}
@@ -2319,28 +2362,68 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
       & & & \mathcal{F}(B)
     \end{tikzcd}
   \end{equation*}
-  The natural transformation $\Phi\colon Y^{A} \Rightarrow \mathcal{F}$ has a component $\Phi_{A}\colon \Hom_{\mathsf{C}}(A, A) \to \mathcal{F}(A)$, and $\Phi_{A}$ has to send the identity transformation $1_{A}$ \emph{somewhere}. It can send it to any element of $\mathcal{F}(A)$; let's call $\Phi_{A}(1_{A}) = a$.
+  The natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$ has a component $\Phi_{A}\colon \Hom_{\mathsf{C}}(A, A) \to \mathcal{F}(A)$, and $\Phi_{A}$ has to send the identity transformation $1_{A}$ \emph{somewhere}. It can send it to any element of $\mathcal{F}(A)$; let's call $\Phi_{A}(1_{A}) = a$.
 
-  Now the naturality conditions force our hand. For any $B \in \Obj(\mathsf{C})$ and any $f\colon A \to B$, the naturality square above means that $\Phi_{B}(f)$ \emph{has to} be equal to $(\mathcal{F}f)(a)$. We get no choice in the matter.
+  Now the naturality conditions force our hand. For any $B \in \Obj(\mathsf{C})$ and any $f\colon B \to A$, the naturality square above means that $\Phi_{B}(f)$ \emph{has to} be equal to $(\mathcal{F}f)(a)$. We get no choice in the matter.
 
   But this completely determines $\Phi$! So we have shown that there is exactly one natural transformation for every element of $\mathcal{F}(A)$. We are done!
 
-  Well, almost. We still have to show that the bijection we constructed above is natural. To that end, let $g\colon A \to A'$. We need to show that the following square commutes.
+  Well, almost. We still have to show that the bijection we constructed above is natural. To that end, let $f\colon B \to A$. We need to show that the following square commutes.
   \begin{equation*}
     \begin{tikzcd}
-      \Nat(Y^{A}, \mathcal{F})
+      \Nat(Y_{A}, \mathcal{F})
       \arrow[r, "\eta_{A}"]
-      \arrow[d, swap, "{\Nat(Y^{g}, \mathcal{F})}"]
+      \arrow[d, swap, "{\Nat(\mathcal{Y}(f), \mathcal{F})}"]
       & \mathcal{F}(A)
-      \arrow[d, "\mathcal{F}(g)"]
+      \arrow[d, "\mathcal{F}(f)"]
       \\
-      \Nat(Y^{A'}, \mathcal{F})
-      \arrow[r, "\eta_{A'}"]
-      & \mathcal{F}(A')
+      \Nat(Y_{B}, \mathcal{F})
+      \arrow[r, "\eta_{B}"]
+      & \mathcal{F}(B)
     \end{tikzcd}
   \end{equation*}
 
-  This deserves a lot of explanation. I haven't defined
+  This deserves a lot of explanation. The natural transformation $\Nat(\mathcal{Y}(f), \mathcal{F})$ looks complicated, but it's really not. It takes every natural transformation $Y_{A} \Rightarrow \mathcal{F}$ and pre-composes it with $\mathcal{Y}(f)$. The natural transformation $\eta_{A}$ takes a natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$ and sends it to the element $\Phi_{A}(1_{A}) \in \mathcal{F}(A)$.
+
+  So, starting at the top left with a natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$, we can go to the bottom right in two ways.
+  \begin{enumerate}
+    \item We can head down to $\Nat(Y_{B}, \mathcal{F})$ mapping 
+      \begin{equation*}
+        \Phi \mapsto \Phi \circ \mathcal{Y}(f),
+      \end{equation*}
+      then use $\eta_{B}$ to map this to $\mathcal{F}(B)$:
+      \begin{equation*}
+        \Phi \circ \mathcal{Y}(f) \mapsto (\Phi \circ \mathcal{Y}(f))_{B}(1_{B}).
+      \end{equation*}
+
+      We can simplify this right away. The component of the composition of natural transformations is the composition of the components, i.e.
+      \begin{equation*}
+        (\Phi \circ \mathcal{Y}(f))(1_{B}) = \Phi_{B} ((\mathcal{Y}(f))_{B}(1_{B})).
+      \end{equation*}
+      We also know how $\mathcal{Y}(f)$ behaves: it composes with $f$.
+      \begin{equation*}
+        \mathcal{Y}(f)(1_{B}) = f.
+      \end{equation*}
+      Thus, we have
+      \begin{equation*}
+        (\Phi \circ \mathcal{Y}(f))(1_{B}) = \Phi_{B}(f).
+      \end{equation*}
+
+    \item We can first head to the right using $\eta_{A}$. This sends $\Phi$ to 
+      \begin{equation*}
+        \Phi_{A}(1_{A}) \in \mathcal{F}(A).
+      \end{equation*}
+      We can then map this to $\mathcal{F}(B)$ with $f$, getting
+      \begin{equation*}
+        \mathcal{F}(f)(\Phi_{A}(1_{A})).
+      \end{equation*}
+  \end{enumerate}
+
+  The naturality condition is thus
+  \begin{equation*}
+    (\mathcal{F}(f))(\Phi_{A}(1_{A})) = \Phi_{B}(f),
+  \end{equation*}
+  which we saw above was true for any natural transformation $\Phi$.
 \end{proof}
 \begin{lemma}
   The Yoneda embedding is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}).
@@ -2348,32 +2431,25 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
 \begin{proof}
   We have to show that for all $A$, $B \in \Obj(\mathsf{C})$, the map
   \begin{equation*}
-    \mathcal{Y}_{A, B}\colon \Hom_{\mathsf{C}}(B, A) \to \Hom_{[\mathsf{C}, \mathsf{Set}]}(Y^{A}, Y^{B})
+    \mathcal{Y}_{A, B}\colon \Hom_{\mathsf{C}}(A, B) \to \Hom_{[\mathsf{C}^{\mathrm{op}}, \mathsf{Set}]}(Y_{A}, Y_{B})
   \end{equation*}
   is a bijection.
 
-  Fix $B \in \Obj(\mathsf{C})$, and consider the functor $Y^{B}$. By the Yoneda lemma, there is a bijection between $\Nat(Y^{A}, Y^{B})$ and $Y^{B}(A)$. By definition,
+  Fix $B \in \Obj(\mathsf{C})$, and consider the functor $Y_{B}$. By the Yoneda lemma, there is a bijection between $\Nat(Y_{A}, Y_{B})$ and $Y_{B}(A)$. By definition,
   \begin{equation*}
-    Y^{B}(A) = \Hom_{\mathsf{C}}(B, A).
+    Y_{B}(A) = \Hom_{\mathsf{C}}(A, B).
   \end{equation*}
 
-  But $\Nat(Y^{A}, Y^{B})$ is nothing else but $\Hom_{[\mathsf{C}, \mathsf{Set}]}(Y^{A}, Y^{B})$, so we are done.
+  But $\Nat(Y_{A}, Y_{B})$ is nothing else but $\Hom_{[\mathsf{C}^{\mathrm{op}}, \mathsf{Set}]}(Y_{A}, Y_{B})$, so we are done.
 \end{proof}
 
-The above is sometimes referred to as the \emph{covariant} Yoneda lemma. We also have the following.
-\begin{definition}[contravariant Yoneda embedding]
-  \label{def:contravariantyonedaembedding}
-  For any $A \in \Obj(\mathsf{C})$, the \emph{contravariant Yoneda embedding} is the functor
+\begin{note}
+  We defined the Yoneda embedding to be the functor $A \mapsto Y_{A}$; this is sometimes called the \emph{contravariant Yoneda embedding}. We could also have chosen to map $A$ to $Y^{A}$, called the \emph{covariant Yoneda embedding}, in which case a slightly modified proof of the \emph{covariant Yoneda lemma} would have told us that the map
   \begin{equation*}
-    \mathsf{C} \rightsquigarrow [\mathsf{C}^{\text{op}}, \mathsf{Set}];\qquad A \mapsto Y_{A}.
+    \Hom_{\mathsf{C}}(B, A) \to \Hom_{[\mathsf{C}, \mathsf{Set}]}(Y^{A}, Y^{B})
   \end{equation*}
-\end{definition}
-\begin{theorem}
-  The contravariant Yoneda embedding is also fully faithful.
-\end{theorem}
-\begin{proof}
-  The proof is the same as the covariant case, mutatis mutandis.
-\end{proof}
+  is a natural bijection.
+\end{note}
 
 Here is a situation in which the Yoneda lemma is commonly used.
 \begin{corollary}
@@ -2385,13 +2461,95 @@ Here is a situation in which the Yoneda lemma is commonly used.
   which is natural in $A$. Then $B \simeq B'$
 \end{corollary}
 \begin{proof}
-  We have a natural bijection $Y_{B} \Rightarrow Y_{B'}$. Since the contravariant Yoneda embedding is fully faithful, it is injective on objects up to isomorphism (\hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}). Thus, since $Y_{B}$ and $Y_{B'}$ are isomorphic, so must be $B \simeq B'$.
+  We have a natural bijection $Y_{B} \Rightarrow Y_{B'}$. Since the Yoneda embedding is fully faithful, it is injective on objects up to isomorphism (\hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}). Thus, since $Y_{B}$ and $Y_{B'}$ are isomorphic, so must be $B \simeq B'$.
 \end{proof}
 
-We have now built up enough machinery to make the proof of the associativity of the categorical product trivial. We will need to accept the trivial assertion that the cartesian product of sets is associative, i.e. for $A$, $B$, and $C$ sets, $(A \times B) \times C \simeq A \times (B \times C)$.
+\subsection{Applications}
+We have now built up enough machinery to make the proofs of a great variety of things trivial, as long as we accept a few trivial assertions. 
+
+It is possible, for example, to prove that the product is associative in \emph{any} locally small category, just from the fact that it is in $\mathsf{Set}$.
 \begin{lemma}
-  In any locally small category with products, 
+  There is a natural isomorphism $\alpha$ between $(A \times B) \times C$ and $A \times (B \times C)$ for any sets $A$, $B$, and $C$.
 \end{lemma}
+\begin{proof}
+  The isomorphism is given by $\alpha_{A, B, C}\colon ((a, b), c) \mapsto (a, (b, c))$. This is natural because for functions like this,
+  \begin{equation*}
+    \begin{tikzcd}[row sep=tiny]
+      A 
+      \arrow[r, "f"]
+      & A'
+      \\
+      B 
+      \arrow[r, "g"]
+      & B'
+      \\
+      C 
+      \arrow[r, "h"]
+      & C'
+    \end{tikzcd}
+  \end{equation*}
+  the following diagram commutes.
+  \begin{equation*}
+    \begin{tikzcd}
+      ((a, b), c)
+      \arrow[r, "{((f, g), h)}"]
+      \arrow[d, swap, "{\alpha_{A, B, C}}"]
+      & ((f(a), g(b)), h(c))
+      \arrow[d, "{\alpha_{A', B', C'}}"]
+      \\
+      (a, (b, c))
+      \arrow[r, swap, "{(f, (g, h))}"]
+      & (f(a), (g(b), h(c)))
+    \end{tikzcd}
+  \end{equation*}
+\end{proof}
+\begin{theorem}
+  In any locally small category $\mathsf{C}$ with products, there is a natural isomorphism $(A \times B) \times C \simeq A \times (B \times C)$.
+\end{theorem}
+\begin{proof}
+  We have the following string of natural isomorphisms for any $X$, $A$, $B$, $C \in \Obj(\mathsf{C})$.
+  \begin{align*}
+    \Hom_{\mathsf{C}}(X, (A \times B) \times C) &\simeq \Hom_{\mathsf{C}}(X, A \times B) \times \Hom_{\mathsf{C}}(X, C) \\
+    & \simeq (\Hom_{\mathsf{C}}(X, A) \times \Hom_{\mathsf{C}}(X, B)) \times \Hom_{\mathsf{C}}(X, C) \\
+    & \simeq \Hom_{\mathsf{C}}(X, A) \times (\Hom_{\mathsf{C}}(X, B) \times \Hom_{\mathsf{C}}(X, C)) \\
+    & \simeq \Hom_{\mathsf{C}}(X, A) \times \Hom_{\mathsf{C}}(X, B \times C) \\
+    & \simeq \Hom_{\mathsf{C}}(X, A \times (B \times C)).
+  \end{align*}
+
+  Thus, by \hyperref[cor:yonedaembeddingrespectsisomorphisms]{Corollary \ref*{cor:yonedaembeddingrespectsisomorphisms}}, $(A \times B) \times C \simeq A \times (B \times C)$.
+\end{proof}
+
+\begin{theorem}
+  In any category with products $\times$, coproducts $+$, initial object $0$, final object $1$, and exponentials, we have the following natural isomorphisms.
+  \begin{enumerate}
+    \item $A \times (B + C) \simeq (A \times B) + (A \times C)$
+    \item $C^{A + B} \simeq C^{A} \times C^{B}$.
+    \item $(C^{A})^{B} \simeq C^{A \times B}$
+    \item $(A \times B)^{C} \simeq A^{C} \times B^{C}$
+    \item $C^{0} \simeq 1$
+    \item $C^{1} \simeq C$
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  $\,$
+  \begin{enumerate}
+    \item We have the following list of natural isomorphisms.
+      \begin{align*}
+        \Hom_{\mathsf{C}}(A \times (B + C), X) & \simeq \Hom_{\mathsf{C}}(B + C, X^{A}) \\
+        & \simeq \Hom_{\mathsf{C}}(B, X^{A}) \times \Hom_{\mathsf{C}}(C, X^{A}) \\
+        & \simeq \Hom_{\mathsf{C}}(B \times A, X) \times \Hom_{\mathsf{C}}(C \times A, X) \\
+        & \simeq \Hom_{\mathsf{C}}((B \times A) + (C \times A), X).
+      \end{align*}
+    \item We have the following list of natural isomorphisms.
+      \begin{align*}
+        \Hom(X, C^{A + B}) & \simeq \Hom(X \times (A + B), C) \\
+        & \simeq \Hom_{\mathsf{C}}((X \times A) + (X \times B), C) \\
+        & \simeq \Hom_{\mathsf{C}}(X \times A, C) \times \Hom_{\mathsf{C}}(X \times B, C) \\
+        & \simeq \Hom_{\mathsf{C}}(X, C^{A}) \times \Hom_{\mathsf{C}}(X, C^{B}) \\
+        & \simeq \Hom_{\mathsf{C}}(X, C^{A} \times C^{B}).
+      \end{align*}
+  \end{enumerate}
+\end{proof}
 
 \section{Monoidal categories}
 \subsection{Monoidal categories}
@@ -3558,9 +3716,9 @@ Similarly, for every group homomorphism $g\colon \mathcal{F}(S) \to G$, there is
 
 Thus for each $f \in \Hom_{\mathsf{Grp}}(S, \mathcal{U}(G))$ we can construct an $\tilde{f} \in \Hom_{\mathsf{Set}}(\mathcal{F}(S), G)$, and vice versa.
 
-Let us add some mathematical scaffolding to the ideas explored above. We build two functors $\mathsf{Set}^{\text{op}} \times \mathsf{Grp} \rightsquigarrow \mathsf{Set}$ as follows.
+Let us add some mathematical scaffolding to the ideas explored above. We build two functors $\mathsf{Set}^{\mathrm{op}} \times \mathsf{Grp} \rightsquigarrow \mathsf{Set}$ as follows.
 \begin{enumerate}
-  \item Our first functor maps the object $(S, G) \in \Obj(\mathsf{Set}^{\text{op}} \times \mathsf{Grp})$ to the hom-set $\Hom_{\mathsf{Grp}}(\mathcal{F}(S), G)$, and a morphism $(\alpha, \beta)\colon (S,G) \to (S', G')$ to a function 
+  \item Our first functor maps the object $(S, G) \in \Obj(\mathsf{Set}^{\mathrm{op}} \times \mathsf{Grp})$ to the hom-set $\Hom_{\mathsf{Grp}}(\mathcal{F}(S), G)$, and a morphism $(\alpha, \beta)\colon (S,G) \to (S', G')$ to a function 
     \begin{equation*}
       \Hom_{\mathsf{Grp}}(\mathcal{F}(S), G) \to \Hom_{\mathsf{Grp}}(\mathcal{F}(S'), G');\qquad m \mapsto \mathcal{F}(\alpha) \circ m \circ \beta
     \end{equation*}
@@ -3595,7 +3753,7 @@ This mathematical structure turns out to be a recurring theme in the study of ca
   which fits between $\mathcal{F}$ and $\mathcal{G}$ like this.
   \begin{equation*}
     \begin{tikzcd}[column sep=huge]
-      \mathsf{C}^{\text{op}} \times \mathsf{D} 
+      \mathsf{C}^{\mathrm{op}} \times \mathsf{D} 
       \arrow[r, bend left, rightsquigarrow, anchor=s, "{\Hom_{\mathsf{D}}(\mathcal{F}(-), -)}", ""{name=U, below}]
       \arrow[r, bend right, rightsquigarrow, swap, "{\Hom_{\mathsf{D}}(-, \mathcal{G}(-))}", ""{name=D, above}]
       \arrow[from=U, to=D, Rightarrow, "\Phi"]
@@ -3734,7 +3892,7 @@ Here are two equivalent definitions which are often used.
   \begin{equation*}
     \Phi_{A, \mathcal{F}(A)}\colon \Hom_{\mathsf{D}}(\mathcal{F}(A), \mathcal{F}(A)) \to \Hom_{\mathsf{C}}(A, (\mathcal{G} \circ \mathcal{F})(A)).
   \end{equation*}
-  We don't know much in general about $\Hom_{\mathsf{D}}(\mathcal{F}(A), \mathcal{F}(A))$, but we know it always contains $1_{\mathcal{F}(A)}$. We can use $\Phi_{A, \mathcal{F}(A)}$ to map this to
+  We don't know much in general about $\Hom_{\mathsf{D}}(\mathcal{F}(A), \mathcal{F}(A))$, but the category axioms tell us that it always contains $1_{\mathcal{F}(A)}$. We can use $\Phi_{A, \mathcal{F}(A)}$ to map this to
   \begin{equation*}
     \Phi_{A, \mathcal{F}(A)}(1_{\mathcal{F}(A)})\colon A \to (\mathcal{G} \circ \mathcal{F})(A).
   \end{equation*}
@@ -3822,11 +3980,69 @@ Here are two equivalent definitions which are often used.
   Thus, for each $f \in \Hom_{\mathsf{D}}(\mathcal{F}(A), B)$ there is a corresponding element $\tilde{f} \in \Hom_{\mathsf{C}}(A, \mathcal{G}(B))$, and vice versa. The morphism $\tilde{f}$ is called the \defn{adjunct} of $f$, and $f$ is called the adjunct of $\tilde{f}$.
 \end{definition}
 
+\begin{lemma}
+  Let $\mathsf{C}$ and $\mathsf{D}$ be categories, $\mathcal{F}\colon \mathsf{C} \rightsquigarrow \mathsf{D}$ and $\mathcal{G}$, $\mathcal{G}'\colon \mathsf{D} \rightsquigarrow \mathsf{C}$ functors,
+  \begin{equation*}
+    \begin{tikzcd}
+      \mathsf{C}
+      \arrow[r, rightsquigarrow, "\mathcal{F}"]
+      & \mathsf{D}
+      \arrow[l, rightsquigarrow, bend right=45, swap, "\mathcal{G}"]
+      \arrow[l, rightsquigarrow, bend left=45, "\mathcal{G}'"]
+    \end{tikzcd}
+  \end{equation*}
+  and suppose that $\mathcal{G}$ and $\mathcal{G}'$ are both right-adjoint to $\mathcal{F}$. Then there is a natural isomorphism $\mathcal{G} \Rightarrow \mathcal{G}'$.
+\end{lemma}
+\begin{proof}
+  Since any adjunction is a hom-set adjunction, we have two isomorphisms
+  \begin{equation*}
+    \Phi_{C, D}\colon \Hom_{\mathsf{D}}(\mathcal{F}(C), D) \Rightarrow \Hom_{\mathsf{C}}(C, \mathcal{G}(D))\qquad\text{and}\qquad \Psi_{C, D}\colon \Hom_{\mathsf{D}}(\mathcal{F}(C), D) \Rightarrow \Hom_{\mathsf{C}}(C, \mathcal{G}'(D))
+  \end{equation*}
+  which are natural in both $C$ and $D$. By \hyperref[lemma:naturalisomorphismshaveinverses]{Lemma \ref*{lemma:naturalisomorphismshaveinverses}}, we can construct the inverse natural isomorphism
+  \begin{equation*}
+    \Phi^{-1}_{C, D}\colon \Hom_{\mathsf{C}}(C, \mathcal{G}(D)) \Rightarrow \Hom_{\mathsf{D}}(\mathcal{F}(C), D),
+  \end{equation*}
+  and compose it with $\Psi$ to get a natural isomorphsim
+  \begin{equation*}
+    (\Psi \circ \Phi^{-1})_{C, D}\colon \Hom_{\mathsf{C}}(C, \mathcal{G}(D)) \Rightarrow \Hom_{\mathsf{C}}(C, \mathcal{G}'(D)).
+  \end{equation*}
+
+  Thus for any morphism $f\colon D \to E$, the following diagram commutes.
+  \begin{equation*}
+    \begin{tikzcd}[row sep=huge, column sep=huge]
+      \Hom_{\mathsf{C}}(C, \mathcal{G}(D))
+      \arrow[r, "{\Hom_{\mathsf{C}}(C, \mathcal{G}(f))}"]
+      \arrow[d, swap, "{(\Psi \circ \Phi^{-1})_{C, D}}"]
+      & \Hom_{\mathsf{C}}(C, \mathcal{G}(E))
+      \arrow[d, "{(\Psi \circ \Phi^{-1})_{C, E}}"]
+      \\
+      \Hom_{\mathsf{C}}(C, \mathcal{G}'(D))
+      \arrow[r, "{\Hom_{\mathsf{C}}(C, \mathcal{G}'(f))}"]
+      & \Hom_{\mathsf{C}}(C, \mathcal{G}'(E))
+    \end{tikzcd}
+  \end{equation*}
+  But the fully faithfulness of the Yoneda embedding tells us that there exist isomorphisms $\mu_{D}$ and $\mu_{E}$ making the following diagram commute,
+  \begin{equation*}
+    \begin{tikzcd}
+      \mathcal{G}(D)
+      \arrow[r, "\mathcal{G}(f)"]
+      \arrow[d, swap, "\mu_{D}"]
+      & \mathcal{G}(E)
+      \arrow[d, "\mu_{E}"]
+      \\
+      \mathcal{G}'(D)
+      \arrow[r, "\mathcal{G}'(f)"]
+      & \mathcal{G}'(E)
+    \end{tikzcd}
+  \end{equation*}
+  and taking these for pair of objects gives us a natural isomorphism $\mathcal{G} \Rightarrow \mathcal{G}'$.
+\end{proof}
+
 \section{Internal hom functors}
 \subsection{The internal hom functor}
 Recall the definition of the hom functor on a (locally small) category $\mathsf{C}$ (\hyperref[def:homfunctor]{Definition \ref*{def:homfunctor}}): it is the functor which maps two objects to the set of morphisms between them, so it is a functor
 \begin{equation*}
-  \mathsf{C}^{\text{op}} \times \mathsf{C} \rightsquigarrow \mathsf{Set}.
+  \mathsf{C}^{\mathrm{op}} \times \mathsf{C} \rightsquigarrow \mathsf{Set}.
 \end{equation*}
 
 If we take $\mathsf{C} = \mathsf{Set}$, then our hom functor never really leaves $\mathsf{Set}$; it is \emph{internal} to $\mathsf{Set}$. This is our first example of an \emph{internal hom functor}. In fact, it is the prototypical internal hom functor, and we can learn a lot by studying its properties. 
@@ -3835,7 +4051,7 @@ Let $X$ and $Y$ be sets. Denote the set of all functions $X \to Y$ by $[X,Y]$.
 
 Let $S$ be any other set, and consider a function $f\colon S \to [X, Y]$. For each element $s \in S$, $f$ picks out a function $h_{s}\colon X \to Y$. But this is just a curried version of a function $S \times X \to Y$! So as we saw in \hyperref[section:homfunctor]{Section \ref*{section:homfunctor}}, we have a bijection between the sets $[S, [X, Y]]$ and $[S \times X, Y]$. In fact, this is even a \emph{natural} bijection, i.e. a natural transformation between the functors 
 \begin{equation*}
-  [-,[-,-]]\qquad \text{and}\quad [- \times -, -]\colon \mathsf{Set}^{\text{op}} \times \mathsf{Set}^{\text{op}} \times \mathsf{Set} \rightsquigarrow \mathsf{Set}.
+  [-,[-,-]]\qquad \text{and}\quad [- \times -, -]\colon \mathsf{Set}^{\mathrm{op}} \times \mathsf{Set}^{\mathrm{op}} \times \mathsf{Set} \rightsquigarrow \mathsf{Set}.
 \end{equation*}
 
 Let's check this. First, we need to figure out how our functors act on functions. The first one is the most complicated, so let's get it out of the way. Suppose we have sets and functions like so.
@@ -3938,7 +4154,7 @@ We picked this example because the collection $[A, B]$ of all functions between 
   \label{def:internalhomfunctor}
   Let $(\mathsf{C}, \otimes)$ be a monoidal category. An \defn{internal hom functor} is a functor
   \begin{equation*}
-    [-, -]_{\mathsf{C}}\colon \mathsf{C}^{\text{op}} \times \mathsf{C} \rightsquigarrow \mathsf{C}
+    [-, -]_{\mathsf{C}}\colon \mathsf{C}^{\mathrm{op}} \times \mathsf{C} \rightsquigarrow \mathsf{C}
   \end{equation*}
   such that for every $X \in \Obj(\mathsf{C})$ we have a pair of adjoint functors
   \begin{equation*}
@@ -3948,9 +4164,9 @@ We picked this example because the collection $[A, B]$ of all functions between 
   The objects $[A, B]_{\mathsf{C}}$ are called \defn{internal hom objects}.
 \end{definition}
 \begin{notation}
-  The convention at the nLab is to denote the internal hom by square braces $[A,B]$, and this is for the most part what we will do. Unfortunately, we have already used this notation for the \emph{regular} hom functor. To remedy this, we will endeavour to add a subscript if the category to which the hom functor belongs is not clear: $[-,-]_{\mathsf{C}}$ for a hom functor internal to $\mathsf{C}$, $[-,-]_{\mathsf{Set}}$ for the standard hom functor (or the hom functor internal to $\mathsf{Set}$, which amounts to the same). 
+  The convention at the nLab is to denote the internal hom by square braces $[A,B]$, and this is for the most part what we will do. Unfortunately, we have already used this notation for the \emph{regular} hom functor. To remedy this, we will add a subscript if the category to which the hom functor belongs is not clear: $[-,-]_{\mathsf{C}}$ for a hom functor internal to $\mathsf{C}$, $[-,-]_{\mathsf{Set}}$ for the standard hom functor (or the hom functor internal to $\mathsf{Set}$, which amounts to the same). 
 
-  One often sees the internal hom functor denoted by a lower-case $\hom\colon \hom_{\mathsf{C}}(A, B)$. Many sources (for example DMOS \cite{DMOS}) distinguish the internal hom with an underline: $\underline{\Hom}_{\mathsf{C}}(A, B)$.
+  One often sees the internal hom functor denoted by a lower-case $\hom\colon \hom_{\mathsf{C}}(A, B)$. Many sources (for example DMOS \cite{DMOS}) distinguish the internal hom with an underline: $\underline{\Hom}_{\mathsf{C}}(A, B)$. Deligne typesets it with a script H: $\mathscr{H}om_{\mathsf{C}}(A, B)$
 \end{notation}
 
 \begin{definition}[closed monoidal category]
@@ -3990,7 +4206,7 @@ In a closed monoidal category, the adjunction between the internal hom and the t
   \end{equation*}
 \end{lemma}
 \begin{proof}
-  Let $A \in \Obj(\mathsf{C})$. We have the following string of natural bijections.
+  Let $A \in \Obj(\mathsf{C})$. We have the following string of natural isomorphisms.
   \begin{align*}
     \Hom_{\mathsf{C}}(A, [X \otimes Y, Z]_{\mathsf{C}}) &\simeq \Hom_{\mathsf{C}}(A \otimes (X \otimes Y), Z) \\
     &\simeq \Hom_{\mathsf{C}}((A \otimes X) \otimes Y, Z) \\
@@ -4249,7 +4465,7 @@ The above is one, but not the only, way to define dual objects. We can be more g
 \end{definition}
 
 \begin{theorem}
-  Every rigid monoidal category is a closed monoidal category with internal hom object 
+  Every rigid monoidal category is a closed monoidal category (\hyperref[def:closedmonoidalcategory]{Definition \ref*{def:closedmonoidalcategory}}) with internal hom object 
   \begin{equation*}
     [A, B]_{\mathsf{C}} \simeq A^{*} \otimes B.
   \end{equation*}
@@ -4633,8 +4849,13 @@ This section is under very heavy construction. Don't trust anything you read her
   Let $f\colon A \to B$. If $\ker(f) = 0$, then $f$ is mono, and if $\coker(f) = 0$, then $f$ is epi.
 \end{lemma}
 \begin{proof}
-  We first show that if $\ker(f) = 0$, then $f$ is mono.
+  We first show that if $\ker(f) = 0$, then $f$ is mono. Suppose $\ker(f) = 0$. Then 
 \end{proof}
+
+\begin{definition}[image of a morphism]
+  \label{def:imageofamorphism}
+  Let $f\colon A \to B$ be a morphism. The object $\ker(\coker(f))$ is called the \defn{image} of $f$, and is denoted $\im(f)$.
+\end{definition}
 
 \begin{theorem}
   All abelian categories are binormal (\hyperref[def:binormalcategory]{Definition \ref*{def:binormalcategory}}). That is to say, all monomorphisms are kernels and all epimorphisms are cokernels.
@@ -4663,6 +4884,19 @@ Of course, we now have no notion of isomorphism for 2-categories, so we must add
 You may have noticed that we have been using the same notation ($\Rightarrow$) for 2-morphisms and natural transformations. The reason for this is that natural transformations are the morphisms in the 2-category $\mathsf{Cat}$ of (small) categories.
 
 \chapter{A few concepts from algebraic geometry}
+\section{Elementary notions}
+The elementary notions of algebraic geometry are assumed, but a few definitions are given here for concreteness.
+\begin{definition}[Zariski topology]
+  \label{def:zariskitopology}
+  Let $k$ be an algebraically closed field of characteristic $0$. We define a topology on $k^{n}$, called the \defn{Zariski topology}, as follows. Let $A = k[x_{1},\dots,x_{n}]$ be the ring of polynomials on $k^{n}$. For any subset $S \subseteq A$, define
+  \begin{equation*}
+    Z(S) = \left\{ (x_{1},\dots,x_{n}) \in k^{n}\,\Big|\, f(x_{1},\dots,x_{n}) = 0\text{ for all }f \in S \right\}.
+  \end{equation*}
+  Clearly, if $(S) = \mathfrak{a}$ is the ideal generated by $S$, then $Z(S) = Z(\mathfrak{a})$.
+
+  The Zariski topology on $k^{n}$ is then the topology whose closed sets are given by $Z(\mathfrak{a})$ for ideals $\mathfrak{a}$ of $A$.
+\end{definition}
+
 \section{Sheaves}
 \subsection{Presheaves}
 
@@ -4882,7 +5116,7 @@ There are many ways to build sheaves. Here are two.
 
 We can view sheaves as objects in a category. We can then talk about their morphisms, and find the correct definition of a sheaf isomorphism. 
 
-First, we need to define a homomorphism of presheaves. Since we defined a presheaf on a topological space $X$ as a functor $\mathsf{Open}(X) \to \mathsf{C}$ for some category $\mathsf{C}$ (\hyperref[def:presheaf]{Definition \ref*{def:presheaf}}), we can define a sheaf homomorphism as a morphism in the functor category $\mathsf{C}^{\mathsf{Open}(X)}$, which is to say
+First, we need to define a homomorphism of presheaves. Since we defined a presheaf on a topological space $X$ as a functor $\mathsf{Open}(X) \rightsquigarrow \mathsf{C}$ for some category $\mathsf{C}$ (\hyperref[def:presheaf]{Definition \ref*{def:presheaf}}), we can define a sheaf homomorphism as a morphism in the functor category $\mathsf{C}^{\mathsf{Open}(X)}$, which is to say
 \begin{definition}[presheaf homomorphism]
   \label{def:presheafhomomorphism}
   Let $\mathcal{C}$, $\mathcal{D}$ be $\mathsf{C}$-presheaves on a topological space $X$. A \defn{presheaf homomorphism} $\mathcal{C} \to \mathcal{D}$ is a morphism in the category $\mathsf{C}^{\mathsf{Open}(X)}$, i.e. a natural transformation between $\mathcal{C}$ and $\mathcal{D}$.
@@ -5132,7 +5366,7 @@ Clifford algebras can be defined as universal objects in an appropriate category
       {\cliff(V,q)} \arrow[r, swap, "\exists!\cliff(L)"] & {\cliff(V', q')}
     \end{tikzcd}
   \end{equation*}
-  Checking that the assignment $L \to \cliff(L)$ really is functorial amounts to checking that it is covariant and that it is associative, both of which follow from juxtaposition of diagrams.
+  Checking that the assignment $L \mapsto \cliff(L)$ really is functorial amounts to checking that it is covariant and that it is associative, both of which follow from juxtaposition of diagrams.
 \end{proof}
 
 \begin{note}
@@ -6028,6 +6262,17 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   The necessary diagrams in \hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}} commute trivially with these definitions.
 \end{proof} 
 
+\begin{definition}[internal monoid]
+  \label{def:internalmonoid}
+  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category (\hyperref[def:monoidalcategory]{Definition \ref*{def:monoidalcategory}}). A \defn{monoid internal to $\mathsf{C}$} is 
+  \begin{enumerate}
+    \item an object $A \in \Obj(\mathsf{C})$,
+    \item a morphism $e\colon 1 \to A$, called the unit, and
+    \item a morphism $\mu\colon A \otimes A \to A$, called the product,
+  \end{enumerate}
+  such that the following diagrams commute.
+\end{definition}
+
 \begin{thebibliography}{9}
     \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
     \textit{Spin Geometry}.
@@ -6069,7 +6314,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
     American Mathematical Society, 2009.
 
     \bibitem{nlab-deligne-theorem} 
-    \textit{Nlab -- Deligne's Theorem on Tensor Categories}.
+    \textit{Nlab---Deligne's Theorem on Tensor Categories}.
     \url{https://ncatlab.org/nlab/show/Deligne's+theorem+on+tensor+categories}
 
     \bibitem{baez-this-weeks-finds-137} J. Baez.
