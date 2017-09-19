@@ -590,7 +590,7 @@ In this section we give a brief overview of the construction of the tensor produ
 \chapter{Categories} 
 In this chapter (and to some extent the following chapters), I will do my best to stick to the conventions used at the nlab (\cite{nlab}).
 
-\section{Basic definitions}
+\section{Basic definitions} \label{sec:categoriesbasicdefinitions}
 \begin{definition}[category] 
   \label{def:category} 
   A \defn{category} $\mathsf{C}$ consists of 
@@ -811,7 +811,7 @@ Set theory has some foundational annoyances: not every collection of objects is 
   \end{itemize}
 \end{definition}
 
-\section{Functors}
+\section{Functors} \label{sec:functors}
 Just as morphisms connect objects in the same category, functors allow us to connect different categories. In fact, functors can be viewed as morphisms in a `category of categories.'
 
 \begin{definition}[functor] 
@@ -943,16 +943,41 @@ One of the nice things about functors is that they map commutative diagrams to c
   A \defn{bifunctor} is a functor whose domain is a product category (\hyperref[def:productcategory]{Definition \ref*{def:productcategory}}).
 \end{definition}
 
-\section{Natural transformations}
+\section{Natural transformations} \label{sec:naturaltransformations}
 Saunders Mac Lane, one of the fathers of category theory, used to say that he invented categories so he could talk about functors, and he invented functors so he could talk about natural transformations. Indeed, the first paper ever published on category theory, published by Eilenberg and Mac Lane in 1945, was titled ``General Theory of Natural Equivalences.'' \cite{awodey-intro-to-categories}
 
 Natural transformations provide a notion of `morphism between functors.' They allow us much greater freedom in talking about the relationship between two functors than equality.
 
+Here is a motivating example for the definition of a natural transformation. Let $A$ and $B$ be sets. There is an isomorphism from $A \times B$ to $B \times A$ which is given by switching the order of the oredered pairs:
+\begin{equation*}
+  (a, b) \mapsto (b, a).
+\end{equation*}
+Similarly, for sets $C$ and $D$, there is an isomorphism $C \times D$ to $D \times C$ which is given by switching the order of ordered pairs.
+\begin{equation*}
+  (c, d) \mapsto (d, c).
+\end{equation*}
+In some sense, these isomorphisms are really the same isomorphism. however, it is not obvious how to formalize this, since the definition of a function contains the information about the image and coimage, so they cannot be equal as functions. 
+
+Here is how it is done. Notice that for \emph{any} functions $f\colon A \to C$ and $g\colon B \to D$, the following diagram commutes.
+\begin{equation*}
+  \begin{tikzcd}
+    A \times B
+    \arrow[r, "{(f, g)}"]
+    \arrow[d, swap, "\text{swap}"]
+    & C \times D
+    \arrow[d, "\text{swap}"]
+    \\
+    A \times B
+    \arrow[r, "{(g, f)}"]
+    & C \times D
+  \end{tikzcd}
+\end{equation*}
+
 \begin{definition}[natural transformation]
   \label{def:naturaltransformation}
-  Let $\mathsf{C}$ and $\mathsf{D}$ be categories, and let $\mathcal{F}$ and $\mathcal{G}$ be covariant functors from $\mathsf{C}$ to $\mathsf{D}$. A \defn{natural transformation} $\eta$ between $\mathcal{F}$ and $\mathcal{G}$ consists of 
+  let $\mathsf{c}$ and $\mathsf{d}$ be categories, and let $\mathcal{f}$ and $\mathcal{g}$ be covariant functors from $\mathsf{c}$ to $\mathsf{d}$. a \defn{natural transformation} $\eta$ between $\mathcal{f}$ and $\mathcal{g}$ consists of 
   \begin{itemize}
-    \item for each object $A \in \Obj(\mathsf{C})$ a morphism $\eta_{A}\colon \mathcal{F}(A) \to \mathcal{G}(A)$, such that
+    \item for each object $A \in \Obj(\mathsf{C})$ a morphism $\eta_{A}\colon \mathcal{f}(A) \to \mathcal{g}(A)$, such that
     \item for all $A$, $B \in \Obj(C)$, for each morphism $f \in \Hom(A,B)$, the diagram
       \begin{equation*}
         \begin{tikzcd}
@@ -1393,7 +1418,7 @@ We would like to be able to express when two categories are the `same.' The corr
   The above definition of categorical equivalence is equivalent to the following: $\mathsf{C}$ and $\mathsf{D}$ are equivalent if there is a functor $\mathcal{F}: \mathsf{C} \rightsquigarrow \mathsf{D}$ which is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}) and essentially surjective (\hyperref[def:essentiallysurjective]{Definition \ref*{def:essentiallysurjective}}). That is to say, if the equivalence $\mathcal{F}$ is `bijective up to isomorphism.'
 \end{note}
 
-\section{Some special categories}
+\section{Some special categories} \label{sec:specialcategories}
 \subsection{Comma categories}
 
 \begin{definition}[comma category]
@@ -1519,7 +1544,7 @@ One can also define a coslice category, which is what you get when you take a sl
   commutes.
 \end{definition}
 
-\section{Universal properties}
+\section{Universal properties} \label{sec:universalproperties}
 \begin{note}
   It is assumed that the reader is familar with the basic idea of a universal property and has seen (but not necessarily understood) a few examples, such as the universal properties for products and tensor algebras.
 \end{note}
@@ -1790,7 +1815,7 @@ Again, with the diagram helpfully rotated, we have the following.
 
 \end{example}
 
-\section{Cartesian closed categories}
+\section{Cartesian closed categories} \label{sec:cartesianclosedcategories}
 This section loosely follows \cite{awodey-category-theory-foundations-videos}. 
 
 Cartesian closed categories are the prototype for a lot of structures possessed by monoidal categories. 
@@ -2079,7 +2104,7 @@ Astonishingly, we can talk about functional evaluation purely in terms of produc
   \end{enumerate}
 \end{definition}
 
-\section{Hom functors and the Yoneda lemma}
+\section{Hom functors and the Yoneda lemma} \label{sec:homfunctorsandyoneda}
 \subsection{The Hom functor} \label{section:homfunctor}
 Given any locally small category (\hyperref[def:smalllocallysmallcategoryhomset]{Definition \ref*{def:smalllocallysmallcategoryhomset}}) $\mathsf{C}$ and two objects $A$, $B \in \Obj(\mathsf{C})$, we have thus far notated the set of all morphisms $A \to B$ by $\Hom_{\mathsf{C}}(A, B)$. This may have seemed a slightly odd notation, but there was a good reason for it: $\Hom_{\mathsf{C}}$ is really a functor.
 
@@ -2305,6 +2330,10 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
   \end{equation*}
 \end{definition}
 
+\begin{note}
+  Since natural isomorphisms are invertible, we could equivalently define a representable functor with the natural isomorphism going the other way.
+\end{note}
+
 \begin{example}
   Consider the forgetful functor $\mathcal{U}\colon \mathsf{Grp} \rightsquigarrow \mathsf{Set}$ which sends a group to its underlying set, and a group homomorphism to its underlying function. This functor is represented by the group $\Z$.
 
@@ -2429,9 +2458,9 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
 
       We can simplify this right away. The component of the composition of natural transformations is the composition of the components, i.e.
       \begin{equation*}
-        (\Phi \circ \mathcal{Y}(f))(1_{B}) = \Phi_{B} ((\mathcal{Y}(f))_{B}(1_{B})).
+        (\Phi \circ \mathcal{Y}(f))(1_{B}) = (\Phi_{B} \circ \mathcal{Y}(f)_{B})(1_{B}).
       \end{equation*}
-      We also know how $\mathcal{Y}(f)$ behaves: it composes with $f$.
+      We also know how $\mathcal{Y}(f)$ behaves: it composes everything in sight with $f$.
       \begin{equation*}
         \mathcal{Y}(f)(1_{B}) = f.
       \end{equation*}
@@ -2588,7 +2617,7 @@ It is possible, for example, to prove that the product is associative in \emph{a
   Etc.
 \end{proof}
 
-\section{Limits}
+\section{Limits} \label{sec:limits}
 \subsection{Limits and colimits}
 As we have seen, one often gets categorical concepts by `categorifying' concepts from set theory. One example of this is the notion of a \emph{diagram}, which is the categorical generalization of an indexed family.
 
@@ -2614,7 +2643,7 @@ One thinks of the functor $\mathcal{D}$ embedding the index category $\textsf{J}
 
 \begin{definition}[cone]
   \label{def:cone}
-  Let $\mathsf{C}$ be a category, $\mathsf{J}$ an index category, and $\mathcal{D}\colon \mathsf{J} \rightsquigarrow \mathsf{C}$ be a diagram. Let $\mathsf{1}$ be the category with one object and one morphism (\hyperref[eg:categorywithoneobject]{Example \ref*{eg:categorywithoneobject}}) and $\mathcal{F}_{X}$ the functor $1 \rightsquigarrow \mathsf{C}$ which picks out $X \in \Obj(\mathsf{C})$ (see e.g. \hyperref[eg:functorfrom1category]{Example \ref*{eg:functorfrom1category}}). Let $\mathcal{K}$ be the unique functor $\mathsf{J} \rightsquigarrow \mathsf{1}$.
+  Let $\mathsf{C}$ be a category, $\mathsf{J}$ an index category, and $\mathcal{D}\colon \mathsf{J} \rightsquigarrow \mathsf{C}$ be a diagram. Let $\mathsf{1}$ be the category with one object and one morphism (\hyperref[eg:categorywithoneobject]{Example \ref*{eg:categorywithoneobject}}) and $\mathcal{F}_{X}$ the functor $\mathsf{1} \rightsquigarrow \mathsf{C}$ which picks out $X \in \Obj(\mathsf{C})$ (see \hyperref[eg:functorfrom1category]{Example \ref*{eg:functorfrom1category}}). Let $\mathcal{K}$ be the unique functor $\mathsf{J} \rightsquigarrow \mathsf{1}$.
   \begin{equation*} 
     \begin{tikzcd}
       \mathsf{1}
@@ -2927,6 +2956,63 @@ In what follows, $\mathsf{C}$ will be a category and $A$, $B$, etc. objects in $
       & Y
     \end{tikzcd}
   \end{equation*}
+  Our aim is to show that $p_{2}$ is a monomorphism.
+
+  Suppose we are given an object $Z$ and two morphisms $\alpha$, $\beta\colon Z \to X'$.
+  \begin{equation*}
+    \begin{tikzcd}
+      Z
+      \arrow[dr, shift left, "\alpha"]
+      \arrow[dr, shift right, swap, "\beta"]
+      \\
+      & X'
+      \arrow[r, "p_{1}"]
+      \arrow[d, swap, "p_{2}"]
+      & X
+      \arrow[d, hookrightarrow, "f"]
+      \\
+      & Y'
+      \arrow[r, "g"]
+      & Y
+    \end{tikzcd}
+  \end{equation*}
+  We can compose $\alpha$ and $\beta$ with $p_{2}$. Suppose that these agree, i.e.
+  \begin{equation*}
+    p_{2} \circ \alpha = p_{2} \circ \beta.
+  \end{equation*}
+  We will be done if we can show that this implies that $p_{1} = p_{2}$.
+
+  We can compose with $g$ to find that 
+  \begin{equation*}
+    g \circ p_{2} \circ \alpha = g \circ p_{2} \circ \beta.
+  \end{equation*}
+  but since the pullback square commutes, we can replace $g \circ p_{2}$ by $f \circ p_{1}$.
+  \begin{equation*}
+    f \circ p_{1} \circ \alpha = f \circ p_{1} \circ \beta.
+  \end{equation*}
+  since $f$ is a monomorphism, this implies that 
+  \begin{equation*}
+    p_{1} \circ \alpha = p_{1} \circ \beta.
+  \end{equation*}
+  Now forget $\alpha$ and $\beta$ for a minute. we have constructed a commuting square as follows.
+  \begin{equation*}
+    \begin{tikzcd}
+      Z
+      \arrow[drr, bend left, "p_{1} \circ \alpha = p_{1} \circ \beta"]
+      \arrow[ddr, swap, bend right, "p_{2} \circ \alpha = p_{2} \circ \beta"]
+      \\
+      & X'
+      \arrow[r, "p_{1}"]
+      \arrow[d, swap, "p_{2}"]
+      & X
+      \arrow[d, hookrightarrow, "f"]
+      \\
+      & Y'
+      \arrow[r, "g"]
+      & Y
+    \end{tikzcd}
+  \end{equation*}
+  the universal property for pullbacks tells us that there is a unique morphism $Z \to X'$ making the diagram commute. But either $\alpha$ or $\beta$ will do! So $\alpha = \beta$.
 \end{proof}
 
 \begin{definition}[kernel of a morphism]
@@ -2943,8 +3029,8 @@ In what follows, $\mathsf{C}$ will be a category and $A$, $B$, etc. objects in $
 \end{definition}
 
 \begin{note}
-  Although the kernel of a morphism $f$ is a pair $(\ker(f), \iota)$ as described above, we will sometimes sloppily say that the object $\ker(f)$ is the kernel of $f$, especially when the the morphism $\iota$ is obvious or understood.
-\end{note}
+  Although the kernel of a morphism $f$ is a pair $(\ker(f), \iota)$ as described above, we will sometimes sloppily say that the object $\ker(f)$ is the kernel of $f$, especially when the the morphism $\iota$ is obvious or understood. Such abuses of terminology are common; one occasionally even sees the morphism $\iota$ being called the kernel of $f$.
+\end{note} 
 
 \begin{example}
   In $\mathsf{Vect}_{k}$, the initial object is the zero vector space $\{0\}$. For any vector spaces $V$ and $W$ and any linear map $f\colon V \to W$, the kernel of $f$ is the pair $(\ker(f), \iota)$ where $\ker(f)$ is the vector space  
@@ -3178,10 +3264,13 @@ The following proof was adapted from \cite{awodey-category-theory}.
   \begin{enumerate}
     \item $\mathsf{C}$ has all finite limits.
     \item $\mathsf{C}$ has all finite products and equalizers.
+    \item $\mathsf{C}$ has all pullbacks and a terminal object.
   \end{enumerate}
 \end{theorem}
 \begin{proof}
-  Since finite products and equalizers are both instances of finite limits, 1 clearly implies 2. Now assume 2, i.e. suppose that $\mathsf{C}$ has all finite products and equalizers. 
+  Since finite products, equalizers, pullbacks, and terminal objects are all instances of finite limits (the terminal object is the limit of the empty diagram), 1 clearly implies 2 and 3. 
+
+  Next we show that $2 \implies 1$. Assume 2, i.e. suppose that $\mathsf{C}$ has all finite products and equalizers. 
 
   Let $\mathcal{D}\colon \mathsf{J} \rightsquigarrow \mathsf{C}$ be a finite diagram. We want to prove that $\mathcal{D}$ has a limit; we will do this by constructing a universal cone over it, i.e.
   \begin{itemize}
@@ -3219,7 +3308,7 @@ The following proof was adapted from \cite{awodey-category-theory}.
   \end{enumerate}
 
   Denote by $\Mor(\mathsf{J})$ the set of all morphisms in $\mathsf{J}$. For any $\alpha \in \Hom_{\mathsf{J}}(i, j) \subseteq \Mor(\mathsf{J})$, let $\dom(\alpha) = i$ and $\cod(\alpha) = j$.
-  
+
   Consider the following finite products:
   \begin{equation*}
     A = \prod_{j \in \Obj(\mathsf{J})} \mathcal{D}(j)\qquad\text{and}\qquad B = \prod_{\alpha \in \Mor(\mathsf{J})} \mathcal{D}(\cod(\alpha)).
@@ -3267,9 +3356,15 @@ The following proof was adapted from \cite{awodey-category-theory}.
       \end{equation*}
       as required.
   \end{enumerate}
+
+  It remains only to show that $3 \implies 1$, i.e. that if $\mathsf{C}$ has pullbacks and a terminal object $1$, then it has all finite limits. We do this by showing that 
 \end{proof}
 
-\section{Adjunctions}
+\begin{note}
+  The meat of this theorem is the fact that finite products and equalizers yield all finite limits.
+\end{note}
+
+\section{Adjunctions} \label{sec:adjunctions}
 Consider the following functors:
 \begin{itemize}
   \item $\mathcal{U}\colon \mathsf{Grp} \rightsquigarrow \mathsf{Set}$, which sends a group to its underlying set, and
@@ -3302,7 +3397,10 @@ We can define a natural isomorphism $\Phi$ between these functors with component
   \Phi_{S, G}\colon \Hom_{\mathsf{Grp}}(\mathcal{F}(S), G) \to \Hom_{\mathsf{Set}}(S, \mathcal{U}(G));\qquad f \to \tilde{f}.
 \end{equation*}
 
-This mathematical structure turns out to be a recurring theme in the study of categories, called an \emph{adjuction}.
+This mathematical structure turns out to be a recurring theme in the study of categories, called an \emph{adjuction}. We have encountered it before: we saw in \hyperref[eg:naturaltransformationsforcccs]{Example \ref*{eg:naturaltransformationsforcccs}} that there was a natural bijection between 
+\begin{equation*}
+  \Hom_{\mathsf{C}}(X \times (-), B)\qquad\text{and}\qquad \Hom_{\mathsf{C}}(X, B^{(-)}).
+\end{equation*}
 
 \begin{definition}[hom-set adjunction]
   \label{def:homsetadjunction}
@@ -3390,7 +3488,7 @@ Here are two equivalent definitions which are often used.
     \end{tikzcd}.
   \end{equation*}
 
-  Now consider the following diagram.
+  We can arrange these artfully like so. Notice that we haven't actually \emph{done} anything; this diagram is just the diagrams for the unit and counit, plus some extraneous information.
   \begin{equation*}
     \begin{tikzcd}
       \mathsf{C}
@@ -3426,7 +3524,7 @@ Here are two equivalent definitions which are often used.
       & \mathsf{D}
     \end{tikzcd}
   \end{equation*}
-  then consolidate to get
+  then consolidate to get this:
   \begin{equation*}
     \begin{tikzcd}[row sep=huge, column sep=huge]
       \mathsf{C}
@@ -3463,7 +3561,7 @@ Here are two equivalent definitions which are often used.
   \end{equation*}
   We don't know much in general about $\Hom_{\mathsf{D}}(\mathcal{F}(A), \mathcal{F}(A))$, but the category axioms tell us that it always contains $1_{\mathcal{F}(A)}$. We can use $\Phi_{A, \mathcal{F}(A)}$ to map this to
   \begin{equation*}
-    \Phi_{A, \mathcal{F}(A)}(1_{\mathcal{F}(A)})\colon A \to (\mathcal{G} \circ \mathcal{F})(A).
+    \Phi_{A, \mathcal{F}(A)}(1_{\mathcal{F}(A)}) \in \Hom_{\mathsf{C}}(A, (\mathcal{G} \circ \mathcal{F})(A)).
   \end{equation*}
   Let's call $\Phi_{A, \mathcal{F}(A)}(1_{\mathcal{F}(A)}) = \eta_{A}$. 
 
@@ -3477,7 +3575,7 @@ Here are two equivalent definitions which are often used.
     \Phi^{-1}_{\mathcal{G}(B), B}(1_{\mathcal{G}(B)}) = \varepsilon_{B}.
   \end{equation*}
 
-  Clearly, $\eta_{A}$ and $\varepsilon_{B}$ are completely determined by $\Phi$ and $\Phi^{-1}$ respectively. It turns out that the converse is also true; in a matter reminiscent of the proof of the Yoneda lemma, we can express $\Phi_{A, B}$ in terms of $\eta$, and $\Phi^{-1}_{A, B}$ in terms of $\varepsilon$, for \emph{any} $A$ and $B$. Here's how this is done.
+  Clearly, $\eta_{A}$ and $\varepsilon_{B}$ are completely determined by $\Phi$ and $\Phi^{-1}$ respectively. It turns out that the converse is also true; in a manner reminiscent of the proof of the Yoneda lemma, we can express $\Phi_{A, B}$ in terms of $\eta$, and $\Phi^{-1}_{A, B}$ in terms of $\varepsilon$, for \emph{any} $A$ and $B$. Here's how this is done.
 
   We use the naturality of $\Phi$. We know that for any $A \in \Obj(\mathsf{C})$, $B \in \Obj(\mathsf{D})$, and $g\colon \mathcal{F}(A) \to B$, the following diagram has to commute.
   \begin{equation*}
@@ -3604,17 +3702,14 @@ Here are two equivalent definitions which are often used.
       & \mathcal{G}'(E)
     \end{tikzcd}
   \end{equation*}
-  and taking these for pair of objects gives us a natural isomorphism $\mathcal{G} \Rightarrow \mathcal{G}'$.
+  and taking the collection of all such $\mu_{(-)}$ gives us a natural isomorphism $\mu\colon \mathcal{G} \Rightarrow \mathcal{G}'$.
 \end{proof}
 
-\section{Monoidal categories}
+\section{Monoidal categories} \label{sec:monoidalcategories}
 \subsection{Monoidal categories}
 Monoidal categories are the first ingredient in the categorification and generalization of the tensor product. Roughly speaking, the tensor product allows us to multiply two vector spaces to produce a new vector space. There are natural isomorphisms making this multiplication associative, and an `identity vector space' given by the ground field regarded as a one-dimensional vector space over itself. 
 
-Recall the definition of a monoid (\hyperref[def:monoid]{Definition \ref*{def:monoid}}). Basically, a monoid is a group without inverses. 
-
-A monoidal category will be a category in which the objects have the structure of a monoid, i.e. there is a suitably defined `multiplication' which is unital and associative. The prototypical example of categorical multiplication is the product (see \hyperref[eg:universalpropertyofproducts]{Example \ref*{eg:universalpropertyofproducts}}), although it is far from the only one.
-
+Recall the definition of a monoid (\hyperref[def:monoid]{Definition \ref*{def:monoid}}). Basically, a monoid is a group without inverses. A monoidal category will be a category in which the objects have the structure of a monoid, i.e. there is a suitably defined `multiplication' which is unital and associative. The prototypical example of categorical multiplication is the product (see \hyperref[eg:universalpropertyofproducts]{Example \ref*{eg:universalpropertyofproducts}}), although it is far from the only one.
 
 \begin{definition}[monoidal category]
   \label{def:monoidalcategory}
@@ -3702,12 +3797,12 @@ A monoidal category will be a category in which the objects have the structure o
 \end{definition}
 
 \begin{notation}
-  The notation $(\otimes, 1, \alpha, \lambda, \rho)$ is prone to change. If the associator and unitors are not important or understood from context, for example, they are often left out. We will often say ``Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category.''
+  The notation $(\otimes, 1, \alpha, \lambda, \rho)$ is prone to change. If the associator and unitors are not important or understood from context, they are often left out. We will often say ``Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category.''
 \end{notation}
 
 \begin{example}
   \label{eg:setisamonoidalcategory}
-  The simplest (though not the prototypical) example of a monoidal category is $\mathsf{Set}$ with the Cartesian product. We have already studied this structure in some detail in REF. We check the axioms in \hyperref[def:monoidalcategory]{Definition \ref*{def:monoidalcategory}}.
+  The simplest (though not the prototypical) example of a monoidal category is $\mathsf{Set}$ with the Cartesian product. We have already studied this structure in some detail in \hyperref[sec:cartesianclosedcategories]{Section \ref*{sec:cartesianclosedcategories}}. We check that it satisfies the axioms in \hyperref[def:monoidalcategory]{Definition \ref*{def:monoidalcategory}}.
 
   \begin{itemize}
     \item The Cartesian product on $\mathsf{Set}$ \emph{is} a set-theoretic product, and can be naturally viewed, thanks to \hyperref[thm:productisafunctor]{Theorem \ref*{thm:productisafunctor}}, as the bifunctor.
@@ -3787,7 +3882,7 @@ A monoidal category will be a category in which the objects have the structure o
 \begin{note}
   This insight is due to \cite{unapolagetic-mathematician-mac-lanes-theorem}.
 
-  The triangle and pentagon diagram are the first in a long list of hulking coherence diagrams designed to pacify categorical structures, coercing them into behaving like their algebraic counterparts. For a monoid, multiplication is associative by fiat, and the extension of this to $n$-fold products follows by a trivial application of induction. In monoidal categories, associators are isomorphisms rather than equalities, so we have to ensure $n$-ary associativity by hand.
+  The triangle and pentagon diagram are the first in a long list of hulking coherence diagrams designed to pacify categorical structures into behaving like their algebraic counterparts. For a monoid, multiplication is associative by fiat, and the extension of this to $n$-fold products follows by a trivial application of induction. In monoidal categories, associators are isomorphisms rather than equalities, and we have no a priori guarantee that different ways of composing associators give the same isomorphism. 
 
   Having said that, these diagrams are not as unnatural as they appear. The pentagon diagram is exactly what you get when you write down all possible ways of bracketing the tensor product of four objects and draw arrows between the ones which differ by exactly one associator. Since the associators are isomorphsims, we are allowed to
 
@@ -3839,7 +3934,7 @@ The following lemma is the categorification of \hyperref[lemma:monoidalmultiplic
   \end{equation*}
   Now 
   \begin{equation*}
-    1 = L'^{-1} \otimes L \simeq L'^{-1} \otimes (L \otimes L^{-1}) \otimes L \simeq (L'^{-1} \otimes L) \otimes (L^{-1} \otimes L) \simeq (L'^{-1} \otimes L) \otimes 1 \simeq L'^{-1} \otimes L,
+    1 \simeq L'^{-1} \otimes L \simeq L'^{-1} \otimes (L \otimes L^{-1}) \otimes L \simeq (L'^{-1} \otimes L) \otimes (L^{-1} \otimes L) \simeq (L'^{-1} \otimes L) \otimes 1 \simeq L'^{-1} \otimes L,
   \end{equation*}
   so $L'^{-1}$ is also a left inverse for $L$. But since $\ell_{L}$ is an equivalence of categories, $L$ only has one left inverse up to isomorphism, so $L^{-1}$ and $L'^{-1}$ must be isomorphic.
 \end{proof}
@@ -3917,8 +4012,11 @@ The following definition was taken \emph{mutatis mutandis} from \cite{baez-defin
 \end{note}
 
 \begin{lemma}
-  The composition of lax monoidal functors is lax monoidal.
+  The composition of lax (strong) monoidal functors is lax (strong) monoidal.
 \end{lemma}
+\begin{proof}
+  
+\end{proof}
 
 \begin{definition}[monoidal natural transformation]
   \label{def:monoidalnaturatransformation}
@@ -3969,7 +4067,7 @@ We can express the tensor product $X \otimes Y$ by putting the dots representing
   \end{tikzpicture}
 \end{center}
 
-A morphism $f$ between, say, $X \otimes Y$ and $A \otimes B \otimes C$ can be drawn as some lines and widgets connecting them.
+A morphism $f$ between, say, $X \otimes Y$ and $A \otimes B \otimes C$ can be drawn as a diagram consisting of some lines and boxes.
 
 \begin{center}
   \begin{tikzpicture}
@@ -4174,7 +4272,8 @@ which is clearly homotopic to the identity transformation on $A \otimes B$.
 \begin{note}
   There are no extra conditions imposed on a monoidal natural transformation to turn it into a symmetric natural transformation. 
 \end{note}
-\section{Internal hom functors}
+\section{Internal hom functors} \label{sec:internalhomfunctors}
+We can now generalize the notion of an exponential object (\hyperref[def:exponential]{Definiton \ref*{def:exponential}}) to any monoidal category.
 \subsection{The internal hom functor}
 Recall the definition of the hom functor on a (locally small) category $\mathsf{C}$ (\hyperref[def:homfunctor]{Definition \ref*{def:homfunctor}}): it is the functor which maps two objects to the set of morphisms between them, so it is a functor
 \begin{equation*}
@@ -4206,7 +4305,7 @@ Let's check this. First, we need to figure out how our functors act on functions
     & B
   \end{tikzcd}
 \end{equation*}
-We want our functor to map
+Our functor maps
 \begin{equation*}
   (A'', A', A) \mapsto [A'', [A', A]] = \Hom_{\mathsf{Set}}(A'', \Hom_{\mathsf{Set}}(A', A)),
 \end{equation*}
@@ -4216,7 +4315,7 @@ so it should map $(f'', f', f)$ to a function
 \end{equation*}
 The notation $\Hom_{\mathsf{Set}}(-,-)$ is getting a little lengthy, so I'll stick to $[-, -]$ for now. In this notation, we want to map $(f'', f', f)$ to a function
 \begin{equation*}
-  [A'', [A', A]] \to [B'', [B', B]].
+  [f'', [f', f]\colon [A'', [A', A]] \to [B'', [B', B]].
 \end{equation*}
 The way to do that is by sending $m \in [A'', [A', A]]$ to 
 \begin{equation*}
@@ -4230,7 +4329,7 @@ The other one's not so tough. Our functor maps an object $(A'', A', A)$ to $[A''
 \end{equation*}
 We do that by sending $m \in [A'' \times A', A]$ to
 \begin{equation*}
-  f \circ m \circ (f'', f') = [f'' \times f', f](m) \in [B'' \times B', B].
+  f \circ m \circ (f'', f') \in [B'' \times B', B].
 \end{equation*}
 
 Checking that $[-,[-,-]]$ and $[-\times-, -]$ really \emph{are} functorial would be a bit much; each is just a few applications of the Yoneda embedding. We will however check that there is a natural isomorphism between them, which amounts to checking that the following diagram commutes.
@@ -4284,7 +4383,7 @@ Indeed, when we evaluate this on $b'$, we get $b$, so the diagram commutes.
 
 In other words, $\Phi$ is a natural bijection between the hom-sets $[-,[-,-]]$ and $[- \times -, -]$.
 
-We picked this example because the collection $[A, B]$ of all functions between two sets $A$ and $B$ is itself a set. Therefore it makes sense to think of the hom-sets $\Hom_{\mathsf{C}}(A, B)$ as living within the same category as $A$ and $B$. However, this is far from peculiar to sets. 
+We picked this example because the collection $[A, B]$ of all functions between two sets $A$ and $B$ is itself a set. Therefore it makes sense to think of the hom-sets $\Hom_{\mathsf{C}}(A, B)$ as living within the same category as $A$ and $B$. We saw in \hyperref[sec:cartesianclosedcategories]{Section \ref*{sec:cartesianclosedcategories}} that in a category with products, we could sometimes view hom-sets as exponential objects. However, we now have the technology to be even more general.
 
 \begin{definition}[internal hom functor]
   \label{def:internalhomfunctor}
@@ -4302,7 +4401,7 @@ We picked this example because the collection $[A, B]$ of all functions between 
 \begin{notation}
   The convention at the nLab is to denote the internal hom by square braces $[A,B]$, and this is for the most part what we will do. Unfortunately, we have already used this notation for the \emph{regular} hom functor. To remedy this, we will add a subscript if the category to which the hom functor belongs is not clear: $[-,-]_{\mathsf{C}}$ for a hom functor internal to $\mathsf{C}$, $[-,-]_{\mathsf{Set}}$ for the standard hom functor (or the hom functor internal to $\mathsf{Set}$, which amounts to the same). 
 
-  One often sees the internal hom functor denoted by a lower-case $\hom\colon \hom_{\mathsf{C}}(A, B)$. Many sources (for example DMOS \cite{DMOS}) distinguish the internal hom with an underline: $\underline{\Hom}_{\mathsf{C}}(A, B)$. Deligne typesets it with a script H: $\mathscr{H}om_{\mathsf{C}}(A, B)$
+  There is no universally accepted notation for the internal hom functor. One often sees it denoted by a lower-case $\hom$: $\hom_{\mathsf{C}}(A, B)$. Many sources (for example DMOS \cite{DMOS}) distinguish the internal hom with an underline: $\underline{\Hom}_{\mathsf{C}}(A, B)$. Deligne typesets it with a script H: $\mathscr{H}om_{\mathsf{C}}(A, B)$
 \end{notation}
 
 \begin{definition}[closed monoidal category]
@@ -4318,7 +4417,7 @@ We picked this example because the collection $[A, B]$ of all functions between 
 \end{note}
 
 \begin{example}
-  In many locally small categories whose objects can be thought of as ``sets with extra structure'' in a natural way, it is possible to pile structure on top of the hom sets until they themselves can be viewed as bona fide categorical objects. It often happens that these beefed-up hom sets coincide (up to isomorphism) with the internal hom objects.
+  In many locally small categories whose objects can be thought of as ``sets with extra structure,'' it is possible to pile structure on top of the hom sets until they themselves can be viewed as bona fide objects in their categories. It often happens that these beefed-up hom sets coincide (up to isomorphism) with the internal hom objects.
 
   Take for example $\mathsf{Vect}_{k}$. For any vector spaces $V$ and $W$, we can turn $\Hom_{\mathsf{Vect}_{k}}(V, W)$ into a vector space by defining addition and scalar multiplication pointwise; we can then view $\Hom_{\mathsf{Vect}_{k}}(V, W)$ as belonging to $\Obj(\mathsf{Vect}_{k})$. It turns out that this is precisely (up to isomorphism) the internal hom object $[V, W]_{\mathsf{Vect}_{k}}$.
 
@@ -4394,7 +4493,7 @@ The internal hom functor gives us a way to talk about evaluating morphisms $f\co
   \begin{equation*}
     \ev_{X, Y}\colon [X, Y] \times X \to Y;\qquad (f, x) \mapsto \ev_{X, Y}(f, x).
   \end{equation*}
-  So far, we don't know how $\ev_{X, Y}$ behaves.
+  So far, we don't know what $\ev_{X, Y}$ sends $(f, x)$ to; we just know that we'd \emph{like it} if it sent it to $f(x)$.
 
   The above adjunction is given by currying: we start on the LHS with a map $\ev_{X, Y}$ with two arguments, and we turn it into a map which fills in only the first argument. Thus the map on the RHS adjunct to $\ev_{X, Y}$ is given by 
   \begin{equation*}
@@ -4484,9 +4583,9 @@ This definition generalizes to any closed monoidal category.
   \end{equation*}
 \end{proof}
 
-\begin{lemma}
-  The map $X \mapsto X^{*}$ can be made into a contravariant functor.
-\end{lemma}
+\begin{theorem}
+  The map $X \mapsto X^{*}$ can be extended to a contravariant functor.
+\end{theorem}
 \begin{proof}
   We need to figure out how our functor should act on morphisms. We define this by analogy with the familiar setting of vector spaces. Recall that for a linear map $L\colon V \to W$, the dual map $L^{t}\colon W^{*} \to V^{*}$ is defined by
   \begin{equation*}
@@ -4610,7 +4709,7 @@ The above is one, but not the only, way to define dual objects. We can be more g
 
 \end{proof}
 
-\section{Abelian categories}
+\section{Abelian categories} \label{sec:abeliancategories}
 This section draws heavily from \cite{EGNO-tensor-categories}.
 \subsection{Additive categories}
 Recall that $\mathsf{Ab}$ is the category of abelian groups (\hyperref[def:abeliangroup]{Definition \ref*{def:abeliangroup}}).
@@ -4634,8 +4733,16 @@ Recall that $\mathsf{Ab}$ is the category of abelian groups (\hyperref[def:abeli
 
 \begin{definition}[additive category]
   \label{def:additivecategory}
-  A category $\mathsf{C}$ is \defn{additive} if it has biproducts (\hyperref[def:categorywithbiproducts]{Definition \ref*{def:categorywithbiproducts}}) and is $\mathsf{Ab}$-enriched.
+  A category $\mathsf{C}$ is \defn{additive} if it has (\hyperref[def:categorywithbiproducts]{Definition \ref*{def:categorywithbiproducts}}) and is $\mathsf{Ab}$-enriched.
 \end{definition}
+
+\begin{lemma}
+  \label{lemma:abeliancategorycoproductsareproducts}
+  In an $\mathsf{Ab}$-enriched category $\mathsf{C}$, a finite product is also a coproduct, and vice versa. In particular, initial objects and terminal objects coincide.
+\end{lemma}
+\begin{proof}
+  First, we show that initial and terminal objects coincide. Let $\emptyset$ be initial and $*$ terminal in $\mathsf{C}$. Since $\Hom_{\mathsf{C}}(\emptyset, \emptyset)$ has only one element, it must be both the identity morphism on $\emptyset$ \emph{and} the identity element of $\Hom_{\mathsf{C}}(\emptyset, \emptyset)$ as an abelian group. Similarly, $1_{*}$ must be the identity element of $\Hom_{\mathsf{C}}(*, *)$.
+\end{proof}
 
 \begin{example}
   The category $\mathsf{Ab}$ of Abelian groups is an additive category. We have already seen that it has the direct sum $\oplus$ as biproduct. Given any two abelian groups $A$ and $B$ and morphisms $f$, $g\colon A \to B$, we can define the sum $f + g$ via
@@ -4721,7 +4828,7 @@ Recall that $\mathsf{Ab}$ is the category of abelian groups (\hyperref[def:abeli
   Pre-abelian categories have equalizers (\hyperref[def:equalizer]{Definition \ref*{def:equalizer}}).
 \end{lemma}
 \begin{proof}
-  We will show that the kernel of $f - g$ satisfies the universal property for the equalizer of $f$ and $g$.
+  It suffices to show that the kernel of $f - g$ satisfies the universal property for the equalizer of $f$ and $g$.
 
   Here is the diagram for the universal property of the kernel of $f - g$.
   \begin{equation*}
@@ -4938,7 +5045,7 @@ It is easy to see that the left- or right-composition of the zero morphism with 
     \end{tikzcd}
   \end{equation*}
 
-  The fruit of our laborious construction is a commuting square
+  The fruit of our laborious construction is the following commuting square.
   \begin{equation*}
     \begin{tikzcd}
       A
@@ -4952,7 +5059,7 @@ It is easy to see that the left- or right-composition of the zero morphism with 
       & \ker(\pi)
     \end{tikzcd}
   \end{equation*}
-  We have seen (\hyperref[lemma:canonicalinjectionismono]{Lemma \ref*{lemma:canonicalinjectionismono}}) that $\iota$ is mono, and (\hyperref[lemma:canonicalsurjectionisepi]{Lemma \ref*{lemma:canonicalsurjectionisepi}}) that $\pi$ is epi. 
+  We have seen (\hyperref[lemma:canonicalinjectionismono]{Lemma \ref*{lemma:canonicalinjectionismono}}) that $i$ is mono, and (\hyperref[lemma:canonicalsurjectionisepi]{Lemma \ref*{lemma:canonicalsurjectionisepi}}) that $p$ is epi. 
 
   Now we abuse terminology by calling $\iota = \ker(f)$ and $\pi = \coker(f)$. Then we have the required decomposition.
 \end{proof} 
@@ -4971,6 +5078,18 @@ This section is under very heavy construction. Don't trust anything you read her
   \end{equation*}
   is an isomorphism.
 \end{definition}
+
+\begin{note}
+  The above piecemeal definition is equivalent to the following.
+
+  A category $\mathsf{C}$ is \emph{abelian} if 
+  \begin{enumerate}
+    \item it is $\mathsf{Ab}$-enriched \hyperref[def:additivecategory]{Definition \ref*{def:additivecategory}}, i.e. each hom-set has the structure of an abelian group and composition is bilinear;
+    \item it admits finite coproducts, hence (by \hyperref[lemma:abeliancategorycoproductsareproducts]{Lemma \ref*{lemma:abeliancategorycoproductsareproducts}}) biproducts and zero objects;
+    \item every morphism has a kernel and a cokernel;
+    \item for every morphism, $f$, the canonical morphism $\bar{f}\colon \coker(\ker(f)) \to \ker(\coker(f))$ is an isomorphism.
+  \end{enumerate}
+\end{note}
 
 For the remainder of the section, let $\mathsf{C}$ be an abelian category.
 
@@ -5028,10 +5147,11 @@ For the remainder of the section, let $\mathsf{C}$ be an abelian category.
 \end{proof}
 
 \begin{lemma}
+  \label{lemma:monoifkernelzeroepiifcokerzero}
   Let $f\colon A \to B$. We have the following. 
   \begin{enumerate}
-    \item The morphism $f$ is mono iff $\ker(f) = 0$
-    \item The morphism $f$ is epi iff $\coker(f) = 0$.
+    \item The morphism $f$ is mono iff $\ker(f) = 0$ \label{part:monoifkernelzeroepiifcokerzero1}
+    \item The morphism $f$ is epi iff $\coker(f) = 0$. \label{part:monoifkernelzeroepiifcokerzero2}
   \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -5057,9 +5177,9 @@ For the remainder of the section, let $\mathsf{C}$ be an abelian category.
       \end{equation*}
       But then $g$ factors through the zero object, so we must have $g = 0$. This shows that $f \circ g = 0 \implies g = 0$, and by \hyperref[lemma:morphismwhichkillsontherightismono]{Lemma \ref*{lemma:morphismwhichkillsontherightismono}} $f$ must be mono.
 
-      Next, we show that if $f$ is mono, then $\ker(f) = 0$. To do this, it suffices to show that $\ker(f)$ is final.
+      Next, we show that if $f$ is mono, then $\ker(f) = 0$. To do this, it suffices to show that $\ker(f)$ is final, i.e. that there exists a unique morphism from every object to $\ker(f)$.
 
-      Suppose we have two morphisms $h_{1}$ and $h_{2}\colon Z \to \ker(f)$. 
+      Since $\Hom_{\mathsf{C}}(Z, \ker(f))$ has the structure of an abelian group, it must contain at least one element. Suppose it contains two morphisms $h_{1}$ and $h_{2}$. 
       \begin{equation*}
         \begin{tikzcd}
           Z
@@ -5184,53 +5304,149 @@ For the remainder of the section, let $\mathsf{C}$ be an abelian category.
   \end{enumerate}
 \end{proof}
 
+\begin{note}
+  The above theorem is actually an equivalent definition of an abelian category, but the proof of equivalence is far from trivial.
+\end{note}
+
 \begin{definition}[subobject, quotient object, subquotient object]
   \label{def:subobjectquotientobject}
   Let $Y \in \Obj(\mathsf{C})$.
   \begin{enumerate}
-    \item A \defn{subobject} of $Y$ is an object $i\colon X \in \Obj(\mathsf{C})$ together with a monomorphism $X \to Y$.
+    \item A \defn{subobject} of $Y$ is an object $X \in \Obj(\mathsf{C})$ together with a monomorphism $i\colon X \to Y$. If $X$ is a subobject of $Y$ we will write $X \subseteq Y$.
     \item A \defn{quotient object} of $Y$ is an object $Z$ together with an epimorphism $p\colon Y \to Z$.
     \item A \defn{subquotient object} of $Y$ is a quotient object of a subobject of $Y$.
   \end{enumerate}
 \end{definition}
 
 \begin{lemma}
-  A subquotient $Z'$ of a subquotient $Z$ of an object $O$ is a subquotient of $O$.
+  Let $O$ be an object, $Z$ be a subquotient of $O$, and $Z'$ a subquotient of $Z$. Then $Z'$ is a subquotient of $O$.
 \end{lemma}
 \begin{proof}
   A subquotient $Z$ of $O$ is a quotient $Z$ of a subobject $X$ of $O$.
   \begin{equation*}
     \begin{tikzcd}
+      X 
+      \arrow[r, hookrightarrow]
+      \arrow[d, twoheadrightarrow]
       & O
       \\
-      X
-      \arrow[ru, hookrightarrow]
-      \arrow[rd, twoheadrightarrow]
-      \\
-      & Z
+      Z
     \end{tikzcd}
   \end{equation*}
   A subquotient $Z'$ of $Z$ looks like this.
   \begin{equation*}
     \begin{tikzcd}
+      & X
+      \arrow[r, hookrightarrow]
+      \arrow[d, twoheadrightarrow]
       & O
       \\
-      X
-      \arrow[ru, hookrightarrow]
-      \arrow[rd, twoheadrightarrow]
-      \\
+      X'
+      \arrow[r, hookrightarrow]
+      \arrow[d, twoheadrightarrow]
       & Z
       \\
-      X'
-      \arrow[ru, hookrightarrow]
-      \arrow[rd, twoheadrightarrow]
-      \\
-      & Z'
+      Z'
     \end{tikzcd}
   \end{equation*}
+
+  Take pullback yadda yadda. Will finish later.
 \end{proof}
 
-\section{Higher categories}
+\begin{definition}[quotient]
+  \label{def:quotient}
+  Let $X \subseteq Y$, i.e. let there exist a monomorphism $f\colon X \hookrightarrow Y$. The \defn{quotient} $Y/X$ is the cokernel $(\coker(f), \pi_{f})$.
+\end{definition}
+
+\subsection{Exact sequences}
+\begin{definition}[exact sequence]
+  \label{def:exactsequence}
+  A sequence of morphisms
+  \begin{equation*}
+    \begin{tikzcd}
+      \cdots
+      \arrow[r]
+      & X_{i-1}
+      \arrow[r, "f_{i-1}"]
+      & X_{i}
+      \arrow[r, "f_{i}"]
+      & X_{i+1}
+      \arrow[r]
+      & \cdots
+    \end{tikzcd}
+  \end{equation*}
+  is called \defn{exact in degree $i$} if the image (\hyperref[def:imageofamorphism]{Definition \ref*{def:imageofamorphism}}) of $f_{i-1}$ is equal to the kernel (\hyperref[def:kernelofmorphism]{Definition \ref*{def:kernelofmorphism}}) of $f_{i}$. A sequence is \defn{exact} if it is exact in every degree.
+\end{definition}
+
+\begin{lemma}
+  If a sequence
+  \begin{equation*}
+    \begin{tikzcd}
+      \cdots
+      \arrow[r]
+      & X_{i-1}
+      \arrow[r, "f_{i-1}"]
+      & X_{i}
+      \arrow[r, "f_{i}"]
+      & X_{i+1}
+      \arrow[r]
+      & \cdots
+    \end{tikzcd}
+  \end{equation*}
+  is exact in degree $i$, then $f_{i} \circ f_{i-1} = 0$.
+\end{lemma}
+
+\begin{definition}[short exact sequence]
+  \label{def:shortexactsequence}
+  A \defn{short exact sequence} is an exact sequence of the following form.
+  \begin{equation*}
+    \begin{tikzcd}
+      0
+      \arrow[r]
+      & X
+      \arrow[r]
+      & Y
+      \arrow[r]
+      & Z
+      \arrow[r]
+      & 0
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
+
+This definition has some immediate trivial consequences.
+\begin{lemma}
+  Let 
+  \begin{equation*}
+    \begin{tikzcd}
+      0
+      \arrow[r]
+      & X
+      \arrow[r, "f"]
+      & Y
+      \arrow[r, "g"]
+      & Z
+      \arrow[r]
+      & 0
+    \end{tikzcd}
+  \end{equation*}
+  be a short exact sequence. Then
+  \begin{enumerate}
+    \item $f$ is mono
+    \item $g$ is epi
+    \item $Z \simeq Y/X$.
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  $\,$
+  \begin{enumerate}
+    \item An easy consequence of \hyperref[lemma:monoifkernelzeroepiifcokerzero]{Lemma \ref*{lemma:monoifkernelzeroepiifcokerzero}, part \ref*{part:monoifkernelzeroepiifcokerzero1}}.
+    \item An easy consequence of \hyperref[lemma:monoifkernelzeroepiifcokerzero]{Lemma \ref*{lemma:monoifkernelzeroepiifcokerzero}, part \ref*{part:monoifkernelzeroepiifcokerzero2}}.
+    \item We need to show that
+  \end{enumerate}
+\end{proof}
+
+\section{Higher categories} \label{sec:highercategories}
 This section follows \cite{baez-higher-categories} closely.
 
 One of the main benefits of categories is that they let us distinguish between different notions of sameness. In a set, two elements are either the same or different, and that is that. In a category, however, objects can be the same in certain ways without being identical: there are many $n$-dimensional real vector spaces, but they are all isomorphic. However this notion of `sameness without identity' is not omnipresent in category theory; we still have to resort to the limited, set-theoretic sense of equivalence when talking about morphisms.
@@ -5248,7 +5464,7 @@ In higher category theory, this is remedied by introducing 2-morphisms, which ar
 \end{equation*}
 Of course, we now have no notion of isomorphism for 2-categories, so we must add 3-morphisms, etc. The result of the $n$th iteration of this procedure is called an $n$-category. If you keep going forever (or more rigorously, formally consider the object you'd get if you did), you get an $\infty$-category.
 
-You may have noticed that we have been using the same notation ($\Rightarrow$) for 2-morphisms and natural transformations. The reason for this is that natural transformations are the morphisms in the 2-category $\mathsf{Cat}$ of (small) categories.
+You may have noticed that we have been using the same notation ($\Rightarrow$) for 2-morphisms and natural transformations. The reason for this, as you may have guessed, is that natural transformations are the morphisms in the 2-category $\mathsf{Cat}$ of (small) categories.
 
 \chapter{A few concepts from algebraic geometry}
 \section{Elementary notions}
@@ -5471,7 +5687,7 @@ There are many ways to build sheaves. Here are two.
 
 \begin{definition}[pushforward sheaf]
   \label{def:pushforwardsheaf}
-  Let $X$ and $Y$ be topological spaces, $\pi\colon X \to Y$ continuous, $\mathcal{F}$ be a sheaf on $X$. Define the \defn{pushforward of $\mathcal{F}$ by $\pi$}, denoted $\pi_{*}\mathcal{F}$, by
+  Let $X$ and $Y$ be topological spaces, $\pi\colon X \to Y$ a continuous function. Let $\mathcal{F}$ be a sheaf on $X$. Define the \defn{pushforward of $\mathcal{F}$ by $\pi$}, denoted $\pi_{*}\mathcal{F}$, by
   \begin{equation*}
     (\pi_{*}\mathcal{F})(V) = \mathcal{F}(\pi^{-1}(V)),\qquad V\subseteq Y\text{ open},
   \end{equation*}
@@ -5803,7 +6019,7 @@ Clifford algebras can be defined as universal objects in an appropriate category
 \end{proof}
 
 \begin{theorem}
-  Let $V = V_{1} \oplus V_{2}$ be a $q$-orthogonal decomposition of the vector space $V$. Then there is a natural isomorphism of Clifford algebras
+  Let $V = V_{1} \oplus V_{2}$ be a $q$-orthogonal decomposition of the vector space $V$. Then there is an isomorphism of Clifford algebras
   \begin{equation*}
     \cliff(V,q) \to \cliff(V_{1}, q_{1}) \hat{\otimes} \cliff(V_{2}, q_{2}).
   \end{equation*}
@@ -5882,7 +6098,7 @@ Clifford algebras can be defined as universal objects in an appropriate category
 
     \item We specialize to the case $k = \R$; $k = \C$ is the same. 
 
-      As a vector space, $\cliff(V, q) \simeq \Lambda(V) \simeq \R^{2n}$. Thus $\cliff(V, q)$ can canonically be viewed both as topological manifold with a single chart a topological vector space. On a finite-dimensional topological vector space any (multi)linear map is continuous, so addition and multiplication are continuous. Thus the group of units is a $C^{0}$-submanifold of $\cliff(V, q)$, and multiplication restricts to a continuous map on it. 
+      As a vector space, $\cliff(V, q) \simeq \Lambda(V) \simeq \R^{2n}$. Thus $\cliff(V, q)$ can canonically be viewed both as topological manifold with a single chart and a topological vector space. On a finite-dimensional topological vector space any (multi)linear map is continuous, so addition and multiplication are continuous. Thus the group of units is a $C^{0}$-submanifold of $\cliff(V, q)$, and multiplication restricts to a continuous map on it. 
 
       But by a theorem of Gleason, Montgomery, and Zippin (\cite{gleason-montgomery-zippin}) any such topological group automatically has a compatible smooth atlas, and is therefore a Lie group.
 
