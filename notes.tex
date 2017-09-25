@@ -70,6 +70,7 @@
 \newcommand{\Spin}{\mathrm{Spin}}
 \newcommand{\Or}{\mathrm{O}}
 \newcommand{\SO}{\mathrm{SO}}
+\newcommand{\SL}{\mathrm{SL}}
 \newcommand{\PP}{\mathrm{P}}
 \newcommand{\tP}{\tilde{\mathrm{P}}}
 \newcommand{\SP}{\mathrm{SP}}
@@ -85,6 +86,7 @@
 \newcommand{\Mor}{\mathrm{Mor}}
 \newcommand{\dom}{\mathrm{dom}}
 \newcommand{\cod}{\mathrm{cod}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
 % Second level of list uses empty bullets
 \renewcommand{\labelitemii}{$\circ$}
@@ -712,7 +714,7 @@ Here are a few ways we can use existing categories to create new ones.
   It is not difficult to see that $\mathsf{FinVect}_{k} \subseteq \mathsf{Vect}_{k}$: all finite dimensional vector spaces are vector spaces, and all linear maps between finite-dimensional vector spaces are maps between vector spaces. In fact, since for $V$ and $W$ finite-dimensional, one does not gain any maps by moving from $\Hom_{\mathsf{FinVect}_{k}}(V, W)$ to $\Hom_{\mathsf{Vect}_{k}}(V, W)$, $\mathsf{FinVect}_{k}$ is even a \emph{full} subcategory of $\mathsf{Vect}_{k}$.
 \end{example}
 
-Category theory has many essences, one of which is as a major generalization of set theory. We would like to translate definitions about functions between sets to definitions about morphisms between objects in a category. It is here that we run into our first major challenge: in general, the objects of a category are \emph{not} sets, so we cannot talk about their elements. We therefore have to find definitions which we can give purely in terms objects and morphisms between them.
+Category theory has many essences, one of which is as a major generalization of set theory. We would like to upgrade definitions and theorems about functions between sets to definitions and theorems about morphisms between objects in a category. It is here that we run into our first major challenge: in general, the objects of a category are \emph{not} sets, so we cannot talk about their elements. We therefore have to find definitions which we can give purely in terms objects and morphisms between them.
 \begin{definition}[isomorphism]
   \label{def:isomorphism}
   Let $\mathsf{C}$ be a category, $A$, $B \in \Obj(\mathsf{C})$. A morphism $f \in \Hom(A,B)$ is said to be an \defn{isomorphism} if there exists a morphism $g \in \Hom(B,A)$ such that 
@@ -748,7 +750,7 @@ Category theory has many essences, one of which is as a major generalization of 
   In $\mathsf{Set}$, a morphism is a monomorphism precisely when it is injective.
 \end{theorem}
 \begin{proof}
-  Suppose $f\colon A \to B$ is a monomorphism. Then for any set $Z$ and any maps $g_{1}$, $g_{2}\colon Z \to A$, $f \circ g_{1} = f \circ g_{2}$ implies $g_{1} = g_{2}$. In particular, take $Z = \{*\}$ and suppose $g_{1}\colon * \mapsto a_{1}$ and $g_{2}\colon * \mapsto a_{2}$. Then $(f \circ g_{1})(*) = f(a_{1})$ and $(f \circ g_{2})(*) = f(a_{2})$, so
+  Suppose $f\colon A \to B$ is a monomorphism. Then for any set $Z$ and any maps $g_{1}$, $g_{2}\colon Z \to A$, $f \circ g_{1} = f \circ g_{2}$ implies $g_{1} = g_{2}$. In particular, take $Z = \{*\}$ and suppose $g_{1}(*) = a_{1}$ and $g_{2}(*) = a_{2}$. Then $(f \circ g_{1})(*) = f(a_{1})$ and $(f \circ g_{2})(*) = f(a_{2})$, so
   \begin{equation*}
     f(a_{1}) = f(a_{2}) \implies a_{1} = a_{2}.
   \end{equation*}
@@ -756,7 +758,7 @@ Category theory has many essences, one of which is as a major generalization of 
 
   Now suppose that $f$ is injective. Then for any $Z$ and $g_{1}$, $g_{2}$ as above,
   \begin{equation*}
-    f \circ g_{1}(z) = f \circ g_{2}(z) \implies g_{1}(z) = g_{2}(z)\qquad\text{for all } z \in Z.
+    (f \circ g_{1})(z) = (f \circ g_{2})(z) \implies g_{1}(z) = g_{2}(z)\qquad\text{for all } z \in Z.
   \end{equation*}
   But this means that $g_{1} = g_{2}$, so $f$ is mono.
 \end{proof}
@@ -798,10 +800,12 @@ Category theory has many essences, one of which is as a major generalization of 
 
 \begin{note}
   In $\mathsf{Set}$, isomorphisms are bijections, bijections are injective surjections, and injective surjections are monic epimorphisms, so a morphism is iso if and only if it is monic and epic. This is \emph{not} true in general: a morphism can be monic and epic without being an isomorphism.
+
+  Take, for example, $\mathsf{Top}$, where the morphisms are continuous maps. In order for a morphism $f$ to be monic and epic, it is necessary only that it be injective and surjective; it must have a set-theoretic inverse. However its inverse does not have to be continuous, and therefore may not be a morphism in $\mathsf{Top}$.
 \end{note}
 
-Set theory has some foundational annoyances: not every collection of objects is small enough to be a set. Category theory has its own foundational issues, which for the most part we will avoid. However, there are a few important situations in which foundational questions play an unavoidably important role.
-\begin{definition}[small, locally small category, hom-set]
+Set theory has some foundational annoyances: not every collection of objects is small enough to be a set, for example. Category theory has its own foundational issues, which for the most part we will avoid. However, there are a few important situations in which foundational questions play an unavoidably important role.
+\begin{definition}[small, locally small, hom-set]
   \label{def:smalllocallysmallcategoryhomset}
   A category $\mathsf{C}$ is 
   \begin{itemize}
@@ -855,7 +859,7 @@ Just as morphisms connect objects in the same category, functors allow us to con
 
 \begin{example}
   \label{eg:functorfrom1category}
-  Let $\mathsf{1}$ be the category with one object (\hyperref[eg:categorywithoneobject]{Example \ref*{eg:categorywithoneobject}}). Let $\mathsf{C}$ be any category. Then for each $X \in \Obj(\mathsf{C})$, we have the functor
+  Let $\mathsf{1}$ be the category with one object $*$ (\hyperref[eg:categorywithoneobject]{Example \ref*{eg:categorywithoneobject}}). Let $\mathsf{C}$ be any category. Then for each $X \in \Obj(\mathsf{C})$, we have the functor
   \begin{equation*}
     \mathcal{F}_{X}\colon \mathsf{1} \rightsquigarrow \mathsf{C};\qquad \mathcal{F}(*) = X,\quad \mathcal{F}(\mathrm{id}_{*}) = \mathrm{id}_{X}.
   \end{equation*}
@@ -888,7 +892,7 @@ One of the nice things about functors is that they map commutative diagrams to c
   \end{tikzcd}
 \end{equation*}
 
-\begin{definition}[full functor, faithful functor]
+\begin{definition}[full, faithful]
   \label{def:fullfaithfulfunctor}
   Let $\mathsf{C}$ and $\mathsf{D}$ be locally small categories (\hyperref[def:smalllocallysmallcategoryhomset]{Definition \ref*{def:smalllocallysmallcategoryhomset}}), and let $\mathcal{F}: \mathsf{C} \rightsquigarrow \mathsf{D}$. Then $\mathcal{F}$ induces a family of set-functions
   \begin{equation*}
@@ -948,36 +952,39 @@ Saunders Mac Lane, one of the fathers of category theory, used to say that he in
 
 Natural transformations provide a notion of `morphism between functors.' They allow us much greater freedom in talking about the relationship between two functors than equality.
 
-Here is a motivating example for the definition of a natural transformation. Let $A$ and $B$ be sets. There is an isomorphism from $A \times B$ to $B \times A$ which is given by switching the order of the oredered pairs:
+Here is a motivating example. Let $A$ and $B$ be sets. There is an isomorphism from $A \times B$ to $B \times A$ which is given by switching the order of the ordered pairs:
 \begin{equation*}
-  (a, b) \mapsto (b, a).
+  \mathrm{swap}_{A, B}\colon (a, b) \mapsto (b, a).
 \end{equation*}
 Similarly, for sets $C$ and $D$, there is an isomorphism $C \times D$ to $D \times C$ which is given by switching the order of ordered pairs.
 \begin{equation*}
-  (c, d) \mapsto (d, c).
+  \mathrm{swap}_{C, D}\colon (c, d) \mapsto (d, c).
 \end{equation*}
-In some sense, these isomorphisms are really the same isomorphism. however, it is not obvious how to formalize this, since the definition of a function contains the information about the image and coimage, so they cannot be equal as functions. 
+In some obvious intuitive sense, these isomorphisms are really the same isomorphism. However, it is not obvious how to formalize this, since the definition of a function contains the information about the image and coimage, so they cannot be equal as functions. 
 
 Here is how it is done. Notice that for \emph{any} functions $f\colon A \to C$ and $g\colon B \to D$, the following diagram commutes.
 \begin{equation*}
   \begin{tikzcd}
     A \times B
     \arrow[r, "{(f, g)}"]
-    \arrow[d, swap, "\text{swap}"]
+    \arrow[d, swap, "{\text{swap}_{A, B}}"]
     & C \times D
-    \arrow[d, "\text{swap}"]
+    \arrow[d, "{\text{swap}_{C, D}}"]
     \\
-    A \times B
+    B \times A
     \arrow[r, "{(g, f)}"]
-    & C \times D
+    & D \times C
   \end{tikzcd}
 \end{equation*}
+That is to say, if you're trying to go from $A \times B$ to $D \times C$ and all you've got is functions $f\colon A \to B$ and $g\colon C \to D$ and the two swap isomorphisms, it doesn't matter whether you use the swap isomorphism on $A \times B$ and then use $(g, f)$ to get to $D \times C$, or immediately go to $C \times D$ with $(f, g)$, then use the swap isomorphism there: the result is the same. Furthermore, this is true for \emph{any} functions $f$ and $g$.
+
+As we will see, the cartesian product of sets is a functor from the product category (\hyperref[def:productcategory]{Definition \ref*{def:productcategory}}) $\mathsf{Set} \times \mathsf{Set}$ to $\mathsf{Set}$ which maps $(A, B)$ to $A \times B$. There is another functor $\mathsf{Set} \times \mathsf{Set} \rightsquigarrow \mathsf{Set}$ which sends $(A, B)$ to $B \times A$. The above means that there is a natural isomorphism, called $\mathrm{swap}$, between them.
 
 \begin{definition}[natural transformation]
   \label{def:naturaltransformation}
-  let $\mathsf{c}$ and $\mathsf{d}$ be categories, and let $\mathcal{f}$ and $\mathcal{g}$ be covariant functors from $\mathsf{c}$ to $\mathsf{d}$. a \defn{natural transformation} $\eta$ between $\mathcal{f}$ and $\mathcal{g}$ consists of 
+  let $\mathsf{C}$ and $\mathsf{D}$ be categories, and let $\mathcal{F}$ and $\mathcal{G}$ be covariant functors from $\mathsf{C}$ to $\mathsf{D}$. a \defn{natural transformation} $\eta$ between $\mathcal{F}$ and $\mathcal{G}$ consists of 
   \begin{itemize}
-    \item for each object $A \in \Obj(\mathsf{C})$ a morphism $\eta_{A}\colon \mathcal{f}(A) \to \mathcal{g}(A)$, such that
+    \item for each object $A \in \Obj(\mathsf{C})$ a morphism $\eta_{A}\colon \mathcal{F}(A) \to \mathcal{G}(A)$, such that
     \item for all $A$, $B \in \Obj(C)$, for each morphism $f \in \Hom(A,B)$, the diagram
       \begin{equation*}
         \begin{tikzcd}
@@ -992,17 +999,18 @@ Here is how it is done. Notice that for \emph{any} functions $f\colon A \to C$ a
 
 \end{definition}
 
+\begin{definition}[natural isomorphism]
+  \label{def:naturalisomorphism}
+  A \defn{natural isomorphism} $\eta\colon \mathcal{F} \Rightarrow \mathcal{G}$ is a natural transformation such that each $\eta_{A}$ is an isomorphism.
+\end{definition}
+
+
 \begin{notation}
   We will use double-shafted arrows to denote natural transformations: if $\mathcal{F}$ and $\mathcal{G}$ are functors and $\eta$ is a natural transformation from $\mathcal{F}$ to $\mathcal{G}$, we will write
   \begin{equation*}
     \eta\colon \mathcal{F} \Rightarrow \mathcal{G}.
   \end{equation*}
 \end{notation}
-
-\begin{definition}[functor category]
-  \label{def:functorcategory}
-  Let $\mathsf{C}$ and $\mathsf{D}$ be categories. The \defn{functor category} $\mathsf{D}^{\mathsf{C}}$ (or $[\mathsf{C},\mathsf{D}]$) is the category whose objects are functors $\mathsf{C} \rightsquigarrow \mathsf{D}$, and whose morphisms are natural transformations between them.
-\end{definition}
 
 \begin{definition}[set of all natural transformations]
   \label{def:setofallnaturaltransformations}
@@ -1095,9 +1103,15 @@ We can compose natural transformations in the obvious way.
 
   The top and bottom squares are the naturality squares for $\Phi$ and $\Psi$ respectively. The outside square is the one we want to commute, and it manifestly does because each of the inside squares does.
 \end{proof}
+
 \begin{definition}[vertical composition]
   \label{def:verticalcomposition}
   The above composition $\Psi \circ \Phi$ is called \defn{vertical composition}.
+\end{definition}
+
+\begin{definition}[functor category]
+  \label{def:functorcategory}
+  Let $\mathsf{C}$ and $\mathsf{D}$ be categories. The \defn{functor category} $\mathsf{D}^{\mathsf{C}}$ (or $[\mathsf{C},\mathsf{D}]$) is the category whose objects are functors $\mathsf{C} \rightsquigarrow \mathsf{D}$, and whose morphisms are natural transformations between them. The composition is given by vertical composition.
 \end{definition}
 
 We can also compose natural transformations in a not so obvious way.
@@ -1160,7 +1174,7 @@ We can also compose natural transformations in a not so obvious way.
       & (\mathcal{G} \circ \mathcal{F}')(B) 
     \end{tikzcd}
   \end{equation*}
-  Also, since $\mathcal{F}'(f)\colon \mathcal{F}'(A) \to \mathcal{F}(B)$ is a morphism in $\mathsf{D}$ and $\Psi$ is a natural transformation, the following diagram commutes.
+  Also, since $\mathcal{F}'(f)\colon \mathcal{F}'(A) \to \mathcal{F}'(B)$ is a morphism in $\mathsf{D}$ and $\Psi$ is a natural transformation, the following diagram commutes.
   \begin{equation*}
     \begin{tikzcd}[row sep=huge, column sep=huge]
       (\mathcal{G} \circ \mathcal{F}')(A)
@@ -1252,7 +1266,7 @@ We can also compose natural transformations in a not so obvious way.
       & (\mathcal{G}' \circ \mathcal{F})(B)
     \end{tikzcd};
   \end{equation*}
-  if you do this you get \emph{another} natural transformation, with components $\mathcal{G}'(\Phi_{A}) \circ \Psi_{\mathcal{F}(A)}$. Why did we use the first definition rather than this one? 
+  if you do this you get \emph{another} natural transformation $\mathcal{G} \circ \mathcal{F} \Rightarrow \mathcal{G}' \circ \mathcal{F}'$, with components $\mathcal{G}'(\Phi_{A}) \circ \Psi_{\mathcal{F}(A)}$. Why did we use the first definition rather than this one? 
 
   It turns out that $\Psi_{\mathcal{F}(A)} \circ \mathcal{G}(\Phi_{A})$ and $\mathcal{G}'(\Phi_{A}) \circ \Psi_{\mathcal{F}(A)}$ are equal. To see this, note that from the morphism
   \begin{equation*}
@@ -1350,11 +1364,6 @@ We can also compose natural transformations in a not so obvious way.
   This is called the \emph{left whiskering} of $\Psi$ with $\mathcal{F}$
 \end{example}
 
-\begin{definition}[natural isomorphism]
-  \label{def:naturalisomorphism}
-  A \defn{natural isomorphism} $\eta\colon \mathcal{F} \Rightarrow \mathcal{G}$ is a natural transformation such that each $\eta_{A}$ is an isomorphism.
-\end{definition}
-
 \begin{lemma}
   \label{lemma:naturalisomorphismshaveinverses}
   If we have a natural isomorphism $\eta\colon \mathcal{F} \Rightarrow \mathcal{G}$, we can construct a natural isomorphism $\eta^{-1}\colon \mathcal{G} \Rightarrow \mathcal{F}$.
@@ -1379,7 +1388,7 @@ We can also compose natural transformations in a not so obvious way.
     \eta_{B} \circ \mathcal{F}(f) = \mathcal{G}(f) \circ \eta_{A}.
   \end{equation*}
 
-  Since $\eta$ is a natural isomorphism, its components $\eta_{A}$ are isomorphisms, so they have inverses $\eta_{A}^{-1}$. Actint on the above equation with $\eta_{A}^{-1}$ from the right and $\eta_{B}^{-1}$ from the left, we find
+  Since $\eta$ is a natural isomorphism, its components $\eta_{A}$ are isomorphisms, so they have inverses $\eta_{A}^{-1}$. Acting on the above equation with $\eta_{A}^{-1}$ from the right and $\eta_{B}^{-1}$ from the left, we find
   \begin{equation*}
     \mathcal{F}(f) \circ \eta_{A}^{-1} = \eta_{B}^{-1} \circ \mathcal{G}(f),
   \end{equation*}
@@ -1398,7 +1407,7 @@ We can also compose natural transformations in a not so obvious way.
     \end{tikzcd}
   \end{equation*}
 
-  But this is just the naturality square for a natural isomorphism $\eta^{-1}$ with components $(\eta^{-1})_{A} = (\eta_{A})^{-1}$.
+  But this is just the naturality square for a natural isomorphism $\eta^{-1}$ with components $(\eta^{-1})_{A} = \eta_{A}^{-1}$.
 \end{proof}
 
 We would like to be able to express when two categories are the `same.' The correct notion of sameness is provided by the following definition.
@@ -1498,7 +1507,7 @@ A special case of a comma category, the so-called \emph{slice category}, occurs 
 
 \begin{definition}[slice category]
   \label{def:slicecategory}
-  A slice category is a comma category
+  A \defn{slice category} is a comma category
 
   \begin{equation*}
     \begin{tikzcd}
@@ -1508,8 +1517,20 @@ A special case of a comma category, the so-called \emph{slice category}, occurs 
 
   Let us unpack this prescription. Taking the definition literally, the objects in our category are triples $(\alpha, \beta, f)$, where $\alpha \in \Obj(\mathsf{A})$, $\beta \in \Obj(\mathsf{1})$, and $f \in \Hom_{\mathsf{A}}(\mathrm{id}_{\mathsf{A}}(\alpha), \mathcal{T}(\beta))$.
 
-  There's a lot of extraneous information here, and our definition can be consolidated considerably. Since the functor $\mathcal{T}$ is given and $\mathsf{1}$ has only one object (call it $*$), the object $\mathcal{T}(*)$ (call it $X$) is singled out in $\mathsf{A}$. We can think of $\mathcal{T}$ as $\mathcal{F}_{X}$ (\hyperref[eg:functorfrom1category]{Example \ref*{eg:functorfrom1category}}). Similarly, since the identity morphism doesn't do anything interesting, we can collapse the LHS of the commutativity square. 
-
+  There's a lot of extraneous information here, and our definition can be consolidated considerably. Since the functor $\mathcal{T}$ is given and $\mathsf{1}$ has only one object (call it $*$), the object $\mathcal{T}(*)$ (call it $X$) is singled out in $\mathsf{A}$. We can think of $\mathcal{T}$ as $\mathcal{F}_{X}$ (\hyperref[eg:functorfrom1category]{Example \ref*{eg:functorfrom1category}}). Similarly, since the identity morphism doesn't do anything interesting, Therefore, we can collapse the following diagram considerably. 
+  \begin{equation*}
+    \begin{tikzcd}
+      \mathcal{F}_{X}(*)
+      \arrow[r, "\mathcal{F}_{X}(1_{*})"]
+      \arrow[d, swap, "f"]
+      & \mathcal{F}_{X}(*)
+      \arrow[d, "f'"]
+      \\
+      \mathrm{id}_{A}(\alpha)
+      \arrow[r, "\mathrm{id}_{A}(g)"]
+      & \mathrm{id}_{A}(\alpha')
+    \end{tikzcd}
+  \end{equation*}
   The objects of a slice category therefore consist of pairs $(\alpha, f)$, where $\alpha \in \Obj(A)$ and 
   \begin{equation*}
     f: \alpha \to X;
@@ -1580,7 +1601,7 @@ The easiest way to do this in general is by using the idea of a \emph{universal 
   \label{thm:allinitialobjectsareuniquelyisomorphic}
 \end{theorem}
 \begin{proof}
-  Since $I$ is initial, there exists exactly one morphism from $I$ to \emph{any} object, including $I$ itself. By \hyperref[item:existenceofidentitymorphism]{Definition \ref*{def:category}, Part \ref*{item:existenceofidentitymorphism}} $I$ must have at least one map to itself: the identity morphism $1_{I}$. Thus, the only morphism from $I$ to itself is the identity morphism. Similarly, the only morphism from $I'$ to itself is also the identity morphism.
+  Since $I$ is initial, there exists exactly one morphism from $I$ to \emph{any} object, including $I$ itself. By \hyperref[item:existenceofidentitymorphism]{Definition \ref*{def:category}, Part \ref*{item:existenceofidentitymorphism}}, $I$ must have at least one map to itself: the identity morphism $1_{I}$. Thus, the only morphism from $I$ to itself is the identity morphism. Similarly, the only morphism from $I'$ to itself is also the identity morphism.
 
   But since $I$ is initial, there exists a unique morphism from $I$ to $I'$; call it $f$. Similarly, there exists a unique morphism from $I'$ to $I$; call it $g$. By \hyperref[item:compositionofmorphisms]{Definition \ref*{def:category}, Part \ref*{item:compositionofmorphisms}}, we can take the composition $g \circ f$ to get a morphism $I \to I$.
 
@@ -1612,7 +1633,7 @@ The easiest way to do this in general is by using the idea of a \emph{universal 
   \end{equation*}
   Just as for (co)slice categories (\hyperref[def:slicecategory]{Definitions \ref*{def:slicecategory} and \ref*{def:coslicecategory}}), there is some unpacking to be done. In fact, the unpacking is very similar to that of coslice categories. The LHS of the commutative square diagram collapses because the functor $\mathcal{F}_{X}$ picks out a single element $X$; therefore, the objects of $(X \downarrow \mathcal{U})$ are ordered pairs
   \begin{equation*}
-    (\alpha, f):\qquad\alpha \in \Obj(\mathsf{D}),\quad f\colon X \to \mathcal{U}(\alpha),
+    (\alpha, f);\qquad\alpha \in \Obj(\mathsf{D}),\quad f\colon X \to \mathcal{U}(\alpha),
   \end{equation*}
   and the morphisms $(\alpha, f) \to (\alpha', f')$ are morphisms $g\colon \alpha \to \alpha'$ such that the diagram
 
@@ -1658,8 +1679,8 @@ Just as slice categories are dual to coslice categories, we can take the dual of
 \end{definition}
 This is not by any stretch of the imagination a transparent definition, but decoding it will be good practice. 
 
-The definition tells us that an initial morphism is an object in $(X \downarrow \mathcal{U})$, i.e. a pair $(I, \varphi)$ for $I \in \Obj(\mathsf{D})$ and $\varphi\colon X \to \mathcal{U}(\alpha)$. But it is not just any object; it is an initial object. This means that for any other object $(\alpha, f)$, there exists a unique morphism $(I, \varphi) \to (\alpha, f)$.
-But morphisms are simply maps $g\colon I \to \alpha$ such that the diagram
+The definition tells us that an initial morphism is an object in $(X \downarrow \mathcal{U})$, i.e. a pair $(I, \varphi)$ for $I \in \Obj(\mathsf{D})$ and $\varphi\colon X \to \mathcal{U}(\alpha)$. But it is not just any object: it is an initial object. This means that for any other object $(\alpha, f)$, there exists a unique morphism $(I, \varphi) \to (\alpha, f)$.
+But such morphisms are simply maps $g\colon I \to \alpha$ such that the diagram
 \begin{equation*}
   \begin{tikzcd}[column sep=tiny, row sep=6ex]
     & X \arrow[dl, swap, "\varphi"] \arrow[dr, "f"] & \\
@@ -1682,7 +1703,7 @@ As always, there is a dual notion.
   Let $\mathsf{C}$, $\mathsf{D}$ be categories, let $\mathcal{U}\colon \mathsf{D} \rightsquigarrow \mathsf{C}$ be a functor, and let $X \in \Obj(\mathsf{C})$. A \defn{terminal morphism} is a terminal object in the category $(\mathcal{U} \downarrow X)$.
 \end{definition}
 
-This time ``terminal object'' means a pair $(I, \varphi)$ such that there is a unique morphism $g\colon \alpha \to I$ such that the diagram
+This time ``terminal object'' means a pair $(I, \varphi)$ such that for any other object $(\alpha, f)$ there is a unique morphism $g\colon \alpha \to I$ such that the diagram
 \begin{equation*}
   \begin{tikzcd}[column sep=tiny, row sep=6ex]
     \mathcal{U}(\alpha) \arrow[dr, swap, "f"] \arrow[rr, "\mathcal{U}(g)"] & & \mathcal{U}(I)\arrow[dl, "\varphi"] \\
@@ -1818,13 +1839,13 @@ Again, with the diagram helpfully rotated, we have the following.
 \section{Cartesian closed categories} \label{sec:cartesianclosedcategories}
 This section loosely follows \cite{awodey-category-theory-foundations-videos}. 
 
-Cartesian closed categories are the prototype for a lot of structures possessed by monoidal categories. 
+Cartesian closed categories are the prototype for many of the structures possessed by monoidal categories. 
 \subsection{Products}
 We saw in \hyperref[eg:universalpropertyofproducts]{Example \ref*{eg:universalpropertyofproducts}} the definition for a categorical product. In some categories, we can naturally take the product of any two objects; one generally says that such a category \emph{has products}. We formalize that in the following.
 
 \begin{definition}[category with products]
   \label{def:categorywithproducts}
-  Let $\mathsf{C}$ be a category such that for every two objects $A$, $B \in \Obj(\mathsf{C})$, the object $A \times B$ which satisfies the universal product (\hyperref[eg:universalpropertyofproducts]{Example \ref*{eg:universalpropertyofproducts}}) exists. Then we say that $\mathsf{C}$ \defn{has products}.
+  Let $\mathsf{C}$ be a category such that for every two objects $A$, $B \in \Obj(\mathsf{C})$, there exists an object $A \times B$ which satisfies the universal product (\hyperref[eg:universalpropertyofproducts]{Example \ref*{eg:universalpropertyofproducts}}). Then we say that $\mathsf{C}$ \defn{has products}.
 \end{definition}
 \begin{note}
   Sometimes people call a category with products a \emph{Cartesian category}, but others use this terminology to mean a category with all finite limits.\footnote{We will see later that any category with both products and equalizers has all finite limits.} We will avoid it altogether. 
@@ -2110,9 +2131,9 @@ Given any locally small category (\hyperref[def:smalllocallysmallcategoryhomset]
 
 To be more explicit, we can view $\Hom_{\mathsf{C}}$ as a functor $\mathsf{C}^{\mathrm{op}} \times \mathsf{C} \rightsquigarrow \mathsf{Set}$, which sends each pair $(A', A) \in \Obj(\mathsf{C}^{\mathrm{op}} \times \mathsf{C})$ to the set $\Hom_{\mathsf{C}}(A', A)$ of morphisms $A' \to A$. 
 
-This is fine, and probably the definition you were expecting, but we're not done: as a functor it also has to send the morphisms in $\mathsf{C} \times \mathsf{C}^{\mathrm{op}}$ to $\mathsf{Set}$-arrows. How does \emph{that} work?
+This is fine, and probably the definition you were expecting, but we're not done: as a functor it also has to send the morphisms in $\mathsf{C}^{\mathrm{op}} \times \mathsf{C}$ to $\mathsf{Set}$-arrows. How does \emph{that} work?
 
-A morphism in $\mathsf{C} \times \mathsf{C}^{\mathrm{op}}$ between two objects $(A', A)$ and $(B', B)$ is an ordered pair $(f', f)$ of two morphisms:
+A morphism in $\mathsf{C}^{\text{op}} \times \mathsf{C}$ between two objects $(A', A)$ and $(B', B)$ is an ordered pair $(f', f)$ of two morphisms:
 \begin{equation*}
   f'\colon B' \to A'\qquad\text{and}\qquad f\colon A \to B,
 \end{equation*}
@@ -2447,7 +2468,7 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
 
   So, starting at the top left with a natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$, we can go to the bottom right in two ways.
   \begin{enumerate}
-    \item We can head down to $\Nat(Y_{B}, \mathcal{F})$ mapping 
+    \item We can head down to $\Nat(Y_{B}, \mathcal{F})$, mapping 
       \begin{equation*}
         \Phi \mapsto \Phi \circ \mathcal{Y}(f),
       \end{equation*}
@@ -2698,7 +2719,7 @@ This allows us to make the following definition.
 \end{definition} 
 
 \begin{note}
-  The previous definition not only reiterates what cones look like, but even prescribes what morphisms between cones look like. Let $(X, \Phi)$ be a cone over a diagram $\mathcal{D}\colon \mathsf{J} \rightsquigarrow \mathsf{C}$, i.e.
+  The alternate definition given in \hyperref[note:alternatedefinitionofcone]{Note \ref*{note:alternatedefinitionofcone}} not only reiterates what cones look like, but even prescribes what morphisms between cones look like. Let $(X, \Phi)$ be a cone over a diagram $\mathcal{D}\colon \mathsf{J} \rightsquigarrow \mathsf{C}$, i.e.
   \begin{itemize}
     \item an object in the category $(\Delta \downarrow \mathcal{D})$, i.e.
     \item a pair $(X, \Phi)$, where $X \in \Obj(\mathsf{C})$ and $\Phi\colon \Delta_{X} \Rightarrow \mathcal{D}$ is a natural transformation, i.e.
@@ -3189,6 +3210,7 @@ Pushouts are the dual notion to pullbacks.
 \end{definition}
 
 \begin{example}
+  \label{eg:invectcokernelsarequotientsbyimage}
   In $\mathsf{Vect}_{k}$, the terminal object is the vector space $\{0\}$. If $V$ and $W$ are $k$-vector spaces and $f$ is a linear map $V \to W$, then $\coker(f)$ is
   \begin{equation*}
     W / \sim, 
@@ -3706,10 +3728,11 @@ Here are two equivalent definitions which are often used.
 \end{proof}
 
 \section{Monoidal categories} \label{sec:monoidalcategories}
-\subsection{Monoidal categories}
-Monoidal categories are the first ingredient in the categorification and generalization of the tensor product. Roughly speaking, the tensor product allows us to multiply two vector spaces to produce a new vector space. There are natural isomorphisms making this multiplication associative, and an `identity vector space' given by the ground field regarded as a one-dimensional vector space over itself. 
+Recall the definition of a monoid (\hyperref[def:monoid]{Definition \ref*{def:monoid}}). subsection{Monoidal categories}. Basically, a monoid is a group without inverses. 
 
-Recall the definition of a monoid (\hyperref[def:monoid]{Definition \ref*{def:monoid}}). Basically, a monoid is a group without inverses. A monoidal category will be a category in which the objects have the structure of a monoid, i.e. there is a suitably defined `multiplication' which is unital and associative. The prototypical example of categorical multiplication is the product (see \hyperref[eg:universalpropertyofproducts]{Example \ref*{eg:universalpropertyofproducts}}), although it is far from the only one.
+Monoidal categories are the first ingredient in the categorification and generalization of the tensor product. Roughly speaking, the tensor product allows us to multiply two vector spaces to produce a new vector space. There are natural isomorphisms making this multiplication associative, and an `identity vector space' given by the ground field regarded as a one-dimensional vector space over itself. That is to say the tensor product gives the set of all vector spaces the structure of a monoid.
+
+A monoidal category will be a category in which the objects have the structure of a monoid, i.e. there is a suitably defined `multiplication' which is unital and associative. The prototypical example of categorical multiplication is the product (see \hyperref[eg:universalpropertyofproducts]{Example \ref*{eg:universalpropertyofproducts}}), although it is far from the only one.
 
 \begin{definition}[monoidal category]
   \label{def:monoidalcategory}
@@ -3797,7 +3820,7 @@ Recall the definition of a monoid (\hyperref[def:monoid]{Definition \ref*{def:mo
 \end{definition}
 
 \begin{notation}
-  The notation $(\otimes, 1, \alpha, \lambda, \rho)$ is prone to change. If the associator and unitors are not important or understood from context, they are often left out. We will often say ``Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category.''
+  The notation $(\otimes, 1, \alpha, \lambda, \rho)$ is prone to change. If the associator and unitors are not important, or understood from context, they are often left out. We will often say ``Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category.''
 \end{notation}
 
 \begin{example}
@@ -4015,7 +4038,7 @@ The following definition was taken \emph{mutatis mutandis} from \cite{baez-defin
   The composition of lax (strong) monoidal functors is lax (strong) monoidal.
 \end{lemma}
 \begin{proof}
-  
+
 \end{proof}
 
 \begin{definition}[monoidal natural transformation]
@@ -4275,7 +4298,7 @@ which is clearly homotopic to the identity transformation on $A \otimes B$.
 \section{Internal hom functors} \label{sec:internalhomfunctors}
 We can now generalize the notion of an exponential object (\hyperref[def:exponential]{Definiton \ref*{def:exponential}}) to any monoidal category.
 \subsection{The internal hom functor}
-Recall the definition of the hom functor on a (locally small) category $\mathsf{C}$ (\hyperref[def:homfunctor]{Definition \ref*{def:homfunctor}}): it is the functor which maps two objects to the set of morphisms between them, so it is a functor
+Recall the definition of the hom functor on a locally small category $\mathsf{C}$ (\hyperref[def:homfunctor]{Definition \ref*{def:homfunctor}}): it is the functor which maps two objects to the set of morphisms between them, so it is a functor
 \begin{equation*}
   \mathsf{C}^{\mathrm{op}} \times \mathsf{C} \rightsquigarrow \mathsf{Set}.
 \end{equation*}
@@ -4527,7 +4550,7 @@ The evaluation map allows us to define composition of morphisms without talking 
 \end{definition}
 
 \begin{example}
-  In $\mathsf{Set}$, the composition morphism $\circ_{X, Y, Z}$ also lives up to its name. Let $f\colon X \to Y$, $g\colon Y \to Z$, and $x \in X$. The above composition goes as follows.
+  In $\mathsf{Set}$, the composition morphism $\circ_{X, Y, Z}$ lives up to its name. Let $f\colon X \to Y$, $g\colon Y \to Z$, and $x \in X$. The above composition goes as follows.
   \begin{enumerate}
     \item The map $\left( 1_{[Y, Z]}, \ev_{X, Y} \right)$ turns the triple $(g, f, x)$ into the pair $(g, f(x))$.
 
@@ -5312,8 +5335,8 @@ For the remainder of the section, let $\mathsf{C}$ be an abelian category.
   \label{def:subobjectquotientobject}
   Let $Y \in \Obj(\mathsf{C})$.
   \begin{enumerate}
-    \item A \defn{subobject} of $Y$ is an object $X \in \Obj(\mathsf{C})$ together with a monomorphism $i\colon X \to Y$. If $X$ is a subobject of $Y$ we will write $X \subseteq Y$.
-    \item A \defn{quotient object} of $Y$ is an object $Z$ together with an epimorphism $p\colon Y \to Z$.
+    \item A \defn{subobject} of $Y$ is an object $X \in \Obj(\mathsf{C})$ together with a monomorphism $i\colon X \hookrightarrow Y$. If $X$ is a subobject of $Y$ we will write $X \subseteq Y$.
+    \item A \defn{quotient object} of $Y$ is an object $Z$ together with an epimorphism $p\colon Y \twoheadrightarrow Z$.
     \item A \defn{subquotient object} of $Y$ is a quotient object of a subobject of $Y$.
   \end{enumerate}
 \end{definition}
@@ -5357,6 +5380,12 @@ For the remainder of the section, let $\mathsf{C}$ be an abelian category.
   \label{def:quotient}
   Let $X \subseteq Y$, i.e. let there exist a monomorphism $f\colon X \hookrightarrow Y$. The \defn{quotient} $Y/X$ is the cokernel $(\coker(f), \pi_{f})$.
 \end{definition}
+
+\begin{example}
+  Let $V$ be a vector space, $W \subseteq V$ a subspace. Then we have the canonical inclusion map $\iota\colon W \hookrightarrow V$, so $W$ is a subobject of $V$ in the sense of \hyperref[def:subobjectquotientobject]{Definition \ref*{def:subobjectquotientobject}}.
+
+  According to \hyperref[def:quotient]{Definition \ref*{def:quotient}}, the quotient $V / W$ is the cokernel $(\coker(\iota), \pi_{\iota})$ of $\iota$. We saw in \hyperref[eg:invectcokernelsarequotientsbyimage]{Example \ref*{eg:invectcokernelsarequotientsbyimage}} that the cokernel of $\iota$ was $V / \im(\iota)$. However, $\im(\iota)$ is exactly $W$! So the categorical notion of the quotient $V / W$ agrees with the linear algebra notion.
+\end{example}
 
 \subsection{Exact sequences}
 \begin{definition}[exact sequence]
@@ -5445,6 +5474,126 @@ This definition has some immediate trivial consequences.
     \item We need to show that
   \end{enumerate}
 \end{proof}
+
+\begin{definition}[exact functor]
+  \label{def:exactfunctor}
+  Let $\mathsf{C}$, $\mathsf{D}$ be abelian categories, $\mathcal{F}\colon \mathsf{C} \rightsquigarrow \mathsf{D}$ a functor. We say that $\mathcal{F}$ is
+  \begin{itemize}
+    \item \defn{left exact} if it preserves biproducts and kernels
+    \item \defn{right exact} if it preserves biproducts and cokernels
+    \item \defn{exact} if it is both left exact and right exact.
+  \end{itemize}
+\end{definition}
+
+\begin{theorem}
+  Let $\mathcal{F}\colon \mathsf{C} \rightsquigarrow \mathsf{D}$ be a functor between abelian categories. Let
+  \begin{equation*}
+    \begin{tikzcd}
+      0
+      \arrow[r]
+      & A
+      \arrow[r]
+      & B
+      \arrow[r]
+      & C
+      \arrow[r]
+      & 0
+    \end{tikzcd}
+  \end{equation*}
+  be a short exact sequence in $\mathsf{C}$. Then 
+  \begin{itemize}
+    \item if $\mathcal{F}$ is left exact, then
+      \begin{equation*}
+        \begin{tikzcd}
+          0
+          \arrow[r]
+          & \mathcal{F}(A)
+          \arrow[r]
+          & \mathcal{F}(B)
+          \arrow[r]
+          & \mathcal{F}(C)
+        \end{tikzcd}
+      \end{equation*}
+      is an exact sequence in $\mathsf{D}$.
+
+    \item if $\mathcal{F}$ is right exact, then
+      \begin{equation*}
+        \begin{tikzcd}
+          \mathcal{F}(A)
+          \arrow[r]
+          & \mathcal{F}(B)
+          \arrow[r]
+          & \mathcal{F}(C)
+          \arrow[r]
+          & 0
+        \end{tikzcd}
+      \end{equation*}
+      is an exact sequence in $\mathsf{D}$.
+    \item if $\mathcal{F}$ is exact, then
+      \begin{equation*}
+        \begin{tikzcd}
+          0
+          \arrow[r]
+          & \mathcal{F}(A)
+          \arrow[r]
+          & \mathcal{F}(B)
+          \arrow[r]
+          & \mathcal{F}(C)
+          \arrow[r]
+          & 0
+        \end{tikzcd}
+      \end{equation*}
+      is an exact sequence in $\mathsf{D}$.
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  
+\end{proof}
+
+\subsection{Length of objects}
+\begin{definition}[simple object]
+  \label{def:simpleobject}
+  A nonzero object $X \in \Obj(\mathsf{C})$ is called \defn{simple} if $0$ and $X$ are its only subobjects.
+\end{definition}
+
+\begin{example}
+  In $\mathsf{Vect}_{k}$, the only simple object (up to isomorphism) is $k$, taken as a one-dimensional vector space over itself.
+\end{example}
+
+\begin{definition}[semisimple object]
+  \label{def:semisimpleobject}
+  An object $Y \in \Obj(\mathsf{C})$ is \defn{semisimple} if it is isomorphic to a dirct sum of simple objects.
+\end{definition}
+
+\begin{example}
+  In $\mathsf{Vect}_{k}$, all finite-dimensional vector spaces are simple.
+\end{example}
+
+\begin{definition}[semisimple category]
+  \label{def:semisimple category}
+  An abelian category $\mathsf{C}$ is \defn{semisimple} if every object of $\mathsf{C}$ is semisimple.
+\end{definition}
+
+\begin{example}
+  The category $\mathsf{FinVect}_{k}$ is semisimple.
+\end{example}
+
+\begin{definition}[Jordan-H{\"o}lder series]
+  \label{def:jordanholderseries}
+  Let $X \in \Obj(\mathsf{C})$. A filtration 
+  \begin{equation*}
+    0 = X_{0} \subset X_{1} \subset \cdots \subset X_{n-1} \subset X_{n} = X
+  \end{equation*}
+  of $X$ such that $X_{i} / X_{i-1}$ is simple for all $i$ is called a \defn{Jordan H{\"o}lder series} for $X$. The integer $n$ is called the \defn{length} of the series $X_{i}$.
+\end{definition}
+
+The importance of Jordan-H{\"o}lder series is the following.
+
+\begin{theorem}[Jordan-H{\"o}lder]
+  Let $X_{i}$ and $Y_{i}$ be two Jordan-H{\"o}lder series for some object $X \in \Obj(\mathsf{C})$. Then the length of $X_{i}$ is equal to the length of $Y_{i}$, and the objects $Y_{i}/Y_{i-1}$ are a reordering of $X_{i}/X_{i-1}$.
+\end{theorem}
+
+\section{Tensor Categories}
 
 \section{Higher categories} \label{sec:highercategories}
 This section follows \cite{baez-higher-categories} closely.
@@ -6856,6 +7005,92 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   such that the following diagrams commute.
 \end{definition}
 
+
+\chapter{A helicopter tour of the physics of tensor categories}
+\section{Wigner's classification of fundamental particle species}
+This section follows \cite{haag-local-quantum-physics} closely. Some stuff was taken from \cite{sexl-urbantke-relativity-groups-particles}.
+ 
+The postulates of quantum mechanics tell us that the states of a quantum system correspond to vectors $\psi$ belonging to some Hilbert space $\mathscr{H}$. However, this is not the end of the story. The Born rule for calculating probabilities
+\begin{equation*}
+  P(\varphi | \psi) = \frac{\left|\left\langle \varphi | \psi \right\rangle\right|^{2}}{\norm{\varphi}^{2} \cdot \norm{\psi}^{2}}
+\end{equation*}
+is invariant under a rescaling of either $\varphi$ or $\psi$ by any nonzero complex number: that is,
+\begin{equation*}
+  \psi \sim \psi' \qquad\text{if}\qquad \psi' = \lambda \psi\qquad\text{for some }\lambda \in \C\setminus\left\{ 0 \right\}.
+\end{equation*}
+This suggests that we should think about two states which differ only by a nonzero complex factor as being physically equivalent. That is, the true space of states of our quantum system is not $\mathscr{H}$, but $\mathscr{H} / \sim$, i.e. \emph{projective Hilbert space} $\mathbb{P}\mathscr{H}$. Physically inequivalent quantum states are in one-to-one correspondence to the equivalence classes in $\mathbb{P}\mathscr{H}$.
+
+Now suppose we want our quantum theory to have Poincar{\'e} symmetry. Recall: the Poincar{\'e} group is the semidirect product of $\R^{4}$ and $\Or(1,3)$.
+\begin{equation*}
+  \mathcal{P} = \R^{4} \rtimes \Or(1,3).
+\end{equation*}
+Its elements are ordered pairs $(a, \Lambda)$, with $a \in \R^{4}$ and $\Lambda \in \Or(1,3)$.
+
+Pick any ray $[\psi_{0}] \in \mathbb{P} \mathscr{H}$. For any Poincar{\'e} transformation $g \in \mathcal{P}$, there should be another state (i.e. ray) $[\psi_{g}] = T_{g}[\psi]$, which corresponds to the result of transformed the system with $g$. Furthermore, we want the result of acting on $[\psi_{0}]$ with a sequence of Poincar{\'e} transformations to be the same no matter how we imagine them to be bracketed.
+\begin{equation*}
+  (T_{g_{1}} T_{g_{2}} \cdots T_{g_{n}}) [\psi] = [\psi_{g_{1} g_{2} \cdots g_{n}}].
+\end{equation*}
+Mathematically, the above considerations mean that if we are to consider a quantum theory which is Poincar{\'e}-invariant, we want a Hilbert space $\mathscr{H}$ which admits an injective homomorphism
+\begin{equation*}
+  \rho\colon \R^{4} \rtimes \Or(1, 3) \hookrightarrow \mathrm{Aut}(\mathbb{P}\mathscr{H}).
+\end{equation*}
+
+Of course, having such a $\rho$ is nice, but quantum mechanics does not deal with projective spaces and ray transformations. If we are to use these results as-is, we need to translate them to results about $\mathscr{H}$ itself.
+
+Pick one specific element $g \in \mathcal{P}$. To this element there is associated a bijective ray map on $\mathscr{H}$. Obviously, we can mimic this using a function $\hat{T}_{g}\colon \mathscr{H} \to \mathscr{H}$; we need only ensure that the vectors composing rays are mapped to the correct target rays. Equally obviously however, this does not specify $\hat{T}_{g}$ uniquely; there are many possible ways of mixing the vectors composing the rays. We have some freedom to choose this mixing in as nice as possible a way.
+
+By a theorem of Wigner, we can get away with demanding that $\hat{T}_{g}$ be additive, length-preserving, and either
+\begin{itemize}
+  \item linear and unitary or
+  \item antilinear and antiunitary.
+\end{itemize}
+In doing so, we specify $\hat{T}_{g}$ up to an arbitrary phase.
+
+For a moment, let us restrict our attention to the component of $\mathcal{P}$ connected to the identity, the \emph{proper orthochronous Poincar{\'e} group} $\mathcal{P}_{+}^{\uparrow}$. In this setting, we can use the fact that on a connected Lie group, every element has a square root:
+\begin{equation*}
+  \hat{T}_{g} = \hat{T}_{g'}^{2}\qquad\text{for some }g' \in \mathcal{P}.
+\end{equation*}
+But even if $\hat{T}_{g'}$ is antilinear and antiunitary, its square will be linear and unitary. Since this is true for any $g$, we must have that for all $g \in \mathcal{P}_{+}^{\uparrow}$, $\hat{T}_{g}$ is linear and unitary.
+
+The Poincar{\'e} group has four disconnected components. This muddies the discussion significantly. However, for our purposes it will suffice to consider only the component $\mathcal{P}_{+}^{\uparrow}$ of $\mathcal{P}$ connected to the identity. Then for us the above discussion means that we can always find a representation of $\mathcal{P}_{+}^{\uparrow}$ which is unitary up to a phase: a so-called \emph{ray representation}.
+
+In fact, we can do even more. By a theorem of Bargmann and Wigner, we can replace a unitary ray representation of $\mathcal{P}_{+}^{\uparrow}$ by a bona fide unitary representation of the universal covering group $\overline{\mathcal{P}_{+}^{\uparrow}}$. To save on symbols, we'll call this $\widetilde{\mathcal{P}}$.
+
+The moral of the story so far: the Hilbert space of any quantum mechanical theory which is invariant under proper orthochronous Poincar{\'e} symmetry must admit a representation of the covering group of the proper orthochronous Poincar{\'e} group, $\widetilde{\mathcal{P}}$.
+
+Recall: $\widetilde{\mathcal{P}} = \R^{4} \rtimes \SL(2, \C)$, so its elements look like $(a, \alpha)$, with $a \in \R^{4}$ and $\alpha \in \SL(2, \C)$. The subgroup $\SL(2, \C)$ acts on $\R^{4}$ via 
+\begin{equation*}
+  \Lambda^{\mu}_{\nu}(\alpha) = \frac{1}{2} \mathrm{tr}(\alpha \sigma_{\nu} \alpha^{\dagger} \sigma_{\mu}).
+\end{equation*}
+
+Denote the representation of $(a, \alpha)$ by $U(a, \alpha)$.
+
+Consider some vector in $\R^{4}$, say
+\begin{equation*}
+  \hat{e}_{0} = (1,0,0,0).
+\end{equation*}
+The one-dimensional subspace of $\R^{4}$ generated by $\hat{e}_{0}$ is a one-dimensional Lie subgroup of $\widetilde{\mathcal{P}}$, so by Stone's theorem, we can write its action on $\mathscr{H}$ as follows:
+\begin{equation*}
+  U(\hat{e}_{0} t, I) = e^{i P_{0} t},\qquad P_{0} = -i \tder{}{t}\bigg|_{t=0} U(\hat{e}_{0} t, I).
+\end{equation*}
+For each of the other canonical basis vectors we get similar $P_{i}$. Since $\R^4$ is abelian, these commute, so by the BCH formula,
+\begin{equation*}
+  U(a^{\mu} \hat{e}_{\mu}, I) = e^{i P_{\mu} a^{\mu}}.
+\end{equation*}
+
+Each of the $P_{\mu}$ are Hermitian, and they commute. Thus, they have a common eigenbasis. A priori, all we know is that their spectrum must inhabit some subspace $S \subseteq \R^{4}$. For each spectral component $p_{\mu} \in S$, we have an associated degeneracy space $\mathscr{H}_{p} \subseteq \mathscr{H}$, and if we wave our hands a bit, we can decompose $\mathscr{H}$ into these subspaces.
+\begin{equation*}
+  \mathscr{H} = \bigoplus_{p \in S} \mathscr{H}_{p}
+\end{equation*}
+That is to say, for any $\psi \in \mathscr{H}_{p}$, we have $P_{\mu}\psi = p_{\mu}\psi$.
+
+Under the action of $\alpha \in \SL(2, \C)$, we have
+\begin{multline*}
+  P_\mu \mapsto U^{-1}(\alpha,0) P_\mu\, U(\alpha,0) = U^{-1}(\alpha,0)\left[-i\tder{}{t}\biggr|_{t=0} U(I, \hat{e}_\mu t)\right]U(\alpha,0)\\ = -i\tder{}{t}\biggr|_{t=0}U^{-1}(\alpha,0) U(I, \hat{e}_\mu t)U(\alpha,0) = -i\tder{}{t}\biggr|_{t=0}U\left(I,\Lambda^{-1}(\alpha)\hat{e}_\mu t\right) = \Lambda^{-1}(\alpha)^\nu_\mu P_\nu.
+\end{multline*}
+
+Thus, if $p_{\mu}$ is in $S$, so must be the entire orbit of $p_{\mu}$ under the Lorentz group.
+
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
     \textit{Spin Geometry}.
@@ -6953,5 +7188,12 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
     \textit{Category Theory}
     Oxford University Press, 2006.
 
+  \bibitem{haag-local-quantum-physics} R. Haag.
+    \textit{Local Quantum Physics: Fields, Particles, Algebras}
+    Springer-Verlag Berlin Heidelberg New York, 1996
+
+  \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
+    \textit{Relativity, Groups, Particles: Special Relativity and Relativistic Symmetry in Field and Particle Physics}.
+    Springer-Verlag Wein, 1992
 \end{thebibliography}
 \end{document}
