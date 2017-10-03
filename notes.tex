@@ -7010,58 +7010,51 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 \section{Wigner's classification of fundamental particle species}
 This section follows \cite{haag-local-quantum-physics} closely. Some stuff was taken from \cite{sexl-urbantke-relativity-groups-particles}.
  
-The postulates of quantum mechanics tell us that the states of a quantum system correspond to vectors $\psi$ belonging to some Hilbert space $\mathscr{H}$. However, this is not the end of the story. The Born rule for calculating probabilities
+The axioms of quantum mechanics tell us that the states of a quantum system correspond to vectors $\psi$ belonging to some Hilbert space $\mathscr{H}$. However, this is not the end of the story. The observable quantities built from the states, i.e. the conditional probabilities
 \begin{equation*}
   P(\varphi | \psi) = \frac{\left|\left\langle \varphi | \psi \right\rangle\right|^{2}}{\norm{\varphi}^{2} \cdot \norm{\psi}^{2}}
 \end{equation*}
-is invariant under a rescaling of either $\varphi$ or $\psi$ by any nonzero complex number: that is,
+are invariant under a rescaling of either $\varphi$ or $\psi$ by any nonzero complex number: that is,
 \begin{equation*}
-  \psi \sim \psi' \qquad\text{if}\qquad \psi' = \lambda \psi\qquad\text{for some }\lambda \in \C\setminus\left\{ 0 \right\}.
+  \psi \sim \psi' \qquad\text{if}\qquad \psi' = \lambda \psi\qquad\text{for some }\lambda \in \C\setminus\left\{ 0 \right\},
 \end{equation*}
-This suggests that we should think about two states which differ only by a nonzero complex factor as being physically equivalent. That is, the true space of states of our quantum system is not $\mathscr{H}$, but $\mathscr{H} / \sim$, i.e. \emph{projective Hilbert space} $\mathbb{P}\mathscr{H}$. Physically inequivalent quantum states are in one-to-one correspondence to the equivalence classes in $\mathbb{P}\mathscr{H}$.
+where $\sim$ should be read as `is physically indistinguishable from.'
 
-Now suppose we want our quantum theory to have Poincar{\'e} symmetry. Recall: the Poincar{\'e} group is the semidirect product of $\R^{4}$ and $\Or(1,3)$.
-\begin{equation*}
-  \mathcal{P} = \R^{4} \rtimes \Or(1,3).
-\end{equation*}
-Its elements are ordered pairs $(a, \Lambda)$, with $a \in \R^{4}$ and $\Lambda \in \Or(1,3)$.
+One often `fixes' this problem by working only with normalized state vectors, but this does not completely solve the problem. Instead we should think about two states which differ only by a nonzero complex factor as being physically equivalent. That is, the true space of states of our quantum system is not $\mathscr{H}$, but $\mathscr{H} / \sim$, \emph{projective Hilbert space}. Physically inequivalent quantum states are in one-to-one correspondence to the equivalence classes in $\mathscr{H}/\sim$.
 
-Pick any ray $[\psi_{0}] \in \mathbb{P} \mathscr{H}$. For any Poincar{\'e} transformation $g \in \mathcal{P}$, there should be another state (i.e. ray) $[\psi_{g}] = T_{g}[\psi]$, which corresponds to the result of transformed the system with $g$. Furthermore, we want the result of acting on $[\psi_{0}]$ with a sequence of Poincar{\'e} transformations to be the same no matter how we imagine them to be bracketed.
+Now suppose we want our quantum theory to have Poincar{\'e} symmetry. For us, the Poincar{\'e} group will mean the proper orthochromous Poincar{\'e} group. Its elements are ordered pairs $(a, \Lambda)$, with $a \in \R^{4}$ and $\Lambda \in \mathcal{L}^{\uparrow}_{+}$.
+
+Pick any ray $[\psi_{0}] \in \mathscr{H}/\sim$. For any Poincar{\'e} transformation $g \in \mathcal{P}$, there should be another state (i.e. ray) $[\psi]_{g}$, which corresponds to the result of acting on the system with $g$. Furthermore, we want the result of acting on $[\psi_{0}]$ with a sequence of Poincar{\'e} transformations to be the same no matter how we imagine them to be bracketed. Mathematically, this means that if we are to consider a quantum theory which is Poincar{\'e}-invariant, we want a Hilbert space $\mathscr{H}$ which admits an injective homomorphism
 \begin{equation*}
-  (T_{g_{1}} T_{g_{2}} \cdots T_{g_{n}}) [\psi] = [\psi_{g_{1} g_{2} \cdots g_{n}}].
-\end{equation*}
-Mathematically, the above considerations mean that if we are to consider a quantum theory which is Poincar{\'e}-invariant, we want a Hilbert space $\mathscr{H}$ which admits an injective homomorphism
-\begin{equation*}
-  \rho\colon \R^{4} \rtimes \Or(1, 3) \hookrightarrow \mathrm{Aut}(\mathbb{P}\mathscr{H}).
+  \rho\colon \R^{4} \rtimes \mathcal{L}^{\uparrow}_{+} \hookrightarrow \mathrm{Aut}(\mathscr{H}/\sim).
 \end{equation*}
 
 Of course, having such a $\rho$ is nice, but quantum mechanics does not deal with projective spaces and ray transformations. If we are to use these results as-is, we need to translate them to results about $\mathscr{H}$ itself.
 
-Pick one specific element $g \in \mathcal{P}$. To this element there is associated a bijective ray map on $\mathscr{H}$. Obviously, we can mimic this using a function $\hat{T}_{g}\colon \mathscr{H} \to \mathscr{H}$; we need only ensure that the vectors composing rays are mapped to the correct target rays. Equally obviously however, this does not specify $\hat{T}_{g}$ uniquely; there are many possible ways of mixing the vectors composing the rays. We have some freedom to choose this mixing in as nice as possible a way.
+Pick one specific element $g \in \mathcal{P}$. To this element there is associated a bijective ray map on $\mathscr{H}$. Obviously, we can mimic this bijective ray map with a function $\bar{U}\colon \mathscr{H} \to \mathscr{H}$; we need only ensure that the vectors making up individual rays are mapped to the correct target rays. Equally obviously however, this does not specify $\bar{U}(g)$ uniquely; there are many possible ways of mixing the vectors composing the rays. We have some freedom to choose this mixing in as nice as possible a way.
 
-By a theorem of Wigner, we can get away with demanding that $\hat{T}_{g}$ be additive, length-preserving, and either
+By a theorem of Wigner, we can get away with demanding that $\bar{U}(g)$ be additive, length-preserving, and either
 \begin{itemize}
   \item linear and unitary or
   \item antilinear and antiunitary.
 \end{itemize}
-In doing so, we specify $\hat{T}_{g}$ up to an arbitrary phase.
+In doing so, we specify $\bar{U}(g)$ up to an arbitrary phase.
 
-For a moment, let us restrict our attention to the component of $\mathcal{P}$ connected to the identity, the \emph{proper orthochronous Poincar{\'e} group} $\mathcal{P}_{+}^{\uparrow}$. In this setting, we can use the fact that on a connected Lie group, every element has a square root:
+But we have many $\bar{U}(g)$---one for each Poincar{\'e} transformation. The arbitrarity in the phases translates to a change in representation law for multiplication of the $\bar{U}(g)$; we now have 
 \begin{equation*}
-  \hat{T}_{g} = \hat{T}_{g'}^{2}\qquad\text{for some }g' \in \mathcal{P}.
+  \bar{U}(g) \bar{U}(g') = \eta(g, g')\bar{U}(gg')
 \end{equation*}
-But even if $\hat{T}_{g'}$ is antilinear and antiunitary, its square will be linear and unitary. Since this is true for any $g$, we must have that for all $g \in \mathcal{P}_{+}^{\uparrow}$, $\hat{T}_{g}$ is linear and unitary.
+where the phases $\eta$ are arbitrary.
 
-The Poincar{\'e} group has four disconnected components. This muddies the discussion significantly. However, for our purposes it will suffice to consider only the component $\mathcal{P}_{+}^{\uparrow}$ of $\mathcal{P}$ connected to the identity. Then for us the above discussion means that we can always find a representation of $\mathcal{P}_{+}^{\uparrow}$ which is unitary up to a phase: a so-called \emph{ray representation}.
-
-In fact, we can do even more. By a theorem of Bargmann and Wigner, we can replace a unitary ray representation of $\mathcal{P}_{+}^{\uparrow}$ by a bona fide unitary representation of the universal covering group $\overline{\mathcal{P}_{+}^{\uparrow}}$. To save on symbols, we'll call this $\widetilde{\mathcal{P}}$.
-
-The moral of the story so far: the Hilbert space of any quantum mechanical theory which is invariant under proper orthochronous Poincar{\'e} symmetry must admit a representation of the covering group of the proper orthochronous Poincar{\'e} group, $\widetilde{\mathcal{P}}$.
-
-Recall: $\widetilde{\mathcal{P}} = \R^{4} \rtimes \SL(2, \C)$, so its elements look like $(a, \alpha)$, with $a \in \R^{4}$ and $\alpha \in \SL(2, \C)$. The subgroup $\SL(2, \C)$ acts on $\R^{4}$ via 
+Recall that we have restricted our attention to the component of $\mathcal{P}$ connected to the identity, the \emph{proper orthochronous Poincar{\'e} group} $\mathcal{P}_{+}^{\uparrow}$. In this setting, we can use the fact that on a connected Lie group, every element has a square root, so
 \begin{equation*}
-  \Lambda^{\mu}_{\nu}(\alpha) = \frac{1}{2} \mathrm{tr}(\alpha \sigma_{\nu} \alpha^{\dagger} \sigma_{\mu}).
+  \bar{U}(g) = \eta(g',g')(\bar{U}(g'))^{2}\qquad\text{for some }g' \in \mathcal{P}.
 \end{equation*}
+But even if $\bar{U}(g')$ is antilinear and antiunitary, its square will be linear and unitary. Since this is true for any $g$, we must have that for all $g \in \mathcal{P}_{+}^{\uparrow}$, $\bar{U}(g)$ is linear and unitary.
+
+In fact, we can do even more. By another theorem of Wigner, we can use the phase factor $\eta$ to replace our unitary ray representation of $\mathcal{P}_{+}^{\uparrow}$ by a bona fide unitary representation of the universal covering group $\overline{\mathcal{P}_{+}^{\uparrow}}$. To save on symbols, we'll call this $\widetilde{\mathcal{P}}$.
+
+The moral of the story so far: the Hilbert space of any quantum mechanical theory which is invariant under the proper orthochronous Poincar{\'e} group must admit a representation of the covering group of the proper orthochronous Poincar{\'e} group, $\widetilde{\mathcal{P}}$.
 
 Denote the representation of $(a, \alpha)$ by $U(a, \alpha)$.
 
@@ -7073,7 +7066,7 @@ The one-dimensional subspace of $\R^{4}$ generated by $\hat{e}_{0}$ is a one-dim
 \begin{equation*}
   U(\hat{e}_{0} t, I) = e^{i P_{0} t},\qquad P_{0} = -i \tder{}{t}\bigg|_{t=0} U(\hat{e}_{0} t, I).
 \end{equation*}
-For each of the other canonical basis vectors we get similar $P_{i}$. Since $\R^4$ is abelian, these commute, so by the BCH formula,
+For each of the other canonical basis vectors $\hat{e}_{i}$ we get similar $P_{i}$. Since $\R^4$ is abelian, these commute, so by the BCH formula,
 \begin{equation*}
   U(a^{\mu} \hat{e}_{\mu}, I) = e^{i P_{\mu} a^{\mu}}.
 \end{equation*}
@@ -7086,10 +7079,69 @@ That is to say, for any $\psi \in \mathscr{H}_{p}$, we have $P_{\mu}\psi = p_{\m
 
 Under the action of $\alpha \in \SL(2, \C)$, we have
 \begin{multline*}
-  P_\mu \mapsto U^{-1}(\alpha,0) P_\mu\, U(\alpha,0) = U^{-1}(\alpha,0)\left[-i\tder{}{t}\biggr|_{t=0} U(I, \hat{e}_\mu t)\right]U(\alpha,0)\\ = -i\tder{}{t}\biggr|_{t=0}U^{-1}(\alpha,0) U(I, \hat{e}_\mu t)U(\alpha,0) = -i\tder{}{t}\biggr|_{t=0}U\left(I,\Lambda^{-1}(\alpha)\hat{e}_\mu t\right) = \Lambda^{-1}(\alpha)^\nu_\mu P_\nu.
+  P_\mu \mapsto P_{\mu}' = U^{-1}(\alpha,0) P_\mu\, U(\alpha,0) = U^{-1}(\alpha,0)\left[-i\tder{}{t}\biggr|_{t=0} U(I, \hat{e}_\mu t)\right]U(\alpha,0)\\ = -i\tder{}{t}\biggr|_{t=0}U^{-1}(\alpha,0) U(I, \hat{e}_\mu t)U(\alpha,0) = -i\tder{}{t}\biggr|_{t=0}U\left(I,\Lambda^{-1}(\alpha)\hat{e}_\mu t\right) = \Lambda^{-1}(\alpha)^\nu_\mu P_\nu.
 \end{multline*}
 
-Thus, if $p_{\mu}$ is in $S$, so must be the entire orbit of $p_{\mu}$ under the Lorentz group.
+Thus, if $p_{\mu}$ is in $S$, so must be the entire orbit of $p_{\mu}$ under the Lorentz group, i.e. the invariant hyperboloid on which $p_{\mu}$ lives. Furthermore, these orbits are never mixed by the action of $\widetilde{\mathcal{P}}$.
+
+Perhaps now is a good time to make the following remark. Henceforth, everything we have said applies to \emph{any} quantum system which admits a Poincar{\'e} symmetry. As is well know, if we wish to view two quantum systems with Hilbert spaces $\mathscr{H}_{1}$ and $\mathscr{H}_{2}$ as a single composite system, the Hilbert space we consider is $\mathscr{H}_{1} \otimes \mathscr{H}_{2}$. That is to say, composite systems are the tensor product of their constituents. And the composite system's representation of $\widetilde{\mathcal{P}}$ is given by the tensor product of the representations of its constituents.
+
+This would seem to imply that given a Poincar{\'e}-invariant quantum system and its associated representation of $\widetilde{\mathcal{P}}$, we could break it and its representation down into smaller and smaller subsystems, until we hit `atomic' subsystems whose representations were irreducible, i.e. could not be broken down any further. The resulting atomic representations would be the building blocks of our original system. 
+
+But we can pull this trick with \emph{any} system! This means that cataloging the irreducible representations of $\widetilde{\mathcal{P}}$ will give us a list of the building blocks of any Poincar{\'e}-invariant system---the fundamental particles.
+
+Now let us concentrate on our previous analysis again. Recall: the orbit of any point $p_{\mu}$ in the spectrum of $P_{\mu}$ is the invariant hyperboloid on which $p_{\mu}$ lives. Different hyperboloids are not mixed by $U(a, \alpha)$. Thus, the spectrum of an \emph{irreducible representation} must be concentrated on one hyperboloid, or else the Hilbert space could be decomposed into invariant subspaces. This gives us our first breakdown of the irreducible representations of $\widetilde{\mathcal{P}}$. The following table was taken, mutatis mutandis, from \cite{haag-local-quantum-physics}.
+
+\begin{center}
+  \begin{tabular}{l l l l l}
+    class & orbit &  \\
+    \hline
+    $m_{+}$ & Hyperboloid in forward cone; & $p^{2} = m^{2}$ & and & $p_{0} > 0$. \\
+    $0_{+}$ & Surface of forward cone; & $p^{2} = 0$ & and & $p_{0} \geq 0$. \\
+    $0_{0}$ & The single point $p_{\mu} = 0$. \\
+    $\kappa$ & Space-like hyperboloid; & $p^{2} = -\kappa^{2}$ & ($\kappa$ real). \\
+    $m_{-}$ & Hyperboloid in backward cone; & $p^{2} = m^{2}$ & and & $p_{0} < 0$. \\
+    $0_{-}$ & Surface of backward cone; & $p^{2} = 0$ & and & $p_{0} \leq 0$. \\
+    \hline
+  \end{tabular}
+\end{center}
+Only the first two of these are physically interesting.
+
+\subsubsection{Case 1: positive mass}
+Let us focus first on the case $m_{+}$.
+
+If we can understand how $U$ acts on each of the $\mathscr{H}_{p}$, and we understand how it maps the $\mathscr{H}_{p}$ amongst each other, we understand everything about it. Pick some $\bar{p}$, and for every other $p$ on its orbit, find some $\beta(\alpha) \in \SL(2, \C)$ such that $\Lambda(\beta(\alpha))\bar{p} = p$. If we pick a basis in $\mathscr{H}_{\bar{p}}$, we can use $U(\beta(\alpha))$ to map it to a basis for $\mathscr{H}_{p}$; in this way we arrive at a basis for our entire Hilbert space 
+\begin{equation*}
+  \mathscr{H} = L^{2}(\R^{3}) \otimes \mathscr{H}_{\bar{p}}.
+\end{equation*}
+
+Now here is the claim: we can understand the action of \emph{any} $\alpha \in \bar{\mathcal{L}}$ if we understand its action on $\mathscr{H}_{\bar{p}}$. For any $\alpha \in \bar{\mathcal{L}}$, we can make the decomposition 
+\begin{equation*}
+  \alpha = \beta(\Lambda(\alpha)p) \gamma(\alpha, p) \beta^{-1}(p):
+\end{equation*}
+we map $\mathscr{H}_{p}$ to our proto-little-Hilbert-space $\mathscr{H}_{\bar{p}}$, act on it with some $\gamma \in \bar{\mathcal{L}}$ which fixes $\mathscr{H}_{\bar{p}}$, then map it back to where it needs to be. Since we can pull this trick for any $\alpha$ and $p$, to get an irreducible representation on $\mathscr{H}$, we only need an irreducible representation of the stabilizer of $\bar{p}$ in $\mathscr{H}_{\bar{p}}$. This turns out to be $\SL(2, \C)$.
+
+It did not have to be this way: a priori one might have suspected that $\widetilde{\mathcal{P}}$ acts differently on each $\mathscr{H}_{p_{\mu}}$, but this turns out not to be the case: one can pick one $\bar{p}_{\mu}$ and construct from the action of the subgroup of $\widetilde{\mathcal{P}}$ which leaves $\mathscr{H}_{\bar{p}_{\mu}}$ invariant the action of $\widetilde{\mathcal{P}}$ on $\mathscr{H}_{p'_{\mu}}$ for \emph{any} other $p'_{\mu}$. 
+
+There is a particularly easy choice: we can choose 
+\begin{equation*}
+  \bar{p}_{\mu} = (m,0,0,0).
+\end{equation*}
+With this choice, it becomes manifest that the subgroup of $\mathcal{P}$ which leaves $\bar{p}_{\mu}$ invariant is exactly the covering group of $\SO(3)$, i.e. $\SL(2, \C)$.
+
+Thus, to obtain an irreducible representation of $\widetilde{\mathcal{P}}$ on $\mathscr{H}$, we need only find an irreducible representation of $\SL(2, \C)$ on $\mathscr{H}_{\bar{p}_{\mu}}$. These are classified by half-integers.
+
+\subsubsection{Case 2: zero mass}
+Next, let us focus on the class $0_{+}$. In this case, we do not have the `canonical' choice of $\bar{p}_{\mu} = (m,0,0,0)$. We make a different choice, however:
+\begin{equation*}
+  \bar{p}_{\mu} = (1,0,0,1).
+\end{equation*}
+
+
+\section{The Coleman-Mandula theorem}
+
+\section{The Haag-{\L}opusza{\'n}ski-Sohnius theorem}
+
 
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
