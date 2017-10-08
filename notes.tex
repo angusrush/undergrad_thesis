@@ -78,7 +78,6 @@
 \newcommand{\GL}{\mathrm{GL}}
 \newcommand{\Obj}{\mathrm{Obj}}
 \newcommand{\Hom}{\mathrm{Hom}}
-\newcommand{\End}{\mathrm{End}}
 \newcommand{\Nat}{\mathrm{Nat}}
 \newcommand{\Line}{\mathrm{Line}}
 \newcommand{\ev}{\mathrm{eval}}
@@ -88,6 +87,7 @@
 \newcommand{\dom}{\mathrm{dom}}
 \newcommand{\cod}{\mathrm{cod}}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\End}{\mathrm{End}}
 
 % Second level of list uses empty bullets
 \renewcommand{\labelitemii}{$\circ$}
@@ -810,7 +810,7 @@ Set theory has some foundational annoyances: not every collection of objects is 
   \label{def:smalllocallysmallcategoryhomset}
   A category $\mathsf{C}$ is 
   \begin{itemize}
-    \item \defn{small} if $\Obj(\mathsf{C})$ is a set.
+    \item \defn{small} if $\Obj(\mathsf{C})$ is a set and for all objects $A$, $B \in \Obj(\mathsf{C})$, $\Hom_{\mathsf{C}}(A, B)$ is a set.
 
     \item \defn{locally small} if for all $A$, $B \in \Obj(\mathsf{C})$, $\Hom_{\mathsf{C}}(A, B)$ is a set. In this case, we call $\Hom_{\mathsf{C}}(A, B)$ the \defn{hom-set}. (Actually, terminology is often abused, and $\Hom_{\mathsf{C}}(A, B)$ is called a hom-set even if it is not a set.)
   \end{itemize}
@@ -1427,6 +1427,11 @@ We would like to be able to express when two categories are the `same.' The corr
 \begin{note}
   The above definition of categorical equivalence is equivalent to the following: $\mathsf{C}$ and $\mathsf{D}$ are equivalent if there is a functor $\mathcal{F}: \mathsf{C} \rightsquigarrow \mathsf{D}$ which is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}) and essentially surjective (\hyperref[def:essentiallysurjective]{Definition \ref*{def:essentiallysurjective}}). That is to say, if the equivalence $\mathcal{F}$ is `bijective up to isomorphism.'
 \end{note}
+
+\begin{definition}[essentially small category]
+  \label{def:essentiallysmall}
+  A category $\mathsf{C}$ is said to be \defn{essentially small} if it is equivalent to a small category (\hyperref[def:smalllocallysmallcategoryhomset]{Definition \ref*{def:smalllocallysmallcategoryhomset}}).
+\end{definition}
 
 \section{Some special categories} \label{sec:specialcategories}
 \subsection{Comma categories}
@@ -4676,42 +4681,42 @@ This definition generalizes to any closed monoidal category.
 The above is one, but not the only, way to define dual objects. We can be more general.
 \begin{definition}[right duality]
   \label{def:rightduality}
-  Let $\mathsf{C}$ be a category with monoidal structure $(\otimes, 1, \alpha, \lambda, \rho)$. \defn{Right duality} of two objects $A$ and $A' \in \Obj(\mathsf{C})$ consists of
+  Let $\mathsf{C}$ be a category with monoidal structure $(\otimes, 1, \alpha, \lambda, \rho)$. \defn{Right duality} of two objects $A$ and $A^{*} \in \Obj(\mathsf{C})$ consists of
   \begin{enumerate}
     \item A morphism of the form
       \begin{equation*}
-        \ev_{A}\colon A' \otimes A \to 1,
+        \ev_{A}\colon A^{*} \otimes A \to 1,
       \end{equation*}
       called the \emph{evaluation map} (or \emph{counit} if you're into Hopf algebras)
 
     \item A morphism of the form
       \begin{equation*}
-        i_{A}\colon 1 \to A \otimes A',
+        i_{A}\colon 1 \to A \otimes A^{*},
       \end{equation*}
       called the \emph{coevaluation} map (or \emph{unit})
   \end{enumerate}
   such that the following diagrams commute.
   \begin{equation*}
     \begin{tikzcd}[row sep=huge, column sep=huge]
-      A' \otimes (A \otimes A')
-      \arrow[d, swap, "{\alpha^{-1}_{A', A, A'}}"]
-      & A' \otimes 1
-      \arrow[l, swap, "1_{A'} \otimes i_{A}"]
+      A^{*} \otimes (A \otimes A^{*})
+      \arrow[d, swap, "{\alpha^{-1}_{A^{*}, A, A^{*}}}"]
+      & A^{*} \otimes 1
+      \arrow[l, swap, "1_{A^{*}} \otimes i_{A}"]
       \arrow[d, "\lambda_{A}^{-1} \circ \rho_{A}"]
       \\
-      (A' \otimes A) \otimes A'
+      (A^{*} \otimes A) \otimes A^{*}
       \arrow[r, swap, "\ev_{A} \otimes 1_{A}"]
-      & 1 \otimes A'
+      & 1 \otimes A^{*}
     \end{tikzcd}
     \qquad
     \begin{tikzcd}[row sep=huge, column sep=huge]
-      (A \otimes A') \otimes A
-      \arrow[d, swap, "{\alpha_{A, A', A}}"]
+      (A \otimes A^{*}) \otimes A
+      \arrow[d, swap, "{\alpha_{A, A^{*}, A}}"]
       & 1 \otimes A
-      \arrow[l, swap, "i_{A} \otimes 1_{A'}"]
+      \arrow[l, swap, "i_{A} \otimes 1_{A^{*}}"]
       \arrow[d, "\rho_{A}^{-1} \circ \lambda_{A}"]
       \\
-      A \otimes (A' \otimes A)
+      A \otimes (A^{*} \otimes A)
       \arrow[r, swap, "1_{A} \otimes \ev_{A}"]
       & A \otimes 1
     \end{tikzcd}
@@ -4730,7 +4735,10 @@ The above is one, but not the only, way to define dual objects. We can be more g
   \end{equation*}
 \end{theorem}
 \begin{proof}
-
+  We can prove the existence of this isomorphism by showing, thanks to \hyperref[cor:yonedaembeddingrespectsisomorphisms]{Corollary \ref*{cor:yonedaembeddingrespectsisomorphisms}}, that for any $X \in \Obj(\mathsf{C})$ there is an isomorphsm
+  \begin{equation*}
+    \Hom_{\mathsf{C}}(X, [A, B]_{\mathsf{C}}) \simeq \Hom_{\mathsf{C}}(X, A^{*} \otimes B).
+  \end{equation*}
 \end{proof}
 
 \section{Abelian categories} \label{sec:abeliancategories}
@@ -4753,6 +4761,12 @@ Recall that $\mathsf{Ab}$ is the category of abelian groups (\hyperref[def:abeli
       \end{equation*}
       and similarly in the second slot.
   \end{enumerate}
+\end{definition}
+
+Already in any $\mathsf{Ab}$-enriched category we can make the following definition.
+\begin{definition}[endomorphism ring]
+  \label{def:endomorphismring}
+  Let $\mathsf{C}$ be an $\mathsf{Ab}$-enriched category, and let $A \in \Obj(\mathsf{C})$. The \defn{endomorphism ring} of $A$, denoted $\mathrm{End}(A)$, is $\Hom_{\mathsf{C}}(A, A)$, with addition given by the abelian structure and multiplication given by composition.
 \end{definition}
 
 \begin{definition}[additive category]
@@ -5593,8 +5607,55 @@ The importance of Jordan-H{\"o}lder series is the following.
 \begin{theorem}[Jordan-H{\"o}lder]
   Let $X_{i}$ and $Y_{i}$ be two Jordan-H{\"o}lder series for some object $X \in \Obj(\mathsf{C})$. Then the length of $X_{i}$ is equal to the length of $Y_{i}$, and the objects $Y_{i}/Y_{i-1}$ are a reordering of $X_{i}/X_{i-1}$.
 \end{theorem}
+\begin{proof}
+  
+\end{proof}
+
+\begin{definition}[length]
+  \label{def:length}
+  The \defn{length} of an object $X$ is defined to be the length of its Jordan-H{\"o}lder series.
+\end{definition}
+
+\begin{definition}[finite tensor category]
+  \label{def:finitetensorcategory}
+  A $k$-tensor category $\mathsf{A}$ is called \defn{finite} (over $k$) if 
+  \begin{enumerate}
+    \item There are only finitely many simple objects in $\mathsf{A}$, and each of them admits a projective presentation.\footnote{This is satisfied trivially by pretty much every `obviously finite' category we'll look at.}
+
+    \item Each object $A$ of $\mathsf{A}$ is of finite length.
+
+    \item For any two objects $A$, $B$ of $\mathsf{A}$, the hom-object (i.e. $k$-vector space) $\Hom_{\mathsf{A}}(A, B)$ is finite-dimensional.
+  \end{enumerate}
+\end{definition}
 
 \section{Tensor Categories}
+The following definition is taken almost verbatim from \cite{nlab-deligne-theorem}.
+\begin{definition}[tensor category]
+  \label{def:tensorcategory}
+  Let $k$ be a field. A \defn{$k$-tensor category} $\mathsf{A}$ (as considered by Deligne in \cite{deligne-categories-tensorielle}) is an
+  \begin{enumerate}
+    \item essentially small (\hyperref[def:essentiallysmall]{Definition \ref*{def:essentiallysmall}})
+
+    \item $k$-linear (\hyperref[def:linearcategory]{Definition \ref*{def:linearcategory}})
+
+    \item rigid (\hyperref[def:rigidmonoidalcategory]{Definition \ref*{def:rigidmonoidalcategory}})
+
+    \item symmetric (\hyperref[def:symmetricmonoidalcategory]{Definition \ref*{def:symmetricmonoidalcategory}})
+
+    \item monoidal category (\hyperref[def:monoidalcategory]{Definition \ref*{def:monoidalcategory}})
+  \end{enumerate}
+  such that 
+  \begin{enumerate}
+    \item the tensor product functor $\otimes\colon \mathsf{A} \times \mathsf{A} \rightsquigarrow \mathsf{A}$ is, in both arguments separately,
+      \begin{enumerate}
+        \item $k$-linear (\hyperref[def:linearfunctor]{Definition \ref*{def:linearfunctor}})
+
+        \item exact (\hyperref[def:exactfunctor]{Definition \ref*{def:exactfunctor}})
+      \end{enumerate}
+
+    \item $\mathrm{End}(1) \simeq k$, where $\mathrm{End}$ denotes the endomorphism ring (\hyperref[def:endomorphismring]{Definition \ref*{def:endomorphismring}}).
+  \end{enumerate}
+\end{definition}
 
 \section{Higher categories} \label{sec:highercategories}
 This section follows \cite{baez-higher-categories} closely.
@@ -7010,7 +7071,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 \chapter{A helicopter tour of the physics of tensor categories}
 \section{Wigner's classification of fundamental particle species}
 This section follows \cite{haag-local-quantum-physics} closely. Some stuff was taken from \cite{sexl-urbantke-relativity-groups-particles}.
- 
+
 The axioms of quantum mechanics tell us that the states of a quantum system correspond to vectors $\psi$ belonging to some Hilbert space $\mathscr{H}$. However, this is not the end of the story. The observable quantities built from the states, i.e. the conditional probabilities
 \begin{equation*}
   P(\varphi | \psi) = \frac{\left|\left\langle \varphi | \psi \right\rangle\right|^{2}}{\norm{\varphi}^{2} \cdot \norm{\psi}^{2}}
@@ -7154,7 +7215,7 @@ The action of $\SL(2, \C)$ is via conjugation:
   \hat{V} \mapsto \alpha \hat{V} \alpha^{\dagger}
 \end{equation*}
 
-The subgroup of $\SL(2\ ,C)$ which fixes $\hat{p}$ is generated by the following subgroups of $\SL(2, \C)$:
+The subgroup of $\SL(2, \C)$ which fixes $\hat{p}$ is generated by the following subgroups of $\SL(2, \C)$:
 \begin{equation*}
   \gamma_{\varphi} = 
   \begin{pmatrix}
@@ -7226,132 +7287,141 @@ The statement of the Coleman-Mandula theorem, taken from \cite{muller-kirsen-wie
 
 The Haag-{\L}opusza{\'n}ski-Sohnius theorem extends the above theorem by allowing $G$ to be a super group. In the end, one finds that the Poincar{\'e} algebra can be extended to the more general \emph{super-Poincar{\'e} algebra}.
 
-If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmetry, one must navigate a minefield of caveats and grains of salt. Some of these are esoteric and uninteresting, but others are more fundamental. In order to use either theorem at all, one must make the following assumptions.
+If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmetry, one must navigate a minefield of caveats and grains of salt. In order to use either theorem at all, one must conform to the assumptions in the statement of the Coleman-Mandula theorem. To view it as a motivation for supersymmetry, one must believe the following.
 \begin{enumerate}
   \item Spacetime is 4-dimensional, and its symmetry group is the Poincar{\'e} group.
 
-  \item One must deal directly with the symmetries of the $S$-matrix; the Haag-{\L}opusza{\'n}ski-Sohnius theorem says nothing about fundamental symmetries which are spontaneously broken.
+  \item Spacetime and internal symmetries ought to be unified.
 
-  \item One only considers symmetries which arise via connected Lie supergroups; the Haag-{\L}opusza{\'n}ski-Sohnius does not consider the case of symmetries which are discrete, or those with multiple disconnected components.
+  \item There are no more loopholes that no one has thought of yet.
 \end{enumerate}
-Further, one must hold several beliefs in order to view the Haag-{\L}opusza{\'n}ski-Sohnius theorem as motivation for supersymmetry.
+
+
+\chapter{Questions}
 \begin{enumerate}
-  \item Spacetime and internal symmetries should be unified.
+  \item Let $M$ be a $C^{\infty}$ manifold. How much is known about the topology of 
+    \begin{equation*}
+      M^{n}/\Sigma_{n},
+    \end{equation*}
+    where $\Sigma_{n}$ is the $n$th symmetric group? Specifically, how many inequivalent $\C$-line bundles does it admit?
 \end{enumerate}
-
 \begin{thebibliography}{9}
-  \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
+    \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
     \textit{Spin Geometry}.
     Princeton University Press, Princeton, NJ, 1989.
 
-  \bibitem{vakil-rising-sea} R. Vakil,
+    \bibitem{vakil-rising-sea} R. Vakil,
     \textit{The Rising Sea}.
     \url{http://www.math216.wordpress.com/}
 
-  \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
+    \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
     \textit{Principal Bundles: The Classical Case}.
     Springer International Publishing, Switzerland, 2015.
 
-  \bibitem{hungerford-algebra} T. Hungerford.
+    \bibitem{hungerford-algebra} T. Hungerford.
     \textit{Algebra}.
     Springer-Verlag New York, NY, 1974.
 
-  \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
+    \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
     \textit{PG Course on Spin Geometry}.
     \url{https://empg.maths.ed.ac.uk/Activities/Spin/}
 
-  \bibitem{quantum-fields-and-strings} P. Deligne et al.
+    \bibitem{quantum-fields-and-strings} P. Deligne et al.
     \textit{Quantum Fields and Strings: a Course for Mathematicians}.
     American Mathematical Society, 1999.
 
-  \bibitem{susy-for-mathematicians} V. S. Varadarajan.
+    \bibitem{susy-for-mathematicians} V. S. Varadarajan.
     \textit{Supersymmetry for Mathematicans: An Introduction}.
     American Mathematical Society, 2004.
 
-  \bibitem{catsters} The Catsters.
+    \bibitem{catsters} The Catsters.
     \url{https://www.youtube.com/channel/UC5Y9H2KDRHZZTWZJtlH4VbA}
 
-  \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
+    \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
     \textit{Noncommutative Geometry, Quantum Fields and Motives}.
     \url{http://www.alainconnes.org/docs/bookwebfinal.pdf}
 
-  \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
+    \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
     \textit{Algebra: Chapter 0}.
     American Mathematical Society, 2009.
 
-  \bibitem{nlab-deligne-theorem} 
+    \bibitem{nlab-deligne-theorem} 
     \textit{Nlab---Deligne's Theorem on Tensor Categories}.
     \url{https://ncatlab.org/nlab/show/Deligne's+theorem+on+tensor+categories}
 
-  \bibitem{baez-this-weeks-finds-137} J. Baez.
+    \bibitem{baez-this-weeks-finds-137} J. Baez.
     \textit{This Week's Finds in Mathematical Physics (Week 137)}.
     \url{http://math.ucr.edu/home/baez/week137.html}
 
-  \bibitem{baez-definitions-everyone-should-know} J. Baez.
+    \bibitem{baez-definitions-everyone-should-know} J. Baez.
     \textit{Some Definitions Everyone Should Know}.
     \url{http://math.ucr.edu/home/baez/qg-fall2004/definitions.pdf}
 
-  \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
+    \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
     \textit{The Unapologetic Mathematician: Mac Lane's Coherence Theorem}.
     \url{https://unapologetic.wordpress.com/2007/06/29/mac-lanes-coherence-theorem/}
 
-  \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
+    \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
     \textit{Topological Transformation Groups}.
     University of Chicago Press, Chicago, 1955.
 
-  \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
+    \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
     \textit{Hodge Cycles, Motives, and Shimura Varieties}.
     Springer Verlag, 1982
 
-  \bibitem{maclane-categories} S. Mac Lane.
+    \bibitem{maclane-categories} S. Mac Lane.
     \textit{Categories for the Working Mathematician}.
     Springer-Verlag New York, New York, 1998.
 
-  \bibitem{baez-higher-categories} J. Baez. 
+    \bibitem{baez-higher-categories} J. Baez. 
     \textit{An introduction to $n$-Categories}.
     \url{https://arxiv.org/pdf/q-alg/9705009.pdf}
 
-  \bibitem{baez-categories-usenet} 
+    \bibitem{baez-categories-usenet} 
     \url{https://groups.google.com/forum/#!topic/sci.math/7LqPFfmWGOA}
 
-  \bibitem{nlab} 
+    \bibitem{nlab} 
     \url{https://www.ncatlab.org/}
 
-  \bibitem{wikipedia-product} 
+    \bibitem{wikipedia-product} 
     \textit{Wikipedia - Product (Category Theory)}.
     \url{https://en.wikipedia.org/wiki/Product\_(category\_theory)}
 
-  \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
+    \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
     \textit{Tensor Categories}.
     American Mathematical Society, 2015.
 
-  \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
+    \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
     \textit{Lecture Notes: Introduction to Categorical Logic}
 
-  \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
+    \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
     \textit{Category Theory Foundations}.
     \url{https://www.youtube.com/watch?v=BF6kHD1DAeU&index=1&list=PLGCr8P\_YncjVjwAxrifKgcQYtbZ3zuPlb}
 
-  \bibitem{awodey-category-theory} S. Awodey.
+    \bibitem{awodey-category-theory} S. Awodey.
     \textit{Category Theory}.
     Oxford University Press, 2006.
 
-  \bibitem{haag-local-quantum-physics} R. Haag.
+    \bibitem{haag-local-quantum-physics} R. Haag.
     \textit{Local Quantum Physics: Fields, Particles, Algebras}.
     Springer-Verlag Berlin Heidelberg New York, 1996
 
-  \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
+    \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
     \textit{Relativity, Groups, Particles: Special Relativity and Relativistic Symmetry in Field and Particle Physics}.
     Springer-Verlag Wein, 1992
 
-  \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
+    \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
     \textit{Supersymmetry and Supergravity}.
     Princeton University Press, Princeton NJ, 1992
 
-  \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
+    \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
     \textit{Introduction to Supersymmetry (Second edition)}.
     World Scientific, 2010.
 
+    \bibitem{deligne-categories-tensorielle} Pierre Deligne.
+    \textit{Cat{\'e}gories Tensorielle},
+    Moscow Math. Journal 2 (2002) no. 2, 227-228
+    \url{https://www.math.ias.edu/files/deligne/Tensorielles.pdf}
 \end{thebibliography}
 \end{document}
 
