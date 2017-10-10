@@ -519,7 +519,18 @@ Often we are interested specifically in algebras over a field. In that case we h
 \begin{definition}[algebra over a field]
   \label{def:algebraoverafield}
   An \defn{algebra} $A$ over a field $k$ is a $k$-vector space with a $k$-bilinear product $A \times A \to A$.
+
+  Further, an algebra $A$ is
+  \begin{itemize}
+    \item \defn{associative} if for all $a$, $b$, $c \in A$, $(a \times b) \times c = a \times (b \times c)$.
+
+    \item \defn{unitary} if there exists an element $1 \in A$ such that $1 \times a = a \times 1 = a$ for all $a \in A$.
+  \end{itemize}
 \end{definition}
+
+\begin{note}
+  In general, algebras are taken to be associative and unital by default. A notable exception is Lie algebras.
+\end{note}
 
 
 \section{Tensor products}
@@ -4695,51 +4706,90 @@ The above is one, but not the only, way to define dual objects. We can be more g
       \end{equation*}
       called the \emph{coevaluation} map (or \emph{unit})
   \end{enumerate}
-  such that the following diagrams commute.
+  such that the compositions
   \begin{equation*}
-    \begin{tikzcd}[row sep=huge, column sep=huge]
-      A^{*} \otimes (A \otimes A^{*})
-      \arrow[d, swap, "{\alpha^{-1}_{A^{*}, A, A^{*}}}"]
-      & A^{*} \otimes 1
-      \arrow[l, swap, "1_{A^{*}} \otimes i_{A}"]
-      \arrow[d, "\lambda_{A}^{-1} \circ \rho_{A}"]
+    \begin{tikzcd}[column sep=huge]
+      X 
+      \arrow[r, "i_{A} \otimes 1_{X}"]
+      & (X \otimes X^{*}) \otimes X
+      \arrow[r, "{\alpha_{X, X^{*}, X}}"]
+      & X \otimes (X^{*} \otimes X) 
+      \arrow[r, "{1_{X} \otimes \ev_{X}}"]
+      & X
       \\
-      (A^{*} \otimes A) \otimes A^{*}
-      \arrow[r, swap, "\ev_{A} \otimes 1_{A}"]
-      & 1 \otimes A^{*}
-    \end{tikzcd}
-    \qquad
-    \begin{tikzcd}[row sep=huge, column sep=huge]
-      (A \otimes A^{*}) \otimes A
-      \arrow[d, swap, "{\alpha_{A, A^{*}, A}}"]
-      & 1 \otimes A
-      \arrow[l, swap, "i_{A} \otimes 1_{A^{*}}"]
-      \arrow[d, "\rho_{A}^{-1} \circ \lambda_{A}"]
-      \\
-      A \otimes (A^{*} \otimes A)
-      \arrow[r, swap, "1_{A} \otimes \ev_{A}"]
-      & A \otimes 1
+      X^{*}
+      \arrow[r, "{1_{X^{*}} \otimes \ev_{X}}"]
+      & X^{*} \otimes (X \otimes X^{*})
+      \arrow[r, "{\alpha^{-1}_{X^{*}, X, X^{*}}}"]
+      & (X^{*} \otimes X) \otimes X^{*}
+      \arrow[r, "{\ev_{X}\otimes 1_{X^{*}}}"]
+      & X^{*}
     \end{tikzcd}
   \end{equation*}
+  are the identity morphism.
+\end{definition}
 
-  \begin{definition}[rigid monoidal category]
-    \label{def:rigidmonoidalcategory}
-    A monoidal category $(\mathsf{C}, \otimes, 1)$ is \defn{rigid} if every object has a left and right dual.
-  \end{definition}
+\begin{definition}[rigid monoidal category]
+  \label{def:rigidmonoidalcategory}
+  A monoidal category $(\mathsf{C}, \otimes, 1)$ is \defn{rigid} if every object has a left and right dual.
 \end{definition}
 
 \begin{theorem}
   Every rigid monoidal category is a closed monoidal category (\hyperref[def:closedmonoidalcategory]{Definition \ref*{def:closedmonoidalcategory}}) with internal hom object 
   \begin{equation*}
-    [A, B]_{\mathsf{C}} \simeq A^{*} \otimes B.
+    [A, B]_{\mathsf{C}} \simeq B \otimes A^{*}.
   \end{equation*}
 \end{theorem}
 \begin{proof}
   We can prove the existence of this isomorphism by showing, thanks to \hyperref[cor:yonedaembeddingrespectsisomorphisms]{Corollary \ref*{cor:yonedaembeddingrespectsisomorphisms}}, that for any $X \in \Obj(\mathsf{C})$ there is an isomorphsm
   \begin{equation*}
-    \Hom_{\mathsf{C}}(X, [A, B]_{\mathsf{C}}) \simeq \Hom_{\mathsf{C}}(X, A^{*} \otimes B).
+    \Hom_{\mathsf{C}}(X, [A, B]_{\mathsf{C}}) \simeq \Hom_{\mathsf{C}}(X, B \otimes A^{*}).
   \end{equation*}
-\end{proof}
+
+  The defining adjunction of the internal hom gives us 
+  \begin{equation*}
+    \Hom_{\mathsf{C}}(X, [A, B]_{\mathsf{C}}) \simeq \Hom_{\mathsf{C}}(X \otimes A, B).
+  \end{equation*}
+
+  Now we can map any $f \in \Hom_{\mathsf{C}}(X \otimes A, B)$ to
+  \begin{equation*}
+    (f \otimes 1_{A}) \circ (1_{X} \otimes i_{A}) \in \Hom_{\mathsf{C}}(X, B \otimes A^{*}).
+  \end{equation*}
+
+  We will be done if we can show that the assignment
+  \begin{equation*}
+    f \mapsto (f \otimes 1_{A}) \circ (1_{X} \otimes i_{A})
+  \end{equation*}
+  is an isomorphism. We'll do this by exhibiting an inverse:
+  \begin{equation*}
+    \Hom_{\mathsf{C}}(X, B \otimes A^{*}) \ni g \mapsto (1_{W} \otimes \ev_{V}) \circ (g \otimes 1_{V}) \in \Hom_{\mathsf{C}}(X \otimes A, B).
+  \end{equation*}
+
+  Of course, first we should show that $(f \otimes 1_{A}) \circ (1_{X} \otimes i_{A})$ really does map $X \to B \otimes A^{*}$. But it does; it does this by first acting on $X$ with $i_{A}$:
+  \begin{equation*}
+    X \to X \otimes A \otimes A^{*}
+  \end{equation*}
+  and then acting on the $X \otimes A$ with $f$ and letting the $A^{*}$ hang around:
+  \begin{equation*}
+    X \otimes A \otimes A^{*} \to B \otimes A^{*}.
+  \end{equation*}
+
+  To show that 
+  \begin{equation*}
+    g \mapsto (1_{B} \otimes \ev_{A}) \circ (g \otimes 1_{A})
+  \end{equation*}
+  really is an inverse, we can shove the assignment
+  \begin{equation*}
+    f \mapsto (f \otimes 1_{A}) \circ (1_{X} \otimes i_{A})
+  \end{equation*}
+  into it and show that we get $f$ right back out. That is to say, we need to show that
+  \begin{equation*}
+    (1_{B} \otimes \ev_{A}) \circ (\left[ (f \otimes 1_{A}) \circ (1_{X} \otimes i_{A}) \right] \otimes 1_{A}) = f.
+  \end{equation*}
+  This is easy to see but hard to type. Write it out. You'll need to use first of the two composition identities. 
+
+  To show that the other composition yields $g$, you have to use the other.
+\end{proof} 
 
 \section{Abelian categories} \label{sec:abeliancategories}
 This section draws heavily from \cite{EGNO-tensor-categories}.
@@ -5562,7 +5612,7 @@ This definition has some immediate trivial consequences.
   \end{itemize}
 \end{theorem}
 \begin{proof}
-  
+
 \end{proof}
 
 \subsection{Length of objects}
@@ -5608,7 +5658,7 @@ The importance of Jordan-H{\"o}lder series is the following.
   Let $X_{i}$ and $Y_{i}$ be two Jordan-H{\"o}lder series for some object $X \in \Obj(\mathsf{C})$. Then the length of $X_{i}$ is equal to the length of $Y_{i}$, and the objects $Y_{i}/Y_{i-1}$ are a reordering of $X_{i}/X_{i-1}$.
 \end{theorem}
 \begin{proof}
-  
+
 \end{proof}
 
 \begin{definition}[length]
@@ -5627,6 +5677,48 @@ The importance of Jordan-H{\"o}lder series is the following.
     \item For any two objects $A$, $B$ of $\mathsf{A}$, the hom-object (i.e. $k$-vector space) $\Hom_{\mathsf{A}}(A, B)$ is finite-dimensional.
   \end{enumerate}
 \end{definition}
+
+\begin{example}
+  The category $\mathsf{FinVect}_{k}$ is finite. 
+  \begin{enumerate}
+    \item The only simple object is $k$ taken as a one-dimensional vector space over itself.
+
+    \item The length of a finite-dimensional vector space is simply its dimension.
+
+    \item The vector space $\Hom_{\mathsf{FinVect}}(V, W)$ has dimension $\mathrm{dim}(V) \times\mathrm{dim}(W)$.
+  \end{enumerate}
+\end{example}
+
+\begin{definition}[finitely $\otimes$-generated]
+  \label{def:finitelygenerated}
+  A $k$-tensor category $\mathsf{A}$ is called \defn{finitely $\otimes$-generated} if there exists an object $E \in \Obj(\mathsf{A})$ such that every other object $X \in A$ is a subquotient (\hyperref[def:subobjectquotientobject]{Definition \ref*{def:subobjectquotientobject}}) of a finite direct sum of tensor products of $E$; that is to say, if there exists a finite collection of integers $n_{i}$ such that $X$ is a subquotient of $\bigoplus_{i} E^{\otimes^{n_{i}}}$.
+  \begin{equation*}
+    \begin{tikzcd}
+      & \bigoplus_{i} E^{\otimes^{n_{i}}}
+      \arrow[d, twoheadrightarrow, "\pi"]
+      \\
+      X
+      \arrow[r, hookrightarrow, "\iota"]
+      & \left( \bigoplus_{i} E^{\otimes^{n_{i}}} \right) / Q
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
+
+\begin{definition}[subexponential growth]
+  \label{def:subexponentialgrowth}
+  A tensor category $\mathsf{A}$ has \defn{subexponential growth} if, for each object $X$ there exists a natural number $N_{X}$ such that 
+  \begin{equation*}
+    \mathrm{len}(X^{\otimes_{n}}) \leq (N_{X})^{n}.
+  \end{equation*}
+\end{definition}
+
+\begin{example}
+  The monoidal category $\mathsf{FinVect}_{k}$ has subexponential growth. For any finite-dimensional vector space $V$, we always have 
+  \begin{equation*}
+    \mathrm{dim}(V^{\otimes^{n}}) = (\dim(V))^{n},
+  \end{equation*}
+  so we can take $N_{V} = \mathrm{dim}(V)$.
+\end{example}
 
 \section{Tensor Categories}
 The following definition is taken almost verbatim from \cite{nlab-deligne-theorem}.
@@ -7058,14 +7150,104 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 
 \begin{definition}[internal monoid]
   \label{def:internalmonoid}
-  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category (\hyperref[def:monoidalcategory]{Definition \ref*{def:monoidalcategory}}). A \defn{monoid internal to $\mathsf{C}$} is 
+  Let $\mathsf{C}$ be a monoidal category (\hyperref[def:monoidalcategory]{Definition \ref*{def:monoidalcategory}}) with monoidal structure $(\otimes, 1, \alpha, \lambda, \rho)$. A \defn{monoid internal to $\mathsf{C}$} is 
   \begin{enumerate}
     \item an object $A \in \Obj(\mathsf{C})$,
     \item a morphism $e\colon 1 \to A$, called the unit, and
     \item a morphism $\mu\colon A \otimes A \to A$, called the product,
   \end{enumerate}
   such that the following diagrams commute.
+
+  \begin{enumerate}
+    \item Associativity
+      \begin{equation*}
+        \begin{tikzcd}
+          (A \otimes A) \otimes A
+          \arrow[rr, "\alpha"]
+          \arrow[d, swap, "\mu"]
+          & & A \otimes (A \otimes A)
+          \arrow[d, "\mu"]
+          \\
+          A \otimes A
+          \arrow[dr, swap, "\mu"]
+          & & A \otimes A
+          \arrow[dl, "\mu"]
+          \\
+          & A
+        \end{tikzcd}
+      \end{equation*}
+
+    \item unitality
+      \begin{equation*}
+        \begin{tikzcd}
+          1 \otimes A
+          \arrow[r, "e"]
+          \arrow[dr, swap, "\lambda"]
+          & A \otimes A
+          \arrow[d, "\mu"]
+          & A \otimes 1
+          \arrow[l, swap, "e"]
+          \arrow[dl, "\rho"]
+          \\
+          & A
+        \end{tikzcd}
+      \end{equation*}
+  \end{enumerate}
+
+  Moreover, if $\mathsf{C}$ is a symmetric monoidal category with symmetric braiding $\gamma$, then the monoid $(A, e, \mu)$ is called \defn{commutative} if the following diagram commutes.
+  \begin{equation*}
+    \begin{tikzcd}
+      A \otimes A
+      \arrow[rr, "{\gamma_{A, A}}"]
+      \arrow[dr, swap, "\mu"]
+      & & A \otimes A
+      \arrow[dl, "\mu"]
+      \\
+      & A
+    \end{tikzcd}
+  \end{equation*}
+
+  A \defn{homomorphism} of monoids $(A_{1}, \mu_{1}, e_{1}) \to (A_{2}, e_{2}, \mu_{2})$ is a morphism $f\colon A_{1} \to A_{2}$ such that the following diagrams commute.
+  \begin{equation*}
+    \begin{tikzcd}
+      A_{1} \otimes A_{1}
+      \arrow[r, "f \otimes f"]
+      \arrow[d, swap, "\mu_{1}"]
+      & A_{2} \otimes A_{2}
+      \arrow[d, "\mu_{2}"]
+      \\
+      A_{1} 
+      \arrow[r, "f"]
+      & A_{2}
+    \end{tikzcd}
+  \end{equation*}
+  \begin{equation*}
+    \begin{tikzcd}
+      1
+      \arrow[r, "e_{1}"]
+      \arrow[rd, swap, "e_{2}"]
+      & A_{1}
+      \arrow[d, "f"]
+      \\
+      & A_{2}
+    \end{tikzcd}
+  \end{equation*}
 \end{definition}
+
+\begin{definition}[category of monoids]
+  \label{def:categoryofmonoids}
+  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. Denote by $\mathsf{Mon}(\mathsf{C}, \otimes, 1)$ the \defn{category of monoids in $\mathsf{C}$}, i.e. the category whose objects are monoids of $\mathsf{C}$ and whose morphism are homomorphisms.
+
+  Denote by $\mathsf{CMon}(\mathsf{C}, \otimes, 1)$ the full subcategory of $\mathsf{Mon}(\mathsf{C}, \otimes, 1)$ whose objects are commutative monoids.
+\end{definition}
+
+\begin{example}
+  A monoid internal to $\mathsf{Vect}_{k}$ is a unitary, associative $k$-algebra. Let us see that this matches up with \hyperref[def:algebraoverafield]{Definition \ref*{def:algebraoverafield}}.
+
+  Let $(A, e, \mu)$ be a monoid internal to $\mathsf{Vect}$. We need to find a product $\times\colon A \times A \to A$ and a unit element $1 \in A$; show that the product is bilinear and associative; and that the unit behaves like a unit.
+
+  The product is a bilinear map on $A \times A$; by the universal property for the tensor product (\hyperref[eg:universalpropertyoftensorproduct]{Example \ref*{eg:universalpropertyoftensorproduct}}) 
+\end{example}
 
 
 \chapter{A helicopter tour of the physics of tensor categories}
@@ -7306,119 +7488,119 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
     where $\Sigma_{n}$ is the $n$th symmetric group? Specifically, how many inequivalent $\C$-line bundles does it admit?
 \end{enumerate}
 \begin{thebibliography}{9}
-    \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
+  \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
     \textit{Spin Geometry}.
     Princeton University Press, Princeton, NJ, 1989.
 
-    \bibitem{vakil-rising-sea} R. Vakil,
+  \bibitem{vakil-rising-sea} R. Vakil,
     \textit{The Rising Sea}.
     \url{http://www.math216.wordpress.com/}
 
-    \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
+  \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
     \textit{Principal Bundles: The Classical Case}.
     Springer International Publishing, Switzerland, 2015.
 
-    \bibitem{hungerford-algebra} T. Hungerford.
+  \bibitem{hungerford-algebra} T. Hungerford.
     \textit{Algebra}.
     Springer-Verlag New York, NY, 1974.
 
-    \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
+  \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
     \textit{PG Course on Spin Geometry}.
     \url{https://empg.maths.ed.ac.uk/Activities/Spin/}
 
-    \bibitem{quantum-fields-and-strings} P. Deligne et al.
+  \bibitem{quantum-fields-and-strings} P. Deligne et al.
     \textit{Quantum Fields and Strings: a Course for Mathematicians}.
     American Mathematical Society, 1999.
 
-    \bibitem{susy-for-mathematicians} V. S. Varadarajan.
+  \bibitem{susy-for-mathematicians} V. S. Varadarajan.
     \textit{Supersymmetry for Mathematicans: An Introduction}.
     American Mathematical Society, 2004.
 
-    \bibitem{catsters} The Catsters.
+  \bibitem{catsters} The Catsters.
     \url{https://www.youtube.com/channel/UC5Y9H2KDRHZZTWZJtlH4VbA}
 
-    \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
+  \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
     \textit{Noncommutative Geometry, Quantum Fields and Motives}.
     \url{http://www.alainconnes.org/docs/bookwebfinal.pdf}
 
-    \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
+  \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
     \textit{Algebra: Chapter 0}.
     American Mathematical Society, 2009.
 
-    \bibitem{nlab-deligne-theorem} 
+  \bibitem{nlab-deligne-theorem} 
     \textit{Nlab---Deligne's Theorem on Tensor Categories}.
     \url{https://ncatlab.org/nlab/show/Deligne's+theorem+on+tensor+categories}
 
-    \bibitem{baez-this-weeks-finds-137} J. Baez.
+  \bibitem{baez-this-weeks-finds-137} J. Baez.
     \textit{This Week's Finds in Mathematical Physics (Week 137)}.
     \url{http://math.ucr.edu/home/baez/week137.html}
 
-    \bibitem{baez-definitions-everyone-should-know} J. Baez.
+  \bibitem{baez-definitions-everyone-should-know} J. Baez.
     \textit{Some Definitions Everyone Should Know}.
     \url{http://math.ucr.edu/home/baez/qg-fall2004/definitions.pdf}
 
-    \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
+  \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
     \textit{The Unapologetic Mathematician: Mac Lane's Coherence Theorem}.
     \url{https://unapologetic.wordpress.com/2007/06/29/mac-lanes-coherence-theorem/}
 
-    \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
+  \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
     \textit{Topological Transformation Groups}.
     University of Chicago Press, Chicago, 1955.
 
-    \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
+  \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
     \textit{Hodge Cycles, Motives, and Shimura Varieties}.
     Springer Verlag, 1982
 
-    \bibitem{maclane-categories} S. Mac Lane.
+  \bibitem{maclane-categories} S. Mac Lane.
     \textit{Categories for the Working Mathematician}.
     Springer-Verlag New York, New York, 1998.
 
-    \bibitem{baez-higher-categories} J. Baez. 
+  \bibitem{baez-higher-categories} J. Baez. 
     \textit{An introduction to $n$-Categories}.
     \url{https://arxiv.org/pdf/q-alg/9705009.pdf}
 
-    \bibitem{baez-categories-usenet} 
+  \bibitem{baez-categories-usenet} 
     \url{https://groups.google.com/forum/#!topic/sci.math/7LqPFfmWGOA}
 
-    \bibitem{nlab} 
+  \bibitem{nlab} 
     \url{https://www.ncatlab.org/}
 
-    \bibitem{wikipedia-product} 
+  \bibitem{wikipedia-product} 
     \textit{Wikipedia - Product (Category Theory)}.
     \url{https://en.wikipedia.org/wiki/Product\_(category\_theory)}
 
-    \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
+  \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
     \textit{Tensor Categories}.
     American Mathematical Society, 2015.
 
-    \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
+  \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
     \textit{Lecture Notes: Introduction to Categorical Logic}
 
-    \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
+  \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
     \textit{Category Theory Foundations}.
     \url{https://www.youtube.com/watch?v=BF6kHD1DAeU&index=1&list=PLGCr8P\_YncjVjwAxrifKgcQYtbZ3zuPlb}
 
-    \bibitem{awodey-category-theory} S. Awodey.
+  \bibitem{awodey-category-theory} S. Awodey.
     \textit{Category Theory}.
     Oxford University Press, 2006.
 
-    \bibitem{haag-local-quantum-physics} R. Haag.
+  \bibitem{haag-local-quantum-physics} R. Haag.
     \textit{Local Quantum Physics: Fields, Particles, Algebras}.
     Springer-Verlag Berlin Heidelberg New York, 1996
 
-    \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
+  \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
     \textit{Relativity, Groups, Particles: Special Relativity and Relativistic Symmetry in Field and Particle Physics}.
     Springer-Verlag Wein, 1992
 
-    \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
+  \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
     \textit{Supersymmetry and Supergravity}.
     Princeton University Press, Princeton NJ, 1992
 
-    \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
+  \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
     \textit{Introduction to Supersymmetry (Second edition)}.
     World Scientific, 2010.
 
-    \bibitem{deligne-categories-tensorielle} Pierre Deligne.
+  \bibitem{deligne-categories-tensorielle} Pierre Deligne.
     \textit{Cat{\'e}gories Tensorielle},
     Moscow Math. Journal 2 (2002) no. 2, 227-228
     \url{https://www.math.ias.edu/files/deligne/Tensorielles.pdf}
