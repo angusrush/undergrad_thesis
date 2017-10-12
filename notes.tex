@@ -118,8 +118,16 @@
 \maketitle
 \tableofcontents 
 
-\chapter{Algebra}
+\chapter{Introduction}
 \epigraph{Algebra is the offer made by the devil to the mathematician. The devil says: I will give you this powerful machine, it will answer any questions you like. All you need to do is give me your soul: give up geometry and you will have this marvelous machine.}{M. Atiyah, 2002}
+
+These are the notes I took while learning about Deligne's theorem on tensor categories and its applications to physics, in particular supersymmetry. 
+
+None of the material is original, including the order of presentation, which follows \cite{nlab-deligne-theorem} \emph{very} closely.
+
+The fact that it's just a collection of notes means that it assumes as background more or less exactly what I knew before I started (although I have made some effort to keep it self-contained). This means that it probably won't be very useful to anyone other than me.
+
+\chapter{Algebra}
 
 In this chapter we collect some basic definitions and corollaries so that we may refer to them later. The methods of proof are often non-standard, as we prefer to provide proofs whose methods lend themselves to categorification.
 \section{Monoids}
@@ -674,6 +682,8 @@ In this chapter (and to some extent the following chapters), I will do my best t
     \item the category $\mathsf{Top}$, whose objects are topological spaces and whose morphisms are continuous maps;
     \item the category $\mathsf{Met}$, whose objects are metric spaces and whose morphisms are metric maps;
     \item the category $\mathsf{Man}^{p}$, whose objects are manifolds of class $C^{p}$ and whose morphisms are $p$-times differentiable functions;
+
+    \item the category $\mathsf{SmoothMfd}$, whose objects are $C^{\infty}$ manifolds and whose morphisms are smooth functions
   \end{itemize}
   and many more.
 \end{example}
@@ -6042,12 +6052,23 @@ First, we need to define a homomorphism of presheaves. Since we defined a preshe
 \end{definition}
 
 \section{Schemes}
-One way of looking at schemes is as a vast generalization of smooth manifolds. 
+We follow loosely the treatment in \cite{vakil-rising-sea}.
 
 \begin{definition}[spectrum of a ring]
   \label{def:spectrumofaring}
   Let $A$ be a ring. The set of prime ideals (\hyperref[def:primeideal]{Definition \ref*{def:primeideal}}) is called the \defn{spectrum} of $A$, and denoted $\Spec(A)$.
 \end{definition}
+
+\begin{definition}[distinguished open set]
+  \label{def:distinguishedopenset}
+  Let $A$ be a ring, $f \in A$. Define the \defn{distinguished open set}
+  \begin{align*}
+    \mathcal{D}(f) &= \left\{ \mathfrak{p} \in \Spec(A)\,\big|\, f \notin \mathfrak{p} \right\}.
+  \end{align*}
+\end{definition}
+\begin{example}
+  Let $A = \R[x]$, the ring of polynomials in one variable.
+\end{example}
 
 \chapter{Spinors} 
 \section{A few more algebraic concepts}
@@ -6788,8 +6809,8 @@ However, there is a pesky minus sign in the LHS of the above. We can rectify thi
   so $\varphi \in K$. In fact, this logic also holds for $\varphi \in \Spin(V, q)$ if we imagine that $n$ is even. But we already know that $K \subseteq \ker(\tAd)$, so $K = \ker(\tAd)$ and we are done.
 \end{proof}
 
-\chapter{Superalgebra} 
-In this chapter we give some basic definitions of various super-* structures. Categorical aspects will be left until the following chapter.
+\chapter{Some basic superalgebra} 
+In this chapter we give some basic definitions of various super-* structures in a haphazard, rushed way. The clarifying categorical aspects will be left until the following chapter.
 \section{Super rings}
 \begin{definition}[super ring]
   \label{def:superring}
@@ -7117,9 +7138,9 @@ As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd
 \end{definition}
 
 \chapter{Superalgebra and supergeometry in categories}
-Until now, we have defined supercommutativity haphazardly, imposing the Koszul sign rule by hand as we go. In the first part of this chapter, we will see that the appearance of the Koszul sign rule is much more natural: it is really just a different sort of commutativity.
+Until now, we have been defining super-* strucutures haphazardly, imposing the Koszul sign rule by hand as we went. It may have seemed something of a miracle that this worked, in the sense that if one added the appropriate sign changes to the definitions, they would turn up in the right places in the theorems. In the first part of this chapter, we will see that the appearance of the Koszul sign rule is much more natural: it is a manifestation of the fact that the supercommutativity is really just a different sort of commutativity, one which shows up naturally in the study of $\Z_{2}$-graded vector spaces.
 
-In the second section, we will apply the machinery of algebraic geometry to our new supercommutative spaces. We will arrive at a natural definition of a supermanifold.
+In the second section, we will apply the machinery of algebraic geometry to our new understanding of supercommutative algebra, and arrive at a natural definition of a supermanifold.
 
 \section{Supercommutativity in symmetric monoidal categories}
 The goal of this section is to explain the ubiquity of supercommutativity (i.e. the Koszul sign rule) in the study of $\Z_{2}$-graded spaces. Stated roughly, the reason is this: it is the only possible multiplication law on a $\Z_{2}$-graded algebra which knows about the grading. That is to say, the only other possible multiplication law (up to an appropriate sort of isomorphism) on a $\Z_{2}$-graded algebra is the trivial one, which is equivalent to treating the vector space as ungraded. 
@@ -7291,7 +7312,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 
 \begin{example}
   \label{eg:algebrasaremonoidsinternaltovect}
-  A monoid internal to $\mathsf{Vect}_{k}$ is a unitary, associative $k$-algebra. Let us see that this agrees with \hyperref[def:algebraoverafield]{Definition \ref*{def:algebraoverafield}}.
+  A monoid internal to $\mathsf{Vect}_{k}$ is is nothing else but a unitary, associative $k$-algebra. Let us see that this agrees with \hyperref[def:algebraoverafield]{Definition \ref*{def:algebraoverafield}}.
 
   Let $(A, e, \mu)$ be a monoid internal to $\mathsf{Vect}$. We need to find a product $\times\colon A \times A \to A$ and a unit element $1 \in A$; show that the product is bilinear and associative; and that the unit behaves like a unit.
 
@@ -7304,20 +7325,26 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
     \mu((v_{1} \otimes v_{2}) \otimes v_{3}) = \mu(v_{1} \otimes (v_{2} \otimes v_{3})).
   \end{equation*}
 
-  The unit element is even easier: we take the image of the unit in $1=k$ under the map $e$; call it $1_{V} = e(1_{k})$. To see that this behaves like a unit, we let it act on $v \in V$.
+  The unit element is even easier: we take the image of the unit in $1=k$ under the map $e$; call it $1_{V} = e(1_{k})$. To see that this behaves like a unit, we let it act on $v \in V$:
   \begin{equation*}
     v \mapsto \mu(1 \otimes v).
   \end{equation*}
   However, the unitality diagram says that this has to equal $\lambda\colon 1 \otimes V \to V$, and we know how that behaves from \hyperref[eg:vectisamonoidalcategory]{Example \ref*{eg:vectisamonoidalcategory}}: it sends $r \otimes v \mapsto rv$. With $r = 1$, it just sends $1 \otimes v \mapsto v$ as we'd like. 
 
   The story for multiplication on the right is identical, but with $\rho$ instead of $\lambda$.
+
+  Now, let $A$ be a unital, associative $k$-algebra. We need to show that $A$ is a monoid internal to $\mathsf{Vect}_{k}$. The map $A \otimes A \to A$ is exactly that guaranteed by the universal property of the tensor product; the map $e$ sends $r \in k$ to $r_{1_{A}} \in A$. It is easy to show that the appropriate diagrams commute.
 \end{example}  
 
+\begin{example}
+  A commutative monoid internal to $\mathsf{Vect}_{k}$ is exactly a commutative, associative $k$-algebra with unity.
+\end{example}
+
 \begin{theorem}
-  A supercommutative superalgebra (\hyperref[def:supercommutativesuperalgebra]{Definition \ref*{def:supercommutativesuperalgebra}}) is a monoid in the category $\mathsf{SVect}_{k}$.
+  A supercommutative superalgebra (\hyperref[def:supercommutativesuperalgebra]{Definition \ref*{def:supercommutativesuperalgebra}}) is nothing else but a commutative monoid in the symmetric monoidal category $\mathsf{SVect}_{k}$.
 \end{theorem}
 \begin{proof}
-  Let $V = V_{0} \oplus V_{1}$ be a super vector space. We define, as in \hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebrasaremonoidsinternaltovect}}, a bilinear map $V \times V \to V$ by pre-composing with the tensor product on $\mathsf{SVect}_{k}$:
+  Let $V = V_{0} \oplus V_{1}$ be a super vector space. We define, as in \hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebrasaremonoidsinternaltovect}}, a bilinear map $V \times V \to V$ by pre-composing $\mu$ with the tensor product on $\mathsf{SVect}_{k}$:
   \begin{equation*}
     \cdot\colon (v, v') \mapsto \mu(v \otimes v').
   \end{equation*}
@@ -7328,10 +7355,10 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
     v_{1} \cdot v_{2} = (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}.
   \end{equation*}
 
-  But
+  But we do by the following:
   \begin{align*}
     v_{1} \cdot v_{2} &= \mu(v_{1} \otimes v_{2}) \\
-    &= \mu(\gamma_{V, V}(v_{1} \otimes v_{2})) \qquad\text{(by the commutativity diagram)}\\ 
+    &= \mu(\gamma_{V, V}(v_{1} \otimes v_{2})) &\text{(by the commutativity diagram)}\\ 
     &= \mu((-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}) \\
     &= (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} \mu(v_{2} \otimes v_{1}) \\
     &= (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}.
@@ -7339,9 +7366,61 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 \end{proof} 
 
 \section{Supergeometry}
-Let $M$ be a $C^{\infty}$ manifold (that is, recalling our definition, an object in $\mathsf{Man}^{\infty}$).
+\begin{definition}
+  Let $M$ be a $C^{\infty}$ manifold (that is, recalling our definition, an object in the category $\mathsf{SmoothMfd}$.) The functor 
+  \begin{equation*}
+    C^{\infty}\colon \mathsf{SmoothMfd} \rightsquigarrow \mathsf{Alg}_{\R}
+  \end{equation*}
+  is the defined by sending $M$ to the $\R$-algebra of smooth functions $M \to \R$, and morphisms $\varphi \in \Hom_{\mathsf{Man}^{\infty}}(M, N)$ to homomorphisms of $\R$-algebras $C^{\infty}(N) \to C^{\infty}(M)$ via the pullback. 
+\end{definition}
 
-\chapter{A helicopter tour of the physics of tensor categories}
+\begin{theorem}
+  The functor $C^{\infty}\colon \mathsf{SmoothMfd} \rightsquigarrow \mathsf{Alg}_{\R}$ is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}).
+\end{theorem}
+\begin{proof}
+  See \cite{KMS-natural-operations-differential-geometry}, lemma 35.8, corollaries 35.9 and 35.10.
+\end{proof}
+
+As we saw in \hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}, the meaning of this theorem is that $C^{^\infty}$ is injective on objects up to isomorphism. Thus, we can identify any smooth manifold with (the formal dual of) its algebra of functions, and if we are given any $\R$-algebra in the range of the functor $C^{\infty}$, we can always find a smooth manifold which gives rise to it.
+
+We might take this idea even further: given \emph{any} associative algebra $A$, we can think of its formal dual as some sort of generalized manifold. 
+
+\begin{definition}[affine scheme of an algebra]
+  \label{def:affineschemeofanalgebra}
+  Let $\mathsf{C}$ be a symmetric monoidal category. Write
+  \begin{equation*}
+    \mathsf{Aff}(\mathsf{C}) = \mathsf{CMon}(\mathsf{C})^{\text{op}}.
+  \end{equation*}
+
+  For any $A \in \mathsf{CMon}(\mathsf{C})$, denote by $\Spec(A)$ the same object in the opposite category $\mathsf{Aff}(\mathsf{C})$. Call this the \defn{affine scheme} of $A$.
+
+  Conversely, for any $X \in \mathsf{Aff}(\mathsf{C})$, write 
+  \begin{equation*}
+    \mathscr{O}(X) \in \Obj(\mathsf{CMon}(\mathsf{C})).
+  \end{equation*}
+  for the same object viewed in the opposite category.
+\end{definition}
+
+\begin{definition}[affine super scheme]
+  \label{def:affinesuperscheme}
+  When $\mathsf{C} = \mathsf{SVect}_{k}$, we call the objects in $\mathsf{Aff}(\mathsf{SVect}_{k})$ \defn{affine super schemes} over $k$.
+\end{definition}
+
+\section{Modules in tensor categories; super vector bundles}
+
+\section{Super groups as super-commutative Hopf algebras}
+
+
+\chapter{Representations}
+\section{Linear super-representations as Comodules}
+\section{Super fiber functors and their automorphism groups}
+\section{Super-exterior powers and Schur functors}
+
+\chapter{Deligne's theorem on tensor categories}
+\section{Statement}
+\section{Proof}
+
+\chapter{Relevance to physics}
 \section{Wigner's classification of fundamental particle species}
 This section follows \cite{haag-local-quantum-physics} closely. Some stuff was taken from \cite{sexl-urbantke-relativity-groups-particles}.
 
@@ -7520,6 +7599,7 @@ Since
 \end{equation*}
 the matrix representing rotation by $2\varphi$ in the $x^{1}$-$x^{2}$ plane, it makes sense to interpret $n/2$ as angular momentum along the axis of $\bar{p}_{\mu}$, i.e. the \emph{helicity}.
 
+\section{Feynman diagrams: representations and intertwiners}
 \section{Why SUSY? The standard explanation}
 The standard argument for the existence of supersymmetry relies on the combination of the Coleman-Mandula and the Haag-{\L}opusza{\'n}ski-Sohnius theorem. Roughly speaking, the Coleman-Mandula theorem says that the only possible connected Lie groups which give the symmetries of the $S$-matrix of a four-dimensional relativistic quantum field theory are a direct product of the Poincar{\'e} group and an internal symmetry group. 
 
@@ -7568,6 +7648,8 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
 
   \item There are no more loopholes that no one has thought of yet.
 \end{enumerate}
+
+\section{What does Deligne's theorem do for us?}
 
 
 \chapter{Questions}
@@ -7695,6 +7777,10 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
     \textit{Cat{\'e}gories Tensorielle},
     Moscow Math. Journal 2 (2002) no. 2, 227-228
     \url{https://www.math.ias.edu/files/deligne/Tensorielles.pdf}
+
+  \bibitem{KMS-natural-operations-differential-geometry} I. Kol\'{a}\v{r}, P. Michor, and J. Slov\'{a}k.
+    \textit{Natural Operations in Differential Geometry}.
+    Springer-Verlag, Berlin Heidelberg, 1993.
 \end{thebibliography}
 \end{document}
 
