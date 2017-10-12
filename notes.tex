@@ -88,6 +88,7 @@
 \newcommand{\cod}{\mathrm{cod}}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\End}{\mathrm{End}}
+\newcommand{\Spec}{\mathrm{Spec}}
 
 % Second level of list uses empty bullets
 \renewcommand{\labelitemii}{$\circ$}
@@ -374,9 +375,15 @@ In this chapter we collect some basic definitions and corollaries so that we may
   \label{def:principalidealring}
   A \defn{principal ideal ring} is a ring in which every ideal is principal.
 \end{definition}
-\begin{definition}[principal ideal domain]
-  \label{def:principalidealdomain}
-  An integral domain (\hyperref[def:integraldomain]{Definition \ref*{def:integraldomain}}) is 
+
+\begin{definition}[prime ideal]
+  \label{def:primeideal}
+  Let $A$ be a ring. An ideal $\mathfrak{p}$ of $A$ is \defn{prime} if
+  \begin{itemize}
+    \item for all ideals $\mathfrak{q}$, $\mathfrak{q}' \subseteq A$, $\mathfrak{q}\mathfrak{q}' \subseteq \mathfrak{p} \implies \mathfrak{q} \subseteq \mathfrak{p}$ or $\mathfrak{q}' \subseteq \mathfrak{p}$.
+
+    \item $\mathfrak{p} \neq A$
+  \end{itemize}
 \end{definition}
 
 \section{Modules}
@@ -3870,6 +3877,7 @@ A monoidal category will be a category in which the objects have the structure o
 \end{proof}
 
 \begin{example}
+  \label{eg:vectisamonoidalcategory}
   The category $\mathsf{Vect}_{k}$ is a monoidal category with
   \begin{enumerate}
     \item The bifunctor $\otimes$ is given by the tensor product.
@@ -5704,6 +5712,10 @@ The importance of Jordan-H{\"o}lder series is the following.
   \end{equation*}
 \end{definition}
 
+\begin{example}
+  The category $\mathsf{FinVect}_{k}$ is finitely generated since any finite-dimensional vector space is isomorphic to $k^{n} = k \oplus \cdots \oplus k$ for some $n$.
+\end{example}
+
 \begin{definition}[subexponential growth]
   \label{def:subexponentialgrowth}
   A tensor category $\mathsf{A}$ has \defn{subexponential growth} if, for each object $X$ there exists a natural number $N_{X}$ such that 
@@ -5838,7 +5850,15 @@ Of course, we must check that $\mathsf{Open}(X)$ really is a category.
   \begin{equation*}
     \mathcal{C}_{X}(r(V,U)) = \mathrm{res}_{V,U}.
   \end{equation*}
+\end{example}
 
+\begin{example}
+  \label{eg:smoothpresheaf}
+  Let $M$ be a $C^{\infty}$ manifold, and let $\mathsf{Open}(M)$ be its category of opens. Then for each $U \in \Obj(\mathsf{Open}(M))$, define a functor $C^{\infty}\colon \mathsf{Open}(M)^{\text{op}} \rightsquigarrow \mathsf{Ring}$ on objects by
+  \begin{equation*}
+    C^{\infty}(U) = \left\{ f\colon U \to \R\,\big|\, f\text{ smooth} \right\},
+  \end{equation*}
+  and on morphisms by restriction. Then $C^{\infty}$ is a presheaf.
 \end{example}
 
 \subsection{Sheaves}
@@ -5866,7 +5886,7 @@ Of course, we must check that $\mathsf{Open}(X)$ really is a category.
 
 \begin{example}[important example continued]
   \label{eg:functionsheaf}
-  The presheaf $\mathcal{C}_{X}$ from \hyperref[eg:functionpresheaf]{Example \ref*{eg:functionpresheaf}} is a sheaf.
+  The presheaf $\mathcal{C}_{X}$ from \hyperref[eg:functionpresheaf]{Example \ref*{eg:functionpresheaf}} is a sheaf, as is the presheaf from \hyperref[eg:smoothpresheaf]{Example \ref*{eg:smoothpresheaf}}.
 \end{example}
 
 \begin{example}[a presheaf which is not a sheaf]
@@ -6022,6 +6042,12 @@ First, we need to define a homomorphism of presheaves. Since we defined a preshe
 \end{definition}
 
 \section{Schemes}
+One way of looking at schemes is as a vast generalization of smooth manifolds. 
+
+\begin{definition}[spectrum of a ring]
+  \label{def:spectrumofaring}
+  Let $A$ be a ring. The set of prime ideals (\hyperref[def:primeideal]{Definition \ref*{def:primeideal}}) is called the \defn{spectrum} of $A$, and denoted $\Spec(A)$.
+\end{definition}
 
 \chapter{Spinors} 
 \section{A few more algebraic concepts}
@@ -7072,7 +7098,29 @@ As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd
   \end{equation*}
 \end{definition}
 
-\chapter{Superalgebra in categories}
+\subsection{Superalgebras}
+
+\begin{definition}[superalgebra]
+  \label{def:superalgebra}
+  A superalgebra $A$ is a $\Z/2$-graded vector space $A = A_{0} \oplus A_{1}$ together with a bilinear map
+  \begin{equation*}
+    \cdot\colon A \times A \to A,
+  \end{equation*}
+  which respects the grading in the sense that $A_{i} \cdot A_{j} \subseteq A_{i+j\ \mathrm{mod}(2)}$.
+
+  A \defn{supercommutative superalgebra} is a superalgebra which obeys the Koszul sign rule, i.e.  $\widetilde{a \cdot b} = \tilde{a} \cdot \tilde{b}$ for elements $a$, $b$ of pure degree.
+\end{definition}
+
+\begin{definition}[supercommutative superalgebra]
+  \label{def:supercommutativesuperalgebra}
+  A \defn{supercommutative superalgebra} is a superalgebra which obeys the Koszul sign rule, i.e.  $\tilde{a \cdot b} = \tilde{a} \cdot \tilde{b}$ for elements $a$, $b$ of pure degree.
+\end{definition}
+
+\chapter{Superalgebra and supergeometry in categories}
+Until now, we have defined supercommutativity haphazardly, imposing the Koszul sign rule by hand as we go. In the first part of this chapter, we will see that the appearance of the Koszul sign rule is much more natural: it is really just a different sort of commutativity.
+
+In the second section, we will apply the machinery of algebraic geometry to our new supercommutative spaces. We will arrive at a natural definition of a supermanifold.
+
 \section{Supercommutativity in symmetric monoidal categories}
 The goal of this section is to explain the ubiquity of supercommutativity (i.e. the Koszul sign rule) in the study of $\Z_{2}$-graded spaces. Stated roughly, the reason is this: it is the only possible multiplication law on a $\Z_{2}$-graded algebra which knows about the grading. That is to say, the only other possible multiplication law (up to an appropriate sort of isomorphism) on a $\Z_{2}$-graded algebra is the trivial one, which is equivalent to treating the vector space as ungraded. 
 
@@ -7177,7 +7225,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
         \end{tikzcd}
       \end{equation*}
 
-    \item unitality
+    \item Unitality
       \begin{equation*}
         \begin{tikzcd}
           1 \otimes A
@@ -7242,13 +7290,56 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 \end{definition}
 
 \begin{example}
-  A monoid internal to $\mathsf{Vect}_{k}$ is a unitary, associative $k$-algebra. Let us see that this matches up with \hyperref[def:algebraoverafield]{Definition \ref*{def:algebraoverafield}}.
+  \label{eg:algebrasaremonoidsinternaltovect}
+  A monoid internal to $\mathsf{Vect}_{k}$ is a unitary, associative $k$-algebra. Let us see that this agrees with \hyperref[def:algebraoverafield]{Definition \ref*{def:algebraoverafield}}.
 
   Let $(A, e, \mu)$ be a monoid internal to $\mathsf{Vect}$. We need to find a product $\times\colon A \times A \to A$ and a unit element $1 \in A$; show that the product is bilinear and associative; and that the unit behaves like a unit.
 
-  The product is a bilinear map on $A \times A$; by the universal property for the tensor product (\hyperref[eg:universalpropertyoftensorproduct]{Example \ref*{eg:universalpropertyoftensorproduct}}) 
-\end{example}
+  We have a linear map $\mu\colon V \otimes V \to V$, which is a bilinear map $V \times V \to V$ if we pre-compose it with the tensor product:
+  \begin{equation*}
+    (v, v') \mapsto \mu(v \otimes v').
+  \end{equation*}
+  It's associative since the associativity diagram says that
+  \begin{equation*}
+    \mu((v_{1} \otimes v_{2}) \otimes v_{3}) = \mu(v_{1} \otimes (v_{2} \otimes v_{3})).
+  \end{equation*}
 
+  The unit element is even easier: we take the image of the unit in $1=k$ under the map $e$; call it $1_{V} = e(1_{k})$. To see that this behaves like a unit, we let it act on $v \in V$.
+  \begin{equation*}
+    v \mapsto \mu(1 \otimes v).
+  \end{equation*}
+  However, the unitality diagram says that this has to equal $\lambda\colon 1 \otimes V \to V$, and we know how that behaves from \hyperref[eg:vectisamonoidalcategory]{Example \ref*{eg:vectisamonoidalcategory}}: it sends $r \otimes v \mapsto rv$. With $r = 1$, it just sends $1 \otimes v \mapsto v$ as we'd like. 
+
+  The story for multiplication on the right is identical, but with $\rho$ instead of $\lambda$.
+\end{example}  
+
+\begin{theorem}
+  A supercommutative superalgebra (\hyperref[def:supercommutativesuperalgebra]{Definition \ref*{def:supercommutativesuperalgebra}}) is a monoid in the category $\mathsf{SVect}_{k}$.
+\end{theorem}
+\begin{proof}
+  Let $V = V_{0} \oplus V_{1}$ be a super vector space. We define, as in \hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebrasaremonoidsinternaltovect}}, a bilinear map $V \times V \to V$ by pre-composing with the tensor product on $\mathsf{SVect}_{k}$:
+  \begin{equation*}
+    \cdot\colon (v, v') \mapsto \mu(v \otimes v').
+  \end{equation*}
+  The product as defined here inherits the correct grading from the graded tensor product. The unit element is the image of the unit in $k$ under $e$, and the verification that this behaves correctly is identical to that in \hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebrasaremonoidsinternaltovect}}.
+
+  All that remains is the verification of the Koszul sign rule: we must have the multiplication law
+  \begin{equation*}
+    v_{1} \cdot v_{2} = (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}.
+  \end{equation*}
+
+  But
+  \begin{align*}
+    v_{1} \cdot v_{2} &= \mu(v_{1} \otimes v_{2}) \\
+    &= \mu(\gamma_{V, V}(v_{1} \otimes v_{2})) \qquad\text{(by the commutativity diagram)}\\ 
+    &= \mu((-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}) \\
+    &= (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} \mu(v_{2} \otimes v_{1}) \\
+    &= (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}.
+  \end{align*}
+\end{proof} 
+
+\section{Supergeometry}
+Let $M$ be a $C^{\infty}$ manifold (that is, recalling our definition, an object in $\mathsf{Man}^{\infty}$).
 
 \chapter{A helicopter tour of the physics of tensor categories}
 \section{Wigner's classification of fundamental particle species}
@@ -7436,7 +7527,7 @@ The Haag-{\L}opusza{\'n}ski-Sohnius theorem generalizes the assumptions of this 
 \begin{equation*}
   \left\{ \text{odd}, \text{odd} \right\} = \text{even};\qquad \left[ \text{even}, \text{even} \right] = \text{even};\qquad \left[ \text{odd}, \text{even} \right] = \text{odd},
 \end{equation*}
-where the even part is the direct product guaranteed by the Coleman-Mandula theorem, and the odd part is the super- component of the Poincar{\'e} algebra.
+where the even part is the direct product guaranteed by the Coleman-Mandula theorem, and the odd part is the super- component of the super-Poincar{\'e} algebra.
 
 We will prove neither the Coleman-Mandula nor the Haag-{\L}opusza{\'n}ski-Sohnius theorem. We will, however, give their statements.
 
@@ -7469,7 +7560,7 @@ The statement of the Coleman-Mandula theorem, taken from \cite{muller-kirsen-wie
 
 The Haag-{\L}opusza{\'n}ski-Sohnius theorem extends the above theorem by allowing $G$ to be a super group. In the end, one finds that the Poincar{\'e} algebra can be extended to the more general \emph{super-Poincar{\'e} algebra}.
 
-If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmetry, one must navigate a minefield of caveats and grains of salt. In order to use either theorem at all, one must conform to the assumptions in the statement of the Coleman-Mandula theorem. To view it as a motivation for supersymmetry, one must believe the following.
+If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmetry, one must navigate a minefield of caveats and grains of salt. In order to use either theorem at all, one must conform to the assumptions in the statement of the Coleman-Mandula theorem, which are very restrictive. To view it as a motivation for supersymmetry, one must believe the following.
 \begin{enumerate}
   \item Spacetime is 4-dimensional, and its symmetry group is the Poincar{\'e} group.
 
