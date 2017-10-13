@@ -677,6 +677,7 @@ In this chapter (and to some extent the following chapters), I will do my best t
 \end{example}
 
 \begin{example}
+  \label{eg:moreexamplesofcategories}
   In addition to \emph{algebraic} structures between sets, categories help to formulate geometric structures, such as
   \begin{itemize}
     \item the category $\mathsf{Top}$, whose objects are topological spaces and whose morphisms are continuous maps;
@@ -1873,7 +1874,8 @@ Again, with the diagram helpfully rotated, we have the following.
 \section{Cartesian closed categories} \label{sec:cartesianclosedcategories}
 This section loosely follows \cite{awodey-category-theory-foundations-videos}. 
 
-Cartesian closed categories are the prototype for many of the structures possessed by monoidal categories. 
+Cartesian closed categories are the prototype for many of the structures possessed by monoidal categories. They are interesting in their own right, but will not be essential in what follows.
+
 \subsection{Products}
 We saw in \hyperref[eg:universalpropertyofproducts]{Example \ref*{eg:universalpropertyofproducts}} the definition for a categorical product. In some categories, we can naturally take the product of any two objects; one generally says that such a category \emph{has products}. We formalize that in the following.
 
@@ -3760,6 +3762,16 @@ Here are two equivalent definitions which are often used.
   \end{equation*}
   and taking the collection of all such $\mu_{(-)}$ gives us a natural isomorphism $\mu\colon \mathcal{G} \Rightarrow \mathcal{G}'$.
 \end{proof}
+
+\begin{note}
+  We do not give very many examples of adjunctions now because of the frequency with which category theory graces us with them. Howver, it is worth mentioning a specific class of adjunctions: the so-called \emph{free-forgetful adjunctions}. There are many \emph{free} objects in mathematics: free groups, free modules, free vector spaces, free categories, etc. These are all unified by the following property: the functors defining them are all left adjoints.
+
+  Let us take a specific example: the free vector space over a set. This takes a set $S$ and constructs a vector space which has as a basis the elements of $S$.
+
+  There is a forgetful functor $\mathcal{U}\colon \mathsf{Vect}_{k} \rightsquigarrow \mathsf{Set}$ which takes any set and returns the set underlying it. There is a functor $\mathcal{F}\colon \mathsf{Set} \rightsquigarrow \mathsf{Vect}_{k}$, which takes a set and returns the free vector space on it. It turns out that there is an adjunction $\mathcal{F} \dashv \mathcal{U}$.
+
+  And this is true of any free object! (In fact by definition.) In each case, the functor giving the free object is left adjoint to a forgetful functor.
+\end{note}
 
 \section{Monoidal categories} \label{sec:monoidalcategories}
 Recall the definition of a monoid (\hyperref[def:monoid]{Definition \ref*{def:monoid}}). subsection{Monoidal categories}. Basically, a monoid is a group without inverses. 
@@ -7119,7 +7131,7 @@ As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd
   \end{equation*}
 \end{definition}
 
-\subsection{Superalgebras}
+\section{Superalgebras}
 
 \begin{definition}[superalgebra]
   \label{def:superalgebra}
@@ -7128,8 +7140,6 @@ As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd
     \cdot\colon A \times A \to A,
   \end{equation*}
   which respects the grading in the sense that $A_{i} \cdot A_{j} \subseteq A_{i+j\ \mathrm{mod}(2)}$.
-
-  A \defn{supercommutative superalgebra} is a superalgebra which obeys the Koszul sign rule, i.e.  $\widetilde{a \cdot b} = \tilde{a} \cdot \tilde{b}$ for elements $a$, $b$ of pure degree.
 \end{definition}
 
 \begin{definition}[supercommutative superalgebra]
@@ -7138,7 +7148,7 @@ As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd
 \end{definition}
 
 \chapter{Superalgebra and supergeometry in categories}
-Until now, we have been defining super-* strucutures haphazardly, imposing the Koszul sign rule by hand as we went. It may have seemed something of a miracle that this worked, in the sense that if one added the appropriate sign changes to the definitions, they would turn up in the right places in the theorems. In the first part of this chapter, we will see that the appearance of the Koszul sign rule is much more natural: it is a manifestation of the fact that the supercommutativity is really just a different sort of commutativity, one which shows up naturally in the study of $\Z_{2}$-graded vector spaces.
+Until now, we have been defining super-* strucutures haphazardly, imposing the Koszul sign rule by hand as we went. Seemingly miraculously, this worked in the sense that if one added the appropriate sign changes to the definitions, they would turn up in the right places in the theorems. In the first part of this chapter, we will see that the appearance of the Koszul sign rule is much more natural: it is a manifestation of the fact that the supercommutativity is really just a different sort of commutativity, one which shows up naturally in the study of $\Z_{2}$-graded vector spaces.
 
 In the second section, we will apply the machinery of algebraic geometry to our new understanding of supercommutative algebra, and arrive at a natural definition of a supermanifold.
 
@@ -7206,7 +7216,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   \begin{equation*}
     \Phi_{X, Y}\colon \mathcal{U}(X) \otimes \mathcal{U}(Y) \to \mathcal{U}(X \otimes Y)
   \end{equation*}
-  and a isomorphism
+  and an isomorphism
   \begin{equation*}
     \varphi\colon 1_{\mathsf{Vect}_{k}} \to \mathcal{U}(\mathsf{SVect}_{k})
   \end{equation*}
@@ -7312,7 +7322,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 
 \begin{example}
   \label{eg:algebrasaremonoidsinternaltovect}
-  A monoid internal to $\mathsf{Vect}_{k}$ is is nothing else but a unitary, associative $k$-algebra. Let us see that this agrees with \hyperref[def:algebraoverafield]{Definition \ref*{def:algebraoverafield}}.
+  A monoid internal to $\mathsf{Vect}_{k}$ is is nothing else but an associative $k$-algebra with unity. Let us see that this agrees with \hyperref[def:algebraoverafield]{Definition \ref*{def:algebraoverafield}}.
 
   Let $(A, e, \mu)$ be a monoid internal to $\mathsf{Vect}$. We need to find a product $\times\colon A \times A \to A$ and a unit element $1 \in A$; show that the product is bilinear and associative; and that the unit behaves like a unit.
 
@@ -7365,13 +7375,30 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   \end{align*}
 \end{proof} 
 
+\begin{theorem}
+  There is a full subcategory inclusion
+  \begin{equation*}
+    \begin{tikzcd}
+      \mathsf{CAlg}_{k}
+      \arrow[d, equals]
+      \arrow[r, hookrightarrow]
+      & \mathsf{SCAlg}_{k}
+      \arrow[d, equals]
+      \\
+      \mathsf{CMon}(\mathsf{Vect}_{k}) 
+      \arrow[r, hookrightarrow]
+      & \mathsf{CMon}(\mathsf{SVect}_{k})
+    \end{tikzcd}
+  \end{equation*}
+\end{theorem}
+
 \section{Supergeometry}
 \begin{definition}
-  Let $M$ be a $C^{\infty}$ manifold (that is, recalling our definition, an object in the category $\mathsf{SmoothMfd}$.) The functor 
+  Let $M$ be a $C^{\infty}$ manifold (that is, recalling \hyperref[eg:moreexamplesofcategories]{Example \ref*{eg:moreexamplesofcategories}}, an object in the category $\mathsf{SmoothMfd}$.) The functor 
   \begin{equation*}
     C^{\infty}\colon \mathsf{SmoothMfd} \rightsquigarrow \mathsf{Alg}_{\R}
   \end{equation*}
-  is the defined by sending $M$ to the $\R$-algebra of smooth functions $M \to \R$, and morphisms $\varphi \in \Hom_{\mathsf{Man}^{\infty}}(M, N)$ to homomorphisms of $\R$-algebras $C^{\infty}(N) \to C^{\infty}(M)$ via the pullback. 
+  is the defined by sending $M$ to the $\R$-algebra of smooth functions $M \to \R$, and morphisms $\varphi\colon M \to N$ to homomorphisms of $\R$-algebras $C^{\infty}(N) \to C^{\infty}(M)$ via the pullback. 
 \end{definition}
 
 \begin{theorem}
@@ -7381,7 +7408,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   See \cite{KMS-natural-operations-differential-geometry}, lemma 35.8, corollaries 35.9 and 35.10.
 \end{proof}
 
-As we saw in \hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}, the meaning of this theorem is that $C^{^\infty}$ is injective on objects up to isomorphism. Thus, we can identify any smooth manifold with (the formal dual of) its algebra of functions, and if we are given any $\R$-algebra in the range of the functor $C^{\infty}$, we can always find a smooth manifold which gives rise to it.
+As we saw in \hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}, the meaning of this theorem is that $C^{^\infty}$ is injective on objects up to isomorphism. Thus, we can identify any smooth manifold with (the formal dual of) its algebra of functions, and if we are given any $\R$-algebra in the range of the functor $C^{\infty}$, we can always find a smooth manifold which gives rise to it which is unique up to isomorphism.
 
 We might take this idea even further: given \emph{any} associative algebra $A$, we can think of its formal dual as some sort of generalized manifold. 
 
