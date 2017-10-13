@@ -5817,6 +5817,27 @@ The elementary notions of algebraic geometry are assumed, but a few definitions 
   The Zariski topology on $k^{n}$ is then the topology whose closed sets are given by $Z(\mathfrak{a})$ for ideals $\mathfrak{a}$ of $A$.
 \end{definition}
 
+\begin{definition}[affine space]
+  \label{def:affinespace}
+  Denote by $\mathbb{A}^{n}$ the space $k^{n}$, together with the Zariski topology. 
+  
+  Note that if this were a real textbook on algebraic geometry, we would be careful about the definition of $\mathbb{A}^{n}$, defining it as a torsor over the the vector space $k^{n}$.
+\end{definition} 
+
+\begin{definition}[algebraic set]
+  \label{def:algebraicset}
+  A subset $S \subseteq \mathbb{A}^{n}$ is called an \defn{algebraic set} if it is closed in the Zariski topology.
+\end{definition}
+
+\begin{definition}[affine variety]
+  \label{def:affinevariety}
+  An \defn{affine variety} is an irreducible algebraic set.
+\end{definition}
+
+\begin{lemma}
+  The maximal ideals of $A = k[x_{1}, \ldots, x_{n}]$ correspond to the points of $\mathbb{A}^{n}$.
+\end{lemma}
+
 \section{Sheaves}
 \subsection{Presheaves}
 
@@ -7152,7 +7173,7 @@ Until now, we have been defining super-* strucutures haphazardly, imposing the K
 
 In the second section, we will apply the machinery of algebraic geometry to our new understanding of supercommutative algebra, and arrive at a natural definition of a supermanifold.
 
-\section{Supercommutativity in symmetric monoidal categories}
+\section{Supercommutativity}
 The goal of this section is to explain the ubiquity of supercommutativity (i.e. the Koszul sign rule) in the study of $\Z_{2}$-graded spaces. Stated roughly, the reason is this: it is the only possible multiplication law on a $\Z_{2}$-graded algebra which knows about the grading. That is to say, the only other possible multiplication law (up to an appropriate sort of isomorphism) on a $\Z_{2}$-graded algebra is the trivial one, which is equivalent to treating the vector space as ungraded. 
 
 Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector spaces in the first place. The reason for their importance to theoretical physics is Deligne's theorem, which is the topic of these notes.
@@ -7808,6 +7829,10 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
   \bibitem{KMS-natural-operations-differential-geometry} I. Kol\'{a}\v{r}, P. Michor, and J. Slov\'{a}k.
     \textit{Natural Operations in Differential Geometry}.
     Springer-Verlag, Berlin Heidelberg, 1993.
+
+  \bibitem{hartshorne-algebraic-geometry} R. Hartshorne.
+    \textit{Algebraic Geometry}.
+    Springer-Verlag, New York, 1977.
 \end{thebibliography}
 \end{document}
 
