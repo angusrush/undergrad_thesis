@@ -2023,7 +2023,7 @@ We have the following analog of \hyperref[thm:productisafunctor]{Theorem \ref*{t
 \subsection{Biproducts} \label{sec:biproducts}
 A lot of the stuff in this section was adapted and expanded from \cite{annoying-precision-meditation}.
 
-Biproducts, roughly speaking, are objects (and morphisms) which simultaneously satisfy the universal properties for products and coproducts. One often says that a biproduct is an object which is both a product and a coproduct, but this is both misleading and unnecessarily vague. Objects satisfying universal properties are only defined up to isomorphism, so it doesn't make much sense to demand that products \emph{coincide} with coproducts; but demanding only that they be isomorphic (or even naturally isomorphic) is too weak, and does not determine a biproduct uniquely. In this section we will give the correct definition which encapsulates all of the properties of the product and the coproduct we know and love.
+One often says that a biproduct is an object which is both a product and a coproduct, but this is both misleading and unnecessarily vague. Objects satisfying universal properties are only defined up to isomorphism, so it doesn't make much sense to demand that products \emph{coincide} with coproducts. However, demanding only that they be isomorphic (or even naturally isomorphic) is too weak, and does not determine a biproduct uniquely. In this section we will give the correct definition which encapsulates all of the properties of the product and the coproduct we know and love.
 
 In order to talk about biproducts, we need to be aware of the following result, which we will consider in much more detail in \hyperref[sec:preabeliancategories]{Definition \ref*{sec:preabeliancategories}}.
 
@@ -2068,7 +2068,7 @@ In order to talk about biproducts, we need to be aware of the following result, 
       0, & i \neq j.
     \end{cases}
   \end{equation*}
-  Here is the picture.
+  Here is a picture.
   \begin{equation*}
     \begin{tikzcd}
       & A_{1} \amalg A_{2} 
@@ -2087,7 +2087,7 @@ In order to talk about biproducts, we need to be aware of the following result, 
 \end{definition}
 
 \begin{lemma}
-  The maps $\Phi_{A_{i}, A_{j}}$ are unique if they exist. 
+  The isomorphisms $\Phi_{A, B}$ are unique if they exist. 
 \end{lemma}
 \begin{proof}
   We can compose $\Phi_{A_{1}, A_{2}}$ with $\pi_{1}$ and $\pi_{2}$ to get maps $A_{1} \amalg A_{2} \to A_{1}$ and $A_{1} \amalg A_{2} \to A_{2}$. The universal property for products tells us that there is a unique map $\varphi\colon A_{1} \amalg A_{2} \to A_{1} \times A_{2}$ such that $\pi_{1} \circ \varphi = \pi_{1} \circ \Phi_{A_{1}, A_{2}}$ and $\pi_{2} \circ \varphi = \pi_{2} \circ \Phi_{A_{1}, A_{2}}$; but $\varphi$ is just $\Phi_{A_{1}, A_{2}}$. Hence $\Phi_{A_{1}, A_{2}}$ is unique.
@@ -2095,13 +2095,17 @@ In order to talk about biproducts, we need to be aware of the following result, 
 
 \begin{lemma}
   \label{lemma:mapcoprodtoproddeterminedbycomponents}
-  In any category $\mathsf{C}$ with biproducts $\Phi_{A, B}\colon A \amalg B \to A \times B$, any map $A \amalg B \to A' \times B'$ is completely determined by its components $A \to A'$, $A \to B'$, $B \to A'$, and $B \to B'$. That is given four maps
+  In any category $\mathsf{C}$ with biproducts $\Phi_{A, B}\colon A \amalg B \to A \times B$, any map $A \amalg B \to A' \times B'$ is completely determined by its components $A \to A'$, $A \to B'$, $B \to A'$, and $B \to B'$. That is, given any map $f\colon A \amalg B \to A' \times B'$, we can create four maps
+  \begin{equation*}
+    \pi_{A'} \circ f \circ \iota_{A}\colon A \to A', \qquad \pi_{B'} \circ f \circ \iota_{A}\colon A \to B',\qquad\text{etc},
+  \end{equation*}
+  and given four maps
   \begin{equation*}
     \psi_{A, A'}\colon A \to A';\qquad \psi_{A, B'}\colon A \to B';\qquad \psi_{B,A'}\colon B \to A',\qquad\text{and } \psi_{B,B'}\colon B \to B',
   \end{equation*}
   we can construct a unique map $\psi\colon A \amalg B \to A' \times B'$ such that
   \begin{equation*}
-    \psi_{A, A'} = \pi_{A'} \circ \psi \circ \iota_{A},\qquad \psi_{A,B'} = \pi_{B'} \circ \psi \circ \iota_{A},\qquad\text{etc.}
+    \psi_{A, A'} = \pi_{A'} \circ \psi \circ \iota_{A},\qquad \psi_{A,B'} = \pi_{B'} \circ \psi \circ \iota_{A},\qquad\text{etc}.
   \end{equation*}
 \end{lemma}
 \begin{proof}
@@ -2206,37 +2210,91 @@ Astonishingly, we can talk about functional evaluation purely in terms of produc
   \end{enumerate}
 \end{definition}
 
+Cartesian closed categories have many inveresting properties. For example, they replicate many properties of the integers: we have the following familiar formulae for any objects $A$, $B$, and $C$ in a Cartesian closed category.
+\begin{enumerate} 
+  \item $A \times (B + C) \simeq (A \times B) + (A \times C)$
+  \item $C^{A + B} \simeq C^{A} \times C^{B}$.
+  \item $(C^{A})^{B} \simeq C^{A \times B}$
+  \item $(A \times B)^{C} \simeq A^{C} \times B^{C}$
+  \item $C^{1} \simeq C$
+\end{enumerate}
+
+We could prove these immediately, by writing down diagrams and appealing to the universal properties. However, we will soon have a powerful tool, the Yoneda lemma, that makes their proof completely routine.
+
 \section{Hom functors and the Yoneda lemma} \label{sec:homfunctorsandyoneda}
 \subsection{The Hom functor} \label{section:homfunctor}
 Given any locally small category (\hyperref[def:smalllocallysmallcategoryhomset]{Definition \ref*{def:smalllocallysmallcategoryhomset}}) $\mathsf{C}$ and two objects $A$, $B \in \Obj(\mathsf{C})$, we have thus far notated the set of all morphisms $A \to B$ by $\Hom_{\mathsf{C}}(A, B)$. This may have seemed a slightly odd notation, but there was a good reason for it: $\Hom_{\mathsf{C}}$ is really a functor.
 
-To be more explicit, we can view $\Hom_{\mathsf{C}}$ as a functor $\mathsf{C}^{\mathrm{op}} \times \mathsf{C} \rightsquigarrow \mathsf{Set}$, which sends each pair $(A', A) \in \Obj(\mathsf{C}^{\mathrm{op}} \times \mathsf{C})$ to the set $\Hom_{\mathsf{C}}(A', A)$ of morphisms $A' \to A$. 
+To be more explicit, we can view $\Hom_{\mathsf{C}}$ in the following way: it takes two objects, say $A$ and $B$, and returns the set of morphisms $A \to B$. It's a functor $\mathsf{C} \times \mathsf{C}$ to set!
 
-This is fine, and probably the definition you were expecting, but we're not done: as a functor it also has to send the morphisms in $\mathsf{C}^{\mathrm{op}} \times \mathsf{C}$ to $\mathsf{Set}$-arrows. How does \emph{that} work?
+(Actually, as we'll see, this isn't quite right: it is actually a functor $\mathsf{C}^{\text{op}} \times \mathsf{C} \to \mathsf{Set}$. But this is easier to understand if it comes about in a natural way, so we'll keep writing $\mathsf{C} \times \mathsf{C}$ for the time being.)
 
-A morphism in $\mathsf{C}^{\text{op}} \times \mathsf{C}$ between two objects $(A', A)$ and $(B', B)$ is an ordered pair $(f', f)$ of two morphisms:
+That takes care of how it sends objects to objects, but any functor has to send morphisms to morphisms. How does it do that?
+
+A morphism in $\mathsf{C} \times \mathsf{C}$ between two objects $(A', A)$ and $(B', B)$ is an ordered pair $(f', f)$ of two morphisms:
 \begin{equation*}
-  f'\colon B' \to A'\qquad\text{and}\qquad f\colon A \to B,
+  f'\colon A' \to B'\qquad\text{and}\qquad f\colon A \to A,
 \end{equation*}
 where $A$, $B \in \Obj(\mathsf{C})$ and $A'$, $B' \in \Obj(\mathsf{C}^{\mathrm{op}})$. We can draw this as follows.
 \begin{equation*}
   \begin{tikzcd}[row sep=tiny]
     A' 
+    \arrow[r, "f'"]
     & B'
-    \arrow[l, swap, "f'"]
     \\
     A
     \arrow[r, "f"]
     & B
   \end{tikzcd}
 \end{equation*}
-We have to send this to a set-function $\Hom_{\mathsf{C}}(A', A) \to \Hom_{\mathsf{C}}(B', B)$. The way to do this is as follows: send each $m \in \Hom(A', A)$ to the element
+We have to send this to a set-function $\Hom_{\mathsf{C}}(A', A) \to \Hom_{\mathsf{C}}(B', B)$. So let $m$ be a morphism in $\Hom_{\mathsf{C}}(A, A')$. We can draw this into our little diagram above like so.
 \begin{equation*}
-  f \circ m \circ f' \in \Hom_{\mathsf{C}}(B', B).
+  \begin{tikzcd}
+    A' 
+    \arrow[r, "f'"]
+    & B'
+    \\
+    A
+    \arrow[u, "m"]
+    \arrow[r, "f"]
+    & B
+  \end{tikzcd}
 \end{equation*}
+
+Notice: we want to build from $m$, $f$, and $f'$ a morphism $B' \to B$. Suppose $f'$ were going the other way.
+\begin{equation*}
+  \begin{tikzcd}
+    A' 
+    & B'
+    \arrow[l, swap, "f'"]
+    \\
+    A
+    \arrow[u, "m"]
+    \arrow[r, "f"]
+    & B
+  \end{tikzcd}
+\end{equation*}
+Then we could get what we want simply by taking the composition $f \circ m \circ f'$.
+\begin{equation*}
+  \begin{tikzcd}
+    A' 
+    & B'
+    \arrow[l, swap, "f'"]
+    \arrow[d, "f \circ m \circ f'"]
+    \\
+    A
+    \arrow[u, "m"]
+    \arrow[r, "f"]
+    & B
+  \end{tikzcd}
+\end{equation*}
+But we can make $f'$ go the other way simply by making the first argument of $\Hom_{\mathsf{C}}$ come from the opposite category: that is, we want $\Hom_{\mathsf{C}}$ to be a functor $\mathsf{C}^{\text{op}} \times \mathsf{C} \to \mathsf{Set}$.
+
 As the function $m \mapsto f \circ m \circ f'$ is the action of the functor $\Hom_{\mathsf{C}}$ on the morphism $(f', f)$, it is natural to call it $\mathrm{Hom}_{\mathsf{C}}(f', f)$.
 
-Of course, we should check that this \emph{really is} a functor, i.e. that it treats identities and compositions correctly. First, we need to show that $\Hom_{\mathsf{C}}(1_{A'}, 1_{A})$ is the identity function $1_{\Hom_{\mathsf{C}}(A', A)}$. It is, since if $m \in \Hom_{\mathsf{C}}(A', A)$,
+Of course, we should check that this \emph{really is} a functor, i.e. that it treats identities and compositions correctly. This is completely routine, and you should skip it if you read the last sentence with annoyance. 
+
+First, we need to show that $\Hom_{\mathsf{C}}(1_{A'}, 1_{A})$ is the identity function $1_{\Hom_{\mathsf{C}}(A', A)}$. It is, since if $m \in \Hom_{\mathsf{C}}(A', A)$,
 \begin{equation*}
   \Hom_{\mathsf{C}}(1_{A'}, 1_{A})\colon m \mapsto 1_{A} \circ m \circ 1_{A'} = m.
 \end{equation*}
@@ -2420,6 +2478,8 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
 \end{example}
 
 \subsection{Representable functors}
+Roughly speaking, a functor $\mathsf{C} \rightsquigarrow \mathsf{Set}$ is representable if it is 
+
 \begin{definition}[representable functor]
   \label{def:representablefunctor}
   Let $\mathsf{C}$ be a category. A functor $\mathcal{F}\colon \mathsf{C} \rightsquigarrow \mathsf{Set}$ is \defn{representable} if there is an object $A \in \Obj(\mathsf{C})$ and a natural isomorphism (\hyperref[def:naturalisomorphism]{Definition \ref*{def:naturalisomorphism}})
@@ -2487,7 +2547,7 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
   \begin{equation*}
     \mathcal{Y}\colon \mathsf{C} \rightsquigarrow [\mathsf{C}^{\mathrm{op}}, \mathsf{Set}], \qquad A \mapsto Y_{A} = \Hom_{\mathsf{C}}(-, A).
   \end{equation*}
-  where the notation $[\mathsf{C}^{\mathrm{op}}, \mathsf{Set}]$, defined in \hyperref[def:functorcategory]{Definition \ref*{def:functorcategory}}, is the category of functors $\mathsf{C}^{\mathrm{op}} \rightsquigarrow \mathsf{Set}$.
+  where $[\mathsf{C}^{\mathrm{op}}, \mathsf{Set}]$ is the category of functors $\mathsf{C}^{\mathrm{op}} \rightsquigarrow \mathsf{Set}$, defined in \hyperref[def:functorcategory]{Definition \ref*{def:functorcategory}}.
 
   Of course, we also need to say how $\mathcal{Y}$ behaves on morphisms. Let $f\colon A \to A'$. Then $\mathcal{Y}(f)$ will be a morphism from $Y_{A}$ to $Y_{A'}$, i.e. a natural transformation $Y_{A} \Rightarrow Y_{A'}$. We can specify how it behaves by specifying its components $(\mathcal{Y}(f))_{B}$. 
 
