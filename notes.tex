@@ -2346,7 +2346,9 @@ Let's formalize this in a definition.
   \end{equation*}
 \end{definition}
 
-Now recall from computer science the concept of currying. Suppose we are given a function of two arguments, say $f(x, y)$. The idea of currying is this: if we like, we can view $f$ as a family of functions of only one variable $y$, indexed by $x$:
+The hom functor as defined above is cute, but not a whole lot else. Things get interesting when we curry it.
+
+Recall from computer science the concept of currying. Suppose we are given a function of two arguments, say $f(x, y)$. The idea of currying is this: if we like, we can view $f$ as a family of functions of only one variable $y$, indexed by $x$:
 \begin{equation*}
   h_{x}(y) = f(x, y).
 \end{equation*}
@@ -2555,8 +2557,11 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
 \end{definition}
 
 \begin{theorem}[Yoneda lemma]
-  Let $\mathcal{F}$ be a functor from $\mathsf{C}^{\mathrm{op}}$ to $\mathsf{Set}$. Let $A \in \Obj(\mathsf{C})$. Then there is a set-isomorphism (i.e. a bijection) $\eta$ between the set $\Nat(Y_{A}, \mathcal{F})$ of natural transformations $Y_{A} \Rightarrow \mathcal{F}$ and the set $\mathcal{F}(A)$. Furthermore, this isomorphism is natural in $A$.
+  Let $\mathcal{F}$ be a functor from $\mathsf{C}^{\mathrm{op}}$ to $\mathsf{Set}$. Let $A \in \Obj(\mathsf{C})$. Then there is a set-isomorphism (i.e. a bijection) $\eta$ between the set $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{A}, \mathcal{F})$ of natural transformations $Y_{A} \Rightarrow \mathcal{F}$ and the set $\mathcal{F}(A)$. Furthermore, this isomorphism is natural in $A$.
 \end{theorem}
+\begin{note}
+  A quick admission before we begin: we will be sweeping a lot of issues with size under the rug in what follows by tacitly assuming that $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{A}, \mathcal{F})$ is a set. The reader will have to trust that everything works out in the end.
+\end{note}
 \begin{proof}
   A natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$ consists of a collection of $\mathsf{Set}$-morphisms (that is to say, functions) $\Phi_{B}\colon \Hom_{\mathsf{C}}(B, A) \to \mathcal{F}(A)$, one for each $B \in \Obj(\mathsf{C})$. We need to show that to each element of $\mathcal{F}(A)$ there corresponds exactly one $\Phi$. We will do this by showing that any $\Phi$ is completely determined by where $\Phi_{A}$ sends the identity morphism $1_{A} \in \Hom_{\mathsf{C}}(A, A)$, so there is exactly one natural transformation for each place $\Phi$ can send $1_{A}$.
 
@@ -2584,7 +2589,7 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
       & & & \mathcal{F}(B)
     \end{tikzcd}
   \end{equation*}
-  The natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$ has a component $\Phi_{A}\colon \Hom_{\mathsf{C}}(A, A) \to \mathcal{F}(A)$, and $\Phi_{A}$ has to send the identity transformation $1_{A}$ \emph{somewhere}. It can send it to any element of $\mathcal{F}(A)$; let's call $\Phi_{A}(1_{A}) = a$.
+  Here's what the above diagram means. The natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$ has a component $\Phi_{A}\colon \Hom_{\mathsf{C}}(A, A) \to \mathcal{F}(A)$, and $\Phi_{A}$ has to send the identity transformation $1_{A}$ \emph{somewhere}. It can send it to any element of $\mathcal{F}(A)$; let's call $\Phi_{A}(1_{A}) = a$.
 
   Now the naturality conditions force our hand. For any $B \in \Obj(\mathsf{C})$ and any $f\colon B \to A$, the naturality square above means that $\Phi_{B}(f)$ \emph{has to} be equal to $(\mathcal{F}f)(a)$. We get no choice in the matter.
 
@@ -2593,23 +2598,23 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
   Well, almost. We still have to show that the bijection we constructed above is natural. To that end, let $f\colon B \to A$. We need to show that the following square commutes.
   \begin{equation*}
     \begin{tikzcd}
-      \Nat(Y_{A}, \mathcal{F})
+      \Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{A}, \mathcal{F})
       \arrow[r, "\eta_{A}"]
-      \arrow[d, swap, "{\Nat(\mathcal{Y}(f), \mathcal{F})}"]
+      \arrow[d, swap, "{\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(\mathcal{Y}(f), \mathcal{F})}"]
       & \mathcal{F}(A)
       \arrow[d, "\mathcal{F}(f)"]
       \\
-      \Nat(Y_{B}, \mathcal{F})
+      \Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{B}, \mathcal{F})
       \arrow[r, "\eta_{B}"]
       & \mathcal{F}(B)
     \end{tikzcd}
   \end{equation*}
 
-  This deserves a lot of explanation. The natural transformation $\Nat(\mathcal{Y}(f), \mathcal{F})$ looks complicated, but it's really not. It takes every natural transformation $Y_{A} \Rightarrow \mathcal{F}$ and pre-composes it with $\mathcal{Y}(f)$. The natural transformation $\eta_{A}$ takes a natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$ and sends it to the element $\Phi_{A}(1_{A}) \in \mathcal{F}(A)$.
+  This deserves a lot of explanation. The natural transformation $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(\mathcal{Y}(f), \mathcal{F})$ looks complicated, but it's really not since we know what the hom functor does: it takes every natural transformation $Y_{A} \Rightarrow \mathcal{F}$ and pre-composes it with $\mathcal{Y}(f)$. The natural transformation $\eta_{A}$ takes a natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$ and sends it to the element $\Phi_{A}(1_{A}) \in \mathcal{F}(A)$.
 
   So, starting at the top left with a natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$, we can go to the bottom right in two ways.
   \begin{enumerate}
-    \item We can head down to $\Nat(Y_{B}, \mathcal{F})$, mapping 
+    \item We can head down to $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{B}, \mathcal{F})$, mapping 
       \begin{equation*}
         \Phi \mapsto \Phi \circ \mathcal{Y}(f),
       \end{equation*}
@@ -2657,12 +2662,12 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
   \end{equation*}
   is a bijection.
 
-  Fix $B \in \Obj(\mathsf{C})$, and consider the functor $Y_{B}$. By the Yoneda lemma, there is a bijection between $\Nat(Y_{A}, Y_{B})$ and $Y_{B}(A)$. By definition,
+  Fix $B \in \Obj(\mathsf{C})$, and consider the functor $Y_{B}$. By the Yoneda lemma, there is a bijection between $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{A}, Y_{B})$ and $Y_{B}(A)$. By definition,
   \begin{equation*}
     Y_{B}(A) = \Hom_{\mathsf{C}}(A, B).
   \end{equation*}
 
-  But $\Nat(Y_{A}, Y_{B})$ is nothing else but $\Hom_{[\mathsf{C}^{\mathrm{op}}, \mathsf{Set}]}(Y_{A}, Y_{B})$, so we are done.
+  But $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{A}, Y_{B})$ is nothing else but $\Hom_{[\mathsf{C}^{\mathrm{op}}, \mathsf{Set}]}(Y_{A}, Y_{B})$, so we are done.
 \end{proof}
 
 \begin{note}
