@@ -679,7 +679,7 @@ Here are a few ways we can use existing categories to create new ones.
 
 \begin{definition}[full subcategory]
   \label{def:fullsubcategory}
-  Let $\mathsf{C}$ be a category, $\mathsf{S} \subseteq \mathsf{C}$ a subcategory. We say that $\mathsf{S}$ is \defn{full} in $\mathsf{C}$ if for every $S$, $T \in \Obj(\mathsf{S})$, $\Hom_{\mathsf{S}}(S, T) = \Hom_{\mathsf{C}}(S, T)$.
+  Let $\mathsf{C}$ be a category, $\mathcal{I}\colon \mathsf{S} \hookrightarrow \mathsf{C}$ a subcategory. We say that $\mathsf{S}$ is \defn{full} in $\mathsf{C}$ if for every $S$, $T \in \Obj(\mathsf{S})$, $\Hom_{\mathsf{S}}(S, T) \simeq \Hom_{\mathsf{C}}(S, T)$. That is, if there are no morphisms in $\Hom_{\mathsf{C}}(S, T)$ which cannot be written $\mathcal{I}(f)$ for some $f \in \Hom_{\mathsf{S}}(S, T)$.
 \end{definition}
 
 \begin{example}
@@ -2625,7 +2625,7 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
 
       We can simplify this right away. The component of the composition of natural transformations is the composition of the components, i.e.
       \begin{equation*}
-        (\Phi \circ \mathcal{Y}(f))(1_{B}) = (\Phi_{B} \circ \mathcal{Y}(f)_{B})(1_{B}).
+        (\Phi \circ \mathcal{Y}(f))_{B}(1_{B}) = (\Phi_{B} \circ \mathcal{Y}(f)_{B})(1_{B}).
       \end{equation*}
       We also know how $\mathcal{Y}(f)$ behaves: it composes everything in sight with $f$.
       \begin{equation*}
@@ -7275,6 +7275,15 @@ As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd
   A \defn{supercommutative superalgebra} is a superalgebra which obeys the Koszul sign rule, i.e.  $\tilde{a \cdot b} = \tilde{a} \cdot \tilde{b}$ for elements $a$, $b$ of pure degree.
 \end{definition}
 
+\begin{definition}[superalgebra homomorphism]
+  \label{def:superalgebrahomomorphism}
+  Let $A$ and $B$ be superalgebras. A \defn{superalgebra homomorphism} $f\colon A \to B$ is a homomorphism of the underlying algebras which respects the grading. That is, 
+  \begin{equation*}
+    f = f_{0} \oplus f_{1},
+  \end{equation*}
+  where $f_{0}$ and $f_{1}$ are algebra homomorphisms.
+\end{definition}
+
 \chapter{Superalgebra and supergeometry in categories}
 Until now, we have been defining super-* strucutures haphazardly, imposing the Koszul sign rule by hand as we went. Seemingly miraculously, this worked in the sense that if one added the appropriate sign changes to the definitions, they would turn up in the right places in the theorems. In the first part of this chapter, we will see that the appearance of the Koszul sign rule is much more natural: it is a manifestation of the fact that the supercommutativity is really just a different sort of commutativity, one which shows up naturally in the study of $\Z_{2}$-graded vector spaces.
 
@@ -7354,6 +7363,22 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 
   The necessary diagrams in \hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}} commute trivially with these definitions.
 \end{proof} 
+
+\begin{lemma}
+  \label{lemma:monoidalinclusionofvectorspacesintosupervectorspaces}
+  The canonical inclusion $\mathcal{I}\colon \mathsf{Vect}_{k} \hookrightarrow \mathsf{SVect}_{k}$, which sends a $k$-vector space $V$ to the super vector space with grading $V \oplus 0$ extends to a strong braided monoidal functor \hyperref[def:braidedmonoidalfunctor]{Definition \ref*{def:braidedmonoidalfunctor}}.
+\end{lemma}
+\begin{proof}
+  First, we need to show that $\mathcal{U}$ is strong monoidal, i.e. that there is a natural isomorphism with components
+  \begin{equation*}
+    \Phi_{U,V}\colon (V \otimes W) \oplus 0 \to (V \oplus 0) \otimes (W \oplus 0).
+  \end{equation*}
+  Finding the correct isomorphism is trivial, as is showing that the appropriate diagram commutes.
+
+  Then we need to find a morphism $\varphi\colon 1 \to 1 \oplus 0$. Again, the obvious choice is the correct one.
+
+  Then we need to show that some diagrams commute. With the choices made above, there is basically nothing to check.
+\end{proof}
 
 \begin{definition}[internal monoid]
   \label{def:internalmonoid}
@@ -7452,20 +7477,20 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   \label{eg:algebrasaremonoidsinternaltovect}
   A monoid internal to $\mathsf{Vect}_{k}$ is is nothing else but an associative $k$-algebra with unity. Let us see that this agrees with \hyperref[def:algebraoverafield]{Definition \ref*{def:algebraoverafield}}.
 
-  Let $(A, e, \mu)$ be a monoid internal to $\mathsf{Vect}$. We need to find a product $\times\colon A \times A \to A$ and a unit element $1 \in A$; show that the product is bilinear and associative; and that the unit behaves like a unit.
+  Let $(A, e, \mu)$ be a monoid internal to $\mathsf{Vect}$. We need to find a product $\cdot\colon A \times A \to A$ and a unit element $1 \in A$; show that the product is bilinear and associative; and that the unit behaves like a unit.
 
   We have a linear map $\mu\colon V \otimes V \to V$, which is a bilinear map $V \times V \to V$ if we pre-compose it with the tensor product:
   \begin{equation*}
-    (v, v') \mapsto \mu(v \otimes v').
+    (v, v') \mapsto v \cdot v' = \mu(v \otimes v').
   \end{equation*}
   It's associative since the associativity diagram says that
   \begin{equation*}
-    \mu((v_{1} \otimes v_{2}) \otimes v_{3}) = \mu(v_{1} \otimes (v_{2} \otimes v_{3})).
+    (v_{1} \cdot v_{2}) \cdot v_{3} = \mu((v_{1} \otimes v_{2}) \otimes v_{3}) = \mu(v_{1} \otimes (v_{2} \otimes v_{3})) = v_{1} \cdot (v_{2} \cdot v_{3}).
   \end{equation*}
 
   The unit element is even easier: we take the image of the unit in $1=k$ under the map $e$; call it $1_{V} = e(1_{k})$. To see that this behaves like a unit, we let it act on $v \in V$:
   \begin{equation*}
-    v \mapsto \mu(1 \otimes v).
+   1 \cdot v = \mu(1 \otimes v).
   \end{equation*}
   However, the unitality diagram says that this has to equal $\lambda\colon 1 \otimes V \to V$, and we know how that behaves from \hyperref[eg:vectisamonoidalcategory]{Example \ref*{eg:vectisamonoidalcategory}}: it sends $r \otimes v \mapsto rv$. With $r = 1$, it just sends $1 \otimes v \mapsto v$ as we'd like. 
 
@@ -7503,22 +7528,140 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   \end{align*}
 \end{proof} 
 
+\begin{lemma}
+  \label{lemma:monoidalfunctorspreserveinternalmonoids}
+  Let $(\mathsf{C}, \otimes_{\mathsf{C}}, 1_{\mathsf{C}})$ and $(\mathsf{D}, \otimes_{\mathsf{D}}, 1_{\mathsf{D}})$ be monoidal categories, and let $(\mathcal{F}, \Phi, \varphi)$ be a lax monoidal functor (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}}) $\mathsf{C} \rightsquigarrow \mathsf{D}$. Then for any monoid $(A, \mu_{A}, e_{A})$ in $\mathsf{C}$, its image $\mathcal{F}(A)$ can be made a monoid in $\mathsf{D}$ by setting
+  \begin{equation*}
+    \mu_{\mathcal{F}(A)}\colon 
+    \begin{tikzcd}
+      \mathcal{F}(A) \otimes_{\mathsf{D}} \mathcal{F}(A) 
+      \arrow[r, "{\Phi_{A, A}}"]
+      & \mathcal{F}(A \otimes_{\mathsf{C}} A) 
+      \arrow[r, "\mathcal{F}(\mu_{A})"]
+      & \mathcal{F}(A)
+    \end{tikzcd},
+  \end{equation*}
+  and
+  \begin{equation*}
+    e_{\mathcal{F}(A)}\colon
+    \begin{tikzcd}
+      1_{\mathcal{D}}
+      \arrow[r, "\varphi"]
+      & \mathcal{F}(1_{\mathsf{C}})
+      \arrow[r, "\mathcal{F}(e_{A})"]
+      & \mathcal{F}(A)
+    \end{tikzcd},
+  \end{equation*}
+  where $\varphi$ is again the structure morphism of $\mathcal{F}$. This construction extends to a functor 
+  \begin{equation*}
+    \mathsf{Mon}(\mathcal{F})\colon \mathsf{Mon}(\mathsf{C}, \otimes_{\mathsf{C}}, 1_{\mathsf{C}}) \rightsquigarrow \mathsf{Mon}(\mathsf{D}, \otimes_{\mathsf{D}}, 1_{\mathsf{D}}).
+  \end{equation*}
+
+  Furthermore, if $\mathsf{C}$ and $\mathsf{D}$ are symmetric monoidal categories, $\mathcal{F}$ is a braided monoidal functor, and $A$ is a commutative monoid, then so is $\mathcal{F}(A)$, and this construction extends to a functor
+  \begin{equation*}
+    \mathsf{CMon}(\mathcal{F})\colon \mathsf{CMon}(\mathsf{C}, \otimes_{\mathsf{C}}, 1_{\mathsf{C}}) \rightsquigarrow \mathsf{CMon}(\mathsf{D}, \otimes_{\mathsf{D}}, 1_{\mathsf{D}}). 
+  \end{equation*}
+\end{lemma} 
+\begin{proof}
+  All of these are easy to see but hard to write down. The diagrams end up too big to fit comfortably on one page.
+%  We prove that $\mu_{\mathcal{F}(A)}$ makes the associativity diagram commute; everything else is similar.
+%
+%  We want to show that the diagram 
+%  \begin{equation*}
+%    \begin{tikzcd}
+%      (\mathcal{F}(A) \otimes \mathcal{F}(A)) \otimes \mathcal{F}(A)
+%      \arrow[rr, "{\alpha_{\mathcal{F}(A), \mathcal{F}(A), \mathcal{F}(A)}}"]
+%      \arrow[d, swap, "\mu_{\mathcal{F}(A)}"]
+%      & & \mathcal{F}(A) \otimes (\mathcal{F}(A) \otimes \mathcal{F}(A))
+%      \arrow[d, "\mu_{\mathcal{F}(A)}"]
+%      \\
+%      \mathcal{F}(A) \otimes \mathcal{F}(A)
+%      \arrow[dr, swap, "\mu_{\mathcal{F}(A)}"]
+%      & & \mathcal{F}(A) \otimes \mathcal{F}(A)
+%      \arrow[dl, "\mu_{\mathcal{F}(A)}"]
+%      \\
+%      & \mathcal{F}(A)
+%    \end{tikzcd}
+%  \end{equation*}
+%  commutes. We can do this, as usual, by adding a bunch of rows and then collapsing some.
+%  \begin{equation*}
+%    \begin{tikzcd}
+%      & (\mathcal{F}(A) \otimes \mathcal{F}(A)) \otimes \mathcal{F}(A)
+%      \arrow[rr, "{\alpha_{\mathcal{F}(A), \mathcal{F}(A), \mathcal{F}(A)}}"]
+%      \arrow[d, swap, "{\Phi_{A, A} \otimes 1_{\mathcal{F}(A)}}"]
+%      & & \mathcal{F}(A) \otimes (\mathcal{F}(A) \otimes \mathcal{F}(A))
+%      \arrow[d, "{1_{\mathcal{F}(A)} \otimes \Phi_{A, A}}"]
+%      \\
+%      & \mathcal{F}(A \otimes A) \otimes \mathcal{F}(A)
+%      \arrow[d, swap, "{\Phi_{A \otimes A, A}}"]
+%      & & \mathcal{F}(A) \otimes \mathcal{F}(A \otimes A)
+%      \arrow[d, "{\Phi_{A, A \otimes A}}"]
+%      \\
+%      & \mathcal{F}((A \otimes A) \otimes A)
+%      \arrow[rr, "{\mathcal{F}(\alpha_{A, A, A})}"]
+%      \arrow[d, "\mathcal{F}(\mu \otimes 1_{A})"]
+%      & & \mathcal{F}(A \otimes (A \otimes A))
+%      \arrow[d, swap, "\mathcal{F}(1_{A} \otimes \mu)"]
+%      \\
+%      & \mathcal{F}(A \otimes A)
+%      \arrow[dr, swap, "\mathcal{F}(\mu_{A})"]
+%      \arrow[dl, swap, bend right, "{\Phi_{A, A}^{-1}}"]
+%      & & \mathcal{F}(A \otimes A)
+%      \arrow[dl, "\mathcal{F}(\mu_{A})"]
+%      \arrow[dr, bend left, "{\Phi_{A, A}^{-1}}"]
+%      \\
+%      \mathcal{F}(A) \otimes \mathcal{F}(A)
+%      \arrow[ur, bend right, swap, "{\Phi_{A, A}}"]
+%      & & \mathcal{F}(A)
+%      & & \mathcal{F}(A) \otimes \mathcal{F}(A)
+%      \arrow[ul, bend left, "{\Phi_{A, A}}"]
+%    \end{tikzcd}
+%  \end{equation*}
+%  The top rectangle commutes because $\mathcal{F}$ is a monoidal functor, the bottom pentagon is $\mathcal{F}$ applied to the coherence diagram for $A$, and the two legs commute trivially.
+%
+%  Hopefully it's now obvious why we aren't proving the rest of these.
+\end{proof}
+
 \begin{theorem}
   There is a full subcategory inclusion
   \begin{equation*}
     \begin{tikzcd}
       \mathsf{CAlg}_{k}
       \arrow[d, equals]
-      \arrow[r, hookrightarrow]
+      \arrow[r, "\iota", hookrightarrow]
       & \mathsf{SCAlg}_{k}
       \arrow[d, equals]
       \\
       \mathsf{CMon}(\mathsf{Vect}_{k}) 
-      \arrow[r, hookrightarrow]
+      \arrow[r, "\iota", hookrightarrow]
       & \mathsf{CMon}(\mathsf{SVect}_{k})
     \end{tikzcd}
   \end{equation*}
+  of commutative algebras into supercommutative algebras induced via \hyperref[lemma:monoidalfunctorspreserveinternalmonoids]{Lemma \ref*{lemma:monoidalfunctorspreserveinternalmonoids}} by the full inclusion $\mathcal{I}\colon \mathsf{Vect}_{k} \hookrightarrow \mathsf{SVect}_{k}$ (which is a strong braided monoidal functor by \hyperref[lemma:monoidalinclusionofvectorspacesintosupervectorspaces]{Lemma \ref*{lemma:monoidalinclusionofvectorspacesintosupervectorspaces}}). The image of a commutative algebra $A$ under $\iota$ is the supercommutative algebra $A \oplus 0$, and the image of a morphism $f\colon A \to B$ is the morphism $f \oplus 0\colon A \oplus 0 \to B \oplus 0$.
+  \begin{equation*}
+    \begin{tikzcd}
+      \mathsf{CAlg}_{k}
+      \arrow[r, hookrightarrow]
+      & \mathsf{SCAlg}_{k}
+      \arrow[l, bend left, "(-)_{\text{even}}"]
+      \arrow[l, bend right, swap, "(-)/(-)_{\text{odd}}"]
+    \end{tikzcd}
+  \end{equation*}
+
+  The functor $\iota$ has both left and right adjoints, where
+  \begin{enumerate}
+    \item the right adjoint $(-)_{\text{even}}$ sends a supercommutative algebra to its even part, and
+    \item the left adjoint $(-)/(-)_{\text{odd}}$ sends a supercommutative algebra to the quotient by the ideal which is generated by its odd part. Informally, this means that every odd-graded element is sent to zero.
+  \end{enumerate}
 \end{theorem}
+\begin{proof}
+  To show that $\iota$ is a full subcategory inclusion, we need to show that it is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}), i.e. that for all commutative $k$-algebras $A$ and $B$, every morphism $f\in \Hom_{\mathsf{SCAlg}_{k}}(\iota(A), \iota(B))$ can be written as the image $\iota(\tilde{f})$ of some morphism $\tilde{f} \in \Hom_{\mathsf{CAlg}_{k}}(A, B)$, and the morphism $\tilde{f}$ is unique.
+
+  Any such morphism $f$ is direct sum $f_{0} \oplus f_{1}$, where $f_{0}\colon A_{0} \to B_{0}$ and $f_{1}\colon A_{1} \to B_{1}$. Every supercommutative superalgebra in the image of $\iota$ is of the form $A \oplus 0$, so $f_{0}\colon A \to B$ and $f_{1}\colon 0 \to 0$. Thus $f$ can be written $\iota(f_{0})$, and $f_{0}$ is the unique morphism with this property.
+
+  We now demonstrate the adjunctions by exhibiting hom-set isomorphisms.
+\end{proof}
+
 
 \section{Supergeometry}
 \begin{definition}
@@ -7536,7 +7679,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   See \cite{KMS-natural-operations-differential-geometry}, lemma 35.8, corollaries 35.9 and 35.10.
 \end{proof}
 
-As we saw in \hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}, the meaning of this theorem is that $C^{^\infty}$ is injective on objects up to isomorphism. Thus, we can identify any smooth manifold with (the formal dual of) its algebra of functions, and if we are given any $\R$-algebra in the range of the functor $C^{\infty}$, we can always find a smooth manifold which gives rise to it which is unique up to isomorphism.
+As we saw in \hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}, the meaning of this theorem is that the functor $C^{^\infty}$ is injective on objects up to isomorphism. Thus, we can identify any smooth manifold with (the formal dual of) its algebra of functions, and if we are given any $\R$-algebra in the range of the functor $C^{\infty}$, we can always find a smooth manifold, unique up to isomorphism, which gives rise to it.
 
 We might take this idea even further: given \emph{any} associative algebra $A$, we can think of its formal dual as some sort of generalized manifold. 
 
@@ -7967,4 +8110,3 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
     \url{https://qchu.wordpress.com/2012/09/14/a-meditation-on-semiadditive-categories/}
 \end{thebibliography}
 \end{document}
-
