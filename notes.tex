@@ -790,6 +790,29 @@ Set theory has some foundational annoyances: not every collection of objects is 
   \end{itemize}
 \end{definition}
 
+\begin{example}
+  \label{eg:groupsaregroupoidswithoneobject}
+  Here is a slightly whimsical example of a category, which will turn out to have great relevance for Deligne's theorem.
+
+  Let $G$ be a group. Let us create a category $\mathsf{G}$ which behaves like this group.
+  \begin{itemize}
+    \item Our category $\mathsf{G}$ has only one object, called $*$.
+
+    \item The set $\Hom_{\mathsf{G}}(*, *)$ is equal to the underlying set of the group $G$, and for $f$, $g \in \Hom_{\mathsf{G}}(*, *)$, the compositions $f \circ g = f\cdot g$, where $\cdot$ is the group operation in $G$.
+  \end{itemize}
+  \begin{equation*}
+    \begin{tikzcd}
+      *
+      \arrow[loop right, "e = 1_{*}"]
+      \arrow[loop above, "g"]
+      \arrow[loop left, "h"]
+      \arrow[loop below, "g \circ h"]
+    \end{tikzcd}
+  \end{equation*}
+
+  Note: since each $g \in G$ has an inverse, every morphism in $\mathsf{G}$ is an isomorphism.
+\end{example}
+
 \section{Functors} \label{sec:functors}
 Just as morphisms connect objects in the same category, functors allow us to connect different categories. In fact, functors can be viewed as morphisms in a `category of categories.'
 
@@ -921,6 +944,15 @@ One of the nice things about functors is that they map commutative diagrams to c
   \label{def:bifunctor}
   A \defn{bifunctor} is a functor whose domain is a product category (\hyperref[def:productcategory]{Definition \ref*{def:productcategory}}).
 \end{definition}
+
+\begin{example}
+  \label{eg:functorscanbegrouprepresentation}
+  Recall \hyperref[eg:groupsaregroupoidswithoneobject]{Example \ref*{eg:groupsaregroupoidswithoneobject}}. Let $G$ be a group, and $\mathsf{G}$ the category which mimics it.
+
+  Then functors $\rho\colon \mathsf{G} \rightsquigarrow \mathsf{Vect}_{k}$ are $k$-linear representations of $G$! 
+
+  To see this, let us unwrap the definition. The functor assigns to $* \in \Obj(\mathsf{G})$ an object $\rho(*) = V \in \Obj(\mathsf{Vect})$, and to each morphism $g\colon * \to *$ a morphism $\rho(g)\colon V \to V$. This assignment sends units to units, and this composition is associative.
+\end{example}
 
 \section{Natural transformations} \label{sec:naturaltransformations}
 Saunders Mac Lane, one of the fathers of category theory, used to say that he invented categories so he could talk about functors, and he invented functors so he could talk about natural transformations. Indeed, the first paper ever published on category theory, published by Eilenberg and Mac Lane in 1945, was titled ``General Theory of Natural Equivalences.'' \cite{awodey-intro-to-categories}
@@ -1408,6 +1440,32 @@ We would like to be able to express when two categories are the `same.' The corr
   \label{def:essentiallysmall}
   A category $\mathsf{C}$ is said to be \defn{essentially small} if it is equivalent to a small category (\hyperref[def:smalllocallysmallcategoryhomset]{Definition \ref*{def:smalllocallysmallcategoryhomset}}).
 \end{definition}
+
+\begin{example}
+  Let $G$ be a group, $\mathsf{G}$ the category which mimics it, and let $\rho$ and $\rho'\colon \mathsf{G} \rightsquigarrow \mathsf{Vect}$ be representations (recall \hyperref[eg:functorscanbegrouprepresentation]{Example \ref*{eg:functorscanbegrouprepresentation}}.)
+
+  A natural transformation $\eta\colon \rho \Rightarrow \rho'$ is called an \emph{intertwiner}. So what \emph{is} an intertwiner?
+
+  Well, $\eta$ has only one component, $\eta_{*}\colon \rho(*) \to \rho'(*)$, which is subject to the condition that for any $g \in \Hom_{\mathsf{G}}(*,*)$, the diagram below commutes.
+  \begin{equation*}
+    \begin{tikzcd}
+      \rho(*)
+      \arrow[r, "\rho(g)"]
+      \arrow[d, swap, "\eta_{*}"]
+      & \rho(*)
+      \arrow[d, "\eta_{*}"]
+      \\
+      \rho'(*)
+      \arrow[r, "\rho'(g)"]
+      & \rho'(*)
+    \end{tikzcd}
+  \end{equation*}
+
+  That is, an intertwiner is a linear map $\rho(*) \to \rho'(*)$ such that for all $g$,
+  \begin{equation*}
+    \eta_{*} \circ \rho(g) = \rho'(g) \circ \eta_{*}.
+  \end{equation*}
+\end{example}
 
 \section{Some special categories} \label{sec:specialcategories}
 \subsection{Comma categories}
@@ -5912,10 +5970,10 @@ You may have noticed that we have been using the same notation ($\Rightarrow$) f
 
 \chapter{A few concepts from algebraic geometry}
 \section{Elementary notions}
-The elementary notions of algebraic geometry are assumed, but a few definitions are given here for concreteness.
+The elementary notions of algebraic geometry are assumed, but a few definitions are given here for concreteness. For the remainder of this section, let $k$ be an algebraically closed field of characteristic $0$.
 \begin{definition}[Zariski topology]
   \label{def:zariskitopology}
-  Let $k$ be an algebraically closed field of characteristic $0$. We define a topology on $k^{n}$, called the \defn{Zariski topology}, as follows. Let $A = k[x_{1},\dots,x_{n}]$ be the ring of polynomials on $k^{n}$. For any subset $S \subseteq A$, define
+  We define a topology on $k^{n}$, called the \defn{Zariski topology}, as follows. Let $A = k[x_{1},\dots,x_{n}]$ be the ring of polynomials on $k^{n}$. For any subset $S \subseteq A$, define
   \begin{equation*}
     Z(S) = \left\{ (x_{1},\dots,x_{n}) \in k^{n}\,\Big|\, f(x_{1},\dots,x_{n}) = 0\text{ for all }f \in S \right\}.
   \end{equation*}
@@ -7654,12 +7712,20 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
     \item the left adjoint $(-)/(-)_{\text{odd}}$ sends a supercommutative algebra to the quotient by the ideal which is generated by its odd part. Informally, this means that every odd-graded element is sent to zero.
   \end{enumerate}
 \end{theorem}
+\begin{note}
+  At the moment, I can't figure out the difference between $(-)_{\text{even}}$ and $(-)/(-)_{\text{odd}}$. They both throw out the odd elements.
+\end{note}
 \begin{proof}
   To show that $\iota$ is a full subcategory inclusion, we need to show that it is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}), i.e. that for all commutative $k$-algebras $A$ and $B$, every morphism $f\in \Hom_{\mathsf{SCAlg}_{k}}(\iota(A), \iota(B))$ can be written as the image $\iota(\tilde{f})$ of some morphism $\tilde{f} \in \Hom_{\mathsf{CAlg}_{k}}(A, B)$, and the morphism $\tilde{f}$ is unique.
 
   Any such morphism $f$ is direct sum $f_{0} \oplus f_{1}$, where $f_{0}\colon A_{0} \to B_{0}$ and $f_{1}\colon A_{1} \to B_{1}$. Every supercommutative superalgebra in the image of $\iota$ is of the form $A \oplus 0$, so $f_{0}\colon A \to B$ and $f_{1}\colon 0 \to 0$. Thus $f$ can be written $\iota(f_{0})$, and $f_{0}$ is the unique morphism with this property.
 
   We now demonstrate the adjunctions by exhibiting hom-set isomorphisms.
+  \begin{enumerate}
+    \item $\iota \dashv (-)_{\text{even}}$ 
+      
+      We want 
+  \end{enumerate}
 \end{proof}
 
 
@@ -7705,6 +7771,7 @@ We might take this idea even further: given \emph{any} associative algebra $A$, 
 \end{definition}
 
 \section{Modules in tensor categories; super vector bundles}
+We saw in the last section that we can generalize manifolds by dualizing associative algebras. In this section, we will see that we can pull the same trick for vector bundles over manifolds.
 
 \section{Super groups as super-commutative Hopf algebras}
 
@@ -7718,26 +7785,41 @@ We might take this idea even further: given \emph{any} associative algebra $A$, 
 The following statement of Deligne's theorem was taken, mutatis mutandis, from \cite{nlab-deligne-theorem}.
 
 \section{Statement}
-Let $\mathsf{A}$ be a $k$-tensor category (\hyperref[def:tensorcategory]{Definition \ref*{def:tensorcategory}}) such that
+\begin{theorem}[Deligne's theorem on tensor categories]
+  \label{thm:delignestheorem}
+  Let $\mathscr{A}$ be a $k$-tensor category (\hyperref[def:tensorcategory]{Definition \ref*{def:tensorcategory}}) such that
+  \begin{enumerate}
+    \item $k$ is an algebraically closed field of characteristic zero, and
+
+    \item $\mathscr{A}$ is of subexponential growth (\hyperref[def:subexponentialgrowth]{Definition \ref*{def:subexponentialgrowth}}).
+  \end{enumerate}
+
+  Then $\mathscr{A}$ is a neutral super Tannakian category (REF), and there exists 
+  \begin{enumerate}
+    \item an affine algebraic supergroup $G$ (REF) whose algebra of functions $\mathscr{O}(G)$ is a finitely-generated $k$-algebra, and 
+
+    \item a tensor equivalence of categories
+      \begin{equation*}
+        \mathscr{A} \simeq \mathscr{Rep}(G, \varepsilon)
+      \end{equation*}
+      between $\mathscr{A}$ and the category of representations of $G$ of finite-dimension, according to REF.
+  \end{enumerate}
+\end{theorem}
+Deligne (\cite{deligne-categories-tensorielle}) breaks down the proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheorem}} into the following steps.
 \begin{enumerate}
-  \item $k$ is an algebraically closed field of characteristic zero, and
+  \item \label{item:proofsketch1} First, he shows that in any $k$-tensor category $\mathscr{A}$, an object $X$ is of subexponential growth if and only if there is a Schur functor that annihilates it.
 
-  \item $\mathsf{A}$ is of subexponential growth (\hyperref[def:subexponentialgrowth]{Definition \ref*{def:subexponentialgrowth}}).
-\end{enumerate}
+  \item \label{item:proofsketch2} Then, he shows that if every object of $\mathscr{A}$ is annihilated by some Schur functor, then $\mathscr{A}$ admits a super fiber functor over some over some supercommutative superalgebra $R$, so every object of $\mathscr{A}$ has underlying it a super vector space with some extra structure.
 
-Then $\mathsf{A}$ is a neutral super Tannakian category (REF), and there exists 
-\begin{enumerate}
-  \item an affine algebraic supergroup $G$ (REF) whose algebra of functions $\mathscr{O}(G)$ is a finitely-generated $k$-algebra, and 
-
-  \item a tensor equivalence of categories
+  \item \label{item:proofsketch3} Finally, he shows that every $k$-tensor category which admits such a fiber functor 
     \begin{equation*}
-      \mathsf{A} \simeq \mathsf{Rep}(G, \varepsilon)
+      \omega\colon \mathscr{A} \to \mathsf{SVect}
     \end{equation*}
-    between $\mathsf{A}$ and the category of representations of $G$ of finite-dimension, according to REF.
+    is equivalent to the category of representations of the automorphism supergroup of $\omega$.
 \end{enumerate}
 
 \section{Proof}
-The proof consists of three sub-theorems.
+\subsection{Part 1}
 
 \chapter{Relevance to physics}
 \section{Wigner's classification of fundamental particle species}
@@ -7978,6 +8060,8 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
       M^{n}/\Sigma_{n},
     \end{equation*}
     where $\Sigma_{n}$ is the $n$th symmetric group? Specifically, how many inequivalent $\C$-line bundles does it admit?
+
+  \item Does the presentation have to be a beamer? I'd rather use chalk if possible.
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
