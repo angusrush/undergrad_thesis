@@ -7549,7 +7549,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 
   The unit element is even easier: we take the image of the unit in $1=k$ under the map $e$; call it $1_{V} = e(1_{k})$. To see that this behaves like a unit, we let it act on $v \in V$:
   \begin{equation*}
-   1 \cdot v = \mu(1 \otimes v).
+    1 \cdot v = \mu(1 \otimes v).
   \end{equation*}
   However, the unitality diagram says that this has to equal $\lambda\colon 1 \otimes V \to V$, and we know how that behaves from \hyperref[eg:vectisamonoidalcategory]{Example \ref*{eg:vectisamonoidalcategory}}: it sends $r \otimes v \mapsto rv$. With $r = 1$, it just sends $1 \otimes v \mapsto v$ as we'd like. 
 
@@ -7724,7 +7724,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   We now demonstrate the adjunctions by exhibiting hom-set isomorphisms.
   \begin{enumerate}
     \item $\iota \dashv (-)_{\text{even}}$ 
-      
+
       We want 
   \end{enumerate}
 \end{proof}
@@ -7772,7 +7772,11 @@ We might take this idea even further: given \emph{any} associative algebra $A$, 
 \end{definition}
 
 \section{Modules in tensor categories; super vector bundles}
+Some of the material from this section is from 
+
 We saw in the last section that we can generalize manifolds by dualizing associative algebras. In this section, we will see that we can pull the same trick for vector bundles over manifolds.
+
+Let $X$ be a smooth manifold, and let $\pi\colon V \to X$ be a vector bundle over $X$. The set $\Gamma(V)$ of sections of $X$ naturally has the structure of a $C^{\infty}(M)$-module. Furthermore, any vector bundle morphism $(\pi\colon X \to V) \to (\pi'\colon V' \to X')$ induces an algebra homomorphism $\Gamma_{X'}(V')$ via the pullback.
 
 \section{Super groups as super-commutative Hopf algebras}
 
@@ -7823,6 +7827,7 @@ Deligne (\cite{deligne-categories-tensorielle}) breaks down the proof of \hyperr
 
 \section{Proof}
 \subsection{Part 1}
+
 
 \chapter{Relevance to physics}
 \section{Wigner's classification of fundamental particle species}
@@ -8065,135 +8070,141 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
     where $\Sigma_{n}$ is the $n$th symmetric group? Specifically, how many inequivalent $\C$-line bundles does it admit?
 
   \item Does the presentation have to be a beamer? I'd rather use chalk if possible.
+
+  \item How much do you know about algebraic geometry (specifically schemes and quasicoherent sheaves)? 
 \end{enumerate}
 \begin{thebibliography}{9}
-  \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
+    \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
     \textit{Spin Geometry}.
     Princeton University Press, Princeton, NJ, 1989.
 
-  \bibitem{vakil-rising-sea} R. Vakil,
+    \bibitem{vakil-rising-sea} R. Vakil,
     \textit{The Rising Sea}.
     \url{http://www.math216.wordpress.com/}
 
-  \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
+    \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
     \textit{Principal Bundles: The Classical Case}.
     Springer International Publishing, Switzerland, 2015.
 
-  \bibitem{hungerford-algebra} T. Hungerford.
+    \bibitem{hungerford-algebra} T. Hungerford.
     \textit{Algebra}.
     Springer-Verlag New York, NY, 1974.
 
-  \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
+    \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
     \textit{PG Course on Spin Geometry}.
     \url{https://empg.maths.ed.ac.uk/Activities/Spin/}
 
-  \bibitem{quantum-fields-and-strings} P. Deligne et al.
+    \bibitem{quantum-fields-and-strings} P. Deligne et al.
     \textit{Quantum Fields and Strings: a Course for Mathematicians}.
     American Mathematical Society, 1999.
 
-  \bibitem{susy-for-mathematicians} V. S. Varadarajan.
+    \bibitem{susy-for-mathematicians} V. S. Varadarajan.
     \textit{Supersymmetry for Mathematicans: An Introduction}.
     American Mathematical Society, 2004.
 
-  \bibitem{catsters} The Catsters.
+    \bibitem{catsters} The Catsters.
     \url{https://www.youtube.com/channel/UC5Y9H2KDRHZZTWZJtlH4VbA}
 
-  \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
+    \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
     \textit{Noncommutative Geometry, Quantum Fields and Motives}.
     \url{http://www.alainconnes.org/docs/bookwebfinal.pdf}
 
-  \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
+    \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
     \textit{Algebra: Chapter 0}.
     American Mathematical Society, 2009.
 
-  \bibitem{nlab-deligne-theorem} 
+    \bibitem{nlab-deligne-theorem} 
     \textit{Nlab---Deligne's Theorem on Tensor Categories}.
     \url{https://ncatlab.org/nlab/show/Deligne's+theorem+on+tensor+categories}
 
-  \bibitem{baez-this-weeks-finds-137} J. Baez.
+    \bibitem{baez-this-weeks-finds-137} J. Baez.
     \textit{This Week's Finds in Mathematical Physics (Week 137)}.
     \url{http://math.ucr.edu/home/baez/week137.html}
 
-  \bibitem{baez-definitions-everyone-should-know} J. Baez.
+    \bibitem{baez-definitions-everyone-should-know} J. Baez.
     \textit{Some Definitions Everyone Should Know}.
     \url{http://math.ucr.edu/home/baez/qg-fall2004/definitions.pdf}
 
-  \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
+    \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
     \textit{The Unapologetic Mathematician: Mac Lane's Coherence Theorem}.
     \url{https://unapologetic.wordpress.com/2007/06/29/mac-lanes-coherence-theorem/}
 
-  \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
+    \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
     \textit{Topological Transformation Groups}.
     University of Chicago Press, Chicago, 1955.
 
-  \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
+    \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
     \textit{Hodge Cycles, Motives, and Shimura Varieties}.
     Springer Verlag, 1982
 
-  \bibitem{maclane-categories} S. Mac Lane.
+    \bibitem{maclane-categories} S. Mac Lane.
     \textit{Categories for the Working Mathematician}.
     Springer-Verlag New York, New York, 1998.
 
-  \bibitem{baez-higher-categories} J. Baez. 
+    \bibitem{baez-higher-categories} J. Baez. 
     \textit{An introduction to $n$-Categories}.
     \url{https://arxiv.org/pdf/q-alg/9705009.pdf}
 
-  \bibitem{baez-categories-usenet} 
+    \bibitem{baez-categories-usenet} 
     \url{https://groups.google.com/forum/#!topic/sci.math/7LqPFfmWGOA}
 
-  \bibitem{nlab} 
+    \bibitem{nlab} 
     \url{https://www.ncatlab.org/}
 
-  \bibitem{wikipedia-product} 
+    \bibitem{wikipedia-product} 
     \textit{Wikipedia - Product (Category Theory)}.
     \url{https://en.wikipedia.org/wiki/Product\_(category\_theory)}
 
-  \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
+    \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
     \textit{Tensor Categories}.
     American Mathematical Society, 2015.
 
-  \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
+    \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
     \textit{Lecture Notes: Introduction to Categorical Logic}
 
-  \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
+    \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
     \textit{Category Theory Foundations}.
     \url{https://www.youtube.com/watch?v=BF6kHD1DAeU&index=1&list=PLGCr8P\_YncjVjwAxrifKgcQYtbZ3zuPlb}
 
-  \bibitem{awodey-category-theory} S. Awodey.
+    \bibitem{awodey-category-theory} S. Awodey.
     \textit{Category Theory}.
     Oxford University Press, 2006.
 
-  \bibitem{haag-local-quantum-physics} R. Haag.
+    \bibitem{haag-local-quantum-physics} R. Haag.
     \textit{Local Quantum Physics: Fields, Particles, Algebras}.
     Springer-Verlag Berlin Heidelberg New York, 1996
 
-  \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
+    \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
     \textit{Relativity, Groups, Particles: Special Relativity and Relativistic Symmetry in Field and Particle Physics}.
     Springer-Verlag Wein, 1992
 
-  \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
+    \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
     \textit{Supersymmetry and Supergravity}.
     Princeton University Press, Princeton NJ, 1992
 
-  \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
+    \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
     \textit{Introduction to Supersymmetry (Second edition)}.
     World Scientific, 2010.
 
-  \bibitem{deligne-categories-tensorielle} Pierre Deligne.
+    \bibitem{deligne-categories-tensorielle} Pierre Deligne.
     \textit{Cat{\'e}gories Tensorielle},
     Moscow Math. Journal 2 (2002) no. 2, 227-228
     \url{https://www.math.ias.edu/files/deligne/Tensorielles.pdf}
 
-  \bibitem{KMS-natural-operations-differential-geometry} I. Kol\'{a}\v{r}, P. Michor, and J. Slov\'{a}k.
+    \bibitem{KMS-natural-operations-differential-geometry} I. Kol\'{a}\v{r}, P. Michor, and J. Slov\'{a}k.
     \textit{Natural Operations in Differential Geometry}.
     Springer-Verlag, Berlin Heidelberg, 1993.
 
-  \bibitem{hartshorne-algebraic-geometry} R. Hartshorne.
+    \bibitem{hartshorne-algebraic-geometry} R. Hartshorne.
     \textit{Algebraic Geometry}.
     Springer-Verlag, New York, 1977.
 
-  \bibitem{annoying-precision-meditation} Q. Yuan.
+    \bibitem{annoying-precision-meditation} Q. Yuan.
     \textit{Annoying Precision: A neditation on semiadditive categories}.
     \url{https://qchu.wordpress.com/2012/09/14/a-meditation-on-semiadditive-categories/}
+
+    \bibitem{nestruev-smooth-manifolds-observables} J. Nestruev.
+    \textit{Smooth Monifolds and Observables}.
+    Springer-Verlag, New York, 2002.
 \end{thebibliography}
 \end{document}
