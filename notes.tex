@@ -450,6 +450,33 @@ In this chapter we collect some basic definitions and corollaries so that we may
   \end{equation*}
 \end{example}
 
+\begin{definition}[projective module]
+  \label{def:projectivemodule}
+  Let $A$ be a commutative ring, and $P$ an $A$-module. One says that $P$ is \defn{projective} if for any $A$-module epimorphism $\varphi\colon Q \to R$ and any homomorphism $\psi\colon P \to R$. there exists a homomorphism $\xi\colon P \to Q$ such that $\varphi \circ \xi = \psi$, i.e. the folowing diagram commutes.
+  \begin{equation*}
+    \begin{tikzcd}
+      & P
+      \arrow[dl, swap, dashed, "\exists\xi"]
+      \arrow[d, "\psi"]
+      \\
+      A \arrow[r, swap, twoheadrightarrow, "\varphi"]
+      & R
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
+
+\begin{definition}[finitely generated module]
+  \label{def:finitelygeneratedmodule}
+  Let $R$ be a ring, $M$ be an $R$-module. We say that $M$ is \defn{finitely generated} if there exist $m_{1}$, $m_{2}$, \dots, $m_{k}$ such that any $m \in M$ can be expressed 
+  \begin{equation*}
+    m = r_{1} m_{1} + r_{2} m_{2} + \cdots + r_{k} m_k
+  \end{equation*}
+  for some $r_{i} \in R$.
+\end{definition}
+\begin{note}
+  We are \emph{not} demanding that the $m_{1}$ be linearly independent.
+\end{note}
+
 \section{Algebras}
 \begin{definition}[algebra over a ring]
   \label{def:algebraoveraring}
@@ -798,7 +825,7 @@ Set theory has some foundational annoyances: not every collection of objects is 
   \begin{itemize}
     \item Our category $\mathsf{G}$ has only one object, called $*$.
 
-    \item The set $\Hom_{\mathsf{G}}(*, *)$ is equal to the underlying set of the group $G$, and for $f$, $g \in \Hom_{\mathsf{G}}(*, *)$, the compositions $f \circ g = f\cdot g$, where $\cdot$ is the group operation in $G$.
+    \item The set $\Hom_{\mathsf{G}}(*, *)$ is equal to the underlying set of the group $G$, and for $f$, $g \in \Hom_{\mathsf{G}}(*, *)$, the compositions $f \circ g = f\cdot g$, where $\cdot$ is the group operation in $G$. The identity $e \in G$ is the identity morphism $1_{*}$ on $*$.
   \end{itemize}
   \begin{equation*}
     \begin{tikzcd}
@@ -951,7 +978,7 @@ One of the nice things about functors is that they map commutative diagrams to c
 
   Then functors $\rho\colon \mathsf{G} \rightsquigarrow \mathsf{Vect}_{k}$ are $k$-linear representations of $G$! 
 
-  To see this, let us unwrap the definition. The functor assigns to $* \in \Obj(\mathsf{G})$ an object $\rho(*) = V \in \Obj(\mathsf{Vect})$, and to each morphism $g\colon * \to *$ a morphism $\rho(g)\colon V \to V$. This assignment sends units to units, and this composition is associative.
+  To see this, let us unwrap the definition. The functor $\rho$ assigns to $* \in \Obj(\mathsf{G})$ an object $\rho(*) = V \in \Obj(\mathsf{Vect})$, and to each morphism $g\colon * \to *$ a morphism $\rho(g)\colon V \to V$. This assignment sends units to units, and this composition is associative.
 \end{example}
 
 \section{Natural transformations} \label{sec:naturaltransformations}
@@ -987,7 +1014,7 @@ That is to say, if you're trying to go from $A \times B$ to $D \times C$ and all
 
 As we will see, the cartesian product of sets is a functor from the product category (\hyperref[def:productcategory]{Definition \ref*{def:productcategory}}) $\mathsf{Set} \times \mathsf{Set}$ to $\mathsf{Set}$ which maps $(A, B)$ to $A \times B$. There is another functor $\mathsf{Set} \times \mathsf{Set} \rightsquigarrow \mathsf{Set}$ which sends $(A, B)$ to $B \times A$. The above means that there is a natural isomorphism, called $\mathrm{swap}$, between them.
 
-This example makes clear another common theme of natural transformations: they formalize the idea of `the same function between different sets.' They allow us to make precise the statement that $\mathrm{swap}_{A, B}$ and $\mathrm{swap}_{C, D}$ are somehow the same, despite the fact that they are in no way equal as functions.
+This example makes clear another common theme of natural transformations: they formalize the idea of `the same function between different objects.' They allow us to make precise statements like `$\mathrm{swap}_{A, B}$ and $\mathrm{swap}_{C, D}$ are somehow the same, despite the fact that they are in no way equal as functions.'
 
 \begin{definition}[natural transformation]
   \label{def:naturaltransformation}
@@ -1596,6 +1623,7 @@ One can also define a coslice category, which is what you get when you take a sl
       \mathsf{1} \arrow[r, rightsquigarrow, "\mathcal{F}_{X}"] & \mathsf{A} & \arrow[l, rightsquigarrow, swap, "\mathrm{id}_{A}"] \mathsf{A}
     \end{tikzcd}.
   \end{equation*}
+  The objects are morphisms $f\colon X \to \alpha$ and the morphisms are morphisms $g\colon \alpha \to \alpha'$ such that the diagram
   \begin{equation*}
     \begin{tikzcd}[column sep=tiny, row sep=6ex]
       & X \arrow[dl, swap, "f"] \arrow[dr, "f'"] & \\
@@ -1829,8 +1857,6 @@ Again, with the diagram helpfully rotated, we have the following.
   \end{quote}
 
   It turns out that the tensor product defined in this way is neither an initial or final morphism. This is because in the category $\mathsf{Vect}_{k}$, there is no way of making sense of a bilinear map. 
-
-  We will discover the correct way of dealing with tensor products a bit later, after we have defined a \emph{symmetric monoidal category}.
 \end{example}
 
 \begin{example}[categorical product]
@@ -4101,6 +4127,14 @@ A monoidal category will be a category in which the objects have the structure o
 \end{example}
 
 \begin{lemma}
+  \label{lemma:leftandrightunitoragreewhenpossible}
+  Let $\mathsf{C}$ be a category with monoidal structure $(\otimes, 1, \alpha, \lambda, \rho)$. Then the maps $\lambda_{1}$ and $\rho_{1}\colon 1 \otimes 1 \to 1$
+\end{lemma}
+\begin{proof}
+  
+\end{proof}
+
+\begin{lemma}
   Let $\mathsf{C}$ be a category with monoidal structure $(\otimes, 1, \alpha, \lambda, \rho)$. Then for all $X$, $Y \in \Obj(\mathsf{C})$, the diagram
   \begin{equation*}
     \begin{tikzcd}[row sep=large]
@@ -5862,11 +5896,43 @@ The importance of Jordan-H{\"o}lder series is the following.
   The \defn{length} of an object $X$ is defined to be the length of its Jordan-H{\"o}lder series.
 \end{definition}
 
+
+\section{Tensor Categories}
+The following definition is taken almost verbatim from \cite{nlab-deligne-theorem}.
+\begin{definition}[tensor category]
+  \label{def:tensorcategory}
+  Let $k$ be a field. A \defn{$k$-tensor category} $\mathsf{A}$ (as considered by Deligne in \cite{deligne-categories-tensorielle}) is an
+  \begin{enumerate}
+    \item essentially small (\hyperref[def:essentiallysmall]{Definition \ref*{def:essentiallysmall}})
+
+    \item $k$-linear (\hyperref[def:linearcategory]{Definition \ref*{def:linearcategory}})
+
+    \item rigid (\hyperref[def:rigidmonoidalcategory]{Definition \ref*{def:rigidmonoidalcategory}})
+
+    \item symmetric (\hyperref[def:symmetricmonoidalcategory]{Definition \ref*{def:symmetricmonoidalcategory}})
+
+    \item monoidal category (\hyperref[def:monoidalcategory]{Definition \ref*{def:monoidalcategory}})
+  \end{enumerate}
+  such that 
+  \begin{enumerate}
+    \item the tensor product functor $\otimes\colon \mathsf{A} \times \mathsf{A} \rightsquigarrow \mathsf{A}$ is, in both arguments separately,
+      \begin{enumerate}
+        \item $k$-linear (\hyperref[def:linearfunctor]{Definition \ref*{def:linearfunctor}})
+
+        \item exact (\hyperref[def:exactfunctor]{Definition \ref*{def:exactfunctor}})
+      \end{enumerate}
+
+    \item $\mathrm{End}(1) \simeq k$, where $\mathrm{End}$ denotes the endomorphism ring (\hyperref[def:endomorphismring]{Definition \ref*{def:endomorphismring}}).
+  \end{enumerate}
+\end{definition}
+
+In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheorem}}, several notions of size are used. We collect them here.
+
 \begin{definition}[finite tensor category]
   \label{def:finitetensorcategory}
   A $k$-tensor category $\mathsf{A}$ is called \defn{finite} (over $k$) if 
   \begin{enumerate}
-    \item There are only finitely many simple objects in $\mathsf{A}$, and each of them admits a projective presentation.\footnote{This is satisfied trivially by pretty much every `obviously finite' category we'll look at.}
+    \item There are only finitely many simple objects in $\mathsf{A}$, and each of them admits a projective presentation.\footnote{The definition of this is a bit tricky, and I don't understand it. However, it's satisfied trivially by pretty much every `obviously finite' category we'll look at.}
 
     \item Each object $A$ of $\mathsf{A}$ is of finite length.
 
@@ -5919,35 +5985,6 @@ The importance of Jordan-H{\"o}lder series is the following.
   \end{equation*}
   so we can take $N_{V} = \mathrm{dim}(V)$.
 \end{example}
-
-\section{Tensor Categories}
-The following definition is taken almost verbatim from \cite{nlab-deligne-theorem}.
-\begin{definition}[tensor category]
-  \label{def:tensorcategory}
-  Let $k$ be a field. A \defn{$k$-tensor category} $\mathsf{A}$ (as considered by Deligne in \cite{deligne-categories-tensorielle}) is an
-  \begin{enumerate}
-    \item essentially small (\hyperref[def:essentiallysmall]{Definition \ref*{def:essentiallysmall}})
-
-    \item $k$-linear (\hyperref[def:linearcategory]{Definition \ref*{def:linearcategory}})
-
-    \item rigid (\hyperref[def:rigidmonoidalcategory]{Definition \ref*{def:rigidmonoidalcategory}})
-
-    \item symmetric (\hyperref[def:symmetricmonoidalcategory]{Definition \ref*{def:symmetricmonoidalcategory}})
-
-    \item monoidal category (\hyperref[def:monoidalcategory]{Definition \ref*{def:monoidalcategory}})
-  \end{enumerate}
-  such that 
-  \begin{enumerate}
-    \item the tensor product functor $\otimes\colon \mathsf{A} \times \mathsf{A} \rightsquigarrow \mathsf{A}$ is, in both arguments separately,
-      \begin{enumerate}
-        \item $k$-linear (\hyperref[def:linearfunctor]{Definition \ref*{def:linearfunctor}})
-
-        \item exact (\hyperref[def:exactfunctor]{Definition \ref*{def:exactfunctor}})
-      \end{enumerate}
-
-    \item $\mathrm{End}(1) \simeq k$, where $\mathrm{End}$ denotes the endomorphism ring (\hyperref[def:endomorphismring]{Definition \ref*{def:endomorphismring}}).
-  \end{enumerate}
-\end{definition}
 
 \section{Higher categories} \label{sec:highercategories}
 This section follows \cite{baez-higher-categories} closely.
@@ -6269,6 +6306,8 @@ We follow loosely the treatment in \cite{vakil-rising-sea}.
   Let $A = \R[x]$, the ring of polynomials in one variable.
 \end{example}
 
+\section{Quasicoherent sheaves} \label{sec:quasicoherentsheaves}
+
 \chapter{Spinors} 
 \section{A few more algebraic concepts}
 \begin{definition}[graded algebra]
@@ -6330,7 +6369,7 @@ We follow loosely the treatment in \cite{vakil-rising-sea}.
   \begin{equation*}
     F_{n} = \bigoplus_{i=0}^{n} A_{i}.
   \end{equation*}
-  Thus from any graded algebra one can, via the canonical filtration, arrive at an associated graded algebra. This is isomorphic to $A$ as a vector space, but not in general as an algebra.
+  Thus from any graded algebra $A$ one can, via the canonical filtration, arrive at an associated graded algebra which is isomorphic to $A$ as a vector space However, it will not in general be isomorphic to $A$ as an algebra.
 \end{note}
 
 \begin{definition}[tensor product of algebras]
@@ -6348,11 +6387,11 @@ We follow loosely the treatment in \cite{vakil-rising-sea}.
   The module $A \otimes_{R} B$ \emph{together with} the multiplication rule described above is called the \defn{tensor product of $A$ and $B$}.
 \end{definition}
 \begin{note}
-  This is a perfectly good definition of a tensor product for general algebras, and is even a graded algebra with the grading
+  This is a perfectly good definition of a tensor product for graded algebras when given the grading
   \begin{equation*}
     (A\otimes B)_{n} = \bigoplus_{i+j=n} a_{i} \otimes b_{j}.
   \end{equation*}
-  However, as we will see in the next chapter, for graded algebras there is exactly one other choice. In the language of category theory, there are two choices of braiding that make the category of $G$-graded vector spaces into a symmetric monoidal category. It turns out that this other choice is the more interesting one.
+  However, there is another more interesting multiplication law we can give $A \otimes B$.
 \end{note}
 
 \begin{definition}[graded tensor product of algebras]
@@ -7348,6 +7387,8 @@ Until now, we have been defining super-* strucutures haphazardly, imposing the K
 
 In the second section, we will apply the machinery of algebraic geometry to our new understanding of supercommutative algebra, and arrive at a natural definition of a supermanifold.
 
+In the third section, we generalize the ideas of the second section, leading to a definition of a super vector bundle.
+
 \section{Supercommutativity}
 The goal of this section is to explain the ubiquity of supercommutativity (i.e. the Koszul sign rule) in the study of $\Z_{2}$-graded spaces. Stated roughly, the reason is this: it is the only possible multiplication law on a $\Z_{2}$-graded algebra which knows about the grading. That is to say, the only other possible multiplication law (up to an appropriate sort of isomorphism) on a $\Z_{2}$-graded algebra is the trivial one, which is equivalent to treating the vector space as ungraded. 
 
@@ -7497,7 +7538,17 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
       & A
     \end{tikzcd}
   \end{equation*}
+\end{definition}
 
+\begin{example}
+  \label{eg:tensorunitisinternalmonoid}
+  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. The tensor unit $1$ is a monoid internal to $\mathsf{C}$, with product $\lambda_{1}\colon 1 \otimes 1 \to 1$ and unit $e = \lambda^{-1}_{1}\colon 1 \to 1 \otimes 1$.
+
+  We could equally use $\rho$ instead of $\lambda$ by \hyperref[lemma:leftandrightunitoragreewhenpossible]{Lemma \ref*{lemma:leftandrightunitoragreewhenpossible}}.
+\end{example}
+
+\begin{definition}[morphism of monoids]
+  \label{def:homomorphismofmonoids}
   A \defn{homomorphism} of monoids $(A_{1}, \mu_{1}, e_{1}) \to (A_{2}, e_{2}, \mu_{2})$ is a morphism $f\colon A_{1} \to A_{2}$ such that the following diagrams commute.
   \begin{equation*}
     \begin{tikzcd}
@@ -7729,6 +7780,43 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   \end{enumerate}
 \end{proof}
 
+\begin{definition}[tensor product of commutative monoids]
+  \label{def:tensorproductofcommutativemonoids}
+  Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category and $(E_{1}, \mu_{1}, e_{1})$ and $(E_{2}, \mu_{2}, e_{2})$ monoids internal to $\mathsf{C}$. Then we can construct a new monoid internal to $\mathsf{C}$, the \defn{tensor product} of $E_{1}$ and $E_{2}$ with
+
+  \begin{enumerate}
+    \item The object given by $E_{1} \otimes E_{2}$
+
+    \item The map multiplication map
+      \begin{equation*}
+        \mu_{E_{1} \otimes E_{2}}\colon (E_{1} \otimes E_{2}) \otimes (E_{1} \otimes E_{2}) \to (E_{1} \otimes E_{2})
+      \end{equation*}
+      given by (notationally suppressing the associators)
+      \begin{equation*}
+        \begin{tikzcd}[column sep=huge]
+          E_{1} \otimes E_{2} \otimes E_{1} \otimes E_{2} 
+          \arrow[r, "{1_{E_{1}} \otimes \gamma_{E_{2}, E_{1}} \otimes 1_{E_{2}}}"]
+          & E_{1} \otimes E_{1} \otimes E_{2} \otimes E_{2}  
+          \arrow[r, "\mu_{1} \otimes \mu_{2}"]
+          & E_{1} \otimes E_{2}
+        \end{tikzcd}
+      \end{equation*}
+
+    \item and the unit map $e_{E_{1} \otimes E_{2}}$ given by
+      \begin{equation*}
+        \begin{tikzcd}
+          1
+          \arrow[r, "\lambda^{-1}_{1}"]
+          & 1 \otimes 1
+          \arrow[r, "e_{1} \otimes e_{2}"]
+          & E_{1} \otimes E_{2}
+        \end{tikzcd}
+      \end{equation*}
+  \end{enumerate}
+
+  It is easy to show that these maps make the necessary diagrams commute.
+\end{definition}
+
 
 \section{Supergeometry}
 \begin{definition}
@@ -7772,13 +7860,138 @@ We might take this idea even further: given \emph{any} associative algebra $A$, 
 \end{definition}
 
 \section{Modules in tensor categories; super vector bundles}
-Some of the material from this section is from 
+Some of the material from this section is from \cite{nestruev-smooth-manifolds-observables}.
 
-We saw in the last section that we can generalize manifolds by dualizing associative algebras. In this section, we will see that we can pull the same trick for vector bundles over manifolds.
+We saw in the last section that we can view the duals of associative algebras as generalized manifolds. In this section, we will see that we can pull the same trick for vector bundles.
 
-Let $X$ be a smooth manifold, and let $\pi\colon V \to X$ be a vector bundle over $X$. The set $\Gamma(V)$ of sections of $X$ naturally has the structure of a $C^{\infty}(M)$-module. Furthermore, any vector bundle morphism $(\pi\colon X \to V) \to (\pi'\colon V' \to X')$ induces an algebra homomorphism $\Gamma_{X'}(V')$ via the pullback.
+\begin{definition}[category of vector bundles over a manifold]
+  \label{def:categoryofvectorbundlesoveramanifold}
+  Let $M$ be a $C^{\infty}$ manifold. Denote by $\mathsf{VectBund}_{X}$ the category whose objects are vector bundles 
+  \begin{equation*}
+    \begin{tikzcd}
+      V 
+      \arrow[r, "\pi"]
+      & X
+    \end{tikzcd}
+  \end{equation*}
+  and whose morphisms are maps $\varphi\colon V \to V'$ which preserve basepoint, i.e. maps $V \to V'$ which make the following diagram commute,
+  \begin{equation*}
+    \begin{tikzcd}[column sep=tiny]
+      V
+      \arrow[rr, "\varphi"]
+      \arrow[rd, swap, "\pi"]
+      & & V'
+      \arrow[ld, "\pi'"]
+      \\
+      & X
+    \end{tikzcd}
+  \end{equation*}
+  and which map fibers to their image fibers linearly.
 
-\section{Super groups as super-commutative Hopf algebras}
+  We will also need the full subcategory $\mathsf{VectBund}_{X}^{\text{fin}} \subset \mathsf{VectBund}_{X}$ whose objects are vector bundles of finite rank (i.e vector bundles whose fibers are finite-dimensional vector spaces).
+\end{definition}
+
+For any vector bundle $\pi\colon V \to X$, the set of all sections $\Gamma_{X}(V)$ can be given the structure of a $C^{\infty}$-module. Furthermore, any morphism $\varphi\colon V \to V'$ determines a homomorphism of modules $\Gamma_{X}(V) \to \Gamma_{X}(V')$ by sending $\sigma \to \varphi \circ \sigma$. This gives us a functor $\mathsf{VectBund}_{X} \rightsquigarrow C^{\infty}(X)\text{-}\mathsf{Mod}$.
+
+In fact, with some mild conditions on the vector bundles and modules in question, we can say more. First, we consider only vector bundles whose fibers are finite-dimensional; this means we restrict our attention to the category $\mathsf{VectBund}^{\mathrm{fin}}_{X}$. Second, not all modules arise as modules over vector bundles of finite rank; it turns out that all modules which arise in this way are projective (\hyperref[def:projectivemodule]{Definition \ref*{def:projectivemodule}}) and finitely generated (\hyperref[def:finitelygeneratedmodule]{Definition \ref*{def:finitelygeneratedmodule}}).
+
+\begin{definition}[category of finitely-generated projective $C^{\infty}$-modules]
+  \label{def:categoryofyaddayaddasmoothmodules}
+  Denote by $C^{\infty}(X)\text{-}\mathsf{Mod}_{\mathrm{proj}}^{\mathrm{fin\ gen}}$ the category of smooth, finitely-generated $C^{\infty}(X)$-modules.
+\end{definition}
+
+\begin{theorem}[smooth Serre-Swan theorem]
+  The functor 
+  \begin{equation*}
+    \mathsf{VectBund}^{\mathrm{fin}}_{X} \rightsquigarrow C^{\infty}\text{-}\mathsf{Mod}^{\mathrm{fin gen}}_{\mathrm{proj}}
+  \end{equation*}
+  which sends each vector bundle to its module of sections is an equivalence of categories.
+\end{theorem}
+\begin{proof}
+  See \cite{nestruev-smooth-manifolds-observables} 11.33, pg 183.
+\end{proof}
+
+As before, one is lead to the assumption that one could generalize the idea of a vector bundle by relaxing the requrements on the modules under consideration. The `generalized vector bundles' arising in this way are called \emph{quasicoherent sheaves} (\hyperref[sec:quasicoherentsheaves]{Section \ref*{sec:quasicoherentsheaves}}).
+
+\begin{definition}[module object]
+  \label{def:moduleobject}
+  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category, and $(A, \mu, e)$ a monoid internal to $\mathsf{C}$. A \defn{[left] module object} in $\mathsf{C}$ over $A$ is
+  \begin{enumerate}
+    \item An object $N \in \mathsf{Obj}(\mathsf{C})$ and
+
+    \item A morphism $\rho\colon A \otimes N \to N$ (called the \emph{action})
+  \end{enumerate}
+  such that the following diagrams commute.
+  \begin{enumerate}
+    \item (unitality)
+      \begin{equation*}
+        \begin{tikzcd}
+          1 \otimes N
+          \arrow[r, "e \otimes 1_{N}"]
+          \arrow[dr, swap, "\lambda_{N}"]
+          & A \otimes N
+          \arrow[d, "\rho"]
+          \\
+          & N
+        \end{tikzcd}
+      \end{equation*}
+
+    \item (action property)
+      \begin{equation*}
+        \begin{tikzcd}
+          (A \otimes A) \otimes N
+          \arrow[r, "{\alpha_{A, A, N}}"]
+          \arrow[d, swap, "\mu \otimes 1_{N}"]
+          & A \otimes (A \otimes N)
+          \arrow[r, "A \otimes \rho"]
+          & A \otimes N
+          \arrow[d, "\rho"]
+          \\
+          A \otimes N
+          \arrow[rr, "\rho"]
+          & & N
+        \end{tikzcd}
+      \end{equation*}
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. As we saw in \hyperref[eg:tensorunitisinternalmonoid]{Example \ref*{eg:tensorunitisinternalmonoid}}, we can view $1$ as a monoid internal to $\mathsf{C}$. Then for every object $C \in \Obj(\mathsf{C})$, the left unitor $\lambda_{C}\colon 1 \otimes C \to C$ makes $C$ into a a left module.
+\end{example}
+
+\begin{definition}[homomorphism of module objects]
+  \label{def:homomorphismofmoduleobjects}
+  A homomorphism of [left] $A$-module objects $(N_{1}, \rho_{1})$, $(N_{2}, \rho_{2})$ is a morphism
+  \begin{equation*}
+    f\colon N_{1} \to N_{2}
+  \end{equation*}
+  such that the diagram
+  \begin{equation*}
+    \begin{tikzcd}
+      A \otimes N_{1}
+      \arrow[r, "1_{A} \otimes f"]
+      \arrow[d, swap, "\rho_{1}"]
+      & A \otimes N_{2}
+      \arrow[d, "\rho_{2}"]
+      \\
+      N_{1}
+      \arrow[r, swap, "f"]
+      & N_{2}
+    \end{tikzcd}
+  \end{equation*}
+  commutes.
+\end{definition}
+
+\begin{definition}[category of internal $A$-modules]
+  \label{def:categoryofinternalmodules}
+  Let $(C \otimes, 1)$ be a symmetric monoidal category. Write $A\text{-}\mathsf{Mod}(\mathsf{C})$ for the category whose objects are $A$-modules internal to $\mathsf{C}$ and whose morphisms are homomorphisms of module objects.
+\end{definition}
+
+\begin{example}
+  Any monoid $(A, \mu, e)$ is a left-module over itself with $\rho = \mu$.
+\end{example}
+
+\section{Supergroups as supercommutative Hopf algebras}
 
 
 \chapter{Representations}
@@ -8074,136 +8287,136 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
   \item How much do you know about algebraic geometry (specifically schemes and quasicoherent sheaves)? 
 \end{enumerate}
 \begin{thebibliography}{9}
-    \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
+  \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
     \textit{Spin Geometry}.
     Princeton University Press, Princeton, NJ, 1989.
 
-    \bibitem{vakil-rising-sea} R. Vakil,
+  \bibitem{vakil-rising-sea} R. Vakil,
     \textit{The Rising Sea}.
     \url{http://www.math216.wordpress.com/}
 
-    \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
+  \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
     \textit{Principal Bundles: The Classical Case}.
     Springer International Publishing, Switzerland, 2015.
 
-    \bibitem{hungerford-algebra} T. Hungerford.
+  \bibitem{hungerford-algebra} T. Hungerford.
     \textit{Algebra}.
     Springer-Verlag New York, NY, 1974.
 
-    \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
+  \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
     \textit{PG Course on Spin Geometry}.
     \url{https://empg.maths.ed.ac.uk/Activities/Spin/}
 
-    \bibitem{quantum-fields-and-strings} P. Deligne et al.
+  \bibitem{quantum-fields-and-strings} P. Deligne et al.
     \textit{Quantum Fields and Strings: a Course for Mathematicians}.
     American Mathematical Society, 1999.
 
-    \bibitem{susy-for-mathematicians} V. S. Varadarajan.
+  \bibitem{susy-for-mathematicians} V. S. Varadarajan.
     \textit{Supersymmetry for Mathematicans: An Introduction}.
     American Mathematical Society, 2004.
 
-    \bibitem{catsters} The Catsters.
+  \bibitem{catsters} The Catsters.
     \url{https://www.youtube.com/channel/UC5Y9H2KDRHZZTWZJtlH4VbA}
 
-    \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
+  \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
     \textit{Noncommutative Geometry, Quantum Fields and Motives}.
     \url{http://www.alainconnes.org/docs/bookwebfinal.pdf}
 
-    \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
+  \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
     \textit{Algebra: Chapter 0}.
     American Mathematical Society, 2009.
 
-    \bibitem{nlab-deligne-theorem} 
+  \bibitem{nlab-deligne-theorem} 
     \textit{Nlab---Deligne's Theorem on Tensor Categories}.
     \url{https://ncatlab.org/nlab/show/Deligne's+theorem+on+tensor+categories}
 
-    \bibitem{baez-this-weeks-finds-137} J. Baez.
+  \bibitem{baez-this-weeks-finds-137} J. Baez.
     \textit{This Week's Finds in Mathematical Physics (Week 137)}.
     \url{http://math.ucr.edu/home/baez/week137.html}
 
-    \bibitem{baez-definitions-everyone-should-know} J. Baez.
+  \bibitem{baez-definitions-everyone-should-know} J. Baez.
     \textit{Some Definitions Everyone Should Know}.
     \url{http://math.ucr.edu/home/baez/qg-fall2004/definitions.pdf}
 
-    \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
+  \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
     \textit{The Unapologetic Mathematician: Mac Lane's Coherence Theorem}.
     \url{https://unapologetic.wordpress.com/2007/06/29/mac-lanes-coherence-theorem/}
 
-    \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
+  \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
     \textit{Topological Transformation Groups}.
     University of Chicago Press, Chicago, 1955.
 
-    \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
+  \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
     \textit{Hodge Cycles, Motives, and Shimura Varieties}.
     Springer Verlag, 1982
 
-    \bibitem{maclane-categories} S. Mac Lane.
+  \bibitem{maclane-categories} S. Mac Lane.
     \textit{Categories for the Working Mathematician}.
     Springer-Verlag New York, New York, 1998.
 
-    \bibitem{baez-higher-categories} J. Baez. 
+  \bibitem{baez-higher-categories} J. Baez. 
     \textit{An introduction to $n$-Categories}.
     \url{https://arxiv.org/pdf/q-alg/9705009.pdf}
 
-    \bibitem{baez-categories-usenet} 
+  \bibitem{baez-categories-usenet} 
     \url{https://groups.google.com/forum/#!topic/sci.math/7LqPFfmWGOA}
 
-    \bibitem{nlab} 
+  \bibitem{nlab} 
     \url{https://www.ncatlab.org/}
 
-    \bibitem{wikipedia-product} 
+  \bibitem{wikipedia-product} 
     \textit{Wikipedia - Product (Category Theory)}.
     \url{https://en.wikipedia.org/wiki/Product\_(category\_theory)}
 
-    \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
+  \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
     \textit{Tensor Categories}.
     American Mathematical Society, 2015.
 
-    \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
+  \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
     \textit{Lecture Notes: Introduction to Categorical Logic}
 
-    \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
+  \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
     \textit{Category Theory Foundations}.
     \url{https://www.youtube.com/watch?v=BF6kHD1DAeU&index=1&list=PLGCr8P\_YncjVjwAxrifKgcQYtbZ3zuPlb}
 
-    \bibitem{awodey-category-theory} S. Awodey.
+  \bibitem{awodey-category-theory} S. Awodey.
     \textit{Category Theory}.
     Oxford University Press, 2006.
 
-    \bibitem{haag-local-quantum-physics} R. Haag.
+  \bibitem{haag-local-quantum-physics} R. Haag.
     \textit{Local Quantum Physics: Fields, Particles, Algebras}.
     Springer-Verlag Berlin Heidelberg New York, 1996
 
-    \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
+  \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
     \textit{Relativity, Groups, Particles: Special Relativity and Relativistic Symmetry in Field and Particle Physics}.
     Springer-Verlag Wein, 1992
 
-    \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
+  \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
     \textit{Supersymmetry and Supergravity}.
     Princeton University Press, Princeton NJ, 1992
 
-    \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
+  \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
     \textit{Introduction to Supersymmetry (Second edition)}.
     World Scientific, 2010.
 
-    \bibitem{deligne-categories-tensorielle} Pierre Deligne.
+  \bibitem{deligne-categories-tensorielle} Pierre Deligne.
     \textit{Cat{\'e}gories Tensorielle},
     Moscow Math. Journal 2 (2002) no. 2, 227-228
     \url{https://www.math.ias.edu/files/deligne/Tensorielles.pdf}
 
-    \bibitem{KMS-natural-operations-differential-geometry} I. Kol\'{a}\v{r}, P. Michor, and J. Slov\'{a}k.
+  \bibitem{KMS-natural-operations-differential-geometry} I. Kol\'{a}\v{r}, P. Michor, and J. Slov\'{a}k.
     \textit{Natural Operations in Differential Geometry}.
     Springer-Verlag, Berlin Heidelberg, 1993.
 
-    \bibitem{hartshorne-algebraic-geometry} R. Hartshorne.
+  \bibitem{hartshorne-algebraic-geometry} R. Hartshorne.
     \textit{Algebraic Geometry}.
     Springer-Verlag, New York, 1977.
 
-    \bibitem{annoying-precision-meditation} Q. Yuan.
+  \bibitem{annoying-precision-meditation} Q. Yuan.
     \textit{Annoying Precision: A neditation on semiadditive categories}.
     \url{https://qchu.wordpress.com/2012/09/14/a-meditation-on-semiadditive-categories/}
 
-    \bibitem{nestruev-smooth-manifolds-observables} J. Nestruev.
+  \bibitem{nestruev-smooth-manifolds-observables} J. Nestruev.
     \textit{Smooth Monifolds and Observables}.
     Springer-Verlag, New York, 2002.
 \end{thebibliography}
