@@ -3617,6 +3617,73 @@ The following proof was adapted from \cite{awodey-category-theory}.
   The meat of this theorem is the fact that finite products and equalizers yield all finite limits.
 \end{note}
 
+\subsection{Filtered colimits and ind-objects}
+\begin{definition}[preorder]
+  \label{def:preorder}
+  Let $S$ be a set. A \defn{preoreder} on $S$ is a binary relation $\leq$ which is 
+  \begin{enumerate}
+    \item reflexive ($a \leq a$)
+
+    \item transitive (if $a \leq b$ and $b \leq c$, then $a \leq c$)
+  \end{enumerate}
+
+  A preorder is said to be \defn{directed} if for any two objects $a$ and $b$, there exists an `upper bound', i.e. an object $r$ such that $a \leq r$ and $b \leq r$.
+\end{definition}
+
+Filtered categories are a generalization of filtered preorders.
+
+\begin{definition}[filtered category]
+  \label{def:filteredcategory}
+  A category $\mathsf{J}$ is \defn{filtered} if
+  \begin{itemize}
+    \item for each pair of objects $J$, $J' \in \Obj(\mathsf{J})$, there exists an object $K$ and morphisms $J \to K$ and $J' \to K$.
+      \begin{equation*}
+        \begin{tikzcd}[row sep=tiny]
+          J
+          \arrow[dr]
+          \\
+          & K
+          \\
+          J'
+          \arrow[ur]
+        \end{tikzcd}
+      \end{equation*}
+
+      That is, every diagram with two objects and no morphisms is the base of a cocone.
+      
+    \item For every pair of morphisms $i$, $j\colon J \to J'$, there exists an object $K$ and a morphism $f\colon J' \to K$ such that $f \circ i = f \circ j$, i.e. the following diagram commutes.
+      \begin{equation*}
+        \begin{tikzcd}[row sep=tiny]
+          J
+          \arrow[r, shift left, "i"]
+          \arrow[r, shift right, swap, "j"]
+          & J'
+          \arrow[r, "f"]
+          & K
+        \end{tikzcd}
+      \end{equation*}
+
+      That is, every diagram of the form $\begin{tikzcd}[column sep=small]\bullet \arrow[r, shift left] \arrow[r, shift right] & \bullet \end{tikzcd}$ is the base of a cocone.
+  \end{itemize}
+\end{definition}
+
+\begin{theorem}
+  Filtered categories have all finite coproducts.
+\end{theorem}
+\begin{proof}
+  
+\end{proof}
+
+\begin{definition}[filtered colimit]
+  \label{def:filteredcolimit}
+  A \defn{filtered colimit} is a colimit over a diagram $\mathcal{D}\colon \mathsf{J} \to \mathsf{C}$, where $\mathsf{J}$ is a filtered category.
+\end{definition}
+
+\begin{definition}[ind-object]
+  \label{def:indobject}
+  
+\end{definition}
+
 \section{Adjunctions} \label{sec:adjunctions}
 Consider the following functors:
 \begin{itemize}
@@ -7995,16 +8062,20 @@ As before, one is lead to the assumption that one could generalize the idea of a
 
 
 \chapter{Representations}
-We have already seen that categories can be used to re-phrase certain aspects of representation theory. (Recall examples \ref{eg:groupsaregroupoidswithoneobject}, \ref{eg:functorscanbegrouprepresentation}, and \ref{eg:intertwinersarenaturaltransformations}.) In this section we will take a more systematic approach, which will allow us to 
+We have already seen that categories can be used to re-phrase certain aspects of representation theory. (Recall examples \ref{eg:groupsaregroupoidswithoneobject}, \ref{eg:functorscanbegrouprepresentation}, and \ref{eg:intertwinersarenaturaltransformations}.) In this section we will take a more systematic approach.
 
 \section{Linear super-representations as Comodules}
 \section{Super fiber functors and their automorphism groups}
 \section{Super-exterior powers and Schur functors}
 
 \chapter{Deligne's theorem on tensor categories}
-The following statement of Deligne's theorem was taken, mutatis mutandis, from \cite{nlab-deligne-theorem}.
+Deligne's theorem tells us that every $k$-tensor category, for $k$ an algebraically closed field of characteristic zero, is the category of representations of some algebraic super group.
+
 
 \section{Statement}
+
+The following statement of Deligne's theorem was taken, mutatis mutandis, from \cite{nlab-deligne-theorem}.
+
 \begin{theorem}[Deligne's theorem on tensor categories]
   \label{thm:delignestheorem}
   Let $\mathscr{A}$ be a $k$-tensor category (\hyperref[def:tensorcategory]{Definition \ref*{def:tensorcategory}}) such that
@@ -8025,7 +8096,8 @@ The following statement of Deligne's theorem was taken, mutatis mutandis, from \
       between $\mathscr{A}$ and the category of representations of $G$ of finite-dimension, according to REF.
   \end{enumerate}
 \end{theorem}
-Deligne (\cite{deligne-categories-tensorielle}) breaks down the proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheorem}} into the following steps.
+Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheorem}} (\cite{deligne-categories-tensorielle}) can be broken down into the following steps.
+
 \begin{enumerate}
   \item \label{item:proofsketch1} First, he shows that in any $k$-tensor category $\mathscr{A}$, an object $X$ is of subexponential growth if and only if there is a Schur functor that annihilates it.
 
@@ -8033,7 +8105,7 @@ Deligne (\cite{deligne-categories-tensorielle}) breaks down the proof of \hyperr
 
   \item \label{item:proofsketch3} Finally, he shows that every $k$-tensor category which admits such a fiber functor 
     \begin{equation*}
-      \omega\colon \mathscr{A} \to \mathsf{SVect}
+      \omega\colon \mathscr{A} \to \mathsf{SVect}_{k}
     \end{equation*}
     is equivalent to the category of representations of the automorphism supergroup of $\omega$.
 \end{enumerate}
@@ -8285,6 +8357,8 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
   \item Does the presentation have to be a beamer? I'd rather use chalk if possible.
 
   \item How much do you know about algebraic geometry (specifically schemes and quasicoherent sheaves)? 
+
+  \item Who should the final project be pitched at? It's technical enough that
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
