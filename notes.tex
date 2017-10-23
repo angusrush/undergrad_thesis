@@ -90,6 +90,9 @@
 \newcommand{\End}{\mathrm{End}}
 \newcommand{\Spec}{\mathrm{Spec}}
 
+% Hyphen for names of categories
+\def\mhyp{{\hbox{-}}}
+
 % Second level of list uses empty bullets
 \renewcommand{\labelitemii}{$\circ$}
 
@@ -640,7 +643,7 @@ In this chapter (and to some extent the following chapters), I will do my best t
 
     \item the category $\mathsf{Ring}$, whose objects are rings and whose morphisms are ring homomorphisms;
 
-    \item the category $R\text{-}\mathsf{Mod}$, whose objects are modules over a ring $R$ and whose morphisms are module homomorphisms;
+    \item the category $R\mhyp\mathsf{Mod}$, whose objects are modules over a ring $R$ and whose morphisms are module homomorphisms;
 
     \item the category $\mathsf{Vect}_{k}$, whose objects are vector spaces over a field $k$ and whose morphisms are linear maps;
     \item the category $\mathsf{FinVect}_{k}$, whose objects are finite-dimensional vector spaces over a field $k$ and whose morphisms are linear maps;
@@ -1813,10 +1816,10 @@ Again, with the diagram helpfully rotated, we have the following.
 
   As it turns out, it will take rather a lot of stretching.
 
-  Let $\mathcal{U}\colon k\text{-}\mathsf{Alg} \rightsquigarrow \mathsf{Vect}_{k}$ be the forgetful functor which assigns to each algebra over a field $k$ its underlying vector space. Pick some $k$-vector space $V$. We consider the category $(V \downarrow \mathcal{U})$, which is given by the following diagram.
+  Let $\mathcal{U}\colon k\mhyp\mathsf{Alg} \rightsquigarrow \mathsf{Vect}_{k}$ be the forgetful functor which assigns to each algebra over a field $k$ its underlying vector space. Pick some $k$-vector space $V$. We consider the category $(V \downarrow \mathcal{U})$, which is given by the following diagram.
   \begin{equation*}
     \begin{tikzcd}
-      \mathsf{1} \arrow[r, rightsquigarrow, "\mathcal{F}_{V}"] & \mathsf{Vect}_{k} &\arrow[l, swap, rightsquigarrow, "\mathcal{U}"] k\text{-}\mathsf{Alg} 
+      \mathsf{1} \arrow[r, rightsquigarrow, "\mathcal{F}_{V}"] & \mathsf{Vect}_{k} &\arrow[l, swap, rightsquigarrow, "\mathcal{U}"] k\mhyp\mathsf{Alg} 
     \end{tikzcd}
   \end{equation*}
 
@@ -7456,6 +7459,8 @@ In the second section, we will apply the machinery of algebraic geometry to our 
 
 In the third section, we generalize the ideas of the second section, leading to a definition of a super vector bundle.
 
+For the remainder of this chapter, let $(\mathsf{C}, \otimes, 1)$ be a monoidal category.
+
 \section{Supercommutativity}
 The goal of this section is to explain the ubiquity of supercommutativity (i.e. the Koszul sign rule) in the study of $\Z_{2}$-graded spaces. Stated roughly, the reason is this: it is the only possible multiplication law on a $\Z_{2}$-graded algebra which knows about the grading. That is to say, the only other possible multiplication law (up to an appropriate sort of isomorphism) on a $\Z_{2}$-graded algebra is the trivial one, which is equivalent to treating the vector space as ungraded. 
 
@@ -7958,24 +7963,24 @@ We saw in the last section that we can view the duals of associative algebras as
   We will also need the full subcategory $\mathsf{VectBund}_{X}^{\text{fin}} \subset \mathsf{VectBund}_{X}$ whose objects are vector bundles of finite rank (i.e vector bundles whose fibers are finite-dimensional vector spaces).
 \end{definition}
 
-For any vector bundle $\pi\colon V \to X$, the set of all sections $\Gamma_{X}(V)$ can be given the structure of a $C^{\infty}$-module. Furthermore, any morphism $\varphi\colon V \to V'$ determines a homomorphism of modules $\Gamma_{X}(V) \to \Gamma_{X}(V')$ by sending $\sigma \to \varphi \circ \sigma$. This gives us a functor $\mathsf{VectBund}_{X} \rightsquigarrow C^{\infty}(X)\text{-}\mathsf{Mod}$.
+For any vector bundle $\pi\colon V \to X$, the set of all sections $\Gamma_{X}(V)$ can be given the structure of a $C^{\infty}$-module. Furthermore, any morphism $\varphi\colon V \to V'$ determines a homomorphism of modules $\Gamma_{X}(V) \to \Gamma_{X}(V')$ by sending $\sigma \to \varphi \circ \sigma$. This gives us a functor $\mathsf{VectBund}_{X} \rightsquigarrow C^{\infty}(X)\mhyp\mathsf{Mod}$.
 
 In fact, with some mild conditions on the vector bundles and modules in question, we can say more. First, we consider only vector bundles whose fibers are finite-dimensional; this means we restrict our attention to the category $\mathsf{VectBund}^{\mathrm{fin}}_{X}$. Second, not all modules arise as modules over vector bundles of finite rank; it turns out that all modules which arise in this way are projective (\hyperref[def:projectivemodule]{Definition \ref*{def:projectivemodule}}) and finitely generated (\hyperref[def:finitelygeneratedmodule]{Definition \ref*{def:finitelygeneratedmodule}}).
 
 \begin{definition}[category of finitely-generated projective $C^{\infty}$-modules]
   \label{def:categoryofyaddayaddasmoothmodules}
-  Denote by $C^{\infty}(X)\text{-}\mathsf{Mod}_{\mathrm{proj}}^{\mathrm{fin\ gen}}$ the category of smooth, finitely-generated $C^{\infty}(X)$-modules.
+  Denote by $C^{\infty}(X)\mhyp\mathsf{Mod}_{\mathrm{proj}}^{\mathrm{fin\ gen}}$ the category of smooth, finitely-generated $C^{\infty}(X)$-modules.
 \end{definition}
 
 \begin{theorem}[smooth Serre-Swan theorem]
   The functor 
   \begin{equation*}
-    \mathsf{VectBund}^{\mathrm{fin}}_{X} \rightsquigarrow C^{\infty}\text{-}\mathsf{Mod}^{\mathrm{fin gen}}_{\mathrm{proj}}
+    \mathsf{VectBund}^{\mathrm{fin}}_{X} \rightsquigarrow C^{\infty}(X)\mhyp\mathsf{Mod}^{\mathrm{fin\,gen}}_{\mathrm{proj}}
   \end{equation*}
   which sends each vector bundle to its module of sections is an equivalence of categories.
 \end{theorem}
 \begin{proof}
-  See \cite{nestruev-smooth-manifolds-observables} 11.33, pg 183.
+  See \cite{nestruev-smooth-manifolds-observables} 11.33, page 183.
 \end{proof}
 
 As before, one is lead to the assumption that one could generalize the idea of a vector bundle by relaxing the requrements on the modules under consideration. The `generalized vector bundles' arising in this way are called \emph{quasicoherent sheaves} (\hyperref[sec:quasicoherentsheaves]{Section \ref*{sec:quasicoherentsheaves}}).
@@ -8051,11 +8056,38 @@ As before, one is lead to the assumption that one could generalize the idea of a
 
 \begin{definition}[category of internal $A$-modules]
   \label{def:categoryofinternalmodules}
-  Let $(C \otimes, 1)$ be a symmetric monoidal category. Write $A\text{-}\mathsf{Mod}(\mathsf{C})$ for the category whose objects are $A$-modules internal to $\mathsf{C}$ and whose morphisms are homomorphisms of module objects.
+  Let $(C \otimes, 1)$ be a symmetric monoidal category. Write $A\mhyp\mathsf{Mod}(\mathsf{C})$ for the category whose objects are $A$-modules internal to $\mathsf{C}$ and whose morphisms are homomorphisms of module objects.
 \end{definition}
 
 \begin{example}
   Any monoid $(A, \mu, e)$ is a left-module over itself with $\rho = \mu$.
+\end{example}
+
+\begin{example}
+  \label{eg:freemodule}
+  Let $\mathsf{C}$ be a monoidal category, $C \in \Obj(\mathsf{C})$. Then $A \otimes C$ has a natural left-module structure with
+  \begin{equation*}
+    \rho\colon A \otimes (A \otimes C) \to A \otimes C
+  \end{equation*}
+  given by the composition.
+  \begin{equation*}
+    \begin{tikzcd}
+      A \otimes (A \otimes C)
+      \arrow[r, "{\alpha_{A, A ,C}^{-1}}"]
+      & (A \otimes A) \otimes C
+      \arrow[r, "\rho \otimes 1_{C}"]
+      & A \otimes C
+    \end{tikzcd}.
+  \end{equation*}
+
+  Modules of this form are called \defn{free modules} because the the functor 
+  \begin{equation*}
+    \mathcal{F}_{A}\colon \mathsf{C} \to A\mhyp\mathsf{Mod}(\mathsf{C});\qquad C \mapsto (C \otimes A, \rho)
+  \end{equation*}
+  which sends an object to its free $A$-module is left-adjoint to the functor 
+  \begin{equation*}
+    \mathcal{U}\colon A\mhyp\mathsf{Mod}(\mathsf{C}) \to \mathsf{C};\qquad (N, \rho) \mapsto N.
+  \end{equation*}
 \end{example}
 
 \section{Supergroups as supercommutative Hopf algebras}
@@ -8354,11 +8386,7 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
     \end{equation*}
     where $\Sigma_{n}$ is the $n$th symmetric group? Specifically, how many inequivalent $\C$-line bundles does it admit?
 
-  \item Does the presentation have to be a beamer? I'd rather use chalk if possible.
-
-  \item How much do you know about algebraic geometry (specifically schemes and quasicoherent sheaves)? 
-
-  \item Who should the final project be pitched at? It's technical enough that
+  \item Looking to the future? What sort of project (if any) could I do with you next year? If not, do you know anywhere I \emph{could} do this sort of thing?
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
