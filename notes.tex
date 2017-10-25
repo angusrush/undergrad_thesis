@@ -26,7 +26,7 @@
 \usepackage{enumitem}
 \usepackage{braids}
 \usepackage{epigraph}
-\usepackage{tikz-feynman}
+\usepackage[compat=1.1.0]{tikz-feynman}
 
 % Good practice to set the version so updates don't break old documents
 \pgfplotsset{compat=1.14}
@@ -6241,7 +6241,7 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
     \item The tensor product on $\mathsf{A}$ extends to $\mathsf{Ind}(\mathsf{A})$ via
       \begin{align*}
         X \otimes Y &\simeq (\lim_{\rightarrow i}X_{i}) \otimes (\lim_{\rightarrow j}Y_{j}) \\
-        &\simeq \lim_{i,j} (X_{i} \otimes Y_{j}).
+        &\simeq \lim_{\rightarrow i,j} (X_{i} \otimes Y_{j}).
       \end{align*}
 
     \item The category $\mathsf{Ind}(\mathsf{A})$ fails only to be a tensor category because it is not necessarily essentially small and rigid. More specifically, an object $A \in \mathsf{Ind}(\mathsf{A})$ is dualizable if and only if it is in $\mathsf{A}$.
@@ -8555,18 +8555,24 @@ the matrix representing rotation by $2\varphi$ in the $x^{1}$-$x^{2}$ plane, it 
 \subsection{A caveat or two}
 This is mostly from \cite{neumaier}
 
-The eagle-eyed reader has probably noticed that not all fundamental particles fit into this classification scheme: both quarks and neutrinos can exist in a superposition of states of different mass, so they cannot be classified by mass-squared. This is because quarks and neutrinos are not irreducible representations of the Poincar\'{e} group, but rather of the product of the full symmetry group:
+The eagle-eyed reader has probably noticed that not all fundamental particles fit into this classification scheme: both quarks and neutrinos can exist in a superposition of states of different mass, so they cannot be classified by mass-squared. This is because quarks and neutrinos are not irreducible representations of the Poincar\'{e} group, but rather of the full symmetry group
 \begin{equation*}
-  \overbrace{\mathrm{ISO}(1, 3)}^{\text{Poincar\'{e}}} \times \overbrace{\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)}^{\text{gauge}} \times \mathrm{U}(3),
+  G = \overbrace{\mathrm{ISO}(1, 3)}^{\text{Poincar\'{e}}} \times \overbrace{\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)}^{\text{gauge}} \times \mathrm{U}(3),
 \end{equation*}
 where the final $\mathrm{U}(3)$ factor interchanges the three generations of particles which couple to the weak interaction.
 
-Thus it is not exactly correct to say that fundamental particles are exactly irreducible representations of the symmetry group of spacetime: the more correct statement is that particles are irreducible representations of the total symmetry group. If all sectors except 
+Thus it is not exactly correct to say that fundamental particles are exactly irreducible representations of the symmetry group of spacetime: the more correct statement is that particles are irreducible representations of the total symmetry group. Of course, for a given particle species, it may be that the representation of the full group decomposes into a direct sum of representations of each individual part, in which case one can consider the representation of the Poincar\'{e} group separately. Then one recovers the classification by mass-squared and spin/helicity.
 
-\section{Wigner classification on more general spacetimes}
-Let us consider the case in which we generalize the symmetry group of spacetime to a general (algebraic) super group.
+\section{Wigner classification with a general global symmetry group}
+Let us consider the case in which we generalize the symmetry group of our theory to a general (algebraic) super group.
 
-The basic idea of the previous section is unchanged. If our quantum theory has a symmetry given by some algebraic super group $G$, the Hilbert space must admit a ray representation of $G$, and particles correspond to irreducible representations of $G$.
+The basic idea of the previous section is unchanged. If our quantum theory has a symmetry given by some algebraic super group $G$, its Hilbert space $\mathscr{H}$ must admit a ray representation of $G$, and particles correspond to irreducible representations of $G$.
+
+And again we can make the argument that the Hilbert space of a fundamental particle must admit an irreducible representation of $G$.
+
+By the way, this is not so outlandish: one faces this already in the standard model! Quarks and neutrinos are not irreps of the Poincar\'{e} group. Instead they are irreps of the total symmetry group, see the previous section.
+
+And, no matter what, these particles will transform linearly with this group.
 
 \section{Feynman diagrams: representations and intertwiners}
 The ideas in this section were taken from \cite{baez-lauda-prehistory}.
@@ -8640,13 +8646,96 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
 The other reason is that the mass of the Higgs boson is lower than one would expect. The Higgs 
 
 \section{What does Deligne's theorem do for us?}
+The axioms of quantum mechanics tell us that the states of a quantum system correspond to vectors $\psi$ belonging to some Hilbert space $\mathscr{H}$. However, this is not the end of the story. The observable quantities built from the states, i.e. the conditional probabilities
+\begin{equation*}
+  P(\varphi | \psi) = \frac{\left|\left\langle \varphi | \psi \right\rangle\right|^{2}}{\norm{\varphi}^{2} \cdot \norm{\psi}^{2}}
+\end{equation*}
+are invariant under a rescaling of either $\varphi$ or $\psi$ by any nonzero complex number: that is,
+\begin{equation*}
+  \psi \sim \psi' \qquad\text{if}\qquad \psi' = \lambda \psi\qquad\text{for some }\lambda \in \C\setminus\left\{ 0 \right\},
+\end{equation*}
+where $\sim$ should be read as `is physically indistinguishable from.'
 
+One often `fixes' this problem by working only with normalized state vectors, but this does not completely solve the problem. Instead we should think about two states which differ only by a nonzero complex factor as being physically equivalent. That is, the true space of states of our quantum system is not $\mathscr{H}$, but $\mathscr{H} / \sim$, \emph{projective Hilbert space}. Physically inequivalent quantum states are in one-to-one correspondence to the equivalence classes in $\mathscr{H}/\sim$.
 
-Deligne's theorem tells us, roughly, that every tensor category is the category of representations of some (algebraic) super-group.
+Now suppose we want our quantum theory to have symmetry given by some group $G$. Pick any ray $[\psi_{0}] \in \mathscr{H}/\sim$. For any group element $g \in G$, there should be another state (i.e. ray) $[\psi]_{g}$, which corresponds to the result of acting on the system with $g$. Furthermore, we want the result of acting on $[\psi_{0}]$ with a sequence of group elements to be the same no matter how we imagine them to be bracketed. Mathematically, this means that if we are to consider a quantum theory which is $G$-symmetric, we want a Hilbert space $\mathscr{H}$ which admits an injective homomorphism
+\begin{equation*}
+  \rho\colon G \hookrightarrow \mathrm{Aut}(\mathscr{H}/\sim).
+\end{equation*}
 
-Recalling Wigner, particles are irreducible representations of the (covering group of) the symmetry group of 
+Of course, having such a $\rho$ is nice, but quantum mechanics does not deal with projective spaces and ray transformations. If we are to use these results as-is, we need to translate them to results about $\mathscr{H}$ itself.
 
-Deligne's theorem provides a justification for the belief in supersymmetry which has fewer constraints and assumptions than the justifications listed in the
+Pick one specific element $g \in G$. To this element there is associated a bijective ray map on $\mathscr{H}$. Obviously, we can mimic this bijective ray map with a function $\bar{U}\colon \mathscr{H} \to \mathscr{H}$; we need only ensure that the vectors making up individual rays are mapped to the correct target rays. Equally obviously however, this does not specify $\bar{U}(g)$ uniquely; there are many possible ways of mixing the vectors composing the rays. We have some freedom to choose this mixing in as nice as possible a way.
+
+By a theorem of Wigner, we can get away with demanding that $\bar{U}(g)$ be additive, length-preserving, and either
+\begin{itemize}
+  \item linear and unitary or
+  \item antilinear and antiunitary.
+\end{itemize}
+In doing so, we specify $\bar{U}(g)$ up to an arbitrary phase.
+
+But we have many $\bar{U}(g)$---one for each element of $G$. The arbitrarity in the phases translates to a change in representation law for multiplication of the $\bar{U}(g)$; we now have 
+\begin{equation*}
+  \bar{U}(g) \bar{U}(g') = \eta(g, g')\bar{U}(gg')
+\end{equation*}
+where the phases $\eta$ are arbitrary.
+
+Many groups have the property that every group element $g$ can be written as a product of squares
+\begin{equation*}
+  g = (g_{1})^{2} (g_{2})^{2} \cdots (g_{n})^{2}.
+\end{equation*}
+Connected Lie groups are of this form, for example. In this case, we can eliminate the possibility that the representation could be anti-linear and anti-unitary, since the product of an even number of antiunitary operators is even.
+
+In fact, we can do even more. By another theorem of Wigner, we can use the phase factor $\eta$ to replace our unitary ray representation of $G$ by a bona fide unitary representation of its universal covering group $\bar{G}$.
+
+The moral of the story so far: the Hilbert space of any quantum mechanical theory which is invariant under a symmetry group $G$ must admit a linear representation of the covering group $\bar{G}$.
+
+Perhaps now is a good time to make the following remark. As is well know, if we wish to view two quantum systems with Hilbert spaces $\mathscr{H}_{1}$ and $\mathscr{H}_{2}$ as a single composite system, the Hilbert space we consider is $\mathscr{H}_{1} \otimes \mathscr{H}_{2}$. That is to say, composite systems are the tensor product of their constituents. And the composite system's representation of $\bar{G}$ is given by the tensor product of the representations of its constituents.
+
+This would seem to imply that given a $G$-invariant quantum system and its associated representation of $\bar{G}$, we could break it and its representation down into smaller and smaller subsystems, until we hit `atomic' subsystems whose representations were irreducible, i.e. could not be broken down any further. The resulting atomic representations would be the building blocks of our original system. 
+
+But we can pull this trick with \emph{any} system! This means that cataloging the irreducible representations of $\bar{G}$ will give us a list of the building blocks of any $G$-invariant system: the fundamental particles.
+
+This line of reasoning led Wigner to \emph{define} the fundamental particles of any quantum theory with symmetry group $G$ as irreducible representations of $\bar{G}$. \footnote{As an aside: the symmetry group of the standard model is
+\begin{equation*}
+  G = \overbrace{\mathrm{ISO}(1, 3)}^{\text{Poincar\'{e}}} \times \overbrace{\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)}^{\text{gauge}} \times \mathrm{U}(3),
+\end{equation*}
+where the final $\mathrm{U}(3)$ factor interchanges the three generations of particles which couple to the weak interaction.
+
+All of the fundamental particles in the standard model are correspond to irreducible representations of $G$. Contrary to popular belief, $\mathrm{ISO}(3, 1)$ by itself is not enough. Neutrinos, for example, can exist in a superposition of different mass states; the reason for this is that mass-squared is not a casimir operator of the representation to which they belong.\cite{neumaier}}
+
+Every quantum theory which makes any attempt to describe the world we see must take into account the existence of spacetime, so every quantum system will admit the symmetries of spacetime. Thus, any quantum system can be viewed as a composite system made up a (large) number of fundamental particles which are irreducible representations of the symmetries of spacetime. Thus, quantum systems have certain properties. 
+
+\begin{enumerate}
+  \item One can always consider two or more quantum systems as a single composite system (for example, a proton is a composite system composed of three quarks). Mathematically, the Hilbert space underlying a composite system is the tensor product of the Hilbert spaces of the component systems, i.e. 
+    \begin{equation*}
+      \mathscr{H}_{\text{composite}} = \overbrace{\mathscr{H}_{1} \otimes \mathscr{H}_{2} \otimes \cdots \otimes \mathscr{H}_{n}}^{\text{subsystems}}.
+    \end{equation*}
+
+    The fact that $\mathscr{H}_{\text{composite}}$ always admits a $G$-representation, namely the tensor product representation
+    \begin{equation*}
+      \varrho_{1} \otimes \varrho_{2}\colon G \to \mathscr{H}_{1} \otimes \mathscr{H}_{1},
+    \end{equation*}
+    reflects the fact that the composite system always shares the symmetries of its constituents. That is, we can `multiply' any two quantum systems which admit a $G$-symmetry to get another. 
+    
+  \item The order in which we form composites does not matter since the tensor product is naturally associative:
+    \begin{equation*}
+      (\mathscr{H}_{1} \otimes \mathscr{H}_{2}) \otimes \mathscr{H}_{3} \simeq \mathscr{H}_{1} \otimes (\mathscr{H}_{2} \otimes \mathscr{H}_{3}).
+    \end{equation*}
+
+  \item There is a trivial quantum system with $\mathscr{H}_{\text{trivial}} = \C$ which admits the trivial representation of $G$, and which has the property that
+    \begin{equation*}
+      \mathscr{H}_{\text{trivial}} \otimes \mathscr{H} \simeq \mathscr{H} \simeq \mathscr{H} \otimes \mathscr{H}_{\text{trivial}}.
+    \end{equation*}
+\end{enumerate}
+
+These properties, phrased in mathematical language, say that the collection of all quantum systems which admit a $G$-symmetry has the structure of a \emph{monoidal category}.
+
+We can, however, say more.
+\begin{enumerate}
+    \setcounter{enumi}{3}
+  \item We can view 
+\end{enumerate}
 
 \chapter{Questions}
 \begin{enumerate}
@@ -8660,7 +8749,13 @@ Deligne's theorem provides a justification for the belief in supersymmetry which
 
   \item Irreducible means irreducible w.r.t. direct sums. We're talking about irreducible w.r.t. tensor products. What gives?
 
-    \emph{Possible partial answer: It only really makes sense to talk about particles at all when they are approximately free since e.g. the number operator doesn't commute with time evolution. When particles are free,}
+    Elaboration: It is fine that we can factor every tensor product into direct sums, but then fundamental particles lose their interpretation as subsystems. This also seems off.
+
+  \item For a general symmetry group, what happens to Wigner classification? Specifically, can we always (at least for a connected group) get a unitary representation by passing to some double cover?
+
+  \item Everybody seems very cavalier about the difference between $G$ and $\bar{G}$. Why is this? Is it because they have the same Lie algebra?
+
+  \item More like a concern: there are rather a lot of finite-dimensionality assumptions that are glossed over in \cite{physicsforums-why-deligne}. 
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
@@ -8804,5 +8899,9 @@ Deligne's theorem provides a justification for the belief in supersymmetry which
   \bibitem{neumaier} A. Neumaier.
     \textit{Elementary particles as irreducible representations}.
     \url{https://www.physicsoverflow.org/21960}.
+
+  \bibitem{physicsforums-why-deligne} U. Schreiber.
+    \textit{Why Supersymmetry? Because of Deligne's theorem}
+    \url{https://www.physicsforums.com/insights/supersymmetry-delignes-theorem/}
 \end{thebibliography}
 \end{document}
