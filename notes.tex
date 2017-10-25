@@ -26,6 +26,7 @@
 \usepackage{enumitem}
 \usepackage{braids}
 \usepackage{epigraph}
+\usepackage{tikz-feynman}
 
 % Good practice to set the version so updates don't break old documents
 \pgfplotsset{compat=1.14}
@@ -3036,6 +3037,22 @@ The categorical definitions of cones and cocones allow us to define limits and c
   \end{equation*}
 \end{note} 
 
+\begin{notation}
+  We often denote the limit over the diagram $\mathcal{D}\colon \mathsf{J} \rightsquigarrow \mathsf{C}$ by 
+  \begin{equation*}
+    \lim_{\leftarrow} \mathcal{D}.
+  \end{equation*}
+
+  Similarly, we will denote the colimit over $\mathcal{D}$ by 
+  \begin{equation*}
+    \lim_{\rightarrow} \mathcal{D}.
+  \end{equation*}
+  If there is notational confusion over which functor we are taking a (co)limit, we will add a dummy index:
+  \begin{equation*}
+    \lim_{\leftarrow i} \mathcal{D}_{i}.
+  \end{equation*}
+\end{notation}
+
 \begin{example}
   Here is a definition of the product $A \times B$ equivalent to that given in \hyperref[eg:universalpropertyofproducts]{Example \ref*{eg:universalpropertyofproducts}}: it is the limit of the following somewhat trivial diagram.
   \begin{equation*}
@@ -3620,6 +3637,94 @@ The following proof was adapted from \cite{awodey-category-theory}.
   The meat of this theorem is the fact that finite products and equalizers yield all finite limits.
 \end{note}
 
+\subsection{The hom functor preserves limits}
+\begin{theorem}
+  \label{thm:homfunctorpreserveslimits}
+  Let $\mathsf{C}$ be a locally small category. The hom functor $\Hom_{\mathsf{C}}\colon \mathsf{C}^{\mathrm{op}} \times \mathsf{C} \rightsquigarrow \mathsf{Set}$ preserves limits in the second argument, i.e. for $\mathcal{D}\colon \mathsf{J} \rightsquigarrow \mathsf{C}$ a diagram in $\mathsf{C}$ we have a natural isomorphism
+  \begin{equation*}
+    \Hom_{\mathsf{C}}(Y, \lim_{\leftarrow}\mathcal{D}) \simeq \lim_{\leftarrow}\Hom_{\mathsf{C}}(Y, \mathcal{D}),
+  \end{equation*}
+  where the limit on the RHS is over the hom-set diagram
+  \begin{equation*}
+    \Hom_{\mathsf{C}}(Y, -) \circ \mathcal{D} \colon \mathsf{J} \rightsquigarrow \mathsf{Set}.
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  Let $L$ be the limit over the diagram $\mathcal{D}$. Then for any map $f\colon Y \to L$, there is a cone from $Y$ to $\mathcal{D}$ by composition, and for any cone with tip $Y$ over $\mathcal{D}$ we get a map $f\colon Y \to L$ from the universal property of limits. Thus, there is a bijection
+  \begin{equation*}
+    \Hom_{\mathsf{C}}(Y, \lim_{\leftarrow}\mathcal{D}) \simeq \mathrm{Cones}(Y, \mathcal{D}),
+  \end{equation*}
+  which is natural in $Y$ since the diagram
+  \begin{equation*}
+    \begin{tikzcd}
+      \Hom_{\mathsf{C}}(Y, \lim_{\leftarrow}\mathcal{D})
+      \arrow[r, "(-) \circ f"]
+      \arrow[d]
+      & \Hom_{\mathsf{C}}(Z, \lim_{\leftarrow}\mathcal{D})
+      \arrow[d]
+      \\
+      \mathrm{Cones}(Y, \mathcal{D})
+      \arrow[r, "(-) \circ f"]
+      & \mathrm{Cones}(Z, \mathcal{D})
+    \end{tikzcd}
+  \end{equation*}
+  trivially commutes. We will be done if we can show that there is also a natural isomorphism
+  \begin{equation*}
+    \mathrm{Cones}(Y, \mathcal{D}) \simeq \lim_{\leftarrow} \Hom_{\mathsf{C}}(Y, \mathcal{D}).
+  \end{equation*}
+
+  Let us understand the elements of the set $\lim_{\leftarrow}\Hom_{\mathsf{C}}(Y, \mathcal{D})$. The diagram 
+  \begin{equation*}
+    \Hom_{\mathsf{C}}(Y, -) \circ \mathcal{D} \colon \mathsf{J} \rightsquigarrow \mathsf{Set}
+  \end{equation*}
+  maps $J \in \Obj(\mathsf{J})$ to $\Hom_{\mathsf{C}}(Y, \mathcal{D}(J)) \in \Obj(\mathsf{Set})$. A universal cone over this diagram is a set $S$ together with, for each $J_{i} \in \Obj(\mathsf{J})$, a function
+  \begin{equation*}
+    f_{i}\colon S \to \Hom_{\mathsf{C}}(Y, \mathcal{D}(J_{i}))
+  \end{equation*}
+  such that for each $\alpha \in \Hom_{\mathsf{J}}(J_{i}, J_{j})$, the diagram
+  \begin{equation*}
+    \begin{tikzcd}[row sep=huge]
+      & S
+      \arrow[dl, swap, "f_{i}"]
+      \arrow[dr, "f_{j}"]
+      \\
+      \Hom_{\mathsf{C}}(Y, \mathcal{D}(J_{i}))
+      \arrow[rr, swap, "\mathcal{D}(\alpha) \circ (-)"]
+      & & \Hom_{\mathsf{C}}(Y, \mathcal{D}(J_{j}))
+    \end{tikzcd}
+  \end{equation*}
+  commutes.
+
+  Now pick any element $s \in S$. Each $f_{i}$ maps this to a function $Y \to \mathcal{D}(J_{i})$ which makes the diagram
+  \begin{equation*}
+    \begin{tikzcd}[column sep=tiny]
+      & Y
+      \arrow[dl, swap, "f_{i}(s)"]
+      \arrow[dr, "f_{j}(s)"]
+      \\
+      \mathcal{D}(J_{i})
+      \arrow[rr, swap, "\mathcal{D}(\alpha)"]
+      & & \mathcal{D}(J_{j})
+    \end{tikzcd}
+  \end{equation*}
+  commute. But this is exactly an element of $\mathrm{Cones}(Y, \mathcal{D})$. Conversely, every element of $\mathrm{Cones}(Y, \mathcal{D})$ gives us an element of $S$, so we have a bijection 
+  \begin{equation*}
+    \mathrm{Cones}(Y, \mathcal{D}) \simeq \lim_{\leftarrow} \Hom_{\mathsf{C}}(Y, \mathcal{D}),
+  \end{equation*}
+  which is natural as required.
+\end{proof}
+
+\begin{corollary}
+  The first slot of the hom functor turns colimits into limits. That is, 
+  \begin{equation*}
+    \Hom_{_\mathsf{C}}(\lim_{\rightarrow}\mathcal{D}, Y) \simeq \lim_{\leftarrow}\Hom_{C}(\mathcal{D}, Y).
+  \end{equation*}
+\end{corollary}
+\begin{proof}
+  Dual to that of \hyperref[thm:homfunctorpreserveslimits]{Theorem \ref*{thm:homfunctorpreserveslimits}}.
+\end{proof}
+
+
 \subsection{Filtered colimits and ind-objects}
 \begin{definition}[preorder]
   \label{def:preorder}
@@ -3682,10 +3787,34 @@ Filtered categories are a generalization of filtered preorders.
   A \defn{filtered colimit} is a colimit over a diagram $\mathcal{D}\colon \mathsf{J} \to \mathsf{C}$, where $\mathsf{J}$ is a filtered category.
 \end{definition}
 
-\begin{definition}[ind-object]
-  \label{def:indobject}
-  
+We now define the so-called \emph{category of inductive objects} (or simply \emph{ind-objects}).
+\begin{definition}[category of ind-objects]
+  \label{def:categoryofindobjects}
+  Let $\mathsf{C}$ be a category. We define the \defn{category of ind-objects} of $\mathsf{C}$, denote $\mathsf{Ind}(\mathsf{C})$ as follows. 
+  \begin{itemize}
+    \item The objects $F \in \Obj(\mathsf{Ind}(\mathsf{C}))$ are defined to be filtered colimits of objects of diagrams $\mathcal{F}\colon \mathsf{D} \rightsquigarrow \mathsf{C}$.
+
+    \item For two objects $F = \lim_{\rightarrow d}\mathcal{F}_{d}$ and $G = \lim_{\rightarrow e}\mathcal{G}_{e}$, the morphisms $\Hom_{\mathsf{Ind}(\mathsf{C})}(F, G)$ are defined to be the set
+      \begin{equation*}
+        \Hom_{\mathsf{Ind}(\mathsf{C})}(F, G) = \lim_{\leftarrow d} \lim_{\rightarrow e} \Hom_{\mathsf{C}}(\mathcal{F}_{d}, \mathcal{G}_{e}).
+      \end{equation*}
+  \end{itemize}
 \end{definition}
+
+\begin{note}
+  \label{note:fullinclusionintoindcategory}
+  There is a fully faithful embedding $\mathsf{C} \hookrightarrow\mathsf{Ind}(\mathsf{C})$ which exhibits any object $A$ as the colimit over the trivial diagram $\begin{tikzcd} \bullet \arrow[loop right] \end{tikzcd}$.
+\end{note}
+
+The importance of the category of ind-objects can be seen in the following example.
+\begin{example}
+  Let $V$ be an infinite-dimensional vector space over some field $k$. Then $V$ can be realized as an object in the category $\mathsf{Ind}(\mathsf{FinVect})$.
+  
+  In fact, there is an equivalence of categories $\mathsf{Vect}_{k} \simeq \mathsf{Ind}(\mathsf{FinVect}_{k})$. Similarly, there is an equivalence of categories $\mathsf{SVect}_{k} \simeq \mathsf{Ind}(\mathsf{FinSVect}_{k})$
+\end{example}
+\begin{note}
+  This is stated without proof as Example 3.39 of \cite{nlab-deligne-theorem}.
+\end{note}
 
 \section{Adjunctions} \label{sec:adjunctions}
 Consider the following functors:
@@ -4039,6 +4168,45 @@ Here are two equivalent definitions which are often used.
 
   And this is true of any free object! (In fact by definition.) In each case, the functor giving the free object is left adjoint to a forgetful functor.
 \end{note}
+
+\begin{theorem}
+  \label{thm:rightadjointspreservelimits}
+  Let $\mathsf{C}$ and $\mathsf{D}$ be categories and $\mathcal{F}$ and $\mathcal{G}$ functors as follows. 
+  \begin{equation*}
+    \begin{tikzcd}
+      \mathsf{C}
+      \arrow[r, rightsquigarrow, bend left, "\mathcal{F}"]
+      & \mathsf{D}
+      \arrow[l, rightsquigarrow, bend left, "\mathcal{G}"]
+    \end{tikzcd}
+  \end{equation*}
+  Let $\mathcal{F} \dashv \mathcal{G}$ be an adjunction. Then $\mathcal{G}$ preserves limits, i.e. if $\mathcal{D}\colon \mathsf{J} \to \mathsf{C}$ is a diagram and $\lim_{\leftarrow}\mathcal{D}$ exists in $\mathsf{C}$, then
+  \begin{equation*}
+    \mathcal{G}(\lim_{\leftarrow i}\mathcal{D}_{i}) \simeq \lim_{\leftarrow i} (\mathcal{G} \circ \mathcal{D}_{i}).
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  We have the following chain of isomorphisms, natural in $Y \in \Obj(\mathsf{D})$.
+  \begin{align*}
+    \Hom_{\mathsf{D}}(Y, \mathcal{G}(\lim_{\leftarrow i}\mathcal{D}_{i})) &\simeq \Hom_{\mathsf{C}}(\mathcal{F}(Y), \lim_{\leftarrow i}\mathcal{D}_{i}) \\
+    &\simeq \lim_{\leftarrow i} \Hom_{\mathsf{C}}(\mathcal{G}(Y), \mathcal{D}_{i}) \\
+    &\simeq \lim_{\leftarrow i} \Hom_{\mathsf{D}}(Y, \mathcal{G}\circ \mathcal{D}_{i}) \\
+    &\simeq \Hom_{\mathsf{C}}(Y, \lim_{\leftarrow i}(\mathcal{G}\circ \mathcal{D}_{i})).
+  \end{align*}
+
+  By the Yoneda lemma, specifically \hyperref[cor:yonedaembeddingrespectsisomorphisms]{Corollary \ref*{cor:yonedaembeddingrespectsisomorphisms}}, we have a natural isomorphism
+  \begin{equation*}
+    \mathcal{G}(\lim_{\leftarrow i}\mathcal{D}_{i}) \simeq \lim_{\leftarrow i}(\mathcal{G} \circ \mathcal{D}_{i}).
+  \end{equation*}
+\end{proof}
+
+\begin{corollary}
+  \label{cor:leftadjointspreservecolimits}
+  Any functor $\mathcal{F}$ which is a left-ajoint preserves colimits.
+\end{corollary}
+\begin{proof}
+  Dual to the proof of \hyperref[thm:rightadjointspreservelimits]{Theorem \ref*{thm:rightadjointspreservelimits}}.
+\end{proof}
 
 \section{Monoidal categories} \label{sec:monoidalcategories}
 Recall the definition of a monoid (\hyperref[def:monoid]{Definition \ref*{def:monoid}}). Basically, a monoid is a group without inverses. 
@@ -6055,6 +6223,33 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
   \end{equation*}
   so we can take $N_{V} = \mathrm{dim}(V)$.
 \end{example}
+
+\begin{theorem}
+  Let $\mathsf{A}$ be a tensor category, and suppose that
+  \begin{enumerate}
+    \item every object $A \in \Obj(\mathsf{A})$ has a finite length
+
+    \item the dimension of every hom space $\Hom_{\mathsf{A}}(A, B)$ is finite over $k$.
+  \end{enumerate}
+
+  Then the category $\mathsf{Ind}(\mathsf{A})$ of ind-objects of $\mathsf{A}$ (\hyperref[def:categoryofindobjects]{Definition \ref*{def:categoryofindobjects}}) has the following properties.
+  \begin{enumerate}
+    \item $\mathsf{Ind}(\mathsf{A})$ is abelian (\hyperref[def:abeliancategory]{Definition \ref*{def:abeliancategory}}).
+
+    \item $A \hookrightarrow \mathsf{Ind}(\mathsf{A})$ is a full subcategory (cf. \hyperref[note:fullinclusionintoindcategory]{Note \ref*{note:fullinclusionintoindcategory}}).
+
+    \item The tensor product on $\mathsf{A}$ extends to $\mathsf{Ind}(\mathsf{A})$ via
+      \begin{align*}
+        X \otimes Y &\simeq (\lim_{\rightarrow i}X_{i}) \otimes (\lim_{\rightarrow j}Y_{j}) \\
+        &\simeq \lim_{i,j} (X_{i} \otimes Y_{j}).
+      \end{align*}
+
+    \item The category $\mathsf{Ind}(\mathsf{A})$ fails only to be a tensor category because it is not necessarily essentially small and rigid. More specifically, an object $A \in \mathsf{Ind}(\mathsf{A})$ is dualizable if and only if it is in $\mathsf{A}$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  Stated without proof as Proposition 3.38 in \cite{nlab-deligne-theorem}.
+\end{proof}
 
 \section{Higher categories} \label{sec:highercategories}
 This section follows \cite{baez-higher-categories} closely.
@@ -8088,13 +8283,44 @@ As before, one is lead to the assumption that one could generalize the idea of a
   \begin{equation*}
     \mathcal{U}\colon A\mhyp\mathsf{Mod}(\mathsf{C}) \to \mathsf{C};\qquad (N, \rho) \mapsto N.
   \end{equation*}
+
+  To see this,
 \end{example}
+
+\begin{definition}[tensor product of module objects]
+  \label{def:tensorproductofmoduleobjects}
+  Let $(\mathsf{C}, \otimes, 1)$ be a closed symmetric monoidal category with braiding $\gamma$. For any commutative monoid $(A, \mu, e)$ and two left $A$-module objects $(N_{1}, \rho_{1})$ and $(N_{2}, \rho_{2})$, the \defn{tensor product of module objects}, denoted $N_{1} \otimes_{A} N_{2}$, is the coequalizer
+  \begin{equation*}
+    \begin{tikzcd}[column sep=huge]
+      N_{1} \otimes A \otimes N_{2}
+      \arrow[r, shift left=1.5, "1_{N_{1}} \otimes \rho_{2}"]
+      \arrow[r, shift right=1.5, swap, "{\rho_{1} \circ (\gamma_{N_{1}, A} \otimes N_{2})}"]
+      & N_{1} \otimes N_{2}
+      \arrow[r, "\mathrm{coeq}"]
+      & N_{1} \otimes_{A} 1_{N_{2}}
+    \end{tikzcd}
+  \end{equation*}
+
+  That is to say, roughly speaking, it is the quotient of $N_{1} \otimes A \otimes N_{2}$ by the smallest equivalence relation so that left-multiplication agrees with right-multiplication.
+\end{definition}
+
+\begin{definition}[function module]
+  \label{def:functionmodule}
+  For $(N_{1}, \rho{1})$ and $(N_{2}, \rho_{2})$ two $A$-modules internal to a closed symmetric monoidal category, the \defn{function module} $\hom_{A}(N_{1}, N_{1})$ is the equalizer 
+\end{definition}
 
 \section{Supergroups as supercommutative Hopf algebras}
 
 
 \chapter{Representations}
 We have already seen that categories can be used to re-phrase certain aspects of representation theory. (Recall examples \ref{eg:groupsaregroupoidswithoneobject}, \ref{eg:functorscanbegrouprepresentation}, and \ref{eg:intertwinersarenaturaltransformations}.) In this section we will take a more systematic approach.
+
+\begin{definition}
+  \label{def:categoryofrepresentations}
+  Let $G$ be a group, $\mathsf{G}$ the group which mimics it (as in \hyperref[eg:groupsaregroupoidswithoneobject]{Example \ref*{eg:groupsaregroupoidswithoneobject}}). Recall that functors $\rho\colon \mathsf{G} \rightsquigarrow \mathsf{Vect}_{k}$ are $k$-linear representations of $G$ (\hyperref[eg:functorscanbegrouprepresentation]{Example \ref*{eg:functorscanbegrouprepresentation}}).
+
+  Denote by $\mathsf{Rep}(G)$ the functor category $\Hom_{\mathsf{Cat}}(\mathsf{G}, \mathsf{Vect}_{k})$.
+\end{definition}
 
 \section{Linear super-representations as Comodules}
 \section{Super fiber functors and their automorphism groups}
@@ -8325,9 +8551,45 @@ Since
 \end{equation*}
 the matrix representing rotation by $2\varphi$ in the $x^{1}$-$x^{2}$ plane, it makes sense to interpret $n/2$ as angular momentum along the axis of $\bar{p}_{\mu}$, i.e. the \emph{helicity}.
 
+
+\subsection{A caveat or two}
+This is mostly from \cite{neumaier}
+
+The eagle-eyed reader has probably noticed that not all fundamental particles fit into this classification scheme: both quarks and neutrinos can exist in a superposition of states of different mass, so they cannot be classified by mass-squared. This is because quarks and neutrinos are not irreducible representations of the Poincar\'{e} group, but rather of the product of the full symmetry group:
+\begin{equation*}
+  \overbrace{\mathrm{ISO}(1, 3)}^{\text{Poincar\'{e}}} \times \overbrace{\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)}^{\text{gauge}} \times \mathrm{U}(3),
+\end{equation*}
+where the final $\mathrm{U}(3)$ factor interchanges the three generations of particles which couple to the weak interaction.
+
+Thus it is not exactly correct to say that fundamental particles are exactly irreducible representations of the symmetry group of spacetime: the more correct statement is that particles are irreducible representations of the total symmetry group. If all sectors except 
+
+\section{Wigner classification on more general spacetimes}
+Let us consider the case in which we generalize the symmetry group of spacetime to a general (algebraic) super group.
+
+The basic idea of the previous section is unchanged. If our quantum theory has a symmetry given by some algebraic super group $G$, the Hilbert space must admit a ray representation of $G$, and particles correspond to irreducible representations of $G$.
+
 \section{Feynman diagrams: representations and intertwiners}
+The ideas in this section were taken from \cite{baez-lauda-prehistory}.
+
+In high-energy physics, one is generally interested in computing quantities known as scattering amplitudes. One imagines a collection of particles headed for each other, some time before a collision, and asks the question: long after the collision has occured, when the particles created in the collision are flying away from each other, what is the probability that one has ended up with some given collection of particles. 
+
+For any interesting or physically realistic theory (i.e. one with interactions), scattering amplitudes are fiendishly difficult to compute; in general one must resort to expressing them as an asymptotic series, the terms of which are pictured diagrammatically. 
+
+Here's how this works. Let's imagine for simplicity that we want to compute a particularly simple scattering amplitude: an electron and a photon go in, an electron goes out. Or to put it another way, an electron absorbs a photon.
+
+The incoming lines (from the top) represent the electron and the photon; the squiggly one is the photon and the straight one is the electron. The 
+
+
 \section{Why SUSY? The standard explanation}
-The standard argument for the existence of supersymmetry relies on the combination of the Coleman-Mandula and the Haag-{\L}opusza{\'n}ski-Sohnius theorem. Roughly speaking, the Coleman-Mandula theorem says that the only possible connected Lie groups which give the symmetries of the $S$-matrix of a four-dimensional relativistic quantum field theory are a direct product of the Poincar{\'e} group and an internal symmetry group. 
+There are many standard justifications given for the existence of supersymmetry. 
+
+\begin{itemize}
+  \item The combination of the Coleman-Mandula and the Haag-{\L}opusza{\'n}ski-Sohnius theorem.
+
+  \item The low mass of the Higgs.
+\end{itemize}
+
+Roughly speaking, the Coleman-Mandula theorem says that the only possible connected Lie groups which give the symmetries of the $S$-matrix of a four-dimensional relativistic quantum field theory are a direct product of the Poincar{\'e} group and an internal symmetry group. 
 
 The Haag-{\L}opusza{\'n}ski-Sohnius theorem generalizes the assumptions of this theorem by expanding the definition of `symmetry' to include super Lie groups. The Coleman-Mandula theorem still applies to the even part; however, one finds that the odd-graded elements are allowed to mix internal and spacetime symmetries in a non-trivial way. In particular, one has the following schematic multiplication laws:
 \begin{equation*}
@@ -8375,8 +8637,16 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
   \item There are no more loopholes that no one has thought of yet.
 \end{enumerate}
 
+The other reason is that the mass of the Higgs boson is lower than one would expect. The Higgs 
+
 \section{What does Deligne's theorem do for us?}
 
+
+Deligne's theorem tells us, roughly, that every tensor category is the category of representations of some (algebraic) super-group.
+
+Recalling Wigner, particles are irreducible representations of the (covering group of) the symmetry group of 
+
+Deligne's theorem provides a justification for the belief in supersymmetry which has fewer constraints and assumptions than the justifications listed in the
 
 \chapter{Questions}
 \begin{enumerate}
@@ -8387,6 +8657,10 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
     where $\Sigma_{n}$ is the $n$th symmetric group? Specifically, how many inequivalent $\C$-line bundles does it admit?
 
   \item Looking to the future? What sort of project (if any) could I do with you next year? If not, do you know anywhere I \emph{could} do this sort of thing?
+
+  \item Irreducible means irreducible w.r.t. direct sums. We're talking about irreducible w.r.t. tensor products. What gives?
+
+    \emph{Possible partial answer: It only really makes sense to talk about particles at all when they are approximately free since e.g. the number operator doesn't commute with time evolution. When particles are free,}
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
@@ -8521,5 +8795,14 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
   \bibitem{nestruev-smooth-manifolds-observables} J. Nestruev.
     \textit{Smooth Monifolds and Observables}.
     Springer-Verlag, New York, 2002.
+
+  \bibitem{baez-lauda-prehistory} J. Baez and A. Lauda. 
+    \textit{A prehistory of $n$-categorical physics}.
+    \url{https://arxiv.org/pdf/0908.2469.pdf}
+
+
+  \bibitem{neumaier} A. Neumaier.
+    \textit{Elementary particles as irreducible representations}.
+    \url{https://www.physicsoverflow.org/21960}.
 \end{thebibliography}
 \end{document}
