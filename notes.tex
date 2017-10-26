@@ -4961,6 +4961,30 @@ In a closed monoidal category, the adjunction between the internal hom and the t
   \end{equation*}
 \end{proof}
 
+\begin{lemma}
+  \label{lemma:cantensorbothsidesofinternalhom}
+  Let $(\mathsf{C}, \otimes, 1)$ be a closed symmetric monoidal category. For any $A$, $B$, $R \in \Obj(\mathsf{C})$, there is a transformation
+  \begin{equation*}
+    [A, B]_{\mathsf{C}} \to [R \otimes A, R \otimes B]_{\mathsf{C}}
+  \end{equation*}
+  which is natural in $A$ and $B$.
+\end{lemma}
+\begin{proof}
+  The assignment $R \otimes (-)$ is a functor, hence induces a transformation of the regular hom functor
+  \begin{equation*}
+    \Hom_{\mathsf{C}}(A, B) \mapsto \Hom_{\mathsf{C}}(R \otimes A, R \otimes B)
+  \end{equation*}
+  which is natural in $A$ and $B$. We would like to show that the internal hom functor also has this property.
+
+  The following string of natural transformations guarantees it by the Yoneda lemma.
+  \begin{align*}
+    \Hom_{\mathsf{C}}(X, [A, B]_{\mathsf{C}}) &\simeq \Hom_{\mathsf{C}}(X \otimes A, \otimes B) \\
+    &\simeq \Hom_{\mathsf{C}}(R \otimes X \otimes A, R \otimes B) \\
+    &\simeq \Hom_{\mathsf{C}}(X \otimes (R \otimes A), R \otimes B) \\
+    & \simeq \Hom_{\mathsf{C}}(X, [R \otimes A, R \otimes B]_{\mathsf{C}}).
+  \end{align*}
+\end{proof}
+
 \subsection{The evaluation map}
 The internal hom functor gives us a way to talk about evaluating morphisms $f\colon X \to Y$ without mentioning elements of $X$.
 \begin{definition}[evaluation map]
@@ -8306,8 +8330,28 @@ As before, one is lead to the assumption that one could generalize the idea of a
 
 \begin{definition}[function module]
   \label{def:functionmodule}
-  For $(N_{1}, \rho{1})$ and $(N_{2}, \rho_{2})$ two $A$-modules internal to a closed symmetric monoidal category, the \defn{function module} $\hom_{A}(N_{1}, N_{1})$ is the equalizer 
+  For $(N_{1}, \rho_{1})$ and $(N_{2}, \rho_{2})$ two $A$-modules internal to a closed symmetric monoidal category $(\mathsf{C}, \otimes, 1)$, the \defn{function module} $\hom_{A}(N_{1}, N_{1})$ is, as an object, the equalizer 
+  \begin{equation*}
+    \begin{tikzcd}
+      \hom_{A}(N_{1}, N_{2})
+      \arrow[rr, "\mathrm{equ}"]
+      & & {[N_{1}, N_{2}]_{\mathsf{C}}}
+      \arrow[rr, "{[\rho_{1}, 1_{N_{2}}]_{\mathsf{C}}}"]
+      \arrow[dr, swap, "A \otimes (-)"]
+      & & {[A \otimes N_{1}, N_{2}]_{\mathsf{C}}}
+      \\
+      & & & {[A \otimes N_{1}, A \otimes N_{2}]_{\mathsf{C}}}
+      \arrow[ur, swap, "{[1_{A \otimes N_{1}}, \rho_2]_{\mathsf{C}}}"]
+    \end{tikzcd},
+  \end{equation*}
+  where $[-,-]_{\mathsf{C}}$ denotes the hom functor internal to $\mathsf{C}$, and $A \otimes (-)$ is the natural transformation from \hyperref[lemma:cantensorbothsidesofinternalhom]{Lemma \ref*{lemma:cantensorbothsidesofinternalhom}}.
+
+  The left action $A \otimes \hom_{A}(N_{1}, N_{2}) \to \hom_{A}(N_{1}, N_{2})$ is given by 
 \end{definition}
+
+\begin{theorem}
+
+\end{theorem}
 
 \section{Supergroups as supercommutative Hopf algebras}
 
@@ -8667,7 +8711,7 @@ Of course, having such a $\rho$ is nice, but quantum mechanics does not deal wit
 
 Pick one specific element $g \in G$. To this element there is associated a bijective ray map on $\mathscr{H}$. Obviously, we can mimic this bijective ray map with a function $\bar{U}\colon \mathscr{H} \to \mathscr{H}$; we need only ensure that the vectors making up individual rays are mapped to the correct target rays. Equally obviously however, this does not specify $\bar{U}(g)$ uniquely; there are many possible ways of mixing the vectors composing the rays. We have some freedom to choose this mixing in as nice as possible a way.
 
-By a theorem of Wigner, we can get away with demanding that $\bar{U}(g)$ be additive, length-preserving, and either
+By a theorem of Wigner, we can get away with demanding that $\bar{U}(g)$ be additive and either
 \begin{itemize}
   \item linear and unitary or
   \item antilinear and antiunitary.
@@ -8704,8 +8748,7 @@ where the final $\mathrm{U}(3)$ factor interchanges the three generations of par
 
 All of the fundamental particles in the standard model are correspond to irreducible representations of $G$. Contrary to popular belief, $\mathrm{ISO}(3, 1)$ by itself is not enough. Neutrinos, for example, can exist in a superposition of different mass states; the reason for this is that mass-squared is not a casimir operator of the representation to which they belong.\cite{neumaier}}
 
-Every quantum theory which makes any attempt to describe the world we see must take into account the existence of spacetime, so every quantum system will admit the symmetries of spacetime. Thus, any quantum system can be viewed as a composite system made up a (large) number of fundamental particles which are irreducible representations of the symmetries of spacetime. Thus, quantum systems have certain properties. 
-
+The reason for the previous discussion is this: Every quantum theory which makes any attempt to describe the world we see must account for the the existence of spacetime, so every quantum system will admit \emph{some} symmetry group $G$, namely the (covering group of the) symmetries of spacetime. This means that, by Wigner's analysis, any quantum system can be viewed as a composite system made up a (large) number of fundamental particles which are irreducible representations of the symmetries of spacetime. This ensures that quantum systems will have certain properties. 
 \begin{enumerate}
   \item One can always consider two or more quantum systems as a single composite system (for example, a proton is a composite system composed of three quarks). Mathematically, the Hilbert space underlying a composite system is the tensor product of the Hilbert spaces of the component systems, i.e. 
     \begin{equation*}
@@ -8718,9 +8761,9 @@ Every quantum theory which makes any attempt to describe the world we see must t
     \end{equation*}
     reflects the fact that the composite system always shares the symmetries of its constituents. That is, we can `multiply' any two quantum systems which admit a $G$-symmetry to get another. 
     
-  \item The order in which we form composites does not matter since the tensor product is naturally associative:
+  \item The order in which we form composites does not matter since the tensor product is naturally associative,\footnote{The keyword here is \emph{naturally}, which is a term from category theory which formalizes the intuitive notion of `canonical'.} i.e. there is a natural isomorphism
     \begin{equation*}
-      (\mathscr{H}_{1} \otimes \mathscr{H}_{2}) \otimes \mathscr{H}_{3} \simeq \mathscr{H}_{1} \otimes (\mathscr{H}_{2} \otimes \mathscr{H}_{3}).
+      \alpha_{1,2,3}\colon (\mathscr{H}_{1} \otimes \mathscr{H}_{2}) \otimes \mathscr{H}_{3} \simeq \mathscr{H}_{1} \otimes (\mathscr{H}_{2} \otimes \mathscr{H}_{3}).
     \end{equation*}
 
   \item There is a trivial quantum system with $\mathscr{H}_{\text{trivial}} = \C$ which admits the trivial representation of $G$, and which has the property that
@@ -8729,12 +8772,27 @@ Every quantum theory which makes any attempt to describe the world we see must t
     \end{equation*}
 \end{enumerate}
 
-These properties, phrased in mathematical language, say that the collection of all quantum systems which admit a $G$-symmetry has the structure of a \emph{monoidal category}.
+These properties, phrased in mathematical language, say that the collection of all quantum systems which admit a $G$-symmetry has the structure of a \textbf{monoidal category}. \footnote{Of course, one must also check that the triangle and pentagon diagram are satisfied, but this is trivial and devoid of physical meaning.}
 
 We can, however, say more.
 \begin{enumerate}
     \setcounter{enumi}{3}
-  \item We can view 
+  \item The order in which we place our quantum systems before considering them as a composite does not matter, since there is an isomorphism
+    \begin{equation*}
+      \gamma_{1,2}\colon \mathscr{H}_{1} \otimes \mathscr{H}_{2} \to \mathscr{H}_{2} \otimes \mathscr{H}_{1}.
+    \end{equation*}
+    This means that our collection of quantum systems is a \textbf{braided monoidal category}.
+
+  \item If we swap the order in which we adjoin two quantum systems twice, we get the same thing we started with:
+    \begin{equation*}
+      \gamma_{1,2} \circ \gamma_{2,1} = \mathrm{id}_{\mathscr{H}_{1} \otimes \mathscr{H}_{2}} \colon \mathscr{H}_{1} \otimes \mathscr{H}_{2}
+    \end{equation*}
+    This means $G$-symmetric quantum systems form a \textbf{symmetric monoidal category}.
+
+  \item Each fundamental particle species has an antiparticle, and we can construct from any composite system an anti-system, in which all of its particles are replaced by antiparticles.
+    This corresponds mathematically to the fact that our Hilbert spaces $\mathscr{H}$ have duals $\mathscr{H}^{*}$ which admit the contragredient representation.
+
+    This means that we are dealing with a \textbf{rigid monoidal category}.
 \end{enumerate}
 
 \chapter{Questions}
@@ -8755,7 +8813,20 @@ We can, however, say more.
 
   \item Everybody seems very cavalier about the difference between $G$ and $\bar{G}$. Why is this? Is it because they have the same Lie algebra?
 
-  \item More like a concern: there are rather a lot of finite-dimensionality assumptions that are glossed over in \cite{physicsforums-why-deligne}. 
+  \item More like a concern: there are rather a lot of finite-dimensionality assumptions that are glossed over in \cite{physicsforums-why-deligne}. Some things aren't adding up. More specifically:
+    \begin{itemize}
+      \item The article says that particle species, i.e. irreducible representations, form tensor categories. But if one tensors together irreps, one gets a composite system. So in order to be closed under the tensor product, the tensor category in question must be the category of \emph{all} representations, not just irreps. But that's okay; so far so good.
+
+      \item But the symmetric braiding has to hold for everything in the tensor category, not just irreps. So we lose the interpretation of the braiding as representing particle interchange, since we have to use the same braiding no matter WHAT we're commuting. It still makes sense to demand that exchanging twice is the identity, so this isn't a fundamental problem; we still get a symmetric monoidal category.
+
+        Actually, there is a silver lining: the fact that the braiding doesn't turn symmetric in 2d doesn't matter anymore.
+
+      \item But none of this matters because the category of representations of a general (super)group isn't even a tensor category because infinite-dimensional representations don't dualize right. The category of finite-dimensional representations \emph{is} a tensor category, but that's not much help for the Poincar\'{e} group. So the prototypical example of what we're interested in isn't actually an example.
+
+        Maybe this is okay; after all, a LOT of stuff goes wrong when we use non-compact groups. 
+    \end{itemize}
+
+  \item Probably the thing to do is to explicitly restrict our attention to finite-dimensional representations. This makes the scope of the project a lot less impressive, but at least it'll be rigorous.
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
