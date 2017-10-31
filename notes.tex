@@ -107,6 +107,7 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}{Lemma}[section]
 \newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
 
 \theoremstyle{remark}
 \newtheorem{claim}{Claim}[section]
@@ -127,7 +128,7 @@
 
 These are the notes I took while learning about Deligne's theorem on tensor categories and its applications to physics, in particular supersymmetry. 
 
-None of the material is original, including the order of presentation, which follows \cite{nlab-deligne-theorem} \emph{very} closely.
+Almost none of the material is original, including the order of presentation, which follows \cite{nlab-deligne-theorem} \emph{very} closely.
 
 The fact that it's just a collection of notes means that it assumes as background more or less exactly what I knew before I started (although I have made some effort to keep it self-contained). This means that it probably won't be very useful to anyone other than me.
 
@@ -4674,7 +4675,7 @@ A digression into the theory of braid groups would take us too far afield. The p
     \begin{tikzcd}
       & A \otimes (B \otimes C) \arrow[r, "{\gamma_{A, B \otimes C}}"] & (B \otimes C) \otimes A \arrow[dr, "\alpha_{BCA}"] & \\
       (A \otimes B) \otimes C \arrow[ur, "\alpha_{ABC}"] \arrow[dr, swap, "\gamma_{AB} \otimes 1"] & & & B \otimes (C \otimes A) \\
-      & (B \otimes A) \otimes C \arrow[r, swap, "\alpha_{BAC}"] & (B \otimes A) \otimes C \arrow[ur, swap, "1 \otimes \gamma"]
+      & (B \otimes A) \otimes C \arrow[r, swap, "\alpha_{BAC}"] & B \otimes (A \otimes C) \arrow[ur, swap, "1 \otimes \gamma"]
     \end{tikzcd}
   \end{equation*}
   \begin{equation*}
@@ -7674,6 +7675,13 @@ As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd
 \chapter{Superalgebra and supergeometry in categories}
 Until now, we have been defining super-* strucutures haphazardly, imposing the Koszul sign rule by hand as we went. Seemingly miraculously, this worked in the sense that if one added the appropriate sign changes to the definitions, they would turn up in the right places in the theorems. In the first part of this chapter, we will see that the appearance of the Koszul sign rule is much more natural: it is a manifestation of the fact that the supercommutativity is really just a different sort of commutativity, one which shows up naturally in the study of $\Z_{2}$-graded vector spaces.
 
+We will do this by defining supercommutative structures simply as commutative structures internal to the category of super vector spaces. For example:
+\begin{itemize}
+  \item For $k$ a field, a \defn{supercommutative $k$-superalgebra} is a commutative monoid internal to $\mathsf{SVect}_{k}$.
+
+  \item For $A$ any supercommutative superalgebra (i.e. a commutative monoid internal to $\mathsf{SVect}_{k}$), a \defn{supercommutative $A$-algebra} is 
+\end{itemize}
+
 In the second section, we will apply the machinery of algebraic geometry to our new understanding of supercommutative algebra, and arrive at a natural definition of a supermanifold.
 
 In the third section, we generalize the ideas of the second section, leading to a definition of a super vector bundle.
@@ -8111,15 +8119,16 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 
 \section{Supergeometry}
 \begin{definition}
+  \label{def:functorcinfinity}
   Let $M$ be a $C^{\infty}$ manifold (that is, recalling \hyperref[eg:moreexamplesofcategories]{Example \ref*{eg:moreexamplesofcategories}}, an object in the category $\mathsf{SmoothMfd}$.) The functor 
   \begin{equation*}
-    C^{\infty}\colon \mathsf{SmoothMfd} \rightsquigarrow \mathsf{Alg}_{\R}
+    C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}
   \end{equation*}
   is the defined by sending $M$ to the $\R$-algebra of smooth functions $M \to \R$, and morphisms $\varphi\colon M \to N$ to homomorphisms of $\R$-algebras $C^{\infty}(N) \to C^{\infty}(M)$ via the pullback. 
 \end{definition}
 
 \begin{theorem}
-  The functor $C^{\infty}\colon \mathsf{SmoothMfd} \rightsquigarrow \mathsf{Alg}_{\R}$ is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}).
+  The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}).
 \end{theorem}
 \begin{proof}
   See \cite{KMS-natural-operations-differential-geometry}, lemma 35.8, corollaries 35.9 and 35.10.
@@ -8150,8 +8159,22 @@ We might take this idea even further: given \emph{any} associative algebra $A$, 
   When $\mathsf{C} = \mathsf{SVect}_{k}$, we call the objects in $\mathsf{Aff}(\mathsf{SVect}_{k})$ \defn{affine super schemes} over $k$.
 \end{definition}
 
+\begin{note}
+  The reader is probably now almost as lost as the author was while writing this section. Here is a brief overview of the story so far.
+
+  As always, $(\mathsf{C}, \otimes, 1)$ denotes at worst a plain old monoidal category and at best a tensor category. The case we really care about is when $\mathsf{C} = \mathsf{SVect}_{k}$.
+
+  First, we look at monoids internal to $\mathsf{C}$; these form a category called $\mathsf{Mon}(\mathsf{C})$, which has a full subcategory of commutative monoids $\mathsf{SMon}(\mathsf{C})$. When $\mathsf{C} = \mathsf{SVect}_{k}$, $\mathsf{CMon}(\mathsf{SVect}_{k})$ is nothing else but the category whose objects are supercommutative, associative $k$-superalgebras with unity, denoted $\mathsf{SCAlg}_{k}$.
+
+  The idea is to view the category of super-spaces as dual to $\mathsf{SCAlg}_{k}$. Thus, we call 
+  \begin{equation*}
+    \mathsf{CMon}(\mathsf{SVect}_{k})^{\mathrm{op}} \equiv \mathsf{Aff}(\mathsf{SVect}_{k}),
+  \end{equation*}
+  the so-called \emph{category of affine super-schemes over $k$}. For any $A \in \Obj(\mathsf{SCAlg}_{k})$, we denote the associated affine super scheme by $\Spec(A)$.
+\end{note}
+
 \section{Modules in tensor categories; super vector bundles}
-Some of the material from this section is from \cite{nestruev-smooth-manifolds-observables}.
+Some of the material from this section is from \cite{nestruev-smooth-manifolds-observables}. Due to time constraints, most of the proofs are omitted. Hopefully this is not a permanent situation.
 
 We saw in the last section that we can view the duals of associative algebras as generalized manifolds. In this section, we will see that we can pull the same trick for vector bundles.
 
@@ -8275,16 +8298,17 @@ As before, one is lead to the assumption that one could generalize the idea of a
 
 \begin{definition}[category of internal $A$-modules]
   \label{def:categoryofinternalmodules}
-  Let $(C \otimes, 1)$ be a symmetric monoidal category. Write $A\mhyp\mathsf{Mod}(\mathsf{C})$ for the category whose objects are $A$-modules internal to $\mathsf{C}$ and whose morphisms are homomorphisms of module objects.
+  Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category. Write $A\mhyp\mathsf{Mod}(\mathsf{C})$ for the category whose objects are $A$-modules internal to $\mathsf{C}$ and whose morphisms are homomorphisms of module objects.
 \end{definition}
 
 \begin{example}
+  \label{eg:anyringisamoduleoveritself}
   Any monoid $(A, \mu, e)$ is a left-module over itself with $\rho = \mu$.
 \end{example}
 
 \begin{example}
   \label{eg:freemodule}
-  Let $\mathsf{C}$ be a monoidal category, $C \in \Obj(\mathsf{C})$. Then $A \otimes C$ has a natural left-module structure with
+  Let $\mathsf{C}$ be a monoidal category, $C \in \Obj(\mathsf{C})$, $(A, \mu, e)$ a monoid internal to $\mathsf{C}$. Then $A \otimes C$ has a natural left-module structure with
   \begin{equation*}
     \rho\colon A \otimes (A \otimes C) \to A \otimes C
   \end{equation*}
@@ -8321,7 +8345,7 @@ As before, one is lead to the assumption that one could generalize the idea of a
       \arrow[r, shift right=1.5, swap, "{\rho_{1} \circ (\gamma_{N_{1}, A} \otimes N_{2})}"]
       & N_{1} \otimes N_{2}
       \arrow[r, "\mathrm{coeq}"]
-      & N_{1} \otimes_{A} 1_{N_{2}}
+      & N_{1} \otimes_{A} N_{2}
     \end{tikzcd}
   \end{equation*}
 
@@ -8350,10 +8374,199 @@ As before, one is lead to the assumption that one could generalize the idea of a
 \end{definition}
 
 \begin{theorem}
+  Let $(\mathsf{C}, \otimes, 1)$ be a closed symmetric monoidal category, and let $(A, \mu, e)$ be a commutative monoid internal to $\mathsf{C}$. Then if $\mathsf{C}$ has all coequalizers, the category $A\mhyp\mathsf{Mod}(\mathsf{C})$ of $A$-modules internal to $\mathsf{C}$ becomes a symmetric monoidal category with
+  \begin{itemize}
+    \item The tensor product $\otimes$ given by $\otimes_{A}$ (see \hyperref[def:tensorproductofmoduleobjects]{Definition \ref*{def:tensorproductofmoduleobjects}}).
 
+    \item The tensor unit 1 given by $A$, with the $A$-module structure as in \hyperref[eg:anyringisamoduleoveritself]{Example \ref*{eg:anyringisamoduleoveritself}}.
+  \end{itemize}
+
+  Additionally, if all equalizers exist the $\mathsf{C}$ is a closed monoidal category, with the function module $\hom_{A}$ from \hyperref[def:functionmodule]{Definition \ref*{def:functionmodule}} acting as the internal hom.
+\end{theorem}
+\begin{proof}
+  See \cite{nlab-deligne-theorem}, Proposition 3.65.
+\end{proof}
+
+\begin{definition}[internal algebra]
+  \label{def:internalalgebra}
+  Let $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ be the symmetric monoidal category of $A$-modules internal to $\mathsf{C}$. A monoid internal to $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ is called an \defn{$A$-algebra}; a commutative monoid internal to $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ is called a \defn{commutative $A$-algebra}.
+\end{definition}
+
+\begin{theorem}
+  Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category, and let $A$ be a commutative monoid internal to $\mathsf{C}$. Recall that
+  \begin{itemize}
+    \item $(A\mhyp\mathsf{Mod}, \otimes_{A}, A)$ is the category of $A$-modules internal to $\mathsf{C}$, and $\mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C}))$ is the category of commutative $A$-algebras internal to $\mathsf{C}$.
+
+    \item $\mathsf{CMon}(\mathsf{C})^{A/}$ is the coslice category (\hyperref[def:coslicecategory]{Definition \ref*{def:coslicecategory}}) whose objects are morphisms $A \to E$, with $E$ a commutative monoid in $\mathsf{C}$.
+  \end{itemize}
+
+  Then there is an equivalence of categories
+  \begin{equation*}
+    \mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C})) \simeq \mathsf{CMon}^{A/}(\mathsf{C}).
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  See \cite{nlab-deligne-theorem}, Proposition 3.68.
+\end{proof}
+
+\begin{theorem}
+  Let $\mathsf{C}$ be a symmetric monoidal category such that 
 \end{theorem}
 
+The upshot of the past few theorems is the following.
+\begin{theorem}
+  Let $\mathsf{A}$ be a tensor category. Let $R \in \Obj(\mathsf{CMon}(\mathsf{C}))$ be a commutative monoid in $\mathsf{A}$.
+
+  Let $A_{1}$ and $A_{2}$ be two $R$-algebras in the sense of \hyperref[def:internalalgebra]{Definition \ref*{def:internalalgebra}}. By \hyperref[def:affinesuperscheme]{Definition \ref*{def:affinesuperscheme}}, we can regard $A_{1}$ and $A_{2}$ as affine schemes, i.e. as objects $\Spec(A_{1})$, $\Spec(A_{2}) \in \mathsf{Aff}(R\mhyp\mathsf{Mod}(\mathsf{A}))$.
+
+  Then the category $\mathsf{Aff}(R\mhyp\mathsf{Mod}(\mathsf{A}))$ has products. Further, these are dual the product $A_{1} \otimes_{R} A_{2}$, in the sense that there exists a natural isomorphism
+  \begin{equation*}
+    \Spec(A_{1}) \times \Spec(A_{2}) \simeq \Spec(A_{1} \otimes_{R} A_{2}).
+  \end{equation*}
+\end{theorem} 
+
+\begin{definition}[restriction of scalars, extension of scalars]
+  \label{def:extensionrestrictionofscalars}
+  Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category, $A_{1}$ and $A_{2}$ be two commutative monoids in $\mathsf{C}$, and let $\varphi\colon A_{1} \to A_{2}$ be a homomorphism.
+
+  \begin{enumerate}
+    \item \defn{Restriction of scalars} is the functor which sends an $A_{2}$-module $(N, \rho)$ to the $A_{1}$-module $(N, \rho')$ whose action is defined by pre-composition with $\varphi$:
+      \begin{equation*}
+        \rho' \colon 
+        \begin{tikzcd}
+          A_{1} \otimes N
+          \arrow[r, "\varphi \otimes 1_{N}"]
+          & A_{2} \otimes N
+          \arrow[r, "\rho"]
+          & N
+        \end{tikzcd}.
+      \end{equation*}
+
+      Restriction of scalars is denoted by $\varphi^{*}\colon A_{2}\mhyp\mathsf{Mod}(\mathsf{C}) \to A_{1}\mhyp\mathsf{Mod}(\mathsf{C})$.
+
+    \item Extension of scalars, which sends an $A_{1}$-module to the free $A_{2}$-module (\hyperref[eg:freemodule]{Example \ref*{eg:freemodule}}).
+      \begin{equation*}
+        A_{2} \otimes_{A_{1}} N.
+      \end{equation*}
+
+      Restriction of scalars is denoted $\varphi_{*}\colon A_{1}\mhyp\mathsf{Mod}(\mathsf{C}) \to A_{2}\mhyp\mathsf{Mod}(\mathsf{C})$
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+  The restriction and extension of scalars form an adjunction
+  \begin{equation*}
+    \varphi_{*} \dashv \varphi^{*}.
+  \end{equation*}
+\end{lemma}
+
+\begin{note}
+  Again a recapitulation is in order. For $M$ a $C^{\infty}$ manifold one has the correspondence
+  \begin{equation*}
+    \left\{ \text{Vector bundles on $M$} \right\} \longleftrightarrow \left\{ \text{Finitely-generated projective $C^{\infty}(M)$-modules} \right\}.
+  \end{equation*}
+
+  So far, our business has been to replace $C^{\infty}$-geometry with supergeometry. In doing so, we generalized the idea of a $C^{\infty}$-manifold, arriving at the definition of a so-called \emph{affine super-scheme} $\Spec(A)$ which is given by the dual of a supercommutative, associative $k$-superalgebra $A$.
+
+  In this chapter, we saw that vector bundles over a manifold $M$ were dual to finitely-generated, projective $C^{\infty}(M)$ modules, which led us to the definition of a quasi-coherent sheaf over an affine super scheme $\Spec(A)$ via the correspondence
+  \begin{equation*}
+    \left\{ \text{Quasi-coherent sheaves over an affine super scheme $\Spec(A)$} \right\} \longleftrightarrow \left\{ \text{$A$-modules internal to $\mathsf{SVect}_{k}$} \right\}.
+  \end{equation*}
+\end{note}
+
 \section{Supergroups as supercommutative Hopf algebras}
+Central to Deligne's theorem is the idea of an affine algebraic super-group. Na\"{i}vely, this is simply an affine super scheme which is also a group. As usual, the way to formalize this is with internal objects.
+
+\begin{definition}[group object]
+  \label{def:groupobject}
+  Let $\mathsf{C}$ be a category with binary products $\times$ and a terminal object $*$. A \defn{group object} in $\mathsf{C}$ (or a \emph{group internal to $\mathsf{C}$}) is an object $G \in \Obj(\mathsf{C})$ together with 
+  \begin{itemize}
+    \item a map $1\colon * \to G$, called the \emph{unit map};
+
+    \item a map $(-)^{-1}\colon G \to G$, called the \emph{inverse map}; and
+
+    \item a map $m\colon G \times G \to G$, called the \emph{multiplication map}
+  \end{itemize}
+  such that 
+  \begin{itemize}
+    \item multiplication is associative, i.e. the following diagram commutes.
+      \begin{equation*}
+        \begin{tikzcd}
+          G \times G \times G
+          \arrow[r, "\mathrm{id}_{G} \times m"]
+          \arrow[d, swap, "m \times \mathrm{id}_{G}"]
+          & G \times G
+          \arrow[d, "m"]
+          \\
+          G \times G
+          \arrow[r, swap, "m"]
+          & G
+        \end{tikzcd}
+      \end{equation*}
+
+    \item the unit picks out the identity element, i.e. the following diagram commutes.
+      \begin{equation*}
+        \begin{tikzcd}
+          G
+          \arrow[r, "1 \times \mathrm{id}_{G}"]
+          \arrow[d, swap, "\mathrm{id}_{G} \times 1"]
+          & G \times G
+          \arrow[d, "m"]
+          \\
+          G \times G
+          \arrow[r, swap, "m"]
+          & G
+        \end{tikzcd}
+      \end{equation*}
+
+    \item The inverse map behaves as an inverse, i.e. the following diagram commutes.
+      \begin{equation*}
+        \begin{tikzcd}[column sep=huge]
+          G 
+          \arrow[r, "\Delta"]
+          \arrow[d, swap, "\Delta"]
+          \arrow[dr, "\exists!"]
+          & G \times G 
+          \arrow[r, "(-)^{-1} \times \mathrm{id}_{G}"]
+          & G \times G
+          \arrow[dd, "m"]
+          \\
+          G \times G
+          \arrow[d, swap, "\mathrm{id}_{G} \times (-)^{-1}"]
+          & *
+          \arrow[dr, "1"]
+          \\
+          G \times G
+          \arrow[rr, swap, "m"]
+          & & G
+        \end{tikzcd}
+      \end{equation*}
+
+      Here, $\Delta\colon G \to G \times G$ is the diagonal map defined by the universal property of the product.
+  \end{itemize}
+\end{definition} 
+
+Let us first deal with an example. The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ defined in \hyperref[def:functorcinfinity]{Definition \ref*{def:functorcinfinity}} was fully faithful, but not essentially surjective. Thus, we can decrese the codomain of the functor $C^{\infty}$ to include only smooth algebras:
+\begin{equation*}
+  C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \hookrightarrow \mathsf{SmoothAlg}_{\R}.
+\end{equation*}
+
+In this case, $C^{\infty}$ preserves coproducts, in the sense that
+\begin{equation*}
+  C^{\infty}(M \times N) \simeq C^{\infty}(M) \otimes^{c} C^{\infty}(N),
+\end{equation*}
+where $\times$ is the product in $\mathsf{SmoothMfd}$, i.e. the product manifold, and $\otimes^{c}$ is the coproduct in $\mathsf{SmoothAlg}_{\R}$, i.e. the so-called \emph{completed tensor product}.
+
+Now suppose we are interested in a Lie group $G$, i.e. a group object in the category $\mathsf{SmoothMfd}$. Then we have a group operation 
+\begin{equation*}
+  m\colon G \times G \to G
+\end{equation*}
+which induces on $\mathsf{SmoothAlg}_{\R}$ a `dual product' 
+\begin{equation*}
+  C^{\infty}(G) \to C^{\infty} (G) \otimes^{c} C^{\infty}(G).
+\end{equation*}
+Moreover, the images of the coherence diagrams for the group structure on $G$ under $C^{\infty}$ translate into dual coherence diagrams enforcing `co-associativity,' etc. This gives $C^{\infty}(G)$ the structure of a \emph{Hopf algebra}.
+
 
 
 \chapter{Representations}
@@ -8361,13 +8574,18 @@ We have already seen that categories can be used to re-phrase certain aspects of
 
 \begin{definition}
   \label{def:categoryofrepresentations}
-  Let $G$ be a group, $\mathsf{G}$ the group which mimics it (as in \hyperref[eg:groupsaregroupoidswithoneobject]{Example \ref*{eg:groupsaregroupoidswithoneobject}}). Recall that functors $\rho\colon \mathsf{G} \rightsquigarrow \mathsf{Vect}_{k}$ are $k$-linear representations of $G$ (\hyperref[eg:functorscanbegrouprepresentation]{Example \ref*{eg:functorscanbegrouprepresentation}}).
+  Let $G$ be a group, $\mathsf{G}$ the group which mimics it\footnote{For those playing along at home, this is the \emph{delooping} of $G$, usually notated by $\mathbb{B}G$.} (as in \hyperref[eg:groupsaregroupoidswithoneobject]{Example \ref*{eg:groupsaregroupoidswithoneobject}}). Recall that functors $\rho\colon \mathsf{G} \rightsquigarrow \mathsf{Vect}_{k}$ are $k$-linear representations of $G$ (\hyperref[eg:functorscanbegrouprepresentation]{Example \ref*{eg:functorscanbegrouprepresentation}}).
 
   Denote by $\mathsf{Rep}(G)$ the functor category $\Hom_{\mathsf{Cat}}(\mathsf{G}, \mathsf{Vect}_{k})$.
 \end{definition}
 
 \section{Linear super-representations as Comodules}
 \section{Super fiber functors and their automorphism groups}
+We would like to view tensor categories $\mathcal{A}$ as categories of representations. Thus, we would like to be able to view the objects of $\mathcal{A}$ as being the objects of some other category $\mathcal{V}$, plus some extra structure. Thus, there should be a forgetful functor
+\begin{equation*}
+  \omega\colon \mathcal{A} \rightarrow \mathcal{V}.
+\end{equation*}
+
 \section{Super-exterior powers and Schur functors}
 
 \chapter{Deligne's theorem on tensor categories}
@@ -8414,8 +8632,10 @@ Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheo
 
 \section{Proof}
 \subsection{Part 1}
-
-
+\begin{proposition}
+  \label{prop:deligne1}
+  Let 
+\end{proposition}
 \chapter{Relevance to physics}
 \section{Wigner's classification of fundamental particle species}
 This section follows \cite{haag-local-quantum-physics} closely. Some stuff was taken from \cite{sexl-urbantke-relativity-groups-particles}.
@@ -8690,7 +8910,7 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
 The other reason is that the mass of the Higgs boson is lower than one would expect. The Higgs 
 
 \section{What does Deligne's theorem do for us?}
-The axioms of quantum mechanics tell us that the states of a quantum system correspond to vectors $\psi$ belonging to some Hilbert space $\mathscr{H}$. However, this is not the end of the story. The observable quantities built from the states, i.e. the conditional probabilities
+The axioms of quantum mechanics tell us that the states of a quantum system correspond to vectors $\psi$ belonging to some Hilbert space $\mathscr{H}$. However the observable quantities built from the states, i.e. the conditional probabilities
 \begin{equation*}
   P(\varphi | \psi) = \frac{\left|\left\langle \varphi | \psi \right\rangle\right|^{2}}{\norm{\varphi}^{2} \cdot \norm{\psi}^{2}}
 \end{equation*}
@@ -8700,7 +8920,7 @@ are invariant under a rescaling of either $\varphi$ or $\psi$ by any nonzero com
 \end{equation*}
 where $\sim$ should be read as `is physically indistinguishable from.'
 
-One often `fixes' this problem by working only with normalized state vectors, but this does not completely solve the problem. Instead we should think about two states which differ only by a nonzero complex factor as being physically equivalent. That is, the true space of states of our quantum system is not $\mathscr{H}$, but $\mathscr{H} / \sim$, \emph{projective Hilbert space}. Physically inequivalent quantum states are in one-to-one correspondence to the equivalence classes in $\mathscr{H}/\sim$.
+Therefore, we should think about two states which differ only by a nonzero complex factor as being physically equivalent. That is, the true space of states of our quantum system is not $\mathscr{H}$, but $\mathscr{H} / \sim$, \emph{projective Hilbert space}. Physically inequivalent quantum states are in one-to-one correspondence to the equivalence classes in $\mathscr{H}/\sim$.
 
 Now suppose we want our quantum theory to have symmetry given by some group $G$. Pick any ray $[\psi_{0}] \in \mathscr{H}/\sim$. For any group element $g \in G$, there should be another state (i.e. ray) $[\psi]_{g}$, which corresponds to the result of acting on the system with $g$. Furthermore, we want the result of acting on $[\psi_{0}]$ with a sequence of group elements to be the same no matter how we imagine them to be bracketed. Mathematically, this means that if we are to consider a quantum theory which is $G$-symmetric, we want a Hilbert space $\mathscr{H}$ which admits an injective homomorphism
 \begin{equation*}
@@ -8709,7 +8929,7 @@ Now suppose we want our quantum theory to have symmetry given by some group $G$.
 
 Of course, having such a $\rho$ is nice, but quantum mechanics does not deal with projective spaces and ray transformations. If we are to use these results as-is, we need to translate them to results about $\mathscr{H}$ itself.
 
-Pick one specific element $g \in G$. To this element there is associated a bijective ray map on $\mathscr{H}$. Obviously, we can mimic this bijective ray map with a function $\bar{U}\colon \mathscr{H} \to \mathscr{H}$; we need only ensure that the vectors making up individual rays are mapped to the correct target rays. Equally obviously however, this does not specify $\bar{U}(g)$ uniquely; there are many possible ways of mixing the vectors composing the rays. We have some freedom to choose this mixing in as nice as possible a way.
+Pick one specific element $g \in G$. To this element there is associated a bijective ray map on $\mathscr{H}$. Obviously, we can mimic this bijective ray map with a function $\bar{U}(g)\colon \mathscr{H} \to \mathscr{H}$; we need only ensure that the vectors making up individual rays are mapped to the correct target rays. Equally obviously however, this does not specify $\bar{U}(g)$ uniquely; there are many possible ways of mixing the vectors composing the rays. We have some freedom to choose this mixing in as nice as possible a way.
 
 By a theorem of Wigner, we can get away with demanding that $\bar{U}(g)$ be additive and either
 \begin{itemize}
@@ -8734,13 +8954,13 @@ In fact, we can do even more. By another theorem of Wigner, we can use the phase
 
 The moral of the story so far: the Hilbert space of any quantum mechanical theory which is invariant under a symmetry group $G$ must admit a linear representation of the covering group $\bar{G}$.
 
-Perhaps now is a good time to make the following remark. As is well know, if we wish to view two quantum systems with Hilbert spaces $\mathscr{H}_{1}$ and $\mathscr{H}_{2}$ as a single composite system, the Hilbert space we consider is $\mathscr{H}_{1} \otimes \mathscr{H}_{2}$. That is to say, composite systems are the tensor product of their constituents. And the composite system's representation of $\bar{G}$ is given by the tensor product of the representations of its constituents.
+Perhaps now is a good time to make the following remark. If we wish to view two quantum systems with Hilbert spaces $\mathscr{H}_{1}$ and $\mathscr{H}_{2}$ as a single composite system, the Hilbert space we consider is $\mathscr{H}_{1} \otimes \mathscr{H}_{2}$. That is to say, composite systems are the tensor product of their constituents. And the composite system's representation of $\bar{G}$ is given by the tensor product of the representations of its constituents.
 
 This would seem to imply that given a $G$-invariant quantum system and its associated representation of $\bar{G}$, we could break it and its representation down into smaller and smaller subsystems, until we hit `atomic' subsystems whose representations were irreducible, i.e. could not be broken down any further. The resulting atomic representations would be the building blocks of our original system. 
 
 But we can pull this trick with \emph{any} system! This means that cataloging the irreducible representations of $\bar{G}$ will give us a list of the building blocks of any $G$-invariant system: the fundamental particles.
 
-This line of reasoning led Wigner to \emph{define} the fundamental particles of any quantum theory with symmetry group $G$ as irreducible representations of $\bar{G}$. \footnote{As an aside: the symmetry group of the standard model is
+This line of reasoning led Wigner to \emph{identify} the fundamental particles of any quantum theory with symmetry group $G$ with irreducible representations of $\bar{G}$. \footnote{As an aside: the symmetry group of the standard model is
 \begin{equation*}
   G = \overbrace{\mathrm{ISO}(1, 3)}^{\text{Poincar\'{e}}} \times \overbrace{\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)}^{\text{gauge}} \times \mathrm{U}(3),
 \end{equation*}
@@ -8748,31 +8968,31 @@ where the final $\mathrm{U}(3)$ factor interchanges the three generations of par
 
 All of the fundamental particles in the standard model are correspond to irreducible representations of $G$. Contrary to popular belief, $\mathrm{ISO}(3, 1)$ by itself is not enough. Neutrinos, for example, can exist in a superposition of different mass states; the reason for this is that mass-squared is not a casimir operator of the representation to which they belong.\cite{neumaier}}
 
-The reason for the previous discussion is this: Every quantum theory which makes any attempt to describe the world we see must account for the the existence of spacetime, so every quantum system will admit \emph{some} symmetry group $G$, namely the (covering group of the) symmetries of spacetime. This means that, by Wigner's analysis, any quantum system can be viewed as a composite system made up a (large) number of fundamental particles which are irreducible representations of the symmetries of spacetime. This ensures that quantum systems will have certain properties. 
+The reason for the previous discussion is this: Every quantum theory which makes any attempt to describe the world we see must account for the the existence of spacetime, so every quantum system will admit \emph{some} symmetry group $G$, namely the (covering group of the) symmetries of spacetime. This means that, by Wigner's analysis, any quantum system can be viewed as a composite system made up a (large) number of fundamental particles which are irreducible representations of $\bar{G}$. This ensures that quantum systems will have certain properties. 
 \begin{enumerate}
-  \item One can always consider two or more quantum systems as a single composite system (for example, a proton is a composite system composed of three quarks). Mathematically, the Hilbert space underlying a composite system is the tensor product of the Hilbert spaces of the component systems, i.e. 
+  \item One can always consider two or more quantum systems as a single composite system (for example, a proton is a composite system comprised of three quarks). Mathematically, the Hilbert space underlying a composite system is the tensor product of the Hilbert spaces of the component systems, i.e. 
     \begin{equation*}
       \mathscr{H}_{\text{composite}} = \overbrace{\mathscr{H}_{1} \otimes \mathscr{H}_{2} \otimes \cdots \otimes \mathscr{H}_{n}}^{\text{subsystems}}.
     \end{equation*}
 
     The fact that $\mathscr{H}_{\text{composite}}$ always admits a $G$-representation, namely the tensor product representation
     \begin{equation*}
-      \varrho_{1} \otimes \varrho_{2}\colon G \to \mathscr{H}_{1} \otimes \mathscr{H}_{1},
+      \varrho_{1} \otimes \varrho_{2} \otimes \cdots \otimes \varrho_{n} \colon G \to \mathscr{H}_{1} \otimes \mathscr{H}_{2} \otimes \cdots \otimes \mathscr{H}_{n}
     \end{equation*}
-    reflects the fact that the composite system always shares the symmetries of its constituents. That is, we can `multiply' any two quantum systems which admit a $G$-symmetry to get another. 
-    
+    reflects the fact that the composite system always shares the symmetries of its constituents. That is, we can `multiply' any two quantum systems which admit a $\bar{G}$-symmetry to get another. 
+
   \item The order in which we form composites does not matter since the tensor product is naturally associative,\footnote{The keyword here is \emph{naturally}, which is a term from category theory which formalizes the intuitive notion of `canonical'.} i.e. there is a natural isomorphism
     \begin{equation*}
       \alpha_{1,2,3}\colon (\mathscr{H}_{1} \otimes \mathscr{H}_{2}) \otimes \mathscr{H}_{3} \simeq \mathscr{H}_{1} \otimes (\mathscr{H}_{2} \otimes \mathscr{H}_{3}).
     \end{equation*}
 
-  \item There is a trivial quantum system with $\mathscr{H}_{\text{trivial}} = \C$ which admits the trivial representation of $G$, and which has the property that
+  \item There is a trivial quantum system with $\mathscr{H}_{\text{trivial}} = \C$ which admits the trivial representation of $\bar{G}$, and which has the property that
     \begin{equation*}
       \mathscr{H}_{\text{trivial}} \otimes \mathscr{H} \simeq \mathscr{H} \simeq \mathscr{H} \otimes \mathscr{H}_{\text{trivial}}.
     \end{equation*}
 \end{enumerate}
 
-These properties, phrased in mathematical language, say that the collection of all quantum systems which admit a $G$-symmetry has the structure of a \textbf{monoidal category}. \footnote{Of course, one must also check that the triangle and pentagon diagram are satisfied, but this is trivial and devoid of physical meaning.}
+These properties, phrased in mathematical language, say that the collection of all quantum systems which admit a $\bar{G}$-symmetry has the structure of a \textbf{monoidal category}. \footnote{Of course, one must also check that the triangle and pentagon diagram are satisfied, but this is trivial and devoid of physical meaning.}
 
 We can, however, say more.
 \begin{enumerate}
@@ -8781,19 +9001,33 @@ We can, however, say more.
     \begin{equation*}
       \gamma_{1,2}\colon \mathscr{H}_{1} \otimes \mathscr{H}_{2} \to \mathscr{H}_{2} \otimes \mathscr{H}_{1}.
     \end{equation*}
-    This means that our collection of quantum systems is a \textbf{braided monoidal category}.
+    This means that our collection of $\bar{G}$-symmetric quantum systems is a \textbf{braided monoidal category}.
 
   \item If we swap the order in which we adjoin two quantum systems twice, we get the same thing we started with:
     \begin{equation*}
-      \gamma_{1,2} \circ \gamma_{2,1} = \mathrm{id}_{\mathscr{H}_{1} \otimes \mathscr{H}_{2}} \colon \mathscr{H}_{1} \otimes \mathscr{H}_{2}
+      \gamma_{2,1} \circ \gamma_{1,2} = \mathrm{id}_{\mathscr{H}_{1} \otimes \mathscr{H}_{2}} \colon \mathscr{H}_{1} \otimes \mathscr{H}_{2}
     \end{equation*}
-    This means $G$-symmetric quantum systems form a \textbf{symmetric monoidal category}.
+    This means $\bar{G}$-symmetric quantum systems form a \textbf{symmetric monoidal category}.
 
-  \item Each fundamental particle species has an antiparticle, and we can construct from any composite system an anti-system, in which all of its particles are replaced by antiparticles.
-    This corresponds mathematically to the fact that our Hilbert spaces $\mathscr{H}$ have duals $\mathscr{H}^{*}$ which admit the contragredient representation.
+  \item Each fundamental particle has an antiparticle, and we can construct from any composite system an anti-system, in which all of its particles are replaced by antiparticles.
+    This corresponds mathematically to the fact that our Hilbert spaces $\mathscr{H}$ have duals $\mathscr{H}^{*}$ which admit the contragredient representation of $\bar{G}$.
 
-    This means that we are dealing with a \textbf{rigid monoidal category}.
+    This means that we are dealing with a \textbf{rigid symmetric monoidal category}.
 \end{enumerate}
+Aficianados of category theory will notice that we have not yet said anything about what is arguably the most important aspect of a category: the morphisms.\footnote{Morphisms are a category-theoretic generalization of the idea of a function. Just as between any two sets $A$ and $B$ one has a collection of functions $A \to B$, between any two objects in a category one has a collection of morphisms $A \to B$.}
+
+The objects in our category are built from tensor products of Hilbert spaces of fundamental particle species, understood as carrying the tensor product representation of their constituents. For concreteness, we can take two objects 
+\begin{equation*}
+  \mathscr{H}_{1} = \mathscr{H}_{e} \otimes \mathscr{H}_{\gamma}\qquad\text{and}\qquad \mathscr{H}_{2} = \mathscr{H}_{e}.
+\end{equation*}
+The Hilbert space $\mathscr{H}_{1}$ represents an electron and a photon, taken as a composite system, while $\mathscr{H}_{2}$ represents an electron alone in the world.
+
+A morphisms $\mathscr{H}_{1} \to \mathscr{H}_{2}$ is given by a linear map $L\colon \mathscr{H}_{1} \to \mathscr{H}_{2}$ which is group-action equivariant: that is to say, 
+\begin{equation*}
+  L \rho_{1}(g) = \rho_{2}(g) L \qquad\text{for all }g \in \bar{G}.
+\end{equation*}
+
+A note for the mathematically-inclined: the category we are working with is $\mathsf{Rep}(\bar{G})$, i.e. the functor category $\mathsf{Func}(\mathbf{B}\bar{G}, \mathsf{Vect}_{\C})$ (where $\mathbf{B}\bar{G}$ is the delooping groupoid of $\bar{G}$), i.e. the objects are functors $\mathbf{B}\bar{G} \to \mathsf{Vect}_{\C}$ and the morphisms are natural transformations. When 
 
 \chapter{Questions}
 \begin{enumerate}
@@ -8815,15 +9049,17 @@ We can, however, say more.
 
   \item More like a concern: there are rather a lot of finite-dimensionality assumptions that are glossed over in \cite{physicsforums-why-deligne}. Some things aren't adding up. More specifically:
     \begin{itemize}
-      \item The article says that particle species, i.e. irreducible representations, form tensor categories. But if one tensors together irreps, one gets a composite system. So in order to be closed under the tensor product, the tensor category in question must be the category of \emph{all} representations, not just irreps. But that's okay; so far so good.
+      \item The article says that particle species, i.e. irreducible representations, form tensor categories. But if one tensors together irreps, one gets a composite system. So in order to be closed under the tensor product, the tensor category in question must be the category of \emph{all} representations, not just irreps. Okay, so Urs was being a little bit sloppy, but that's okay; so far so good.
 
       \item But the symmetric braiding has to hold for everything in the tensor category, not just irreps. So we lose the interpretation of the braiding as representing particle interchange, since we have to use the same braiding no matter WHAT we're commuting. It still makes sense to demand that exchanging twice is the identity, so this isn't a fundamental problem; we still get a symmetric monoidal category.
 
-        Actually, there is a silver lining: the fact that the braiding doesn't turn symmetric in 2d doesn't matter anymore.
+        Actually, there is a silver lining: the fact that the braiding doesn't turn symmetric in (2 + 1)-d doesn't matter anymore.
 
-      \item But none of this matters because the category of representations of a general (super)group isn't even a tensor category because infinite-dimensional representations don't dualize right. The category of finite-dimensional representations \emph{is} a tensor category, but that's not much help for the Poincar\'{e} group. So the prototypical example of what we're interested in isn't actually an example.
+      \item But none of this matters because the category of representations of a general (super)group isn't even a tensor category because $\mathsf{Hilb}$ isn't an abelian category. The category of finite-dimensional representations \emph{is} a tensor category, but that's not much help for the Poincar\'{e} group. So the prototypical example of what we're interested in isn't actually an example.
 
-        Maybe this is okay; after all, a LOT of stuff goes wrong when we use non-compact groups. 
+        Maybe this is okay; after all, a LOT of stuff goes wrong when we use non-compact groups. It'll make it a lot harder to sell, though.
+
+      \item I guess it's possible that there's something I'm not getting. Would it be appropriate to e-mail Urs or John to ask for clarification?
     \end{itemize}
 
   \item Probably the thing to do is to explicitly restrict our attention to finite-dimensional representations. This makes the scope of the project a lot less impressive, but at least it'll be rigorous.
