@@ -8164,9 +8164,14 @@ We might take this idea even further: given \emph{any} associative algebra $A$, 
 
   As always, $(\mathsf{C}, \otimes, 1)$ denotes at worst a plain old monoidal category and at best a tensor category. The case we really care about is when $\mathsf{C} = \mathsf{SVect}_{k}$.
 
+  The idea of this section is to generalize the correspondence 
+  \begin{equation*}
+    \left\{ \text{$C^{\infty}$ manifold $M$} \right\} \longleftrightarrow \left\{ \text{Algebra of functions $C^{\infty}(M) \in \mathsf{Alg}_{\R}$} \right\}
+  \end{equation*}
+
   First, we look at monoids internal to $\mathsf{C}$; these form a category called $\mathsf{Mon}(\mathsf{C})$, which has a full subcategory of commutative monoids $\mathsf{SMon}(\mathsf{C})$. When $\mathsf{C} = \mathsf{SVect}_{k}$, $\mathsf{CMon}(\mathsf{SVect}_{k})$ is nothing else but the category whose objects are supercommutative, associative $k$-superalgebras with unity, denoted $\mathsf{SCAlg}_{k}$.
 
-  The idea is to view the category of super-spaces as dual to $\mathsf{SCAlg}_{k}$. Thus, we call 
+  The idea is that we can view the category of $k$-super spaces as dual to $\mathsf{SCAlg}_{k}$. Thus, we call 
   \begin{equation*}
     \mathsf{CMon}(\mathsf{SVect}_{k})^{\mathrm{op}} \equiv \mathsf{Aff}(\mathsf{SVect}_{k}),
   \end{equation*}
@@ -8466,16 +8471,16 @@ The upshot of the past few theorems is the following.
     \left\{ \text{Vector bundles on $M$} \right\} \longleftrightarrow \left\{ \text{Finitely-generated projective $C^{\infty}(M)$-modules} \right\}.
   \end{equation*}
 
-  So far, our business has been to replace $C^{\infty}$-geometry with supergeometry. In doing so, we generalized the idea of a $C^{\infty}$-manifold, arriving at the definition of a so-called \emph{affine super-scheme} $\Spec(A)$ which is given by the dual of a supercommutative, associative $k$-superalgebra $A$.
+  So far, our business has been to replace $C^{\infty}$ geometry with supergeometry. In doing so, we generalized the idea of a $C^{\infty}$ manifold, arriving at the definition of a so-called \emph{affine super-scheme} $\Spec(A)$ which is given by the dual of a supercommutative, associative $k$-superalgebra $A$.
 
-  In this chapter, we saw that vector bundles over a manifold $M$ were dual to finitely-generated, projective $C^{\infty}(M)$ modules, which led us to the definition of a quasi-coherent sheaf over an affine super scheme $\Spec(A)$ via the correspondence
+  In this chapter, we saw that vector bundles over a manifold $M$ were dual to finitely-generated, projective $C^{\infty}(M)$ modules. This led to a more general notion of vector bundle, a so-called \emph{quasi-coherent sheaf} over an affine super scheme $\Spec(A)$, defined via the correspondence
   \begin{equation*}
     \left\{ \text{Quasi-coherent sheaves over an affine super scheme $\Spec(A)$} \right\} \longleftrightarrow \left\{ \text{$A$-modules internal to $\mathsf{SVect}_{k}$} \right\}.
   \end{equation*}
 \end{note}
 
 \section{Supergroups as supercommutative Hopf algebras}
-Central to Deligne's theorem is the idea of an affine algebraic super-group. Na\"{i}vely, this is simply an affine super scheme which is also a group. As usual, the way to formalize this is with internal objects.
+Central to Deligne's theorem is the idea of an affine algebraic super-group. These are simply defined as affine super schemes which are also groups. As usual, the way to formalize this is with internal objects.
 
 \begin{definition}[group object]
   \label{def:groupobject}
@@ -8504,7 +8509,7 @@ Central to Deligne's theorem is the idea of an affine algebraic super-group. Na\
         \end{tikzcd}
       \end{equation*}
 
-    \item the unit picks out the identity element, i.e. the following diagram commutes.
+    \item the unit picks out the `identity element,' i.e. the following diagram commutes.
       \begin{equation*}
         \begin{tikzcd}
           G
@@ -8542,7 +8547,21 @@ Central to Deligne's theorem is the idea of an affine algebraic super-group. Na\
         \end{tikzcd}
       \end{equation*}
 
-      Here, $\Delta\colon G \to G \times G$ is the diagonal map defined by the universal property of the product.
+      Here, $\Delta\colon G \to G \times G$ is the diagonal map defined by the universal property of the product
+      \begin{equation*}
+        \begin{tikzcd}
+          & G
+          \arrow[dr, "\mathrm{id}_{G}"]
+          \arrow[dl, swap, "\mathrm{id}_{G}"]
+          \arrow[d, "\Delta"]
+          \\
+          G 
+          & G \times G
+          \arrow[l, "\pi_{1}"]
+          \arrow[r, swap, "\pi_{2}"]
+          & G
+        \end{tikzcd}.
+      \end{equation*}
   \end{itemize}
 \end{definition} 
 
@@ -8565,7 +8584,7 @@ which induces on $\mathsf{SmoothAlg}_{\R}$ a `dual product'
 \begin{equation*}
   C^{\infty}(G) \to C^{\infty} (G) \otimes^{c} C^{\infty}(G).
 \end{equation*}
-Moreover, the images of the coherence diagrams for the group structure on $G$ under $C^{\infty}$ translate into dual coherence diagrams enforcing `co-associativity,' etc. This gives $C^{\infty}(G)$ the structure of a \emph{Hopf algebra}.
+Moreover, applying $C^{\infty}$ to the images of the coherence diagrams for the group structure on $G$ yields dual coherence diagrams enforcing `co-associativity,' etc. This gives $C^{\infty}(G)$ the structure of a \emph{Hopf algebra}.
 
 
 
@@ -8931,26 +8950,28 @@ Of course, having such a $\rho$ is nice, but quantum mechanics does not deal wit
 
 Pick one specific element $g \in G$. To this element there is associated a bijective ray map on $\mathscr{H}$. Obviously, we can mimic this bijective ray map with a function $\bar{U}(g)\colon \mathscr{H} \to \mathscr{H}$; we need only ensure that the vectors making up individual rays are mapped to the correct target rays. Equally obviously however, this does not specify $\bar{U}(g)$ uniquely; there are many possible ways of mixing the vectors composing the rays. We have some freedom to choose this mixing in as nice as possible a way.
 
-By a theorem of Wigner, we can get away with demanding that $\bar{U}(g)$ be additive and either
-\begin{itemize}
-  \item linear and unitary or
-  \item antilinear and antiunitary.
-\end{itemize}
-In doing so, we specify $\bar{U}(g)$ up to an arbitrary phase.
+It turns out, due to a theorem of Bargmann
 
-But we have many $\bar{U}(g)$---one for each element of $G$. The arbitrarity in the phases translates to a change in representation law for multiplication of the $\bar{U}(g)$; we now have 
-\begin{equation*}
-  \bar{U}(g) \bar{U}(g') = \eta(g, g')\bar{U}(gg')
-\end{equation*}
-where the phases $\eta$ are arbitrary.
-
-Many groups have the property that every group element $g$ can be written as a product of squares
-\begin{equation*}
-  g = (g_{1})^{2} (g_{2})^{2} \cdots (g_{n})^{2}.
-\end{equation*}
-Connected Lie groups are of this form, for example. In this case, we can eliminate the possibility that the representation could be anti-linear and anti-unitary, since the product of an even number of antiunitary operators is even.
-
-In fact, we can do even more. By another theorem of Wigner, we can use the phase factor $\eta$ to replace our unitary ray representation of $G$ by a bona fide unitary representation of its universal covering group $\bar{G}$.
+% By a theorem of Wigner, we can get away with demanding that $\bar{U}(g)$ be additive and either
+% \begin{itemize}
+%   \item linear and unitary or
+%   \item antilinear and antiunitary.
+% \end{itemize}
+% In doing so, we specify $\bar{U}(g)$ up to an arbitrary phase.
+% 
+% But we have many $\bar{U}(g)$---one for each element of $G$. The arbitrarity in the phases translates to a change in representation law for multiplication of the $\bar{U}(g)$; we now have 
+% \begin{equation*}
+%   \bar{U}(g) \bar{U}(g') = \eta(g, g')\bar{U}(gg')
+% \end{equation*}
+% where the phases $\eta$ are arbitrary.
+% 
+% Many groups have the property that every group element $g$ can be written as a product of squares
+% \begin{equation*}
+%   g = (g_{1})^{2} (g_{2})^{2} \cdots (g_{n})^{2}.
+% \end{equation*}
+% Connected Lie groups are of this form, for example. In this case, we can eliminate the possibility that the representation could be anti-linear and anti-unitary, since the product of an even number of antiunitary operators is even.
+% 
+% In fact, we can do even more. By another theorem of Wigner, we can use the phase factor $\eta$ to replace our unitary ray representation of $G$ by a bona fide unitary representation of its universal covering group $\bar{G}$.
 
 The moral of the story so far: the Hilbert space of any quantum mechanical theory which is invariant under a symmetry group $G$ must admit a linear representation of the covering group $\bar{G}$.
 
@@ -9026,41 +9047,21 @@ A morphisms $\mathscr{H}_{1} \to \mathscr{H}_{2}$ is given by a linear map $L\co
 \begin{equation*}
   L \rho_{1}(g) = \rho_{2}(g) L \qquad\text{for all }g \in \bar{G}.
 \end{equation*}
+These are known as \emph{intertwiners}.
 
-A note for the mathematically-inclined: the category we are working with is $\mathsf{Rep}(\bar{G})$, i.e. the functor category $\mathsf{Func}(\mathbf{B}\bar{G}, \mathsf{Vect}_{\C})$ (where $\mathbf{B}\bar{G}$ is the delooping groupoid of $\bar{G}$), i.e. the objects are functors $\mathbf{B}\bar{G} \to \mathsf{Vect}_{\C}$ and the morphisms are natural transformations. When 
+\begin{note}
+  For the mathematically-inclined: the symmetric monoidal category we are working with is $\mathsf{Rep}_{\mathsf{Hilb}_{\C}}(\bar{G})$, i.e. the functor category $\mathsf{Func}(\mathbf{B}\bar{G}, \mathsf{Hilb}_{\C})$ (where $\mathbf{B}\bar{G}$ is the delooping groupoid of $\bar{G}$ and $\mathsf{Hilb}_\mathsf{C}$ is the category whose objects are complex separable Hilbert spaces and whose morphisms are bounded linear maps). The objects in $\mathsf{Rep}_{\mathsf{Hilb}_{\C}}(\bar{G})$ are functors $\mathbf{B}\bar{G} \to \mathsf{Hilb}_{\C}$ and the morphisms are natural transformations between them. 
+
+  So far, this is all okay; however, contrary to what is claimed in \cite{nlab-deligne-theorem}, $\mathsf{Rep}_{\mathsf{Hilb}_{\C}}(\bar{G})$ cannot be made into a tensor category because it is not abelian. More specifically, 
+\end{note}
 
 \chapter{Questions}
 \begin{enumerate}
-  \item Let $M$ be a $C^{\infty}$ manifold. How much is known about the topology of 
-    \begin{equation*}
-      M^{n}/\Sigma_{n},
-    \end{equation*}
-    where $\Sigma_{n}$ is the $n$th symmetric group? Specifically, how many inequivalent $\C$-line bundles does it admit?
-
-  \item Looking to the future? What sort of project (if any) could I do with you next year? If not, do you know anywhere I \emph{could} do this sort of thing?
-
-  \item Irreducible means irreducible w.r.t. direct sums. We're talking about irreducible w.r.t. tensor products. What gives?
-
-    Elaboration: It is fine that we can factor every tensor product into direct sums, but then fundamental particles lose their interpretation as subsystems. This also seems off.
-
   \item For a general symmetry group, what happens to Wigner classification? Specifically, can we always (at least for a connected group) get a unitary representation by passing to some double cover?
 
   \item Everybody seems very cavalier about the difference between $G$ and $\bar{G}$. Why is this? Is it because they have the same Lie algebra?
 
-  \item More like a concern: there are rather a lot of finite-dimensionality assumptions that are glossed over in \cite{physicsforums-why-deligne}. Some things aren't adding up. More specifically:
-    \begin{itemize}
-      \item The article says that particle species, i.e. irreducible representations, form tensor categories. But if one tensors together irreps, one gets a composite system. So in order to be closed under the tensor product, the tensor category in question must be the category of \emph{all} representations, not just irreps. Okay, so Urs was being a little bit sloppy, but that's okay; so far so good.
-
-      \item But the symmetric braiding has to hold for everything in the tensor category, not just irreps. So we lose the interpretation of the braiding as representing particle interchange, since we have to use the same braiding no matter WHAT we're commuting. It still makes sense to demand that exchanging twice is the identity, so this isn't a fundamental problem; we still get a symmetric monoidal category.
-
-        Actually, there is a silver lining: the fact that the braiding doesn't turn symmetric in (2 + 1)-d doesn't matter anymore.
-
-      \item But none of this matters because the category of representations of a general (super)group isn't even a tensor category because $\mathsf{Hilb}$ isn't an abelian category. The category of finite-dimensional representations \emph{is} a tensor category, but that's not much help for the Poincar\'{e} group. So the prototypical example of what we're interested in isn't actually an example.
-
-        Maybe this is okay; after all, a LOT of stuff goes wrong when we use non-compact groups. It'll make it a lot harder to sell, though.
-
-      \item I guess it's possible that there's something I'm not getting. Would it be appropriate to e-mail Urs or John to ask for clarification?
-    \end{itemize}
+  \item Particle species are not just irreps, they are irreducible \emph{unitary} representations. This is glossed over a lot.
 
   \item Probably the thing to do is to explicitly restrict our attention to finite-dimensional representations. This makes the scope of the project a lot less impressive, but at least it'll be rigorous.
 \end{enumerate}
