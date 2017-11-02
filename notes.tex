@@ -8547,7 +8547,7 @@ Central to Deligne's theorem is the idea of an affine algebraic super-group. The
         \end{tikzcd}
       \end{equation*}
 
-      Here, $\Delta\colon G \to G \times G$ is the diagonal map defined by the universal property of the product
+      Here, $\Delta\colon G \to G \times G$ is the diagonal map defined uniquely by the universal property of the product
       \begin{equation*}
         \begin{tikzcd}
           & G
@@ -8586,8 +8586,8 @@ which induces on $\mathsf{SmoothAlg}_{\R}$ a `dual product'
 \end{equation*}
 Moreover, applying $C^{\infty}$ to the images of the coherence diagrams for the group structure on $G$ yields dual coherence diagrams enforcing `co-associativity,' etc. This gives $C^{\infty}(G)$ the structure of a \emph{Hopf algebra}.
 
-
-
+It seems to me that, probably, it would suffice to study the category theory of Hopf algebras. However, in the name of full generality, the nLab article \cite{nlab-deligne-theorem} does everything with \emph{Hopf algebroids}, and in for a penny, in for a pound.
+ 
 \chapter{Representations}
 We have already seen that categories can be used to re-phrase certain aspects of representation theory. (Recall examples \ref{eg:groupsaregroupoidswithoneobject}, \ref{eg:functorscanbegrouprepresentation}, and \ref{eg:intertwinersarenaturaltransformations}.) In this section we will take a more systematic approach.
 
@@ -9052,8 +9052,10 @@ These are known as \emph{intertwiners}.
 \begin{note}
   For the mathematically-inclined: the symmetric monoidal category we are working with is $\mathsf{Rep}_{\mathsf{Hilb}_{\C}}(\bar{G})$, i.e. the functor category $\mathsf{Func}(\mathbf{B}\bar{G}, \mathsf{Hilb}_{\C})$ (where $\mathbf{B}\bar{G}$ is the delooping groupoid of $\bar{G}$ and $\mathsf{Hilb}_\mathsf{C}$ is the category whose objects are complex separable Hilbert spaces and whose morphisms are bounded linear maps). The objects in $\mathsf{Rep}_{\mathsf{Hilb}_{\C}}(\bar{G})$ are functors $\mathbf{B}\bar{G} \to \mathsf{Hilb}_{\C}$ and the morphisms are natural transformations between them. 
 
-  So far, this is all okay; however, contrary to what is claimed in \cite{nlab-deligne-theorem}, $\mathsf{Rep}_{\mathsf{Hilb}_{\C}}(\bar{G})$ cannot be made into a tensor category because it is not abelian. More specifically, 
+  So far, this is all okay; however, contrary to what is claimed in \cite{nlab-deligne-theorem} and \cite{physicsforums-why-deligne}, $\mathsf{Rep}_{\mathsf{Hilb}_{\C}}(\bar{G})$ cannot be made into a tensor category because it is not abelian. More specifically, 
 \end{note}
+
+There are several subclasses of problems to which Deligne's theorem can be applied perfectly rigorously: those in which the representations involved are finite. For example, it says that the only allowed symmetries of a \emph{finite-dimensional} quantum system are given by algebraic super-groups, since the completeness requirement is satisfied trivially in finite dimensions.
 
 \chapter{Questions}
 \begin{enumerate}
@@ -9064,6 +9066,8 @@ These are known as \emph{intertwiners}.
   \item Particle species are not just irreps, they are irreducible \emph{unitary} representations. This is glossed over a lot.
 
   \item Probably the thing to do is to explicitly restrict our attention to finite-dimensional representations. This makes the scope of the project a lot less impressive, but at least it'll be rigorous.
+
+  \item Various questions about functional analysis: category of unitary representations (defined in a sort of an odd way) might be a tensor category?
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
