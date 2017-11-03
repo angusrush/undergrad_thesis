@@ -2287,7 +2287,7 @@ Astonishingly, we can talk about functional evaluation purely in terms of produc
 
 \begin{definition}[exponential]
   \label{def:exponential}
-  Let $\mathsf{C}$ be a category with products, $A$, $B \in \Obj(\mathsf{C})$. The \defn{exponential} of $A$ and $B$ is an object $B^{A} \in \Hom(\mathsf{C})$ together with a morphism $\varepsilon\colon B^{A} \times A \to B$, called the \emph{evaluation morphism}, which satisfies the following universal property.
+  Let $\mathsf{C}$ be a category with products, $A$, $B \in \Obj(\mathsf{C})$. The \defn{exponential} of $A$ and $B$ is an object $B^{A} \in \Obj(\mathsf{C})$ together with a morphism $\varepsilon\colon B^{A} \times A \to B$, called the \emph{evaluation morphism}, which satisfies the following universal property.
 
   \begin{quote}
     For any object $X \in \Obj(\mathsf{C})$ and morphism $f\colon X \times A \to B$, there exists a unique morphism $\bar{f}\colon X \to B^{A}$ which makes the following diagram commute.
@@ -2341,7 +2341,7 @@ Astonishingly, we can talk about functional evaluation purely in terms of produc
   \end{enumerate}
 \end{definition}
 
-Cartesian closed categories have many inveresting properties. For example, they replicate many properties of the integers: we have the following familiar formulae for any objects $A$, $B$, and $C$ in a Cartesian closed category.
+Cartesian closed categories have many inveresting properties. For example, they replicate many properties of the integers: we have the following familiar formulae for any objects $A$, $B$, and $C$ in a Cartesian closed category with coproducts $+$.
 \begin{enumerate} 
   \item $A \times (B + C) \simeq (A \times B) + (A \times C)$
   \item $C^{A + B} \simeq C^{A} \times C^{B}$.
@@ -2383,10 +2383,10 @@ We have to send this to a set-function $\Hom_{\mathsf{C}}(A', A) \to \Hom_{\math
   \begin{tikzcd}
     A' 
     \arrow[r, "f'"]
+    \arrow[d, swap, "m"]
     & B'
     \\
     A
-    \arrow[u, "m"]
     \arrow[r, "f"]
     & B
   \end{tikzcd}
@@ -2396,11 +2396,11 @@ Notice: we want to build from $m$, $f$, and $f'$ a morphism $B' \to B$. Suppose 
 \begin{equation*}
   \begin{tikzcd}
     A' 
+    \arrow[d, swap, "m"]
     & B'
     \arrow[l, swap, "f'"]
     \\
     A
-    \arrow[u, "m"]
     \arrow[r, "f"]
     & B
   \end{tikzcd}
@@ -2409,12 +2409,12 @@ Then we could get what we want simply by taking the composition $f \circ m \circ
 \begin{equation*}
   \begin{tikzcd}
     A' 
+    \arrow[d, swap, "m"]
     & B'
     \arrow[l, swap, "f'"]
     \arrow[d, "f \circ m \circ f'"]
     \\
     A
-    \arrow[u, "m"]
     \arrow[r, "f"]
     & B
   \end{tikzcd}
@@ -2676,7 +2676,7 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
 
 \begin{definition}[Yoneda embedding]
   \label{def:yonedaembedding}
-  Let $\mathsf{C}$, $\mathsf{D}$ be locally small categories. The \defn{Yoneda embedding} is the functor
+  Let $\mathsf{C}$ be a locally small category. The \defn{Yoneda embedding} is the functor
   \begin{equation*}
     \mathcal{Y}\colon \mathsf{C} \rightsquigarrow [\mathsf{C}^{\mathrm{op}}, \mathsf{Set}], \qquad A \mapsto Y_{A} = \Hom_{\mathsf{C}}(-, A).
   \end{equation*}
@@ -2958,16 +2958,16 @@ One thinks of the functor $\mathcal{D}$ embedding the index category $\textsf{J}
     \varepsilon\colon \mathcal{F}_{X} \circ \mathcal{K} \Rightarrow \mathcal{D}.
   \end{equation*}
 
-  That is to say, a cone to $\mathsf{J}$ is an object $X \in \Obj(\mathsf{C})$ together with a family of morphisms $\Phi_{A}\colon X \to \mathcal{F}(A)$ (one for each $A \in \Obj(\mathsf{J})$) such that for all $A$, $B \in \Obj(\mathsf{J})$ and all $f\colon A \to B$ the following diagram commutes.
+  That is to say, a cone to $\mathsf{J}$ is an object $X \in \Obj(\mathsf{C})$ together with a family of morphisms $\Phi_{A}\colon X \to \mathcal{D}(A)$ (one for each $A \in \Obj(\mathsf{J})$) such that for all $A$, $B \in \Obj(\mathsf{J})$ and all $f\colon A \to B$ the following diagram commutes.
   \begin{equation*}
     \begin{tikzcd}[column sep=tiny]
       & X
       \arrow[dl, swap, "\Phi_{A}"]
       \arrow[dr, "\Phi_{B}"]
       \\
-      \mathcal{F}(A)
-      \arrow[rr, "\mathcal{F}(f)"]
-      & & \mathcal{F}(B)
+      \mathcal{D}(A)
+      \arrow[rr, "\mathcal{D}(f)"]
+      & & \mathcal{D}(B)
     \end{tikzcd}
   \end{equation*}
 \end{definition}
