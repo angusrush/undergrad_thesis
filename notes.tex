@@ -132,6 +132,47 @@ Almost none of the material is original, including the order of presentation, wh
 
 The fact that it's just a collection of notes means that it assumes as background more or less exactly what I knew before I started (although I have made some effort to keep it self-contained). This means that it probably won't be very useful to anyone other than me.
 
+\chapter{The Mackey machine}
+The \emph{Mackey machine} is another name for the so-called \emph{method of induced representations} developed by George Mackey in \cite{mackey-induced-representations}. 
+
+\textbf{The cast of characters:}
+\begin{itemize}
+  \item $G$: The heroine. A topological group which is Hausdorff, separable, and locally compact.
+
+  \item $S$: $G$'s right-hand man. $S$ is a a topological space. When $S$ is united with his friends $\mathcal{B}$ and $\mu$, he grows stronger, becoming a \emph{measure space}. In this heightened state he admits a measurable right $G$-action, i.e. a map 
+    \begin{equation*}
+      S \times G \to S;\qquad (s, g) \mapsto sg.
+    \end{equation*}
+    which is measurable for any fixed $g \in G$.
+    
+
+  \item $\mathcal{B}$: The Borel $\sigma$-algebra on $S$.
+
+  \item $\mu$: A measure on $S$ which is \emph{$G$-invariant} in the sense that 
+    \begin{equation*}
+      \mu(Eg) = \mu(E)
+    \end{equation*}
+    for any set $E \subseteq S$.
+
+  \item $\mathscr{H}$: The separable Hilbert space of complex-valued, Borel-measurable, square-integrable functions on $S$. $\mathscr{H}$'s full name is $\mathscr{L}^{2}(S, \mu)$.
+\end{itemize}
+
+Any $g \in G$ defines an operator $U_{g}$ on $\mathscr{H}$ as follows:
+\begin{equation*}
+  U_{g}(f)(s) = f(sg).
+\end{equation*}
+
+\begin{theorem}
+  The operators $U_{g}$ defined in this way have the following properties.
+  \begin{enumerate}
+    \item $U(g)$ is unitary for all $g \in G$
+
+    \item $U(g) U(h) = U(gh)$.
+
+    \item The assignment $g \mapsto U_{g}$ is continuous.
+  \end{enumerate}
+\end{theorem}
+
 \chapter{Algebra}
 
 In this chapter we collect some basic definitions and corollaries so that we may refer to them later. The methods of proof are often non-standard, as we prefer to provide proofs whose methods lend themselves to categorification.
@@ -3776,13 +3817,6 @@ Filtered categories are a generalization of filtered preorders.
   \end{itemize}
 \end{definition}
 
-\begin{theorem}
-  Filtered categories have all finite coproducts.
-\end{theorem}
-\begin{proof}
-  
-\end{proof}
-
 \begin{definition}[filtered colimit]
   \label{def:filteredcolimit}
   A \defn{filtered colimit} is a colimit over a diagram $\mathcal{D}\colon \mathsf{J} \to \mathsf{C}$, where $\mathsf{J}$ is a filtered category.
@@ -3814,7 +3848,7 @@ The importance of the category of ind-objects can be seen in the following examp
   In fact, there is an equivalence of categories $\mathsf{Vect}_{k} \simeq \mathsf{Ind}(\mathsf{FinVect}_{k})$. Similarly, there is an equivalence of categories $\mathsf{SVect}_{k} \simeq \mathsf{Ind}(\mathsf{FinSVect}_{k})$
 \end{example}
 \begin{note}
-  This is stated without proof as Example 3.39 of \cite{nlab-deligne-theorem}.
+  This is stated without proof as Example 3.39 of \cite{nlab-deligne-theorem}. I haven't been able to find a real source for it.
 \end{note}
 
 \section{Adjunctions} \label{sec:adjunctions}
@@ -5304,24 +5338,35 @@ Recall that $\mathsf{Ab}$ is the category of abelian groups (\hyperref[def:abeli
   \end{enumerate}
 \end{definition}
 
-Already in any $\mathsf{Ab}$-enriched category we can make the following definition.
 \begin{definition}[endomorphism ring]
   \label{def:endomorphismring}
   Let $\mathsf{C}$ be an $\mathsf{Ab}$-enriched category, and let $A \in \Obj(\mathsf{C})$. The \defn{endomorphism ring} of $A$, denoted $\mathrm{End}(A)$, is $\Hom_{\mathsf{C}}(A, A)$, with addition given by the abelian structure and multiplication given by composition.
 \end{definition}
 
-\begin{definition}[additive category]
-  \label{def:additivecategory}
-  A category $\mathsf{C}$ is \defn{additive} if it has (\hyperref[def:categorywithbiproducts]{Definition \ref*{def:categorywithbiproducts}}) and is $\mathsf{Ab}$-enriched.
-\end{definition}
+\begin{note}
+  \label{note:inabenrichedcategorynoemptyhomsets}
+  In any $\mathsf{Ab}$-enriched category, every hom-set has at least one element---the identity element of the hom-set taken as an abelian group.
+\end{note}
 
 \begin{lemma}
   \label{lemma:abeliancategorycoproductsareproducts}
   In an $\mathsf{Ab}$-enriched category $\mathsf{C}$, a finite product is also a coproduct, and vice versa. In particular, initial objects and terminal objects coincide.
 \end{lemma}
 \begin{proof}
-  First, we show that initial and terminal objects coincide. Let $\emptyset$ be initial and $*$ terminal in $\mathsf{C}$. Since $\Hom_{\mathsf{C}}(\emptyset, \emptyset)$ has only one element, it must be both the identity morphism on $\emptyset$ \emph{and} the identity element of $\Hom_{\mathsf{C}}(\emptyset, \emptyset)$ as an abelian group. Similarly, $1_{*}$ must be the identity element of $\Hom_{\mathsf{C}}(*, *)$.
+  %First, we show that initial and terminal objects coincide. Let $\emptyset$ be initial and $*$ terminal in $\mathsf{C}$. 
+  %
+  %Since $\Hom_{\mathsf{C}}(\emptyset, \emptyset)$ has only one element, it must be both the identity morphism on $\emptyset$ \emph{and} the identity element of $\Hom_{\mathsf{C}}(\emptyset, \emptyset)$ as an abelian group. Similarly, $1_{*}$ must be the identity element of $\Hom_{\mathsf{C}}(*, *)$.
+
+  %Since $\emptyset$ is initial and $*$ is final, $\Hom_{\mathsf{C}}(\emptyset, *)$ has exactly one element $f$. By \hyperref[note:inabenrichedcategorynoemptyhomsets]{Note \ref*{note:inabenrichedcategorynoemptyhomsets}}, we are guaranteed that $\Hom_{\mathsf{C}}(*, \emptyset)$ has at least one element.
+
+  See \cite{nlab-additive-category}, Proposition 2.1 for details.
 \end{proof}
+
+\begin{definition}[additive category]
+  \label{def:additivecategory}
+  A category $\mathsf{C}$ is \defn{additive} if it has biproducts (\hyperref[def:categorywithbiproducts]{Definition \ref*{def:categorywithbiproducts}}) and is $\mathsf{Ab}$-enriched.
+\end{definition}
+
 
 \begin{example}
   The category $\mathsf{Ab}$ of Abelian groups is an additive category. We have already seen that it has the direct sum $\oplus$ as biproduct. Given any two abelian groups $A$ and $B$ and morphisms $f$, $g\colon A \to B$, we can define the sum $f + g$ via
@@ -5886,7 +5931,7 @@ For the remainder of the section, let $\mathsf{C}$ be an abelian category.
 \end{proof}
 
 \begin{note}
-  The above theorem is actually an equivalent definition of an abelian category, but the proof of equivalence is far from trivial.
+  The above theorem is actually an equivalent definition of an abelian category, but the proof of equivalence is far from trivial. See e.g. \cite{freyd-abelian-categories} for details.
 \end{note}
 
 \begin{definition}[subobject, quotient object, subquotient object]
@@ -6124,7 +6169,7 @@ This definition has some immediate trivial consequences.
 \end{definition}
 
 \begin{example}
-  In $\mathsf{Vect}_{k}$, all finite-dimensional vector spaces are simple.
+  In $\mathsf{Vect}_{k}$, all finite-dimensional vector spaces are semisimple.
 \end{example}
 
 \begin{definition}[semisimple category]
@@ -6148,6 +6193,7 @@ This definition has some immediate trivial consequences.
 The importance of Jordan-H{\"o}lder series is the following.
 
 \begin{theorem}[Jordan-H{\"o}lder]
+  \label{thm:jordanholdertheorem}
   Let $X_{i}$ and $Y_{i}$ be two Jordan-H{\"o}lder series for some object $X \in \Obj(\mathsf{C})$. Then the length of $X_{i}$ is equal to the length of $Y_{i}$, and the objects $Y_{i}/Y_{i-1}$ are a reordering of $X_{i}/X_{i-1}$.
 \end{theorem}
 \begin{proof}
@@ -6156,7 +6202,7 @@ The importance of Jordan-H{\"o}lder series is the following.
 
 \begin{definition}[length]
   \label{def:length}
-  The \defn{length} of an object $X$ is defined to be the length of its Jordan-H{\"o}lder series.
+  The \defn{length} of an object $X$ is defined to be the length of any of its Jordan-H{\"o}lder series. This is well-defined by \hyperref[thm:jordanholdertheorem]{Theorem \ref*{thm:jordanholdertheorem}}.
 \end{definition}
 
 
@@ -6195,7 +6241,7 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
   \label{def:finitetensorcategory}
   A $k$-tensor category $\mathsf{A}$ is called \defn{finite} (over $k$) if 
   \begin{enumerate}
-    \item There are only finitely many simple objects in $\mathsf{A}$, and each of them admits a projective presentation.\footnote{The definition of this is a bit tricky, and I don't understand it. However, it's satisfied trivially by pretty much every `obviously finite' category we'll look at.}
+    \item There are only finitely many simple objects in $\mathsf{A}$, and each of them admits a projective presentation.\footnote{The definition of this is a bit tricky, and I don't understand it. It is meant to generalize the notion of a projective module (\hyperref[def:projectivemodule]{Definition \ref*{def:projectivemodule}}). However, it's satisfied trivially by pretty much every `obviously finite' category we'll look at.}
 
     \item Each object $A$ of $\mathsf{A}$ is of finite length.
 
@@ -8586,24 +8632,43 @@ which induces on $\mathsf{SmoothAlg}_{\R}$ a `dual product'
 \end{equation*}
 Moreover, applying $C^{\infty}$ to the images of the coherence diagrams for the group structure on $G$ yields dual coherence diagrams enforcing `co-associativity,' etc. This gives $C^{\infty}(G)$ the structure of a \emph{Hopf algebra}.
 
-It seems to me that, probably, it would suffice to study the category theory of Hopf algebras. However, in the name of full generality, the nLab article \cite{nlab-deligne-theorem} does everything with \emph{Hopf algebroids}, and in for a penny, in for a pound.
+Probably it would suffice to study the category theory of Hopf algebras. However, in the name of full generality, the nLab article \cite{nlab-deligne-theorem} does everything with \emph{Hopf algebroids}, and so will I---in for a penny, in for a pound, after all.
+
+\begin{definition}[commutative Hopf algebroid]
+  \label{def:commutativehopfalgebroid}
+  Let $(\mathscr{A}, \otimes, 1)$ be a tensor category. 
+\end{definition}
  
 \chapter{Representations}
 We have already seen that categories can be used to re-phrase certain aspects of representation theory. (Recall examples \ref{eg:groupsaregroupoidswithoneobject}, \ref{eg:functorscanbegrouprepresentation}, and \ref{eg:intertwinersarenaturaltransformations}.) In this section we will take a more systematic approach.
 
 \begin{definition}
   \label{def:categoryofrepresentations}
-  Let $G$ be a group, $\mathsf{G}$ the group which mimics it\footnote{For those playing along at home, this is the \emph{delooping} of $G$, usually notated by $\mathbb{B}G$.} (as in \hyperref[eg:groupsaregroupoidswithoneobject]{Example \ref*{eg:groupsaregroupoidswithoneobject}}). Recall that functors $\rho\colon \mathsf{G} \rightsquigarrow \mathsf{Vect}_{k}$ are $k$-linear representations of $G$ (\hyperref[eg:functorscanbegrouprepresentation]{Example \ref*{eg:functorscanbegrouprepresentation}}).
+  Let $G$ be a group, $\mathsf{G}$ the group which mimics it\footnote{For those playing along at home, this is the \emph{delooping} of $G$, usually notated by $\mathbf{B}G$.} (as in \hyperref[eg:groupsaregroupoidswithoneobject]{Example \ref*{eg:groupsaregroupoidswithoneobject}}). Recall that functors $\rho\colon \mathsf{G} \rightsquigarrow \mathsf{Vect}_{k}$ are $k$-linear representations of $G$ (\hyperref[eg:functorscanbegrouprepresentation]{Example \ref*{eg:functorscanbegrouprepresentation}}).
 
   Denote by $\mathsf{Rep}(G)$ the functor category $\Hom_{\mathsf{Cat}}(\mathsf{G}, \mathsf{Vect}_{k})$.
 \end{definition}
 
 \section{Linear super-representations as Comodules}
 \section{Super fiber functors and their automorphism groups}
-We would like to view tensor categories $\mathcal{A}$ as categories of representations. Thus, we would like to be able to view the objects of $\mathcal{A}$ as being the objects of some other category $\mathcal{V}$, plus some extra structure. Thus, there should be a forgetful functor
+We would like to view tensor categories $\mathcal{A}$ as categories of representations. Thus, we would like to be able to view the objects of $\mathcal{A}$ as being the objects of some other category $\mathcal{V}$, plus some extra structure. The extra structure should be extra in the sense that it is forgettable, so there should be a forgetful functor
 \begin{equation*}
   \omega\colon \mathcal{A} \rightarrow \mathcal{V}.
 \end{equation*}
+For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \mathsf{FinVect}_{k})$ of finite-dimensional $k$-linear representations of $G$ has as its objects pairs $(\rho, V)$, where $V$ is a vector space and $\rho$ is a homomorphism $G \to \mathrm{Aut}(V)$. There is an obvious forgetful functor $\mathsf{FinRep}_{k}(G) \to \mathsf{FinVect}_{k}$ which sends $(\rho, V) \to V$. Note that this functor is not `maximally forgetful' in the sense that it retains some of its structure. Thus it is wise to demand that such a functor retain a reasonable amount of structure. In our case, it should be a braided (\hyperref[def:braidedmonoidalfunctor]{Definition \ref*{def:braidedmonoidalfunctor}}) strong monoidal functor (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}}).
+
+\begin{definition}[fiber functor]
+  \label{def:fiberfunctor}
+  Let $\mathcal{A}$ and $\mathcal{T}$ be two $k$-tensor categories. Suppose that both $\mathcal{S}$ and $\mathcal{T}$ satisfy the following criteria.
+  \begin{enumerate}
+    \item All objects are of finite length.
+
+    \item All of the hom-spaces are finite-dimensional as $k$-vector spaces.
+  \end{enumerate}
+
+  Let $R \in \mathsf{CMon}(\mathsf{Ind}(\mathcal{T}))$.
+\end{definition}
+
 
 \section{Super-exterior powers and Schur functors}
 
@@ -8860,9 +8925,9 @@ And, no matter what, these particles will transform linearly with this group.
 \section{Feynman diagrams: representations and intertwiners}
 The ideas in this section were taken from \cite{baez-lauda-prehistory}.
 
-In high-energy physics, one is generally interested in computing quantities known as scattering amplitudes. One imagines a collection of particles headed for each other, some time before a collision, and asks the question: long after the collision has occured, when the particles created in the collision are flying away from each other, what is the probability that one has ended up with some given collection of particles. 
+In high-energy physics, one is generally interested in computing quantities known as scattering amplitudes. One imagines a collection of particles headed for each other, some time before a collision, and asks the question: long after the collision has occured, when the particles created in the collision are flying away from each other, what is the probability that one has ended up with some given collection of particles? 
 
-For any interesting or physically realistic theory (i.e. one with interactions), scattering amplitudes are fiendishly difficult to compute; in general one must resort to expressing them as an asymptotic series, the terms of which are pictured diagrammatically. 
+For any interesting or physically realistic theory (i.e. one with interactions), scattering amplitudes are fiendishly difficult to compute; in general one must resort to expressing them as an asymptotic series. Physicists have come up with a lot of tricks to make computing these more routine, such as representing the terms diagrammatically as \emph{Feynman diagrams}.
 
 Here's how this works. Let's imagine for simplicity that we want to compute a particularly simple scattering amplitude: an electron and a photon go in, an electron goes out. Or to put it another way, an electron absorbs a photon.
 
@@ -8941,7 +9006,7 @@ where $\sim$ should be read as `is physically indistinguishable from.'
 
 Therefore, we should think about two states which differ only by a nonzero complex factor as being physically equivalent. That is, the true space of states of our quantum system is not $\mathscr{H}$, but $\mathscr{H} / \sim$, \emph{projective Hilbert space}. Physically inequivalent quantum states are in one-to-one correspondence to the equivalence classes in $\mathscr{H}/\sim$.
 
-Now suppose we want our quantum theory to have symmetry given by some group $G$. Pick any ray $[\psi_{0}] \in \mathscr{H}/\sim$. For any group element $g \in G$, there should be another state (i.e. ray) $[\psi]_{g}$, which corresponds to the result of acting on the system with $g$. Furthermore, we want the result of acting on $[\psi_{0}]$ with a sequence of group elements to be the same no matter how we imagine them to be bracketed. Mathematically, this means that if we are to consider a quantum theory which is $G$-symmetric, we want a Hilbert space $\mathscr{H}$ which admits an injective homomorphism
+Now suppose we want our quantum theory to have a symmetry given by some group $G$. Pick any ray $[\psi_{0}] \in \mathscr{H}/\sim$. For any group element $g \in G$, there should be another state (i.e. ray) $[\psi]_{g}$, which corresponds to the result of acting on the system with $g$. Furthermore, we want the result of acting on $[\psi_{0}]$ with a sequence of group elements to be the same no matter how we imagine them to be bracketed. Mathematically, this means that if we are to consider a quantum theory which is $G$-symmetric, we want a Hilbert space $\mathscr{H}$ which admits an injective homomorphism
 \begin{equation*}
   \rho\colon G \hookrightarrow \mathrm{Aut}(\mathscr{H}/\sim).
 \end{equation*}
@@ -8950,7 +9015,7 @@ Of course, having such a $\rho$ is nice, but quantum mechanics does not deal wit
 
 Pick one specific element $g \in G$. To this element there is associated a bijective ray map on $\mathscr{H}$. Obviously, we can mimic this bijective ray map with a function $\bar{U}(g)\colon \mathscr{H} \to \mathscr{H}$; we need only ensure that the vectors making up individual rays are mapped to the correct target rays. Equally obviously however, this does not specify $\bar{U}(g)$ uniquely; there are many possible ways of mixing the vectors composing the rays. We have some freedom to choose this mixing in as nice as possible a way.
 
-It turns out, due to a theorem of Bargmann
+It turns out, due to a theorem of Bargmann {\color{red}FINISH THIS}
 
 % By a theorem of Wigner, we can get away with demanding that $\bar{U}(g)$ be additive and either
 % \begin{itemize}
@@ -8975,7 +9040,7 @@ It turns out, due to a theorem of Bargmann
 
 The moral of the story so far: the Hilbert space of any quantum mechanical theory which is invariant under a symmetry group $G$ must admit a linear representation of the covering group $\bar{G}$.
 
-Perhaps now is a good time to make the following remark. If we wish to view two quantum systems with Hilbert spaces $\mathscr{H}_{1}$ and $\mathscr{H}_{2}$ as a single composite system, the Hilbert space we consider is $\mathscr{H}_{1} \otimes \mathscr{H}_{2}$. That is to say, composite systems are the tensor product of their constituents. And the composite system's representation of $\bar{G}$ is given by the tensor product of the representations of its constituents.
+Perhaps now is a good time to make the following remark. If we wish to view two quantum systems with Hilbert spaces $\mathscr{H}_{1}$ and $\mathscr{H}_{2}$ as a single composite system, the Hilbert space we consider is $\mathscr{H}_{1} \otimes \mathscr{H}_{2}$. That is to say, composite systems are the tensor product of their constituents. And the representation carried by the composite system representation of $\bar{G}$ is given by the tensor product of the representations of its constituents.
 
 This would seem to imply that given a $G$-invariant quantum system and its associated representation of $\bar{G}$, we could break it and its representation down into smaller and smaller subsystems, until we hit `atomic' subsystems whose representations were irreducible, i.e. could not be broken down any further. The resulting atomic representations would be the building blocks of our original system. 
 
@@ -9035,7 +9100,7 @@ We can, however, say more.
 
     This means that we are dealing with a \textbf{rigid symmetric monoidal category}.
 \end{enumerate}
-Aficianados of category theory will notice that we have not yet said anything about what is arguably the most important aspect of a category: the morphisms.\footnote{Morphisms are a category-theoretic generalization of the idea of a function. Just as between any two sets $A$ and $B$ one has a collection of functions $A \to B$, between any two objects in a category one has a collection of morphisms $A \to B$.}
+Aficionados of category theory will notice that we have not yet said anything about what is arguably the most important aspect of a category: the morphisms.\footnote{Morphisms are a category-theoretic generalization of the idea of a function. Just as between any two sets $A$ and $B$ one has a collection of functions $A \to B$, between any two objects in a category one has a collection of morphisms $A \to B$.}
 
 The objects in our category are built from tensor products of Hilbert spaces of fundamental particle species, understood as carrying the tensor product representation of their constituents. For concreteness, we can take two objects 
 \begin{equation*}
@@ -9067,153 +9132,167 @@ There are several subclasses of problems to which Deligne's theorem can be appli
 
   \item Probably the thing to do is to explicitly restrict our attention to finite-dimensional representations. This makes the scope of the project a lot less impressive, but at least it'll be rigorous.
 
-  \item Various questions about functional analysis: category of unitary representations (defined in a sort of an odd way) might be a tensor category?
+  \item Various questions about functional analysis: category of unitary representations (defined in a sort of an odd way) might be a tensor category? When EXACTLY does an (algebraic) group admit a finite-dimensional representation?
+
+  \item How does the Mackey machine work, exactly? Urs seems to think that one can apply Deligne's theorem to the little group, but it seems to me that one couldn't do this unless one already knew that the it was finite.
+  \item Ask Vladimir about a source for ind-object stuff.
 \end{enumerate}
 \begin{thebibliography}{9}
-  \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
+    \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
     \textit{Spin Geometry}.
     Princeton University Press, Princeton, NJ, 1989.
 
-  \bibitem{vakil-rising-sea} R. Vakil,
+    \bibitem{vakil-rising-sea} R. Vakil,
     \textit{The Rising Sea}.
     \url{http://www.math216.wordpress.com/}
 
-  \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
+    \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
     \textit{Principal Bundles: The Classical Case}.
     Springer International Publishing, Switzerland, 2015.
 
-  \bibitem{hungerford-algebra} T. Hungerford.
+    \bibitem{hungerford-algebra} T. Hungerford.
     \textit{Algebra}.
     Springer-Verlag New York, NY, 1974.
 
-  \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
+    \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
     \textit{PG Course on Spin Geometry}.
     \url{https://empg.maths.ed.ac.uk/Activities/Spin/}
 
-  \bibitem{quantum-fields-and-strings} P. Deligne et al.
+    \bibitem{quantum-fields-and-strings} P. Deligne et al.
     \textit{Quantum Fields and Strings: a Course for Mathematicians}.
     American Mathematical Society, 1999.
 
-  \bibitem{susy-for-mathematicians} V. S. Varadarajan.
+    \bibitem{susy-for-mathematicians} V. S. Varadarajan.
     \textit{Supersymmetry for Mathematicans: An Introduction}.
     American Mathematical Society, 2004.
 
-  \bibitem{catsters} The Catsters.
+    \bibitem{catsters} The Catsters.
     \url{https://www.youtube.com/channel/UC5Y9H2KDRHZZTWZJtlH4VbA}
 
-  \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
+    \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
     \textit{Noncommutative Geometry, Quantum Fields and Motives}.
     \url{http://www.alainconnes.org/docs/bookwebfinal.pdf}
 
-  \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
+    \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
     \textit{Algebra: Chapter 0}.
     American Mathematical Society, 2009.
 
-  \bibitem{nlab-deligne-theorem} 
+    \bibitem{nlab-deligne-theorem} 
     \textit{Nlab---Deligne's Theorem on Tensor Categories}.
     \url{https://ncatlab.org/nlab/show/Deligne's+theorem+on+tensor+categories}
 
-  \bibitem{baez-this-weeks-finds-137} J. Baez.
+    \bibitem{baez-this-weeks-finds-137} J. Baez.
     \textit{This Week's Finds in Mathematical Physics (Week 137)}.
     \url{http://math.ucr.edu/home/baez/week137.html}
 
-  \bibitem{baez-definitions-everyone-should-know} J. Baez.
+    \bibitem{baez-definitions-everyone-should-know} J. Baez.
     \textit{Some Definitions Everyone Should Know}.
     \url{http://math.ucr.edu/home/baez/qg-fall2004/definitions.pdf}
 
-  \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
+    \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
     \textit{The Unapologetic Mathematician: Mac Lane's Coherence Theorem}.
     \url{https://unapologetic.wordpress.com/2007/06/29/mac-lanes-coherence-theorem/}
 
-  \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
+    \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
     \textit{Topological Transformation Groups}.
     University of Chicago Press, Chicago, 1955.
 
-  \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
+    \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
     \textit{Hodge Cycles, Motives, and Shimura Varieties}.
     Springer Verlag, 1982
 
-  \bibitem{maclane-categories} S. Mac Lane.
+    \bibitem{maclane-categories} S. Mac Lane.
     \textit{Categories for the Working Mathematician}.
     Springer-Verlag New York, New York, 1998.
 
-  \bibitem{baez-higher-categories} J. Baez. 
+    \bibitem{baez-higher-categories} J. Baez. 
     \textit{An introduction to $n$-Categories}.
     \url{https://arxiv.org/pdf/q-alg/9705009.pdf}
 
-  \bibitem{baez-categories-usenet} 
+    \bibitem{baez-categories-usenet} 
     \url{https://groups.google.com/forum/#!topic/sci.math/7LqPFfmWGOA}
 
-  \bibitem{nlab} 
+    \bibitem{nlab} 
     \url{https://www.ncatlab.org/}
 
-  \bibitem{wikipedia-product} 
+    \bibitem{wikipedia-product} 
     \textit{Wikipedia - Product (Category Theory)}.
     \url{https://en.wikipedia.org/wiki/Product\_(category\_theory)}
 
-  \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
+    \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
     \textit{Tensor Categories}.
     American Mathematical Society, 2015.
 
-  \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
+    \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
     \textit{Lecture Notes: Introduction to Categorical Logic}
 
-  \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
+    \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
     \textit{Category Theory Foundations}.
     \url{https://www.youtube.com/watch?v=BF6kHD1DAeU&index=1&list=PLGCr8P\_YncjVjwAxrifKgcQYtbZ3zuPlb}
 
-  \bibitem{awodey-category-theory} S. Awodey.
+    \bibitem{awodey-category-theory} S. Awodey.
     \textit{Category Theory}.
     Oxford University Press, 2006.
 
-  \bibitem{haag-local-quantum-physics} R. Haag.
+    \bibitem{haag-local-quantum-physics} R. Haag.
     \textit{Local Quantum Physics: Fields, Particles, Algebras}.
     Springer-Verlag Berlin Heidelberg New York, 1996
 
-  \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
+    \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
     \textit{Relativity, Groups, Particles: Special Relativity and Relativistic Symmetry in Field and Particle Physics}.
     Springer-Verlag Wein, 1992
 
-  \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
+    \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
     \textit{Supersymmetry and Supergravity}.
     Princeton University Press, Princeton NJ, 1992
 
-  \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
+    \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
     \textit{Introduction to Supersymmetry (Second edition)}.
     World Scientific, 2010.
 
-  \bibitem{deligne-categories-tensorielle} Pierre Deligne.
+    \bibitem{deligne-categories-tensorielle} Pierre Deligne.
     \textit{Cat{\'e}gories Tensorielle},
     Moscow Math. Journal 2 (2002) no. 2, 227-228
     \url{https://www.math.ias.edu/files/deligne/Tensorielles.pdf}
 
-  \bibitem{KMS-natural-operations-differential-geometry} I. Kol\'{a}\v{r}, P. Michor, and J. Slov\'{a}k.
+    \bibitem{KMS-natural-operations-differential-geometry} I. Kol\'{a}\v{r}, P. Michor, and J. Slov\'{a}k.
     \textit{Natural Operations in Differential Geometry}.
     Springer-Verlag, Berlin Heidelberg, 1993.
 
-  \bibitem{hartshorne-algebraic-geometry} R. Hartshorne.
+    \bibitem{hartshorne-algebraic-geometry} R. Hartshorne.
     \textit{Algebraic Geometry}.
     Springer-Verlag, New York, 1977.
 
-  \bibitem{annoying-precision-meditation} Q. Yuan.
+    \bibitem{annoying-precision-meditation} Q. Yuan.
     \textit{Annoying Precision: A neditation on semiadditive categories}.
     \url{https://qchu.wordpress.com/2012/09/14/a-meditation-on-semiadditive-categories/}
 
-  \bibitem{nestruev-smooth-manifolds-observables} J. Nestruev.
+    \bibitem{nestruev-smooth-manifolds-observables} J. Nestruev.
     \textit{Smooth Monifolds and Observables}.
     Springer-Verlag, New York, 2002.
 
-  \bibitem{baez-lauda-prehistory} J. Baez and A. Lauda. 
+    \bibitem{baez-lauda-prehistory} J. Baez and A. Lauda. 
     \textit{A prehistory of $n$-categorical physics}.
     \url{https://arxiv.org/pdf/0908.2469.pdf}
 
 
-  \bibitem{neumaier} A. Neumaier.
+    \bibitem{neumaier} A. Neumaier.
     \textit{Elementary particles as irreducible representations}.
     \url{https://www.physicsoverflow.org/21960}.
 
-  \bibitem{physicsforums-why-deligne} U. Schreiber.
+    \bibitem{physicsforums-why-deligne} U. Schreiber.
     \textit{Why Supersymmetry? Because of Deligne's theorem}
     \url{https://www.physicsforums.com/insights/supersymmetry-delignes-theorem/}
+
+    \bibitem{mackey-induced-representations} G. W. Mackey.
+    \textit{Induced representations}.
+    W.A. Benjamin, Inc., and Editore Boringhieri, New York, 1968.
+
+    \bibitem{nlab-additive-category} nLab: Additive category.
+    \url{https://ncatlab.org/nlab/show/additive+category#ProductsAreBiproducts}
+
+    \bibitem{freyd-abelian-categories} P. Freyd.
+    \textit{Abelian Categories}
+    Harper and Row, New York, 1964.
 \end{thebibliography}
 \end{document}
