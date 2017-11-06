@@ -6322,6 +6322,296 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
   Stated without proof as Proposition 3.38 in \cite{nlab-deligne-theorem}.
 \end{proof}
 
+\section{Internal objects}
+\subsection{Internal groups}
+\begin{definition}[group object]
+  \label{def:groupobject}
+  Let $\mathsf{C}$ be a category with binary products $\times$ and a terminal object $*$. A \defn{group object} in $\mathsf{C}$ (or a \emph{group internal to $\mathsf{C}$}) is an object $G \in \Obj(\mathsf{C})$ together with 
+  \begin{itemize}
+    \item a map $1\colon * \to G$, called the \emph{unit map};
+
+    \item a map $(-)^{-1}\colon G \to G$, called the \emph{inverse map}; and
+
+    \item a map $m\colon G \times G \to G$, called the \emph{multiplication map}
+  \end{itemize}
+  such that 
+  \begin{itemize}
+    \item multiplication is associative, i.e. the following diagram commutes.
+      \begin{equation*}
+        \begin{tikzcd}
+          G \times G \times G
+          \arrow[r, "\mathrm{id}_{G} \times m"]
+          \arrow[d, swap, "m \times \mathrm{id}_{G}"]
+          & G \times G
+          \arrow[d, "m"]
+          \\
+          G \times G
+          \arrow[r, swap, "m"]
+          & G
+        \end{tikzcd}
+      \end{equation*}
+
+    \item the unit picks out the `identity element,' i.e. the following diagram commutes.
+      \begin{equation*}
+        \begin{tikzcd}
+          G
+          \arrow[r, "1 \times \mathrm{id}_{G}"]
+          \arrow[d, swap, "\mathrm{id}_{G} \times 1"]
+          & G \times G
+          \arrow[d, "m"]
+          \\
+          G \times G
+          \arrow[r, swap, "m"]
+          & G
+        \end{tikzcd}
+      \end{equation*}
+
+    \item The inverse map behaves as an inverse, i.e. the following diagram commutes.
+      \begin{equation*}
+        \begin{tikzcd}[column sep=huge]
+          G 
+          \arrow[r, "\Delta"]
+          \arrow[d, swap, "\Delta"]
+          \arrow[dr, "\exists!"]
+          & G \times G 
+          \arrow[r, "(-)^{-1} \times \mathrm{id}_{G}"]
+          & G \times G
+          \arrow[dd, "m"]
+          \\
+          G \times G
+          \arrow[d, swap, "\mathrm{id}_{G} \times (-)^{-1}"]
+          & *
+          \arrow[dr, "1"]
+          \\
+          G \times G
+          \arrow[rr, swap, "m"]
+          & & G
+        \end{tikzcd}
+      \end{equation*}
+
+      Here, $\Delta\colon G \to G \times G$ is the diagonal map defined uniquely by the universal property of the product
+      \begin{equation*}
+        \begin{tikzcd}
+          & G
+          \arrow[dr, "\mathrm{id}_{G}"]
+          \arrow[dl, swap, "\mathrm{id}_{G}"]
+          \arrow[d, "\Delta"]
+          \\
+          G 
+          & G \times G
+          \arrow[l, "\pi_{1}"]
+          \arrow[r, swap, "\pi_{2}"]
+          & G
+        \end{tikzcd}.
+      \end{equation*}
+  \end{itemize}
+\end{definition} 
+
+\subsection{Internal categories}
+\begin{definition}[internal category]
+  \label{def:internalcategory}
+  Let $\mathsf{A}$ be a category with pullbacks. A \defn{category internal to $\mathsf{A}$} is a sextuple $(C_{0}, C_{1}, s, t, e, c)$, where
+  \begin{itemize}
+    \item $C_{0} \in \Obj(\mathsf{A})$ is the \emph{object of objects}, 
+    \item $C_{1} \in \Obj(\mathsf{A})$ is the \emph{object of morphisms},
+    \item $s$, $t\colon C_{1} \to C_{0}$ are morphisms called the \emph{source} and \emph{target morphisms}.
+    \item $e\colon C_{0} \to C_{1}$ is the \emph{identity-assigning morphism}
+    \item $c\colon C_{1} \times_{C_{0}} C_{1} \to C_{1}$ is the \emph{composition morphism},
+  \end{itemize}
+  where $C_{1} \times_{C_{0}} C_{1}$ is given by the following pullback square.
+  \begin{equation*}
+    \begin{tikzcd}
+      C_{1} \times_{C_{0}} C_{1}
+      \arrow[r, "\pi_{2}"]
+      \arrow[d, swap, "\pi_{1}"]
+      & C_{1}
+      \arrow[d, "s"]
+      \\
+      C_{1}
+      \arrow[r, swap, "t"]
+      & C_{0}
+    \end{tikzcd}
+  \end{equation*}
+
+  Further, we require that the following diagrams commute.
+  \begin{itemize}
+    \item The identity morphism on each object goes to and from that object.
+      \begin{equation*}
+        \begin{tikzcd}
+          C_{0} 
+          \arrow[r, "e"]
+          \arrow[dr, swap, "1_{C_{0}}"]
+          & C_{1} 
+          \arrow[d, "s"]
+          \\
+          & C_{0}
+        \end{tikzcd}
+        \qquad
+        \begin{tikzcd}
+          C_{0} 
+          \arrow[r, "e"]
+          \arrow[dr, swap, "1_{C_{0}}"]
+          & C_{1} 
+          \arrow[d, "t"]
+          \\
+          & C_{0}
+        \end{tikzcd}
+      \end{equation*}
+
+    \item The source and target morphisms $s$ and $t$ should behave naturally under composition, i.e. we should have a law of the form: The source of $f \circ g$ should be the source of $g$, and the target should be the target of $f$.
+      \begin{equation*}
+        \begin{tikzcd}
+          C_{1} \times_{C_{0}} C_{1} 
+          \arrow[r, "c"]
+          \arrow[d, swap, "\pi_{1}"]
+          & C_{1}
+          \arrow[d, "s"]
+          \\
+          C_{1}
+          \arrow[r, swap, "s"]
+          & C_{0}
+        \end{tikzcd}
+        \qquad
+        \begin{tikzcd}
+          C_{1} \times_{C_{0}} C_{1} 
+          \arrow[r, "c"]
+          \arrow[d, swap, "\pi_{1}"]
+          & C_{1}
+          \arrow[d, "s"]
+          \\
+          C_{1}
+          \arrow[r, swap, "s"]
+          & C_{0}
+        \end{tikzcd}
+      \end{equation*}
+
+    \item Composition should be associative.
+      \begin{equation*}
+        \begin{tikzcd}[column sep=large, row sep=large]
+          C_{1} \times_{C_{0}} C_{1} \times_{C_{0}} C_{1}
+          \arrow[r, "c \times_{C_{0}} 1_{C_{1}}"]
+          \arrow[d, swap, "1_{C_{1}} \times_{C_{0}} c"]
+          & C_{1} \times_{C_{0}} C_{1}
+          \arrow[d, "c"]
+          \\
+          C_{1} \times_{C_{0}} C_{1}
+          \arrow[r, swap, "c"]
+          & C_{1}
+        \end{tikzcd}
+      \end{equation*}
+
+    \item The units should act like units.
+      \begin{equation*}
+        \begin{tikzcd}[column sep=large, row sep=large]
+          C_{0} \times_{C_{0}} C_{1}
+          \arrow[r, "e \times_{C_{0}} 1_{C_{1}}"]
+          \arrow[dr, swap, "\pi_{2}"]
+          & C_{1} \times_{C_{0}} C_{1}
+          \arrow[d, "c"]
+          & C_{1} \times_{C_{0}} C_{0}
+          \arrow[l, swap, "1_{C_{1}} \times_{C_{0}} e"]
+          \arrow[dl, "\pi_{1}"]
+          \\
+          & C_{1}
+        \end{tikzcd}
+      \end{equation*}
+  \end{itemize}
+
+  We can represent diagrammatically the information in the sextuple $(C_{0}, C_{1}, s, t, e, c)$ as follows.
+  \begin{equation*}
+    \begin{tikzcd}
+      C_{1} \times_{C_{0}} C_{1}
+      \arrow[d, "c"]
+      \\
+      C_{1}
+      \arrow[d, shift left, bend left, "t"]
+      \arrow[d, shift right, bend right, swap, "s"]
+      \\
+      C_{0}
+      \arrow[u, swap, "i"]
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
+\begin{note}
+  \label{note:internalcategoriesdontneedallpullbacks}
+  It is not strictly necessary that $\mathsf{A}$ have pullbacks; all that is necessary is that $\mathsf{A}$ have pullbacks along $s$ and $t$. This is a considerably less restrictive assumption.
+\end{note}
+
+\begin{example}
+  A category internal to $\mathsf{Set}$ is a small category.
+\end{example}
+
+\begin{definition}[groupoid]
+  \label{def:groupoid}
+  A groupoid is a category in which every morphism is an isomorphism.
+\end{definition}
+
+\begin{definition}[internal groupoid]
+  \label{def:internalgroupoid}
+  Let $\mathsf{A}$ be a category with `enough pullbacks' (see \hyperref[note:internalcategoriesdontneedallpullbacks]{Note \ref*{note:internalcategoriesdontneedallpullbacks}}), and let $C = (C_{0}, C_{1}, s, t, e, c)$ be a category internal to $\mathsf{A}$. We can turn $C$ into a \defn{groupoid internal to $\mathsf{A}$} with an additional morphism
+  \begin{equation*}
+    i\colon C_{1} \to C_{1},
+  \end{equation*}
+  the \emph{inverse morphism}, such that the following diagrams commute.
+  \begin{itemize}
+    \item The source of the morphism is equal to the target of the inverse, and vice versa.
+      \begin{equation*}
+        \begin{tikzcd}
+          C_{1}
+          \arrow[r, "i"]
+          \arrow[rd, swap, "t"]
+          & C_{1}
+          \arrow[d, "s"]
+          \\ 
+          & C_{0}
+        \end{tikzcd}
+        \qquad
+        \begin{tikzcd}
+          C_{1}
+          \arrow[r, "i"]
+          \arrow[rd, swap, "s"]
+          & C_{1}
+          \arrow[d, "t"]
+          \\ 
+          & C_{0}
+        \end{tikzcd}
+      \end{equation*}
+
+    \item The inverse behaves like a real inverse on the right,
+      \begin{equation*}
+        \begin{tikzcd}[column sep=large, row sep=large]
+          C_{1}
+          \arrow[r, "\Delta"]
+          \arrow[d, swap, "s"]
+          & C_{1} \times_{C_{0}} C_{1}
+          \arrow[r, "1_{C_{1}} \times_{C_{0}} i"]
+          & C_{1} \times_{C_{0}} C_{1}
+          \arrow[d, "c"]
+          \\
+          C_{0}
+          \arrow[rr, swap, "e"]
+          & & C_{1}
+        \end{tikzcd}
+      \end{equation*}
+      and on the left.
+      \begin{equation*}
+        \begin{tikzcd}[column sep=large, row sep=large]
+          C_{1}
+          \arrow[r, "\Delta"]
+          \arrow[d, swap, "s"]
+          & C_{1} \times_{C_{0}} C_{1}
+          \arrow[r, "1_{C_{1}} \times_{C_{0}} i"]
+          & C_{1} \times_{C_{0}} C_{1}
+          \arrow[d, "c"]
+          \\
+          C_{0}
+          \arrow[rr, swap, "e"]
+          & & C_{1}
+        \end{tikzcd}
+      \end{equation*}
+  \end{itemize}
+\end{definition}
+
 \section{Higher categories} \label{sec:highercategories}
 This section follows \cite{baez-higher-categories} closely.
 
@@ -8461,20 +8751,46 @@ As before, one is lead to the assumption that one could generalize the idea of a
 \end{proof}
 
 \begin{theorem}
-  Let $\mathsf{C}$ be a symmetric monoidal category such that 
+  \label{thm:tensorproductofcommutativemonoidsispushout}
+  Let $\mathsf{C}$ be a tensor category, and let $f\colon A \to B$ and $g\colon A \to C$ be two morphisms in the category $\mathsf{CMon}(\mathsf{C})$. Then the $\mathsf{C}$-object underlying the pushout in $\mathsf{CMon}(\mathsf{C})$ coincides with the tensor category in $A\mhyp\mathsf{Mod}(\mathsf{C})$. That is, 
+  \begin{equation*}
+    \mathcal{U}\left( B \amalg_{A} C \right) \simeq B \otimes_{A} C,
+  \end{equation*}
+  where $B \amalg_{A} C$ is given by the pushout square 
+  \begin{equation*}
+    \begin{tikzcd}
+      A 
+      \arrow[r, "f"]
+      \arrow[d, swap, "g"]
+      & B
+      \arrow[d]
+      \\
+      C
+      \arrow[r]
+      & B \amalg_{A} C
+    \end{tikzcd}
+  \end{equation*}
+  and $\mathcal{U}$ is the forgetful functor $\mathsf{CMon}(\mathsf{C}) \to \mathsf{C}$ which sends commutative monoids to their underlying objects.
 \end{theorem}
 
 The upshot of the past few theorems is the following.
 \begin{theorem}
-  Let $\mathsf{A}$ be a tensor category. Let $R \in \Obj(\mathsf{CMon}(\mathsf{C}))$ be a commutative monoid in $\mathsf{A}$.
+  \label{thm:quasiffinevarietieshaveproducts}
+  Let $\mathsf{A}$ be a tensor category. Let $A \in \Obj(\mathsf{CMon}(\mathsf{A}))$ be a commutative monoid in $\mathsf{A}$.
 
-  Let $A_{1}$ and $A_{2}$ be two $R$-algebras in the sense of \hyperref[def:internalalgebra]{Definition \ref*{def:internalalgebra}}. By \hyperref[def:affinesuperscheme]{Definition \ref*{def:affinesuperscheme}}, we can regard $A_{1}$ and $A_{2}$ as affine schemes, i.e. as objects $\Spec(A_{1})$, $\Spec(A_{2}) \in \mathsf{Aff}(R\mhyp\mathsf{Mod}(\mathsf{A}))$.
+  Let $A_{1}$ and $A_{2}$ be two $A$-algebras in the sense of \hyperref[def:internalalgebra]{Definition \ref*{def:internalalgebra}}. By \hyperref[def:affinesuperscheme]{Definition \ref*{def:affinesuperscheme}}, we can regard $A_{1}$ and $A_{2}$ as affine schemes, i.e. as objects $\Spec(A_{1})$, $\Spec(A_{2}) \in \mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathsf{A}))$.
 
-  Then the category $\mathsf{Aff}(R\mhyp\mathsf{Mod}(\mathsf{A}))$ has products. Further, these are dual the product $A_{1} \otimes_{R} A_{2}$, in the sense that there exists a natural isomorphism
+  Then the category $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathsf{A}))$ has products. Further, these are dual the product $A_{1} \otimes_{A} A_{2}$, in the sense that there exists a natural isomorphism
   \begin{equation*}
-    \Spec(A_{1}) \times \Spec(A_{2}) \simeq \Spec(A_{1} \otimes_{R} A_{2}).
+    \Spec(A_{1}) \times \Spec(A_{2}) \simeq \Spec(A_{1} \otimes_{A} A_{2}).
   \end{equation*}
 \end{theorem} 
+
+\begin{note}
+  Be careful! It may appear at first glance that we should be talking about the \emph{fiber}, rather than the cartesian, product. This is not the case!
+
+  To be more specific: \hyperref[thm:tensorproductofcommutativemonoidsispushout]{Theorem \ref*{thm:tensorproductofcommutativemonoidsispushout}} says that the 
+\end{note}
 
 \begin{definition}[restriction of scalars, extension of scalars]
   \label{def:extensionrestrictionofscalars}
@@ -8526,92 +8842,8 @@ The upshot of the past few theorems is the following.
 \end{note}
 
 \section{Supergroups as supercommutative Hopf algebras}
-Central to Deligne's theorem is the idea of an affine algebraic super-group. These are simply defined as affine super schemes which are also groups. As usual, the way to formalize this is with internal objects.
 
-\begin{definition}[group object]
-  \label{def:groupobject}
-  Let $\mathsf{C}$ be a category with binary products $\times$ and a terminal object $*$. A \defn{group object} in $\mathsf{C}$ (or a \emph{group internal to $\mathsf{C}$}) is an object $G \in \Obj(\mathsf{C})$ together with 
-  \begin{itemize}
-    \item a map $1\colon * \to G$, called the \emph{unit map};
-
-    \item a map $(-)^{-1}\colon G \to G$, called the \emph{inverse map}; and
-
-    \item a map $m\colon G \times G \to G$, called the \emph{multiplication map}
-  \end{itemize}
-  such that 
-  \begin{itemize}
-    \item multiplication is associative, i.e. the following diagram commutes.
-      \begin{equation*}
-        \begin{tikzcd}
-          G \times G \times G
-          \arrow[r, "\mathrm{id}_{G} \times m"]
-          \arrow[d, swap, "m \times \mathrm{id}_{G}"]
-          & G \times G
-          \arrow[d, "m"]
-          \\
-          G \times G
-          \arrow[r, swap, "m"]
-          & G
-        \end{tikzcd}
-      \end{equation*}
-
-    \item the unit picks out the `identity element,' i.e. the following diagram commutes.
-      \begin{equation*}
-        \begin{tikzcd}
-          G
-          \arrow[r, "1 \times \mathrm{id}_{G}"]
-          \arrow[d, swap, "\mathrm{id}_{G} \times 1"]
-          & G \times G
-          \arrow[d, "m"]
-          \\
-          G \times G
-          \arrow[r, swap, "m"]
-          & G
-        \end{tikzcd}
-      \end{equation*}
-
-    \item The inverse map behaves as an inverse, i.e. the following diagram commutes.
-      \begin{equation*}
-        \begin{tikzcd}[column sep=huge]
-          G 
-          \arrow[r, "\Delta"]
-          \arrow[d, swap, "\Delta"]
-          \arrow[dr, "\exists!"]
-          & G \times G 
-          \arrow[r, "(-)^{-1} \times \mathrm{id}_{G}"]
-          & G \times G
-          \arrow[dd, "m"]
-          \\
-          G \times G
-          \arrow[d, swap, "\mathrm{id}_{G} \times (-)^{-1}"]
-          & *
-          \arrow[dr, "1"]
-          \\
-          G \times G
-          \arrow[rr, swap, "m"]
-          & & G
-        \end{tikzcd}
-      \end{equation*}
-
-      Here, $\Delta\colon G \to G \times G$ is the diagonal map defined uniquely by the universal property of the product
-      \begin{equation*}
-        \begin{tikzcd}
-          & G
-          \arrow[dr, "\mathrm{id}_{G}"]
-          \arrow[dl, swap, "\mathrm{id}_{G}"]
-          \arrow[d, "\Delta"]
-          \\
-          G 
-          & G \times G
-          \arrow[l, "\pi_{1}"]
-          \arrow[r, swap, "\pi_{2}"]
-          & G
-        \end{tikzcd}.
-      \end{equation*}
-  \end{itemize}
-\end{definition} 
-
-Let us first deal with an example. The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ defined in \hyperref[def:functorcinfinity]{Definition \ref*{def:functorcinfinity}} was fully faithful, but not essentially surjective. Thus, we can decrese the codomain of the functor $C^{\infty}$ to include only smooth algebras:
+The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ defined in \hyperref[def:functorcinfinity]{Definition \ref*{def:functorcinfinity}} was fully faithful, but not essentially surjective. Thus, we can decrese the codomain of the functor $C^{\infty}$ to include only smooth algebras:
 \begin{equation*}
   C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \hookrightarrow \mathsf{SmoothAlg}_{\R}.
 \end{equation*}
@@ -8636,9 +8868,81 @@ Probably it would suffice to study the category theory of Hopf algebras. However
 
 \begin{definition}[commutative Hopf algebroid]
   \label{def:commutativehopfalgebroid}
-  Let $(\mathscr{A}, \otimes, 1)$ be a tensor category. 
+  Let $(\mathscr{A}, \otimes, 1)$ be a tensor category. Consider the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ of commutative monoids internal to $\mathscr{A}$. The category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ is a monoidal category whose bifunctor is given by the fibered product, thanks to \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
+
+  A \defn{commutative Hopf algebroid} is a groupoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ (see \hyperref[def:internalgroupoid]{Definition \ref*{def:internalgroupoid}}), i.e. a septuple $(\Spec(\Gamma), \Spec(A), s, t, e, c, i)$
+  \begin{itemize}
+    \item $\Spec(\Gamma) \in \Obj(\mathsf{CMon}(\mathscr{A})^{\mathrm{op}})$ is the \emph{object of objects}, 
+    \item $\Spec(A) \in \Obj(\mathsf{CMon}(\mathscr{A})^{\mathrm{op}})$ is the \emph{object of morphisms},
+    \item $s$, $t\colon \Spec(\Gamma) \to \Spec(A)$ are morphisms called the \emph{source} and \emph{target morphisms}.
+    \item $e\colon \Spec(\Gamma) \to \Spec(A)$ is the \emph{identity-assigning morphism}
+    \item $c\colon \Spec(\Gamma) \times_{\Spec(A)} \Spec(\Gamma) \to \Spec(\Gamma)$ is the \emph{composition morphism},
+    \item $i\colon \Spec(\Gamma) \to \Spec(\Gamma)$ is the \emph{inverse-assigning morphism}.
+  \end{itemize}
+
+  We can summarize some of this information in the following diagram.
+  \begin{equation*}
+    \begin{tikzcd}
+      \Spec(\Gamma) \times_{\Spec_{A}} \Spec(\Gamma)
+      \arrow[d, "c"]
+      \\
+      \Spec(\Gamma)
+      \arrow[d, shift left, bend left, "t"]
+      \arrow[d, shift right, bend right, swap, "s"]
+      \\
+      \Spec(A)
+      \arrow[u, swap, "i"]
+    \end{tikzcd}
+  \end{equation*}
+
+  By \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}, there is a natural isomorphism
+  \begin{equation*}
+    \Spec(\Gamma) \times_{\Spec(A)} \Spec(\Gamma) \simeq \Spec(\Gamma \otimes_{A} \Gamma).
+  \end{equation*}
+
+  Therefore, we can rewrite the above diagram as follows.
+  \begin{equation*}
+    \begin{tikzcd}
+      \Spec(\Gamma \otimes_{A} \Gamma)
+      \arrow[d, "c"]
+      \\
+      \Spec(\Gamma)
+      \arrow[d, shift left, bend left, "t"]
+      \arrow[d, shift right, bend right, swap, "s"]
+      \\
+      \Spec(A)
+      \arrow[u, swap, "i"]
+    \end{tikzcd}
+  \end{equation*}
+  Then, dualizing, obtain the following diagram in $\mathsf{CMon}(\mathscr{A})$.
+  \begin{equation*}
+    \begin{tikzcd}
+      \Gamma \otimes_{A} \Gamma
+      \\
+      \Gamma
+      \arrow[u, swap, "\Psi"]
+      \arrow[d, "\varepsilon"]
+      \\
+      A
+      \arrow[u, shift left, bend left, "\eta_{L}"]
+      \arrow[u, shift right, bend right, swap, "\eta_{R}"]
+    \end{tikzcd}
+  \end{equation*}
+
+  Thus, a commutative Hopf algebroid consists of the following.
+  \begin{itemize}
+    \item Commutative rings $A$ and $\Gamma$;
+
+    \item Ring homomorphisms
+      \begin{itemize}
+        \item $\eta_{L},\eta_{R}\colon A \to \Gamma$ called the \emph{left} and \emph{right unit};
+
+        \item $\Psi\colon \Gamma \to \Gamma \otimes_{A} \Gamma$ called \emph{comultiplication};
+      \end{itemize} 
+  \end{itemize}
 \end{definition}
- 
+
+
 \chapter{Representations}
 We have already seen that categories can be used to re-phrase certain aspects of representation theory. (Recall examples \ref{eg:groupsaregroupoidswithoneobject}, \ref{eg:functorscanbegrouprepresentation}, and \ref{eg:intertwinersarenaturaltransformations}.) In this section we will take a more systematic approach.
 
@@ -8695,7 +8999,7 @@ The following statement of Deligne's theorem was taken, mutatis mutandis, from \
 
     \item a tensor equivalence of categories
       \begin{equation*}
-        \mathscr{A} \simeq \mathscr{Rep}(G, \varepsilon)
+        \mathscr{A} \simeq \mathsf{Rep}(G, \varepsilon)
       \end{equation*}
       between $\mathscr{A}$ and the category of representations of $G$ of finite-dimension, according to REF.
   \end{enumerate}
@@ -8994,6 +9298,101 @@ If one is to use Haag-{\L}opusza{\'n}ski-Sohnius theorem to motivate supersymmet
 The other reason is that the mass of the Higgs boson is lower than one would expect. The Higgs 
 
 \section{What does Deligne's theorem do for us?}
+The propose of these notes is to present some physical applications of Deligne's theorem. First, we should understand exactly what it is that Deligne's theorem tells us.
+
+The following statement of Deligne's theorem was taken, mutatis mutandis, from \cite{nlab-deligne-theorem}.
+
+\renewcommand{\thetheorem}{\ref*{thm:delignestheorem}}
+\begin{theorem}[Deligne's theorem on tensor categories]
+  Let $\mathscr{A}$ be a $k$-tensor category such that
+  \begin{enumerate}
+    \item $k$ is an algebraically closed field of characteristic zero, and
+
+    \item $\mathscr{A}$ is of subexponential growth.
+  \end{enumerate}
+
+  Then $\mathscr{A}$ is a neutral super Tannakian category, and there exists 
+  \begin{enumerate}
+    \item an affine algebraic supergroup $G$ whose algebra of functions $\mathscr{O}(G)$ is a finitely-generated $k$-algebra, and 
+
+    \item a tensor equivalence of categories
+      \begin{equation*}
+        \mathscr{A} \simeq \mathsf{Rep}(G, \varepsilon)
+      \end{equation*}
+      between $\mathscr{A}$ and the category of representations of $G$ of finite-dimension.
+  \end{enumerate}
+\end{theorem}
+\renewcommand{\thetheorem}{\arabic{theorem}}
+
+We use Deligne's \cite{deligne-categories-tensorielle} definition of a tensor category.
+
+For our purposes, the algebraically closed field $k$ will be taken to be the field of complex numbers $\C$. The definition of a $k$-tensor category is long and complicated. Roughly speaking, it is a category in which you can multiply objects in a tensor-y sort of way.
+\begin{itemize}
+  \item For any two $\C$-vector spaces $V_{1}$, $V_{2}$, one can create the tensor product space
+    \begin{equation*}
+      V_{1} \otimes V_{2}
+    \end{equation*}
+
+  \item The complex numbers, taken as a one-dimensional vector space over themselves, function as a sort of left and right unit:
+    \begin{equation*}
+      \C \otimes V \simeq V \simeq V \otimes \C
+    \end{equation*}
+
+  \item There is a natural isomorphism 
+    \begin{equation*}
+      (V_{1} \otimes V_{2}) \otimes V_{3} \simeq V_{1} \otimes (V_{2} \otimes V_{3})
+    \end{equation*}
+    which makes the tensor product associative.
+
+  \item There is a natural isomorphism
+    \begin{equation*}
+      V_{1} \otimes V_{2} \simeq V_{2} \otimes V_{1}
+    \end{equation*}
+    which makes the tensor product commutative.
+
+  \item For each vector space $V$ there is a dual space $V^{*}$
+
+  \item And many more\dots
+\end{itemize}
+
+There are also some more abstract properties. For example, the tensor product preserves exactness, in the sense that if 
+\begin{equation*}
+  \begin{tikzcd}
+    0
+    \arrow[r]
+    & A
+    \arrow[r, "f"]
+    & B
+    \arrow[r, "g"]
+    & C
+    \arrow[r]
+    & 0
+  \end{tikzcd}
+\end{equation*}
+is an exact sequence of $\C$-vector spaces, then so is
+\begin{equation*}
+  \begin{tikzcd}
+    0
+    \arrow[r]
+    & A \otimes X
+    \arrow[r, "f \otimes 1_{X}"]
+    & B \otimes X
+    \arrow[r, "g \otimes 1_{X}"]
+    & C \otimes X
+    \arrow[r]
+    & 0
+  \end{tikzcd}.
+\end{equation*}
+
+We further demand that our tensor category satisfy the requirement of \emph{subexponential growth}. This is a technical condition which makes sure that the objects in our tensor category have an attribute which behaves roughly like a dimension.
+
+Deligne's theorem tells us that any tensor category which satisfies the condition of subexponential growth behaves like the category of representations of an algebraic super-group.
+
+
+
+
+
+
 The axioms of quantum mechanics tell us that the states of a quantum system correspond to vectors $\psi$ belonging to some Hilbert space $\mathscr{H}$. However the observable quantities built from the states, i.e. the conditional probabilities
 \begin{equation*}
   P(\varphi | \psi) = \frac{\left|\left\langle \varphi | \psi \right\rangle\right|^{2}}{\norm{\varphi}^{2} \cdot \norm{\psi}^{2}}
@@ -9078,9 +9477,8 @@ The reason for the previous discussion is this: Every quantum theory which makes
     \end{equation*}
 \end{enumerate}
 
-These properties, phrased in mathematical language, say that the collection of all quantum systems which admit a $\bar{G}$-symmetry has the structure of a \textbf{monoidal category}. \footnote{Of course, one must also check that the triangle and pentagon diagram are satisfied, but this is trivial and devoid of physical meaning.}
+These properties, phrased in mathematical language, say that the collection of all quantum systems which admit a $\bar{G}$-symmetry has the structure of a \textbf{monoidal category}. \footnote{Of course, one must also check that the triangle and pentagon diagram are satisfied, but this is trivial and devoid of physical meaning.} 
 
-We can, however, say more.
 \begin{enumerate}
     \setcounter{enumi}{3}
   \item The order in which we place our quantum systems before considering them as a composite does not matter, since there is an isomorphism
@@ -9093,34 +9491,68 @@ We can, however, say more.
     \begin{equation*}
       \gamma_{2,1} \circ \gamma_{1,2} = \mathrm{id}_{\mathscr{H}_{1} \otimes \mathscr{H}_{2}} \colon \mathscr{H}_{1} \otimes \mathscr{H}_{2}
     \end{equation*}
-    This means $\bar{G}$-symmetric quantum systems form a \textbf{symmetric monoidal category}.
+    This means $\bar{G}$-symmetric quantum systems form a \textbf{symmetric monoidal category}. We'll denote this by $\mathsf{Sym}_{G}$.
+\end{enumerate}
 
-  \item Each fundamental particle has an antiparticle, and we can construct from any composite system an anti-system, in which all of its particles are replaced by antiparticles.
-    This corresponds mathematically to the fact that our Hilbert spaces $\mathscr{H}$ have duals $\mathscr{H}^{*}$ which admit the contragredient representation of $\bar{G}$.
+If $\bar{G}$ is completely general, then we can say no more about the category of $G$-symmetric quantum systems. However, one may make further physical assumptions to tame the group $G$. Here we need to do a bit of physics.
+
+First, we must assume that the spacetime on which our quantum theory takes place is Minkowski space, that is, $\R^{4}$ together with the semi-Riemannian metric
+\begin{equation*}
+  \eta_{\mu\nu} =
+  \begin{pmatrix}
+    -1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}.
+\end{equation*}
+
+The isometry group of Minkowski space is $\mathcal{P} = \mathrm{ISO}(1, 3)$. We can factorize $\mathcal{P}$ as follows:
+\begin{equation*}
+  \mathcal{P} = \left( \text{translations} = \R^{4} \right) \rtimes \left( \text{rotations} = \mathrm{SO}(1, 3) \right).
+\end{equation*}
+
+The group $\bar{G}$ which acts on the Hilbert space of any quantum system which takes place on Minkowski space includes $\bar{\mathcal{P}}$ as a subgroup.
+
+It is here that we make the core simplifying assumption: we demand that $\bar{G}$ can be written
+\begin{equation*}
+  \bar{G} = \R^{4} \rtimes H,
+\end{equation*}
+where $H$ admits finite-dimensional representations, and we consider only these finite-dimensional representations.
+
+This is not a terribly restrictive assumption, and it has an attractive physical interpretation. It allows us to separate external degrees of freedom (position, momentum) from internal degrees of freedom (spin, charge). It allows us, very roughly, to imagine particles as zipping around on Minkowski space, carrying with them some finite collection of internal characteristics.
+
+With this assumption, we can use the little group method (the so-called \emph{Mackey machine}) to factor out the $\R^{4}$ sector of $\bar{G}$ and focus on $H$. Since we deal with only finite-dimensional representations, we don't have to deal with the eccentricities of infinite-dimensional Hilbert spaces. Thus, we can say more about our category.
+\begin{enumerate}
+    \setcounter{enumi}{5}
+  \item Each fundamental particle has an antiparticle, and we can construct from any composite system an anti-system, in which all of its particles are replaced by antiparticles. This corresponds mathematically to the fact that our finite-dimensional Hilbert spaces $\mathscr{H}$ have duals $\mathscr{H}^{*}$ which admit the contragredient representation of $H$.
 
     This means that we are dealing with a \textbf{rigid symmetric monoidal category}.
 \end{enumerate}
-Aficionados of category theory will notice that we have not yet said anything about what is arguably the most important aspect of a category: the morphisms.\footnote{Morphisms are a category-theoretic generalization of the idea of a function. Just as between any two sets $A$ and $B$ one has a collection of functions $A \to B$, between any two objects in a category one has a collection of morphisms $A \to B$.}
 
-The objects in our category are built from tensor products of Hilbert spaces of fundamental particle species, understood as carrying the tensor product representation of their constituents. For concreteness, we can take two objects 
-\begin{equation*}
-  \mathscr{H}_{1} = \mathscr{H}_{e} \otimes \mathscr{H}_{\gamma}\qquad\text{and}\qquad \mathscr{H}_{2} = \mathscr{H}_{e}.
-\end{equation*}
-The Hilbert space $\mathscr{H}_{1}$ represents an electron and a photon, taken as a composite system, while $\mathscr{H}_{2}$ represents an electron alone in the world.
+These, plus several other technical requirements ()
 
-A morphisms $\mathscr{H}_{1} \to \mathscr{H}_{2}$ is given by a linear map $L\colon \mathscr{H}_{1} \to \mathscr{H}_{2}$ which is group-action equivariant: that is to say, 
-\begin{equation*}
-  L \rho_{1}(g) = \rho_{2}(g) L \qquad\text{for all }g \in \bar{G}.
-\end{equation*}
-These are known as \emph{intertwiners}.
-
-\begin{note}
-  For the mathematically-inclined: the symmetric monoidal category we are working with is $\mathsf{Rep}_{\mathsf{Hilb}_{\C}}(\bar{G})$, i.e. the functor category $\mathsf{Func}(\mathbf{B}\bar{G}, \mathsf{Hilb}_{\C})$ (where $\mathbf{B}\bar{G}$ is the delooping groupoid of $\bar{G}$ and $\mathsf{Hilb}_\mathsf{C}$ is the category whose objects are complex separable Hilbert spaces and whose morphisms are bounded linear maps). The objects in $\mathsf{Rep}_{\mathsf{Hilb}_{\C}}(\bar{G})$ are functors $\mathbf{B}\bar{G} \to \mathsf{Hilb}_{\C}$ and the morphisms are natural transformations between them. 
-
-  So far, this is all okay; however, contrary to what is claimed in \cite{nlab-deligne-theorem} and \cite{physicsforums-why-deligne}, $\mathsf{Rep}_{\mathsf{Hilb}_{\C}}(\bar{G})$ cannot be made into a tensor category because it is not abelian. More specifically, 
-\end{note}
-
-There are several subclasses of problems to which Deligne's theorem can be applied perfectly rigorously: those in which the representations involved are finite. For example, it says that the only allowed symmetries of a \emph{finite-dimensional} quantum system are given by algebraic super-groups, since the completeness requirement is satisfied trivially in finite dimensions.
+% Aficionados of category theory will notice that we have not yet said anything about what is arguably the most important aspect of a category: the morphisms.\footnote{Morphisms are a category-theoretic generalization of the idea of a function. Just as between any two sets $A$ and $B$ one has a collection of functions $A \to B$, between any two objects in a category one has a collection of morphisms $A \to B$.}
+% 
+% The objects in our category are built from tensor products of Hilbert spaces of fundamental particle species, understood as carrying the tensor product representation of their constituents. For concreteness, we can take two objects 
+% \begin{equation*}
+%   \mathscr{H}_{1} = \mathscr{H}_{e} \otimes \mathscr{H}_{\gamma}\qquad\text{and}\qquad \mathscr{H}_{2} = \mathscr{H}_{e}.
+% \end{equation*}
+% The Hilbert space $\mathscr{H}_{1}$ represents an electron and a photon, taken as a composite system, while $\mathscr{H}_{2}$ represents an electron alone in the world.
+% 
+% A morphisms $\mathscr{H}_{1} \to \mathscr{H}_{2}$ is given by a linear map $L\colon \mathscr{H}_{1} \to \mathscr{H}_{2}$ which is group-action equivariant: that is to say, 
+% \begin{equation*}
+%   L \rho_{1}(g) = \rho_{2}(g) L \qquad\text{for all }g \in \bar{G}.
+% \end{equation*}
+% These are known as \emph{intertwiners}.
+% 
+% \begin{note}
+%   For the mathematically-inclined: the symmetric monoidal category we are working with is $\mathsf{Rep}_{\mathsf{Hilb}_{\C}}(\bar{G})$, i.e. the functor category $\mathsf{Func}(\mathbf{B}\bar{G}, \mathsf{Hilb}_{\C})$ (where $\mathbf{B}\bar{G}$ is the delooping groupoid of $\bar{G}$ and $\mathsf{Hilb}_\mathsf{C}$ is the category whose objects are complex separable Hilbert spaces and whose morphisms are bounded linear maps). The objects in $\mathsf{Rep}_{\mathsf{Hilb}_{\C}}(\bar{G})$ are functors $\mathbf{B}\bar{G} \to \mathsf{Hilb}_{\C}$ and the morphisms are natural transformations between them. 
+% 
+%   So far, this is all okay; however, contrary to what is claimed in \cite{nlab-deligne-theorem} and \cite{physicsforums-why-deligne}, $\mathsf{Rep}_{\mathsf{Hilb}_{\C}}(\bar{G})$ cannot be made into a tensor category because it is not abelian. More specifically, 
+% \end{note}
+% 
+% There are several subclasses of problems to which Deligne's theorem can be applied perfectly rigorously: those in which the representations involved are finite. For example, it says that the only allowed symmetries of a \emph{finite-dimensional} quantum system are given by algebraic super-groups, since the completeness requirement is satisfied trivially in finite dimensions.
 
 \chapter{Questions}
 \begin{enumerate}
@@ -9138,160 +9570,160 @@ There are several subclasses of problems to which Deligne's theorem can be appli
   \item Ask Vladimir about a source for ind-object stuff.
 \end{enumerate}
 \begin{thebibliography}{9}
-    \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
+  \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
     \textit{Spin Geometry}.
     Princeton University Press, Princeton, NJ, 1989.
 
-    \bibitem{vakil-rising-sea} R. Vakil,
+  \bibitem{vakil-rising-sea} R. Vakil,
     \textit{The Rising Sea}.
     \url{http://www.math216.wordpress.com/}
 
-    \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
+  \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
     \textit{Principal Bundles: The Classical Case}.
     Springer International Publishing, Switzerland, 2015.
 
-    \bibitem{hungerford-algebra} T. Hungerford.
+  \bibitem{hungerford-algebra} T. Hungerford.
     \textit{Algebra}.
     Springer-Verlag New York, NY, 1974.
 
-    \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
+  \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
     \textit{PG Course on Spin Geometry}.
     \url{https://empg.maths.ed.ac.uk/Activities/Spin/}
 
-    \bibitem{quantum-fields-and-strings} P. Deligne et al.
+  \bibitem{quantum-fields-and-strings} P. Deligne et al.
     \textit{Quantum Fields and Strings: a Course for Mathematicians}.
     American Mathematical Society, 1999.
 
-    \bibitem{susy-for-mathematicians} V. S. Varadarajan.
+  \bibitem{susy-for-mathematicians} V. S. Varadarajan.
     \textit{Supersymmetry for Mathematicans: An Introduction}.
     American Mathematical Society, 2004.
 
-    \bibitem{catsters} The Catsters.
+  \bibitem{catsters} The Catsters.
     \url{https://www.youtube.com/channel/UC5Y9H2KDRHZZTWZJtlH4VbA}
 
-    \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
+  \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
     \textit{Noncommutative Geometry, Quantum Fields and Motives}.
     \url{http://www.alainconnes.org/docs/bookwebfinal.pdf}
 
-    \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
+  \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
     \textit{Algebra: Chapter 0}.
     American Mathematical Society, 2009.
 
-    \bibitem{nlab-deligne-theorem} 
+  \bibitem{nlab-deligne-theorem} 
     \textit{Nlab---Deligne's Theorem on Tensor Categories}.
     \url{https://ncatlab.org/nlab/show/Deligne's+theorem+on+tensor+categories}
 
-    \bibitem{baez-this-weeks-finds-137} J. Baez.
+  \bibitem{baez-this-weeks-finds-137} J. Baez.
     \textit{This Week's Finds in Mathematical Physics (Week 137)}.
     \url{http://math.ucr.edu/home/baez/week137.html}
 
-    \bibitem{baez-definitions-everyone-should-know} J. Baez.
+  \bibitem{baez-definitions-everyone-should-know} J. Baez.
     \textit{Some Definitions Everyone Should Know}.
     \url{http://math.ucr.edu/home/baez/qg-fall2004/definitions.pdf}
 
-    \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
+  \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
     \textit{The Unapologetic Mathematician: Mac Lane's Coherence Theorem}.
     \url{https://unapologetic.wordpress.com/2007/06/29/mac-lanes-coherence-theorem/}
 
-    \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
+  \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
     \textit{Topological Transformation Groups}.
     University of Chicago Press, Chicago, 1955.
 
-    \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
+  \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
     \textit{Hodge Cycles, Motives, and Shimura Varieties}.
     Springer Verlag, 1982
 
-    \bibitem{maclane-categories} S. Mac Lane.
+  \bibitem{maclane-categories} S. Mac Lane.
     \textit{Categories for the Working Mathematician}.
     Springer-Verlag New York, New York, 1998.
 
-    \bibitem{baez-higher-categories} J. Baez. 
+  \bibitem{baez-higher-categories} J. Baez. 
     \textit{An introduction to $n$-Categories}.
     \url{https://arxiv.org/pdf/q-alg/9705009.pdf}
 
-    \bibitem{baez-categories-usenet} 
+  \bibitem{baez-categories-usenet} 
     \url{https://groups.google.com/forum/#!topic/sci.math/7LqPFfmWGOA}
 
-    \bibitem{nlab} 
+  \bibitem{nlab} 
     \url{https://www.ncatlab.org/}
 
-    \bibitem{wikipedia-product} 
+  \bibitem{wikipedia-product} 
     \textit{Wikipedia - Product (Category Theory)}.
     \url{https://en.wikipedia.org/wiki/Product\_(category\_theory)}
 
-    \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
+  \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
     \textit{Tensor Categories}.
     American Mathematical Society, 2015.
 
-    \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
+  \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
     \textit{Lecture Notes: Introduction to Categorical Logic}
 
-    \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
+  \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
     \textit{Category Theory Foundations}.
     \url{https://www.youtube.com/watch?v=BF6kHD1DAeU&index=1&list=PLGCr8P\_YncjVjwAxrifKgcQYtbZ3zuPlb}
 
-    \bibitem{awodey-category-theory} S. Awodey.
+  \bibitem{awodey-category-theory} S. Awodey.
     \textit{Category Theory}.
     Oxford University Press, 2006.
 
-    \bibitem{haag-local-quantum-physics} R. Haag.
+  \bibitem{haag-local-quantum-physics} R. Haag.
     \textit{Local Quantum Physics: Fields, Particles, Algebras}.
     Springer-Verlag Berlin Heidelberg New York, 1996
 
-    \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
+  \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
     \textit{Relativity, Groups, Particles: Special Relativity and Relativistic Symmetry in Field and Particle Physics}.
     Springer-Verlag Wein, 1992
 
-    \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
+  \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
     \textit{Supersymmetry and Supergravity}.
     Princeton University Press, Princeton NJ, 1992
 
-    \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
+  \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
     \textit{Introduction to Supersymmetry (Second edition)}.
     World Scientific, 2010.
 
-    \bibitem{deligne-categories-tensorielle} Pierre Deligne.
+  \bibitem{deligne-categories-tensorielle} Pierre Deligne.
     \textit{Cat{\'e}gories Tensorielle},
     Moscow Math. Journal 2 (2002) no. 2, 227-228
     \url{https://www.math.ias.edu/files/deligne/Tensorielles.pdf}
 
-    \bibitem{KMS-natural-operations-differential-geometry} I. Kol\'{a}\v{r}, P. Michor, and J. Slov\'{a}k.
+  \bibitem{KMS-natural-operations-differential-geometry} I. Kol\'{a}\v{r}, P. Michor, and J. Slov\'{a}k.
     \textit{Natural Operations in Differential Geometry}.
     Springer-Verlag, Berlin Heidelberg, 1993.
 
-    \bibitem{hartshorne-algebraic-geometry} R. Hartshorne.
+  \bibitem{hartshorne-algebraic-geometry} R. Hartshorne.
     \textit{Algebraic Geometry}.
     Springer-Verlag, New York, 1977.
 
-    \bibitem{annoying-precision-meditation} Q. Yuan.
+  \bibitem{annoying-precision-meditation} Q. Yuan.
     \textit{Annoying Precision: A neditation on semiadditive categories}.
     \url{https://qchu.wordpress.com/2012/09/14/a-meditation-on-semiadditive-categories/}
 
-    \bibitem{nestruev-smooth-manifolds-observables} J. Nestruev.
+  \bibitem{nestruev-smooth-manifolds-observables} J. Nestruev.
     \textit{Smooth Monifolds and Observables}.
     Springer-Verlag, New York, 2002.
 
-    \bibitem{baez-lauda-prehistory} J. Baez and A. Lauda. 
+  \bibitem{baez-lauda-prehistory} J. Baez and A. Lauda. 
     \textit{A prehistory of $n$-categorical physics}.
     \url{https://arxiv.org/pdf/0908.2469.pdf}
 
 
-    \bibitem{neumaier} A. Neumaier.
+  \bibitem{neumaier} A. Neumaier.
     \textit{Elementary particles as irreducible representations}.
     \url{https://www.physicsoverflow.org/21960}.
 
-    \bibitem{physicsforums-why-deligne} U. Schreiber.
+  \bibitem{physicsforums-why-deligne} U. Schreiber.
     \textit{Why Supersymmetry? Because of Deligne's theorem}
     \url{https://www.physicsforums.com/insights/supersymmetry-delignes-theorem/}
 
-    \bibitem{mackey-induced-representations} G. W. Mackey.
+  \bibitem{mackey-induced-representations} G. W. Mackey.
     \textit{Induced representations}.
     W.A. Benjamin, Inc., and Editore Boringhieri, New York, 1968.
 
-    \bibitem{nlab-additive-category} nLab: Additive category.
+  \bibitem{nlab-additive-category} nLab: Additive category.
     \url{https://ncatlab.org/nlab/show/additive+category#ProductsAreBiproducts}
 
-    \bibitem{freyd-abelian-categories} P. Freyd.
+  \bibitem{freyd-abelian-categories} P. Freyd.
     \textit{Abelian Categories}
     Harper and Row, New York, 1964.
 \end{thebibliography}
