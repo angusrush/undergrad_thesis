@@ -27,6 +27,15 @@
 \usepackage{braids}
 \usepackage{epigraph}
 \usepackage[compat=1.1.0]{tikz-feynman}
+\usepackage{xcolor}
+
+% Set up hyperref colors
+\hypersetup{
+    colorlinks,
+    linkcolor={blue!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
 
 % Good practice to set the version so updates don't break old documents
 \pgfplotsset{compat=1.14}
@@ -8498,14 +8507,14 @@ We might take this idea even further: given \emph{any} associative algebra $A$, 
 \begin{note}
   The reader is probably now almost as lost as the author was while writing this section. Here is a brief overview of the story so far.
 
-  As always, $(\mathsf{C}, \otimes, 1)$ denotes at worst a plain old monoidal category and at best a tensor category. The case we really care about is when $\mathsf{C} = \mathsf{SVect}_{k}$.
+  As always, $(\mathsf{C}, \otimes, 1)$ denotes at worst a plain old monoidal category and at best a tensor category. We try to prove things as generally possible, but the case we really care about is when $\mathsf{C} = \mathsf{SVect}_{k}$.
 
   The idea of this section is to generalize the correspondence 
   \begin{equation*}
     \left\{ \text{$C^{\infty}$ manifold $M$} \right\} \longleftrightarrow \left\{ \text{Algebra of functions $C^{\infty}(M) \in \mathsf{Alg}_{\R}$} \right\}
   \end{equation*}
 
-  First, we look at monoids internal to $\mathsf{C}$; these form a category called $\mathsf{Mon}(\mathsf{C})$, which has a full subcategory of commutative monoids $\mathsf{SMon}(\mathsf{C})$. When $\mathsf{C} = \mathsf{SVect}_{k}$, $\mathsf{CMon}(\mathsf{SVect}_{k})$ is nothing else but the category whose objects are supercommutative, associative $k$-superalgebras with unity, denoted $\mathsf{SCAlg}_{k}$.
+  First, we look at monoids internal to $\mathsf{C}$; these form a category called $\mathsf{Mon}(\mathsf{C})$, which has a full subcategory of commutative monoids $\mathsf{CMon}(\mathsf{C})$. When $\mathsf{C} = \mathsf{SVect}_{k}$, $\mathsf{CMon}(\mathsf{SVect}_{k})$ is nothing else but the category whose objects are supercommutative, associative $k$-superalgebras with unity, denoted $\mathsf{SCAlg}_{k}$.
 
   The idea is that we can view the category of $k$-super spaces as dual to $\mathsf{SCAlg}_{k}$. Thus, we call 
   \begin{equation*}
@@ -8734,6 +8743,7 @@ As before, one is lead to the assumption that one could generalize the idea of a
 \end{definition}
 
 \begin{theorem}
+  \label{thm:modulesandmonoidsequivalenceofcategories}
   Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category, and let $A$ be a commutative monoid internal to $\mathsf{C}$. Recall that
   \begin{itemize}
     \item $(A\mhyp\mathsf{Mod}, \otimes_{A}, A)$ is the category of $A$-modules internal to $\mathsf{C}$, and $\mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C}))$ is the category of commutative $A$-algebras internal to $\mathsf{C}$.
@@ -8752,7 +8762,7 @@ As before, one is lead to the assumption that one could generalize the idea of a
 
 \begin{theorem}
   \label{thm:tensorproductofcommutativemonoidsispushout}
-  Let $\mathsf{C}$ be a tensor category, and let $f\colon A \to B$ and $g\colon A \to C$ be two morphisms in the category $\mathsf{CMon}(\mathsf{C})$. Then the $\mathsf{C}$-object underlying the pushout in $\mathsf{CMon}(\mathsf{C})$ coincides with the tensor category in $A\mhyp\mathsf{Mod}(\mathsf{C})$. That is, 
+  Let $\mathsf{C}$ be a tensor category, and let $f\colon A \to B$ and $g\colon A \to C$ be two morphisms in the category $\mathsf{CMon}(\mathsf{C})$ (that is, objects in the category $\mathsf{CMon}^{A/}(\mathsf{C})$). Then the $\mathsf{C}$-object underlying the pushout in $\mathsf{CMon}(\mathsf{C})$ (that is, the coproduct in $\mathsf{CMon}^{A/}(\mathsf{C})$) coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$. That is, 
   \begin{equation*}
     \mathcal{U}\left( B \amalg_{A} C \right) \simeq B \otimes_{A} C,
   \end{equation*}
@@ -8787,9 +8797,20 @@ The upshot of the past few theorems is the following.
 \end{theorem} 
 
 \begin{note}
-  Be careful! It may appear at first glance that we should be talking about the \emph{fiber}, rather than the cartesian, product. This is not the case!
+  Be careful! It may appear at first glance that in \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}} we should be talking about the \emph{fiber product} rather than the cartesian product. This is not the case! 
 
-  To be more specific: \hyperref[thm:tensorproductofcommutativemonoidsispushout]{Theorem \ref*{thm:tensorproductofcommutativemonoidsispushout}} says that the 
+  To be more specific: \hyperref[thm:tensorproductofcommutativemonoidsispushout]{Theorem \ref*{thm:tensorproductofcommutativemonoidsispushout}} tells us that the pushout of the diagram 
+  \begin{equation*}
+    \begin{tikzcd}
+      A
+      \arrow[r, "f"]
+      \arrow[d, swap, "g"]
+      & B
+      \\
+      C
+    \end{tikzcd}
+  \end{equation*}
+  in $\mathsf{CMon}(\mathsf{C})$ coincides with the tensor product $A \otimes_{C} B$ in $A\mhyp\mathsf{Mod}(\mathsf{C})$. Equivalently, it tells us that the \emph{coproduct} in $\mathsf{CMon}^{A/}(\mathsf{C})$ coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$, which by \hyperref[thm:modulesandmonoidsequivalenceofcategories]{Theorem \ref*{thm:modulesandmonoidsequivalenceofcategories}} is categorically equivalent to $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathsf{A}))^{\mathrm{op}}$. Dualizing \emph{this} is what gives us the statement of \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
 \end{note}
 
 \begin{definition}[restriction of scalars, extension of scalars]
