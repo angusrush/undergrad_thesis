@@ -111,6 +111,7 @@
 \newtheorem{definition}{Definition}[section]
 \newtheorem{example}{Example}[section]
 \newtheorem{counterexample}{Counterexample}[section]
+\newtheorem{joke}{Joke}[section]
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -123,7 +124,6 @@
 \newtheorem{recipe}{Recipe}[section]
 \newtheorem{note}{Note}[section]
 \newtheorem{notation}{Notation}[section]
-\newtheorem{joke}{Joke}[section]
 
 \title{Notes on Deligne's theorem}
 \author{Angus Rush}
@@ -6416,6 +6416,10 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
   \end{itemize}
 \end{definition} 
 
+\begin{note}
+  The sloppiness in notation (e.g. notationally supressing associators) is completely standard.
+\end{note}
+
 \subsection{Internal categories}
 \begin{definition}[internal category]
   \label{def:internalcategory}
@@ -6541,6 +6545,11 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
     \end{tikzcd}
   \end{equation*}
 \end{definition}
+
+\begin{note}
+  We need the fibered product in the definition of the pullback to ensure that (in the language of elements) given morphisms $f$ and $g$, we can only form the composition if the codomain of $f$ is equal to the domain of $g$.
+\end{note}
+
 \begin{note}
   \label{note:internalcategoriesdontneedallpullbacks}
   It is not strictly necessary that $\mathsf{A}$ have pullbacks; all that is necessary is that $\mathsf{A}$ have pullbacks along $s$ and $t$. This is a considerably less restrictive assumption.
@@ -6552,8 +6561,16 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
 
 \begin{definition}[groupoid]
   \label{def:groupoid}
-  A groupoid is a category in which every morphism is an isomorphism.
+  A \defn{groupoid} is a category in which every morphism is an isomorphism.
 \end{definition}
+
+\begin{note}
+  A groupoid with a single object coincides with idea given in \hyperref[eg:groupsaregroupoidswithoneobject]{Example \ref*{eg:groupsaregroupoidswithoneobject}}. This led Allufi to make the following joke in \cite{aluffi-algebra-chapter-0}.
+\end{note}
+
+\begin{joke}[Aluffi, \cite{aluffi-algebra-chapter-0}, pg. 41]
+  A group is a groupoid with a single object.
+\end{joke}
 
 \begin{definition}[internal groupoid]
   \label{def:internalgroupoid}
@@ -6923,23 +6940,56 @@ First, we need to define a homomorphism of presheaves. Since we defined a preshe
 \end{definition}
 
 \section{Schemes}
-We follow loosely the treatment in \cite{vakil-rising-sea}.
+We follow closely the treatment in \cite{milne-affine-group-schemes}, together with some help from \cite{vakil-rising-sea}.
 
-\begin{definition}[spectrum of a ring]
-  \label{def:spectrumofaring}
-  Let $A$ be a ring. The set of prime ideals (\hyperref[def:primeideal]{Definition \ref*{def:primeideal}}) is called the \defn{spectrum} of $A$, and denoted $\Spec(A)$.
+This is only a rushed introduction to this subject. It should be expanded with, for example, examples.
+
+Let $A$ be a commutative ring. Denote by $V$ the set of all prime ideals in $A$. For any ideal $\mathfrak{a} \in V$, we write
+\begin{equation*}
+  V(\mathfrak{a}) = \left\{ \mathfrak{q} \in V\,\big|\, \mathfrak{a} \subset \mathfrak{q} \right\}.
+\end{equation*}
+
+\begin{theorem}
+  \label{thm:zartopisatopology}
+  The sets $V(\mathfrak{a})$ form the closed sets for a topology for $V$.
+\end{theorem}
+\begin{proof}
+  We need to show three things:
+  \begin{enumerate}
+    \item There exists prime ideals $\mathfrak{p}$, $\mathfrak{q} \in V$ such that $V(\mathfrak{p}) = V$ and $V(\mathfrak{q}) = \emptyset$.
+
+    \item For any prime ideals $\mathfrak{a}$ and $\mathfrak{b}$, there exists a prime ideal $\mathfrak{c}$ such that 
+      \begin{equation*}
+        V(\mathfrak{a}) \cup V(\mathfrak{b}) = V(\mathfrak{c}).
+      \end{equation*}
+
+    \item For any family $\mathfrak{g}_{i}$ of prime ideals, there exists a prime ideal $\mathfrak{h}$ such that 
+      \begin{equation*}
+        \bigcap_{i} V(\mathfrak{g}_{i}) = V(\mathfrak{h}).
+      \end{equation*}
+  \end{enumerate}
+
+  For 1., take $\mathfrak{p} = 0$ and $\mathfrak{q} = V$. For 2., take $\mathfrak{c} = \mathfrak{a} \cap \mathfrak{b}$. For 3., take 
+  \begin{equation*}
+    \mathfrak{h} = \sum_{i} \mathfrak{g}_{i}.
+  \end{equation*}
+\end{proof}
+
+\begin{definition}[prime spectrum]
+  \label{def:primespectrumofaring}
+  The topology defined in \hyperref[thm:zartopisatopology]{Theorem \ref*{thm:zartopisatopology}} is called the \defn{Zariski topology}, and the set $V$ together with the Zariski topology is called the \defn{(prime) spectrum} of $A$, and denoted $\Spec(A)$.
 \end{definition}
 
-\begin{definition}[distinguished open set]
-  \label{def:distinguishedopenset}
-  Let $A$ be a ring, $f \in A$. Define the \defn{distinguished open set}
-  \begin{align*}
-    \mathcal{D}(f) &= \left\{ \mathfrak{p} \in \Spec(A)\,\big|\, f \notin \mathfrak{p} \right\}.
-  \end{align*}
+\begin{definition}[principal open subsets]
+  \label{def:principalopensubsets}
+  For any $f \in A$ define 
+  \begin{equation*}
+    D(f) \equiv A\big((f)\big)^{\mathrm{c}} = \left\{ \mathfrak{p} \in V\,\big|\, f \notin \mathfrak{p} \right\},
+  \end{equation*}
+  where $(f)$ is the ideal generated by $f$. Subsets of this form are called the \emph{principal open subsets} of $V$.
 \end{definition}
-\begin{example}
-  Let $A = \R[x]$, the ring of polynomials in one variable.
-\end{example}
+
+
 
 \section{Quasicoherent sheaves} \label{sec:quasicoherentsheaves}
 
@@ -8952,27 +9002,69 @@ Probably it would suffice to study the category theory of Hopf algebras. However
 
   Thus, a commutative Hopf algebroid consists of the following.
   \begin{itemize}
-    \item Commutative rings $A$ and $\Gamma$;
+    \item Commutative $\mathscr{A}$-algebras\footnote{In \cite{nlab-deligne-theorem} it says `commutative rings', but I don't think this is right.} (?) $A$ and $\Gamma$;
 
-    \item Ring homomorphisms
+    \item Algebra homomorphisms
       \begin{itemize}
         \item $\eta_{L},\eta_{R}\colon A \to \Gamma$ called the \emph{left} and \emph{right unit};
 
         \item $\Psi\colon \Gamma \to \Gamma \otimes_{A} \Gamma$ called \emph{comultiplication};
-      \end{itemize} 
+
+        \item $\varepsilon\colon \Gamma \to A$ called the \emph{counit};
+
+        \item $c\colon \Gamma \to \Gamma$ called \emph{conjugation}.
+      \end{itemize}
   \end{itemize}
+
+  These satisfy the following axioms, which are really just the diagrams in \hyperref[def:internalcategory]{Definition \ref*{def:internalcategory}} and \hyperref[def:internalgroupoid]{Definition \ref*{def:internalgroupoid}}.
+  \begin{enumerate}
+    \item The units operate in the correct way:
+      \begin{itemize}
+        \item Identity morphisms $\varepsilon \circ \eta_{L} = \varepsilon \circ \eta_{R} = \mathrm{id}_{A}$;
+      \end{itemize}
+  \end{enumerate}
+  And more\dots
+\end{definition}
+
+\begin{definition}[commutative Hopf algebra]
+  \label{def:commutativehopfalgebra}
+  A \defn{commutative Hopf algebra} is a commutative Hopf algebroid (i.e. a groupoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$) for which the left and right unit $\eta_{L}$ and $\eta_{R}$ coincide.
+\end{definition}
+
+The point of everything we've been saying is that it allows us to internalize commutative Hopf algebras to $\mathsf{SVect}_{k}$.
+
+\begin{definition}[supercommutative Hopf algebra]
+  \label{def:supercommutativehopfalgebra}
+  A \defn{supercommutative Hopf algebra} is 
+
+  To put it another way, a supercommutative Hopf algebra is formally dual to a commutative superalgebra.
+\end{definition}
+
+\begin{note}
+  In \cite{milne-affine-group-schemes}, a Hopf algebra is defined \emph{much} more simply as follows. In light of this, the beginning of this section is probably obselete unless it makes a surprise resurgence.
+\end{note}
+
+\begin{definition}[(super-)commutative Hopf algebra]
+  \label{def:supercommutativehopfalgebra2}
+  A \defn{commutative Hopf algebra} is a group internal (\hyperref[def:groupobject]{Definition \ref*{def:groupobject}}) to $\mathsf{CMon}(\mathsf{Vect}_{k}) = \mathsf{CAlg}_{k}$. That is to say, it is a $k$-algebra $M$ together with 
 \end{definition}
 
 
-\chapter{Representations}
-We have already seen that categories can be used to re-phrase certain aspects of representation theory. (Recall examples \ref{eg:groupsaregroupoidswithoneobject}, \ref{eg:functorscanbegrouprepresentation}, and \ref{eg:intertwinersarenaturaltransformations}.) In this section we will take a more systematic approach.
-
-\begin{definition}
-  \label{def:categoryofrepresentations}
-  Let $G$ be a group, $\mathsf{G}$ the group which mimics it\footnote{For those playing along at home, this is the \emph{delooping} of $G$, usually notated by $\mathbf{B}G$.} (as in \hyperref[eg:groupsaregroupoidswithoneobject]{Example \ref*{eg:groupsaregroupoidswithoneobject}}). Recall that functors $\rho\colon \mathsf{G} \rightsquigarrow \mathsf{Vect}_{k}$ are $k$-linear representations of $G$ (\hyperref[eg:functorscanbegrouprepresentation]{Example \ref*{eg:functorscanbegrouprepresentation}}).
-
-  Denote by $\mathsf{Rep}(G)$ the functor category $\Hom_{\mathsf{Cat}}(\mathsf{G}, \mathsf{Vect}_{k})$.
+\begin{definition}[affine algebraic supergroup]
+  \label{def:affinealgebraicsupergroup}
+  An \defn{affine algebraic supergroup} $G$ is the formal dual of a supercommutative Hopf algebra.
 \end{definition}
+
+
+%\chapter{Representations}
+%We have already seen that categories can be used to re-phrase certain aspects of representation theory. (Recall examples \ref{eg:groupsaregroupoidswithoneobject}, \ref{eg:functorscanbegrouprepresentation}, and \ref{eg:intertwinersarenaturaltransformations}.) In this section we will take a more systematic approach.
+%
+%\begin{definition}
+%  \label{def:categoryofrepresentations}
+%  Let $G$ be a group, $\mathsf{G}$ the group which mimics it\footnote{For those playing along at home, this is the \emph{delooping} of $G$, usually notated by $\mathbf{B}G$.} (as in \hyperref[eg:groupsaregroupoidswithoneobject]{Example \ref*{eg:groupsaregroupoidswithoneobject}}). Recall that functors $\rho\colon \mathsf{G} \rightsquigarrow \mathsf{Vect}_{k}$ are $k$-linear representations of $G$ (\hyperref[eg:functorscanbegrouprepresentation]{Example \ref*{eg:functorscanbegrouprepresentation}}).
+%
+%  Denote by $\mathsf{Rep}(G)$ the functor category $\Hom_{\mathsf{Cat}}(\mathsf{G}, \mathsf{Vect}_{k})$.
+%\end{definition}
 
 \section{Linear super-representations as Comodules}
 \section{Super fiber functors and their automorphism groups}
@@ -9345,6 +9437,19 @@ The following statement of Deligne's theorem was taken, mutatis mutandis, from \
 \end{theorem}
 \renewcommand{\thetheorem}{\arabic{theorem}}
 
+Our first task will be to understand the statement of Deligne's theorem. Given time constraints, we will only be able to give a rough outline.
+
+First, we need the notion of a \emph{category}. Categories formalize and generalize the relationship between sets and functions between them.
+
+A category $\mathsf{C}$ consists of a collection of objects $\Obj(\mathsf{C})$ (think of sets) and for every two objects $A$, $B \in \Obj(\mathsf{C})$ a collection of morphisms (think of functions) $A \to B$. Categories have some extra structure in the form of additional axioms: 
+\begin{itemize}
+  \item For each object $A$ there is a identity morphism $1_{A}$ (like the identity map on a set). 
+
+  \item Given a morphism $\begin{tikzcd} A \arrow[r, "f"] & B \end{tikzcd}$ and another morphism $\begin{tikzcd} B \arrow[r, "g"] & C \end{tikzcd}$, we can compose them to get a morphism $g \circ f\colon A \to C$.
+\end{itemize}
+
+Note that we have made no mention of the \emph{elements} of the objects $A$ of our category $\mathsf{C}$. This is because, in general, 
+
 We use Deligne's \cite{deligne-categories-tensorielle} definition of a tensor category. For our purposes, the algebraically closed field $k$ will be taken to be the field of complex numbers $\C$. 
 
 The definition of a $k$-tensor category is long and complicated. Roughly speaking, it is a category in which you can multiply objects together in a tensor-y sort of way. The prototypical example is the category $\mathsf{FinVect}_{k}$ of finite-dimensional $k$-vector spaces.
@@ -9407,6 +9512,8 @@ is an exact sequence of $\C$-vector spaces, then so is
 
 We further demand that our tensor category satisfy the requirement of \emph{subexponential growth}. This is a technical condition which makes sure that the objects in our tensor category have an attribute which behaves roughly like a dimension.
 
+While $\mathsf{FinVect}_{k}$ the prototypical example of a tensor category with subexponential, it is not hte \emph{only} example. Consider the foll
+ 
 Deligne's theorem tells us that any tensor category which satisfies the condition of subexponential growth arises as (in jargon, is categorically equivalent to) the category of finite-dimensional representations of an algebraic super-group.
 
 But what is an algebraic super-group? 
@@ -9579,18 +9686,13 @@ These, plus several other technical requirements ()
 
 \chapter{Questions}
 \begin{enumerate}
-  \item For a general symmetry group, what happens to Wigner classification? Specifically, can we always (at least for a connected group) get a unitary representation by passing to some double cover?
-
-  \item Everybody seems very cavalier about the difference between $G$ and $\bar{G}$. Why is this? Is it because they have the same Lie algebra?
-
-  \item Particle species are not just irreps, they are irreducible \emph{unitary} representations. This is glossed over a lot.
-
-  \item Probably the thing to do is to explicitly restrict our attention to finite-dimensional representations. This makes the scope of the project a lot less impressive, but at least it'll be rigorous.
-
-  \item Various questions about functional analysis: category of unitary representations (defined in a sort of an odd way) might be a tensor category? When EXACTLY does an (algebraic) group admit a finite-dimensional representation?
-
-  \item How does the Mackey machine work, exactly? Urs seems to think that one can apply Deligne's theorem to the little group, but it seems to me that one couldn't do this unless one already knew that the it was finite.
-  \item Ask Vladimir about a source for ind-object stuff.
+  \item Where am I pitching this? I have my doubts that I can 
+    \begin{itemize}
+      \item explain what a category is, and
+      \item explain what an algebraic super-group is
+      \item explain the little group method
+    \end{itemize}
+    in a coherent way in the span of 25 minutes.
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
@@ -9730,7 +9832,6 @@ These, plus several other technical requirements ()
     \textit{A prehistory of $n$-categorical physics}.
     \url{https://arxiv.org/pdf/0908.2469.pdf}
 
-
   \bibitem{neumaier} A. Neumaier.
     \textit{Elementary particles as irreducible representations}.
     \url{https://www.physicsoverflow.org/21960}.
@@ -9749,5 +9850,10 @@ These, plus several other technical requirements ()
   \bibitem{freyd-abelian-categories} P. Freyd.
     \textit{Abelian Categories}
     Harper and Row, New York, 1964.
+
+  \bibitem{milne-affine-group-schemes} J. Milne,
+    \textit{Basic Theory of Affine Group Schemes},
+    2012. 
+    Available at \url{www.jmilne.org/math/}
 \end{thebibliography}
 \end{document}
