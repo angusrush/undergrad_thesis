@@ -514,7 +514,7 @@ In this chapter we collect some basic definitions and corollaries so that we may
       \arrow[dl, swap, dashed, "\exists\xi"]
       \arrow[d, "\psi"]
       \\
-      A \arrow[r, swap, twoheadrightarrow, "\varphi"]
+      Q \arrow[r, swap, twoheadrightarrow, "\varphi"]
       & R
     \end{tikzcd}
   \end{equation*}
@@ -1569,14 +1569,14 @@ We would like to be able to express when two categories are the `same.' The corr
   \begin{itemize}
     \item objects are triples $(\alpha, \beta, f)$ where $\alpha\in\Obj(\mathsf{A})$, $\beta \in \Obj(\mathsf{B})$, and $f \in \Hom_{\mathsf{C}}(\mathcal{S}(\alpha), \mathcal{T}(\beta))$, and whose
     \item morphisms $(\alpha, \beta, f) \to (\alpha', \beta', f')$ are all pairs $(g, h)$, where $g\colon \alpha \to \alpha'$ and $h\colon \beta \to \beta'$, such that the diagram
+      \begin{equation*}
+        \begin{tikzcd}
+          \mathcal{S}(\alpha) \arrow[r, "\mathcal{S}(g)"] \arrow[d, swap, "f"] & \mathcal{S}(\alpha') \arrow[d, "f'"]\\
+          \mathcal{T}(\beta) \arrow[r, "\mathcal{T}(h)"] & \mathcal{T}(\beta') 
+        \end{tikzcd}
+      \end{equation*}
+      commutes.
   \end{itemize}
-  \begin{equation*}
-    \begin{tikzcd}
-      \mathcal{S}(\alpha) \arrow[r, "\mathcal{S}(g)"] \arrow[d, swap, "f"] & \mathcal{S}(\alpha') \arrow[d, "f'"]\\
-      \mathcal{T}(\beta) \arrow[r, "\mathcal{T}(h)"] & \mathcal{T}(\beta') 
-    \end{tikzcd}
-  \end{equation*}
-  commutes.
 \end{definition}
 
 \begin{notation}
@@ -3809,7 +3809,7 @@ Filtered categories are a generalization of filtered preorders.
       \end{equation*}
 
       That is, every diagram with two objects and no morphisms is the base of a cocone.
-      
+
     \item For every pair of morphisms $i$, $j\colon J \to J'$, there exists an object $K$ and a morphism $f\colon J' \to K$ such that $f \circ i = f \circ j$, i.e. the following diagram commutes.
       \begin{equation*}
         \begin{tikzcd}[row sep=tiny]
@@ -3853,7 +3853,7 @@ We now define the so-called \emph{category of inductive objects} (or simply \emp
 The importance of the category of ind-objects can be seen in the following example.
 \begin{example}
   Let $V$ be an infinite-dimensional vector space over some field $k$. Then $V$ can be realized as an object in the category $\mathsf{Ind}(\mathsf{FinVect})$.
-  
+
   In fact, there is an equivalence of categories $\mathsf{Vect}_{k} \simeq \mathsf{Ind}(\mathsf{FinVect}_{k})$. Similarly, there is an equivalence of categories $\mathsf{SVect}_{k} \simeq \mathsf{Ind}(\mathsf{FinSVect}_{k})$
 \end{example}
 \begin{note}
@@ -4399,7 +4399,7 @@ A monoidal category will be a category in which the objects have the structure o
 
 \begin{definition}[monoidal subcategory]
   \label{def:monoidalsubcategory}
-  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. A \defn{monoidal subcategory} of $\mathsf{C}$ is a subcategory $\mathsf{S} \subseteq \mathsf{C}$ which is closed under the tensor product, and which contains $1$.
+  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. A \defn{monoidal subcategory} of $\mathsf{C}$ is a subcategory (\hyperref[def:subcategory]{Definition \ref*{def:subcategory}}) $\mathsf{S} \subseteq \mathsf{C}$ which is closed under the tensor product, and which contains $1$.
 \end{definition}
 
 \begin{example}
@@ -4410,10 +4410,10 @@ A monoidal category will be a category in which the objects have the structure o
 
 \begin{lemma}
   \label{lemma:leftandrightunitoragreewhenpossible}
-  Let $\mathsf{C}$ be a category with monoidal structure $(\otimes, 1, \alpha, \lambda, \rho)$. Then the maps $\lambda_{1}$ and $\rho_{1}\colon 1 \otimes 1 \to 1$
+  Let $\mathsf{C}$ be a category with monoidal structure $(\otimes, 1, \alpha, \lambda, \rho)$. Then the maps $\lambda_{1}$ and $\rho_{1}\colon 1 \otimes 1 \to 1$ agree.
 \end{lemma}
 \begin{proof}
-  
+
 \end{proof}
 
 \begin{lemma}
@@ -6423,7 +6423,7 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
 \subsection{Internal categories}
 \begin{definition}[internal category]
   \label{def:internalcategory}
-  Let $\mathsf{A}$ be a category with pullbacks. A \defn{category internal to $\mathsf{A}$} is a sextuple $(C_{0}, C_{1}, s, t, e, c)$, where
+  Let $\mathsf{A}$ be a category with pullbacks.\footnote{This condition can be relaxed; see \hyperref[note:internalcategoriesdontneedallpullbacks]{Note \ref*{note:internalcategoriesdontneedallpullbacks}}.} A \defn{category internal to $\mathsf{A}$} is a sextuple $(C_{0}, C_{1}, s, t, e, c)$, where
   \begin{itemize}
     \item $C_{0} \in \Obj(\mathsf{A})$ is the \emph{object of objects}, 
     \item $C_{1} \in \Obj(\mathsf{A})$ is the \emph{object of morphisms},
@@ -6565,7 +6565,7 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
 \end{definition}
 
 \begin{note}
-  A groupoid with a single object coincides with idea given in \hyperref[eg:groupsaregroupoidswithoneobject]{Example \ref*{eg:groupsaregroupoidswithoneobject}}. This led Allufi to make the following joke in \cite{aluffi-algebra-chapter-0}.
+  A groupoid with a single object coincides with idea given in \hyperref[eg:groupsaregroupoidswithoneobject]{Example \ref*{eg:groupsaregroupoidswithoneobject}}. This led Aluffi to make the following joke in \cite{aluffi-algebra-chapter-0}.
 \end{note}
 
 \begin{joke}[Aluffi, \cite{aluffi-algebra-chapter-0}, pg. 41]
@@ -6637,6 +6637,11 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
       \end{equation*}
   \end{itemize}
 \end{definition}
+
+\begin{lemma}
+  \label{lemma:interalgroupoidsaregroupobjectsinslicecategory}
+  Let $C = (C_{0}, C_{1}, s, t, e, c, i)$ be a groupoid internal to $\mathsf{C}$ such that $s = t$. Then $C$ is equivalently a group internal to the slice category $(\mathsf{C} \downarrow C_{0})$.
+\end{lemma}
 
 \section{Higher categories} \label{sec:highercategories}
 This section follows \cite{baez-higher-categories} closely.
@@ -8055,7 +8060,7 @@ As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd
 
 \begin{definition}[supercommutative superalgebra]
   \label{def:supercommutativesuperalgebra}
-  A \defn{supercommutative superalgebra} is a superalgebra which obeys the Koszul sign rule, i.e.  $\tilde{a \cdot b} = \tilde{a} \cdot \tilde{b}$ for elements $a$, $b$ of pure degree.
+  A \defn{supercommutative superalgebra} is a superalgebra which obeys the Koszul sign rule, i.e.  $\widetilde{a \cdot b} = \tilde{a} \cdot \tilde{b}$ for elements $a$, $b$ of pure degree.
 \end{definition}
 
 \begin{definition}[superalgebra homomorphism]
@@ -8065,6 +8070,14 @@ As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd
     f = f_{0} \oplus f_{1},
   \end{equation*}
   where $f_{0}$ and $f_{1}$ are algebra homomorphisms.
+\end{definition}
+
+\begin{definition}[parity involution]
+  \label{def:parityinvolution}
+  Let $A = A_{0} \oplus A_{1}$ be a supercommutative superalgebra. Then there is an algebra automorphism $P\colon A\to A$ called the \defn{parity involution} which acts on elements of pure degree via
+  \begin{equation*}
+    P(a) = (-1)^{\tilde{a}}a.
+  \end{equation*}
 \end{definition}
 
 \chapter{Superalgebra and supergeometry in categories}
@@ -8325,7 +8338,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   But we do by the following:
   \begin{align*}
     v_{1} \cdot v_{2} &= \mu(v_{1} \otimes v_{2}) \\
-    &= \mu(\gamma_{V, V}(v_{1} \otimes v_{2})) &\text{(by the commutativity diagram)}\\ 
+    &= \mu(\gamma_{V, V}(v_{1} \otimes v_{2})) &\left( \substack{\text{by the commutativity diagram}\\ \text{in \hyperref[def:internalmonoid]{Definition \ref*{def:internalmonoid}}}} \right)\\ 
     &= \mu((-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}) \\
     &= (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} \mu(v_{2} \otimes v_{1}) \\
     &= (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}.
@@ -8670,7 +8683,13 @@ As before, one is lead to the assumption that one could generalize the idea of a
 \end{definition}
 
 \begin{example}
+  \label{eg:categoryof1modulesisequivalenttocategoryitself}
   Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. As we saw in \hyperref[eg:tensorunitisinternalmonoid]{Example \ref*{eg:tensorunitisinternalmonoid}}, we can view $1$ as a monoid internal to $\mathsf{C}$. Then for every object $C \in \Obj(\mathsf{C})$, the left unitor $\lambda_{C}\colon 1 \otimes C \to C$ makes $C$ into a a left module.
+
+  This holds for any $C \in \Obj(\mathsf{C})$, and in fact gives an equivalence of categories
+  \begin{equation*}
+    \mathsf{C} \simeq 1\mhyp\mathsf{Mod}(\mathsf{C}).
+  \end{equation*}
 \end{example}
 
 \begin{definition}[homomorphism of module objects]
@@ -8798,12 +8817,12 @@ As before, one is lead to the assumption that one could generalize the idea of a
   \begin{itemize}
     \item $(A\mhyp\mathsf{Mod}, \otimes_{A}, A)$ is the category of $A$-modules internal to $\mathsf{C}$, and $\mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C}))$ is the category of commutative $A$-algebras internal to $\mathsf{C}$.
 
-    \item $\mathsf{CMon}(\mathsf{C})^{A/}$ is the coslice category (\hyperref[def:coslicecategory]{Definition \ref*{def:coslicecategory}}) whose objects are morphisms $A \to E$, with $E$ a commutative monoid in $\mathsf{C}$.
+    \item $(A \downarrow\mathsf{CMon}(\mathsf{C}))$ is the coslice category (\hyperref[def:coslicecategory]{Definition \ref*{def:coslicecategory}}) whose objects are morphisms $A \to E$, with $E$ a commutative monoid in $\mathsf{C}$.
   \end{itemize}
 
   Then there is an equivalence of categories
   \begin{equation*}
-    \mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C})) \simeq \mathsf{CMon}^{A/}(\mathsf{C}).
+    \mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C})) \simeq (A \downarrow\mathsf{CMon}(\mathsf{C})).
   \end{equation*}
 \end{theorem}
 \begin{proof}
@@ -8812,7 +8831,7 @@ As before, one is lead to the assumption that one could generalize the idea of a
 
 \begin{theorem}
   \label{thm:tensorproductofcommutativemonoidsispushout}
-  Let $\mathsf{C}$ be a tensor category, and let $f\colon A \to B$ and $g\colon A \to C$ be two morphisms in the category $\mathsf{CMon}(\mathsf{C})$ (that is, objects in the category $\mathsf{CMon}^{A/}(\mathsf{C})$). Then the $\mathsf{C}$-object underlying the pushout in $\mathsf{CMon}(\mathsf{C})$ (that is, the coproduct in $\mathsf{CMon}^{A/}(\mathsf{C})$) coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$. That is, 
+  Let $\mathsf{C}$ be a tensor category, and let $f\colon A \to B$ and $g\colon A \to C$ be two morphisms in the category $\mathsf{CMon}(\mathsf{C})$ (that is, objects in the category $(A \downarrow\mathsf{CMon}(\mathsf{C}))$). Then the $\mathsf{C}$-object underlying the pushout in $\mathsf{CMon}(\mathsf{C})$ (that is, the coproduct in $(A \downarrow\mathsf{CMon}(\mathsf{C}))$) coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$. That is, 
   \begin{equation*}
     \mathcal{U}\left( B \amalg_{A} C \right) \simeq B \otimes_{A} C,
   \end{equation*}
@@ -8860,7 +8879,7 @@ The upshot of the past few theorems is the following.
       C
     \end{tikzcd}
   \end{equation*}
-  in $\mathsf{CMon}(\mathsf{C})$ coincides with the tensor product $A \otimes_{C} B$ in $A\mhyp\mathsf{Mod}(\mathsf{C})$. Equivalently, it tells us that the \emph{coproduct} in $\mathsf{CMon}^{A/}(\mathsf{C})$ coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$, which by \hyperref[thm:modulesandmonoidsequivalenceofcategories]{Theorem \ref*{thm:modulesandmonoidsequivalenceofcategories}} is categorically equivalent to $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathsf{A}))^{\mathrm{op}}$. Dualizing \emph{this} is what gives us the statement of \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
+  in $\mathsf{CMon}(\mathsf{C})$ coincides with the tensor product $A \otimes_{C} B$ in $A\mhyp\mathsf{Mod}(\mathsf{C})$. Equivalently, it tells us that the \emph{coproduct} in $(A \downarrow\mathsf{CMon}(\mathsf{C}))$ coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$, which by \hyperref[thm:modulesandmonoidsequivalenceofcategories]{Theorem \ref*{thm:modulesandmonoidsequivalenceofcategories}} is categorically equivalent to $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathsf{A}))^{\mathrm{op}}$. Dualizing \emph{this} is what gives us the statement of \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
 \end{note}
 
 \begin{definition}[restriction of scalars, extension of scalars]
@@ -8933,25 +8952,25 @@ which induces on $\mathsf{SmoothAlg}_{\R}$ a `dual product'
 \begin{equation*}
   C^{\infty}(G) \to C^{\infty} (G) \otimes^{c} C^{\infty}(G).
 \end{equation*}
-Moreover, applying $C^{\infty}$ to the images of the coherence diagrams for the group structure on $G$ yields dual coherence diagrams enforcing `co-associativity,' etc. This gives $C^{\infty}(G)$ the structure of a \emph{Hopf algebra}.
+Moreover, applying $C^{\infty}$ to the coherence diagrams for the group structure on $G$ yields dual coherence diagrams enforcing `co-associativity,' etc. This gives $C^{\infty}(G)$ the structure of a \emph{Hopf algebra}.
 
-Probably it would suffice to study the category theory of Hopf algebras. However, in the name of full generality, the nLab article \cite{nlab-deligne-theorem} does everything with \emph{Hopf algebroids}, and so will I---in for a penny, in for a pound, after all.
+The next step in the story is to define affine algebraic super-groups as the formal duals to \emph{supercommutative Hopf algebras}. To do this, we need to study the category theory of Hopf algebras. However, in the name of full generality, the nLab article \cite{nlab-deligne-theorem} does everything with \emph{Hopf algebroids}, and so will I---in for a penny, in for a pound, after all. If you're not interested in full generality, it won't hurt to skip to \hyperref[def:supercommutativehopfalgebra]{Definition \ref*{def:supercommutativehopfalgebra}}.
 
 \begin{definition}[commutative Hopf algebroid]
   \label{def:commutativehopfalgebroid}
-  Let $(\mathscr{A}, \otimes, 1)$ be a tensor category. Consider the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ of commutative monoids internal to $\mathscr{A}$. The category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ is a monoidal category whose bifunctor is given by the fibered product, thanks to \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
+  Let $(\mathscr{A}, \otimes, 1)$ be a tensor category. Consider the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ of commutative monoids internal to $\mathscr{A}$. The category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ is a monoidal category whose bifunctor is given by the categorical product, thanks to \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
 
   A \defn{commutative Hopf algebroid} is a groupoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ (see \hyperref[def:internalgroupoid]{Definition \ref*{def:internalgroupoid}}), i.e. a septuple $(\Spec(\Gamma), \Spec(A), s, t, e, c, i)$
   \begin{itemize}
     \item $\Spec(\Gamma) \in \Obj(\mathsf{CMon}(\mathscr{A})^{\mathrm{op}})$ is the \emph{object of objects}, 
     \item $\Spec(A) \in \Obj(\mathsf{CMon}(\mathscr{A})^{\mathrm{op}})$ is the \emph{object of morphisms},
     \item $s$, $t\colon \Spec(\Gamma) \to \Spec(A)$ are morphisms called the \emph{source} and \emph{target morphisms}.
-    \item $e\colon \Spec(\Gamma) \to \Spec(A)$ is the \emph{identity-assigning morphism}
+    \item $e\colon \Spec(A) \to \Spec(\Gamma)$ is the \emph{identity-assigning morphism}
     \item $c\colon \Spec(\Gamma) \times_{\Spec(A)} \Spec(\Gamma) \to \Spec(\Gamma)$ is the \emph{composition morphism},
     \item $i\colon \Spec(\Gamma) \to \Spec(\Gamma)$ is the \emph{inverse-assigning morphism}.
   \end{itemize}
 
-  We can summarize some of this information in the following diagram.
+  We can summarize this information in the following diagram.
   \begin{equation*}
     \begin{tikzcd}
       \Spec(\Gamma) \times_{\Spec_{A}} \Spec(\Gamma)
@@ -8960,9 +8979,10 @@ Probably it would suffice to study the category theory of Hopf algebras. However
       \Spec(\Gamma)
       \arrow[d, shift left, bend left, "t"]
       \arrow[d, shift right, bend right, swap, "s"]
+      \arrow[loop right, "i"]
       \\
       \Spec(A)
-      \arrow[u, swap, "i"]
+      \arrow[u, swap, "e"]
     \end{tikzcd}
   \end{equation*}
 
@@ -8980,12 +9000,13 @@ Probably it would suffice to study the category theory of Hopf algebras. However
       \Spec(\Gamma)
       \arrow[d, shift left, bend left, "t"]
       \arrow[d, shift right, bend right, swap, "s"]
+      \arrow[loop right, "i"]
       \\
       \Spec(A)
-      \arrow[u, swap, "i"]
+      \arrow[u, swap, "e"]
     \end{tikzcd}
   \end{equation*}
-  Then, dualizing, obtain the following diagram in $\mathsf{CMon}(\mathscr{A})$.
+  The above diagram is in $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$. Dualizing and renaming a few things, we obtain the following diagram in $\mathsf{CMon}(\mathscr{A})$.
   \begin{equation*}
     \begin{tikzcd}
       \Gamma \otimes_{A} \Gamma
@@ -8993,6 +9014,7 @@ Probably it would suffice to study the category theory of Hopf algebras. However
       \Gamma
       \arrow[u, swap, "\Psi"]
       \arrow[d, "\varepsilon"]
+      \arrow[loop right, "c"]
       \\
       A
       \arrow[u, shift left, bend left, "\eta_{L}"]
@@ -9000,9 +9022,9 @@ Probably it would suffice to study the category theory of Hopf algebras. However
     \end{tikzcd}
   \end{equation*}
 
-  Thus, a commutative Hopf algebroid consists of the following.
+  Thus, a commutative Hopf algebroid is a septuple $(\Gamma, A, \eta_{L}, \eta_{R}, \varepsilon, \Psi, c)$ consisting of the following.
   \begin{itemize}
-    \item Commutative $\mathscr{A}$-algebras\footnote{In \cite{nlab-deligne-theorem} it says `commutative rings', but I don't think this is right.} (?) $A$ and $\Gamma$;
+    \item Commutative $\mathscr{A}$-algebras $\Gamma$ and $A$;
 
     \item Algebra homomorphisms
       \begin{itemize}
@@ -9028,45 +9050,77 @@ Probably it would suffice to study the category theory of Hopf algebras. However
 
 \begin{definition}[commutative Hopf algebra]
   \label{def:commutativehopfalgebra}
-  A \defn{commutative Hopf algebra} is a commutative Hopf algebroid (i.e. a groupoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$) for which the left and right unit $\eta_{L}$ and $\eta_{R}$ coincide.
-\end{definition}
-
-The point of everything we've been saying is that it allows us to internalize commutative Hopf algebras to $\mathsf{SVect}_{k}$.
-
-\begin{definition}[supercommutative Hopf algebra]
-  \label{def:supercommutativehopfalgebra}
-  A \defn{supercommutative Hopf algebra} is 
-
-  To put it another way, a supercommutative Hopf algebra is formally dual to a commutative superalgebra.
+  Let $\mathscr{A}$ be a tensor category and $\Gamma$ and $A$ be commutative monoids internal to $\mathscr{A}$. A \defn{commutative Hopf algebra $\Gamma$ over $A$} is a commutative Hopf algebroid $(\Gamma, A, \eta_{L}, \eta_{R}, \varepsilon, \Psi, c)$ for which the left and right unit $\eta_{L}$ and $\eta_{R}$ coincide.
 \end{definition}
 
 \begin{note}
-  In \cite{milne-affine-group-schemes}, a Hopf algebra is defined \emph{much} more simply as follows. In light of this, the beginning of this section is probably obselete unless it makes a surprise resurgence.
+  This is a really confusing definition which looks seductively similar to, but does not at first glance agree with, the traditional definition of a commutative Hopf algebra. Here's how it unfolds.
+
+  \begin{itemize}
+    \item As \hyperref[def:commutativehopfalgebra]{Definition \ref*{def:commutativehopfalgebra}} tells us, a commutative Hopf algebra $\Gamma$ over $A$ is a groupoid $\begin{tikzcd} \Gamma \arrow[r, shift left, "\eta_{L}"] \arrow[r, shift right, swap, "\eta_{R}"] & A \end{tikzcd}$ internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ for which $\eta_{L}$ and $\eta_{R}$ happen to coincide.
+
+    \item By \hyperref[lemma:interalgroupoidsaregroupobjectsinslicecategory]{Lemma \ref*{lemma:interalgroupoidsaregroupobjectsinslicecategory}}, a groupoid $\begin{tikzcd} \Gamma \arrow[r, shift left, "\eta_{L}"] \arrow[r, shift right, swap, "\eta_{R}"] & A \end{tikzcd}$ internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ is equivalently a group internal to the slice category
+      \begin{equation*}
+        (\mathsf{CMon}(\mathscr{A})^{\mathrm{op}} \downarrow \mathsf{Spec}(A)).
+      \end{equation*}
+
+    \item Dualizing, we find that this is equivalent to a group internal to the coslice category
+      \begin{equation*}
+        (A \downarrow \mathsf{CMon}(\mathscr{A})).
+      \end{equation*}
+
+    \item By \hyperref[thm:modulesandmonoidsequivalenceofcategories]{Theorem \ref*{thm:modulesandmonoidsequivalenceofcategories}}, this is equivalent to a group internal to the category 
+      \begin{equation*}
+        \mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathscr{A})).
+      \end{equation*}
+  \end{itemize}
+
+  The point of everything we've been saying is that it allows us to internalize commutative Hopf algebras to $\mathsf{SVect}_{k}$.
+
+  First of all, (so far) we only really care about Hopf algebras over $k$. In $\mathsf{Vect}_{k}$ and $\mathsf{SVect}_{k}$, $k \simeq 1$, the tensor unit. By \hyperref[eg:categoryof1modulesisequivalenttocategoryitself]{Example \ref*{eg:categoryof1modulesisequivalenttocategoryitself}}, $1$ is a monoid internal to $\mathscr{A}$ and $1\mhyp\mathsf{Mod}(\mathscr{A}) \simeq \mathscr{A}$. Thus, a commutative Hopf algebra over $k$ is just a group internal to $\mathsf{CMon}(\mathscr{A})$.
+
+  Thus, our generality hasn't hurt us. Much.
 \end{note}
 
-\begin{definition}[(super-)commutative Hopf algebra]
-  \label{def:supercommutativehopfalgebra2}
-  A \defn{commutative Hopf algebra} is a group internal (\hyperref[def:groupobject]{Definition \ref*{def:groupobject}}) to $\mathsf{CMon}(\mathsf{Vect}_{k}) = \mathsf{CAlg}_{k}$. That is to say, it is a $k$-algebra $M$ together with 
-\end{definition}
+\begin{note}
+  Actually, we're off from the definition given in \cite{milne-affine-group-schemes} by an $^{\mathrm{op}}$ (or perhaps an odd number of $^{\mathrm{op}}$s). It seems possible that Hopf algebras are \emph{self-dual}, and therefore immune to $^{\mathrm{op}}$ing. I've heard that Hopf algebras \emph{are} dual to themselves in some sense, but I don't know if it's the same sense.
 
+  Also, it makes the next step, namely defining supergroups as formally dual to supercommutative Hopf algebras, seem a little bit cheeky.
+\end{note}
+
+\begin{definition}[supercommutative Hopf algebra]
+  \label{def:supercommutativehopfalgebra}
+  A \defn{supercommutative Hopf algebra over $k$} is a group internal to $\mathsf{CMon}(\mathsf{SVect}_{k})^{\mathrm{op}}$.
+\end{definition}
 
 \begin{definition}[affine algebraic supergroup]
   \label{def:affinealgebraicsupergroup}
-  An \defn{affine algebraic supergroup} $G$ is the formal dual of a supercommutative Hopf algebra.
+  An \defn{affine algebraic supergroup} $G$ is the formal dual of a supercommutative Hopf algebra $\mathscr{O}(G)$. (Recall from \hyperref[def:affineschemeofanalgebra]{Definition \ref*{def:affineschemeofanalgebra}} that $\mathscr{O}(G)$ is the (Hopf) algebra of functions to which $G$ is formally dual.)
 \end{definition}
 
+Every 
 
-%\chapter{Representations}
-%We have already seen that categories can be used to re-phrase certain aspects of representation theory. (Recall examples \ref{eg:groupsaregroupoidswithoneobject}, \ref{eg:functorscanbegrouprepresentation}, and \ref{eg:intertwinersarenaturaltransformations}.) In this section we will take a more systematic approach.
-%
-%\begin{definition}
-%  \label{def:categoryofrepresentations}
-%  Let $G$ be a group, $\mathsf{G}$ the group which mimics it\footnote{For those playing along at home, this is the \emph{delooping} of $G$, usually notated by $\mathbf{B}G$.} (as in \hyperref[eg:groupsaregroupoidswithoneobject]{Example \ref*{eg:groupsaregroupoidswithoneobject}}). Recall that functors $\rho\colon \mathsf{G} \rightsquigarrow \mathsf{Vect}_{k}$ are $k$-linear representations of $G$ (\hyperref[eg:functorscanbegrouprepresentation]{Example \ref*{eg:functorscanbegrouprepresentation}}).
-%
-%  Denote by $\mathsf{Rep}(G)$ the functor category $\Hom_{\mathsf{Cat}}(\mathsf{G}, \mathsf{Vect}_{k})$.
-%\end{definition}
+\begin{definition}[inner parity]
+  \label{def:innerparity}
+  Let $G$ be an affine algebraic supergroup. An \defn{inner parity} on $G$ is an superalgebra homomorphism $\varepsilon^{*}\colon \mathscr{O}(G) \to k$ such that
+  \begin{itemize}
+    \item the result of the composition
+      \begin{equation*}
+        \begin{tikzcd}
+          \mathscr{O}(G) 
+          \arrow[r, "\Psi"]
+          & \mathscr{O}(G) \otimes_{k} \mathscr{O}(G)
+          \arrow[r, "\varepsilon^{*} \otimes_{k} \varepsilon^{*}"]
+          & k \otimes_{k} k \simeq k
+        \end{tikzcd},
+      \end{equation*}
+      agrees with the counit $\varepsilon\colon \mathscr{O}(G) \to k$.
+      Morally, this means that it squares to the identity. 
+  \end{itemize}
+\end{definition}
 
 \section{Linear super-representations as Comodules}
+d
 \section{Super fiber functors and their automorphism groups}
 We would like to view tensor categories $\mathcal{A}$ as categories of representations. Thus, we would like to be able to view the objects of $\mathcal{A}$ as being the objects of some other category $\mathcal{V}$, plus some extra structure. The extra structure should be extra in the sense that it is forgettable, so there should be a forgetful functor
 \begin{equation*}
@@ -9083,7 +9137,7 @@ For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \
     \item All of the hom-spaces are finite-dimensional as $k$-vector spaces.
   \end{enumerate}
 
-  Let $R \in \mathsf{CMon}(\mathsf{Ind}(\mathcal{T}))$.
+  Let $R \in \mathsf{CMon}(\mathcal{T})$.
 \end{definition}
 
 
@@ -9328,17 +9382,6 @@ where the final $\mathrm{U}(3)$ factor interchanges the three generations of par
 
 Thus it is not exactly correct to say that fundamental particles are exactly irreducible representations of the symmetry group of spacetime: the more correct statement is that particles are irreducible representations of the total symmetry group. Of course, for a given particle species, it may be that the representation of the full group decomposes into a direct sum of representations of each individual part, in which case one can consider the representation of the Poincar\'{e} group separately. Then one recovers the classification by mass-squared and spin/helicity.
 
-\section{Wigner classification with a general global symmetry group}
-Let us consider the case in which we generalize the symmetry group of our theory to a general (algebraic) super group.
-
-The basic idea of the previous section is unchanged. If our quantum theory has a symmetry given by some algebraic super group $G$, its Hilbert space $\mathscr{H}$ must admit a ray representation of $G$, and particles correspond to irreducible representations of $G$.
-
-And again we can make the argument that the Hilbert space of a fundamental particle must admit an irreducible representation of $G$.
-
-By the way, this is not so outlandish: one faces this already in the standard model! Quarks and neutrinos are not irreps of the Poincar\'{e} group. Instead they are irreps of the total symmetry group, see the previous section.
-
-And, no matter what, these particles will transform linearly with this group.
-
 \section{Feynman diagrams: representations and intertwiners}
 The ideas in this section were taken from \cite{baez-lauda-prehistory}.
 
@@ -9413,7 +9456,7 @@ The other reason is that the mass of the Higgs boson is lower than one would exp
 \section{What does Deligne's theorem do for us?}
 The propose of these notes is to present some physical applications of Deligne's theorem. First, we should understand exactly what it is that Deligne's theorem tells us.
 
-The following statement of Deligne's theorem was taken, mutatis mutandis, from \cite{nlab-deligne-theorem}.
+The following statement of Deligne's theorem was taken, mutatis mutandis, from \cite{nlab-deligne-theorem}. For us, $k = \C$.
 
 \renewcommand{\thetheorem}{\ref*{thm:delignestheorem}}
 \begin{theorem}[Deligne's theorem on tensor categories]
@@ -9441,87 +9484,82 @@ Our first task will be to understand the statement of Deligne's theorem. Given t
 
 First, we need the notion of a \emph{category}. Categories formalize and generalize the relationship between sets and functions between them.
 
-A category $\mathsf{C}$ consists of a collection of objects $\Obj(\mathsf{C})$ (think of sets) and for every two objects $A$, $B \in \Obj(\mathsf{C})$ a collection of morphisms (think of functions) $A \to B$. Categories have some extra structure in the form of additional axioms: 
-\begin{itemize}
-  \item For each object $A$ there is a identity morphism $1_{A}$ (like the identity map on a set). 
+A category $\mathsf{C}$ consists of a collection of objects $\Obj(\mathsf{C})$ (think of sets) and for every two objects $A$, $B \in \Obj(\mathsf{C})$ a collection of morphisms $A \to B$ (think of functions). Categories also have some extra structure in the form of additional axioms to make objects and morphisms mimic sets. 
 
-  \item Given a morphism $\begin{tikzcd} A \arrow[r, "f"] & B \end{tikzcd}$ and another morphism $\begin{tikzcd} B \arrow[r, "g"] & C \end{tikzcd}$, we can compose them to get a morphism $g \circ f\colon A \to C$.
+The best thing I can do to give a sense of what categories are is to give some examples. Apart from the category $\mathsf{Set}$ of sets, there are many other categories:
+\begin{itemize}
+  \item The category $\mathsf{Top}$, whose objects are topological spaces and whose morphisms are continuous maps between them.
+
+  \item The category $\mathsf{Grp}$, whose objects are groups and whose morphisms are homomorphisms between them.
+
+  \item The category $\mathsf{FinVect}_{k}$, whose objects are finite-dimensional $k$-vector spaces and whose morphisms are $k$-linear maps between them.
 \end{itemize}
 
-Note that we have made no mention of the \emph{elements} of the objects $A$ of our category $\mathsf{C}$. This is because, in general, 
+Just as categories provide a formalism to talk about things which behave like sets and functions between them with, $k$-tensor categories are special type of category which provide a means of talking about things which behave like finite-dimensional vector spaces and linear maps between them. The prototypical example is the category $\mathsf{FinVect}_{k}$ of finite-dimensional $k$-vector spaces.
 
-We use Deligne's \cite{deligne-categories-tensorielle} definition of a tensor category. For our purposes, the algebraically closed field $k$ will be taken to be the field of complex numbers $\C$. 
-
-The definition of a $k$-tensor category is long and complicated. Roughly speaking, it is a category in which you can multiply objects together in a tensor-y sort of way. The prototypical example is the category $\mathsf{FinVect}_{k}$ of finite-dimensional $k$-vector spaces.
+Unlike the definition of a category, the definition of a tensor category is so technical that there is no hope of giving any real sense of what they are. They are categories with the following properties, as well as many others.
 \begin{itemize}
-  \item For any two $\C$-vector spaces $V_{1}$, $V_{2}$, one can create the tensor product space
+  \item For any two objects $V_{1}$, $V_{2}$ in a $k$-tensor category, one can form the \emph{`tensor product'}
     \begin{equation*}
       V_{1} \otimes V_{2}
     \end{equation*}
 
-  \item The complex numbers, taken as a one-dimensional vector space over themselves, function as a sort of left and right unit:
-    \begin{equation*}
-      \C \otimes V \simeq V \simeq V \otimes \C
-    \end{equation*}
+  \item For each object $V$ there is a dual object $V^{*}$ which behaves like the dual space.
 
-  \item There is a natural isomorphism 
-    \begin{equation*}
-      (V_{1} \otimes V_{2}) \otimes V_{3} \simeq V_{1} \otimes (V_{2} \otimes V_{3})
-    \end{equation*}
-    which makes the tensor product associative.
-
-  \item There is a natural isomorphism
-    \begin{equation*}
-      V_{1} \otimes V_{2} \simeq V_{2} \otimes V_{1}
-    \end{equation*}
-    which makes the tensor product commutative.
-
-  \item For each vector space $V$ there is a dual space $V^{*}$
-
-  \item And many more\ldots
+  \item And \emph{many} more. 
 \end{itemize}
 
-There are also some more abstract properties. For example, the tensor product preserves exactness, in the sense that if 
+Deligne's theorem isn't about just any tensor categories though, it's about those which satisfy a special requirement: \emph{subexponential growth}. This is a technical condition which makes sure that the objects in our tensor category have an attribute which behaves roughly like a dimension.
+
+Again, $\mathsf{FinVect}_{k}$ is the prototypical example of a tensor category with subexponential growth. However, it's far from the \emph{only} one. For example, for any group $G$ there is a category $\mathsf{FinRep}_{k}(G)$ whose objects are finite-dimensional linear representations of $G$ and whose morphisms are $G$-equivariant linear maps called \emph{intertwiners}. With the tensor product given by the tensor product of representations, these form tensor categories with subexponential growth.
+
+In fact, Deligne's theorem tells us that these are nearly all the tensor categories with subexponential growth. More specifically, it says that that any tensor category which satisfies the condition of subexponential growth arises as (in jargon, there exists a tensor-equivalence of categories between) the category of finite-dimensional representations of an algebraic super-group.
+
+But what is an algebraic super-group? Again, they have a horribly technical definition: they are group objects in the category of affine super-schemes; affine super-schemes in turn are the formal duals of commutative monoids internal to $\mathsf{FinSVect}_{k}$. For the purposes of this talk, the best definition I can give is: They are exactly the sort of groups that physicists like to study. 
+
+Admittedly, this is a very loaded definition. Here are some examples. 
+\begin{itemize}
+  \item Any matrix group is an algebraic super-group.
+    \begin{itemize}
+      \item Hence, the Lorentz group is an algebraic supergroup
+    \end{itemize}
+
+  \item For any $n$, the $n$-dimensional translation group is an algebraic super-group.
+    \begin{itemize}
+      \item Hence, the Poincar\'{e} group is an algebraic super-group.
+    \end{itemize}
+\end{itemize}
+In fact, these are simply algebraic groups, which are a special case of algebraic super-groups. 
+\begin{itemize}
+  \item The super-* examples of all of these are also algebraic super-groups.
+    \begin{itemize}
+      \item For example, the Super Poincar\'{e} group is an algebraic super-group.
+    \end{itemize}
+\end{itemize}
+
+This is where physics enters the story.
+
+In quantum mechanics, a finite-dimensional quantum system is $G$-symmetric if it admits a unitary representation of $G$. This means that finite-dimensional $G$-symmetric quantum systems live in the category $\mathsf{FinURep}_{\C}(G)$.
+
+This is a monoidal subcategory of $\mathsf{FinRep}_{\C}(G)$, (and even a full tensor subcategory if we make a slightly unnatural definition of morphisms). Therefore, Deligne's theorem tells us that the most general sort of symmetry that a finite-dimensional quantum system can have is that given by an algebraic super-group.
+
+This is nice, but few interesting quantum systems are finite-dimensional; Deligne's theorem cannot be applied to infinite-dimensional quantum systems without some finesse.
+
+We need a few physical assumptions. It is clear that some of these assumptions can be weakened, but not always obvious what is the best weakening. This is an interesting problem, but I will not have time to discuss it.
+
+Firstly, we will model spacetime with Minkowski space. The so-called \emph{little group} analysis, originally due to Wigner \cite{wigner-little-group} and generalized by Mackey \cite{mackey-induced-representations}, tells us that we can therefore restrict our attention to symmetry groups of the form 
 \begin{equation*}
-  \begin{tikzcd}
-    0
-    \arrow[r]
-    & A
-    \arrow[r, "f"]
-    & B
-    \arrow[r, "g"]
-    & C
-    \arrow[r]
-    & 0
-  \end{tikzcd}
+  \R^{4} \rtimes \mathcal{G}.
 \end{equation*}
-is an exact sequence of $\C$-vector spaces, then so is
-\begin{equation*}
-  \begin{tikzcd}
-    0
-    \arrow[r]
-    & A \otimes X
-    \arrow[r, "f \otimes 1_{X}"]
-    & B \otimes X
-    \arrow[r, "g \otimes 1_{X}"]
-    & C \otimes X
-    \arrow[r]
-    & 0
-  \end{tikzcd}.
-\end{equation*}
+Wigner's analysis tells us that we can separate off $\mathcal{G}$ and interpret it as the symmetry group of the internal Hilbert space $\mathfrak{h}$ of the our system.
 
-We further demand that our tensor category satisfy the requirement of \emph{subexponential growth}. This is a technical condition which makes sure that the objects in our tensor category have an attribute which behaves roughly like a dimension.
+This is not a terribly restrictive assumption, and it has an attractive physical interpretation. It allows us to separate external degrees of freedom (position, momentum) from internal degrees of freedom (spin, charge). It allows us, very roughly, to imagine particles as zipping around on Minkowski space, carrying with them some finite collection of internal characteristics.
 
-While $\mathsf{FinVect}_{k}$ the prototypical example of a tensor category with subexponential, it is not hte \emph{only} example. Consider the foll
- 
-Deligne's theorem tells us that any tensor category which satisfies the condition of subexponential growth arises as (in jargon, is categorically equivalent to) the category of finite-dimensional representations of an algebraic super-group.
+But Wigner's analysis means we can regard $\mathfrak{h}$ as a finte-dimensional quantum system in its own right. This means that we can apply Deligne's theorem to it! 
 
-But what is an algebraic super-group? 
+Under our assumptions, Deligne's theorem tells us that the most general type of group that can act on the internal space $\mathfrak{h}$ of a special-relativistic quantum theory is an algebraic super-group. To put it another way, it says that the most general sort of symmetry that a Poincar\"{e}-invariant theory can exhibit is supersymmetry.
 
-
-
-
-
+\section{Wigner classification with a general global symmetry group}
 
 The axioms of quantum mechanics tell us that the states of a quantum system correspond to vectors $\psi$ belonging to some Hilbert space $\mathscr{H}$. However the observable quantities built from the states, i.e. the conditional probabilities
 \begin{equation*}
@@ -9693,6 +9731,12 @@ These, plus several other technical requirements ()
       \item explain the little group method
     \end{itemize}
     in a coherent way in the span of 25 minutes.
+
+  \item Is 25 minutes a cutoff in the same way 20 pages is a cutoff, or is it hard?
+
+  \item Deligne's paper doesn't have (as far as I can tell) the unexplainable $\mathsf{Ind}$ in the definition of a fiber functor that the nLab does. My temptation is to ignore it.
+
+  \item I'm missing an odd number of $\text{op}$s in \hyperref[def:supercommutativehopfalgebra]{Definition \ref*{def:supercommutativehopfalgebra}}.
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
@@ -9855,5 +9899,9 @@ These, plus several other technical requirements ()
     \textit{Basic Theory of Affine Group Schemes},
     2012. 
     Available at \url{www.jmilne.org/math/}
+
+  \bibitem{wigner-little-group} E. Wigner.
+    \textit{On Unitary Representations of the Inhomogeneous Lorentz Group.}
+    Annals of Mathematics. Second Series, Vol. 40, No. 1 (Jan., 1939), pp. 149-204
 \end{thebibliography}
 \end{document}
