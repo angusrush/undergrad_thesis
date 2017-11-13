@@ -2832,9 +2832,9 @@ Here is a situation in which the Yoneda lemma is commonly used.
 \end{proof}
 
 \subsection{Applications}
-We have now built up enough machinery to make the proofs of a great variety of things trivial, as long as we accept a few trivial assertions. 
+We have now built up enough machinery to make the proofs of a great variety of things trivial, as long as we accept a few assertions. 
 
-It is possible, for example, to prove that the product is associative in \emph{any} locally small category, just from the fact that it is in $\mathsf{Set}$.
+It is possible, for example, to prove that the product is associative in \emph{any} locally small category, just from the fact that it is associative in $\mathsf{Set}$.
 \begin{lemma}
   There is a natural isomorphism $\alpha$ between $(A \times B) \times C$ and $A \times (B \times C)$ for any sets $A$, $B$, and $C$.
 \end{lemma}
@@ -2940,7 +2940,7 @@ To categorify this, one considers a functor from one category $\mathsf{J}$, call
 
 \begin{definition}[diagram]
   \label{def:diagram}
-  Let $\mathsf{J}$ and $\mathsf{C}$ be categories. A \defn{diagram} of type $\mathsf{J}$ in $\mathsf{C}$ is a covariant functor
+  Let $\mathsf{J}$ and $\mathsf{C}$ be categories. A \defn{diagram} of type $\mathsf{J}$ in $\mathsf{C}$ is a (covariant) functor
   \begin{equation*}
     \mathcal{D}\colon \mathsf{J} \rightsquigarrow \mathsf{C}.
   \end{equation*}
@@ -2990,7 +2990,7 @@ One thinks of the functor $\mathcal{D}$ embedding the index category $\textsf{J}
       \arrow[r, rightsquigarrow, "\Delta"]
       & {[\mathsf{J}, \mathsf{C}]}
       & \mathsf{1}
-      \arrow[l, swap, rightsquigarrow, "\mathcal{F}_{D}"]
+      \arrow[l, swap, rightsquigarrow, "\mathcal{D}"]
     \end{tikzcd}.
   \end{equation*}
 
@@ -4919,7 +4919,7 @@ We know that $f \circ m \circ (f', f'')\colon (b'', b') \mapsto b$, i.e.
 \begin{equation*}
   f(m(f''(b''), f'(b'))) = b.
 \end{equation*}
-If we can show that this is \emph{also} what $[f', f] \circ \Phi_{[B'' \times B', B]}(m) \circ f''$ is equal to when evaluated on $b'$, we are done.
+If we can show that this is \emph{also} what $[f', f] \circ \Phi_{[B'' \times B', B]}(m) \circ f''$ is equal to when evaluated on $b''$ and then $b'$, we are done, since two functions are equal if they take the same value for all inputs.
 
 Well, let's go through what this definition means. First, we take $b''$ and feed it to $f''$. Next, we let $\Phi_{[B'' \times B', B]}(m)$ act on the result, i.e. we fill the first argument of $m$ with $f''(b'')$. What we get is the following:
 \begin{equation*}
@@ -4929,7 +4929,12 @@ Then we are to precompose this with $f'$ and stick the result into $f$:
 \begin{equation*}
   f(m(f''(b''), f'(-))).
 \end{equation*}
-Indeed, when we evaluate this on $b'$, we get $b$, so the diagram commutes.
+Finally, we are to evaluate this on $b'$ to get
+\begin{equation*}
+  f(m(f''(b''), f'(b'))).
+\end{equation*}
+
+Indeed, this is equal to $b$, so the diagram commutes.
 
 In other words, $\Phi$ is a natural bijection between the hom-sets $[-,[-,-]]$ and $[- \times -, -]$.
 
@@ -4948,6 +4953,20 @@ We picked this example because the collection $[A, B]$ of all functions between 
 
   The objects $[A, B]_{\mathsf{C}}$ are called \defn{internal hom objects}.
 \end{definition}
+
+\begin{note}
+  The reason for the long introduction to this section was that the pair of adjoint functors in \hyperref[def:internalhomfunctor]{Definition \ref*{def:internalhomfunctor}} really matches the one in $\mathsf{Set}$. Recall, in $\mathsf{Set}$ there was a natural transformation
+  \begin{equation*}
+    \Hom_{\mathsf{Set}}(S \times X, Y) \simeq \Hom_{\mathsf{Set}}(S, [X, Y]).
+  \end{equation*}
+
+  This means that for any set $X$, there is a pair of adjoint functors 
+  \begin{equation*}
+    (-) \times X \dashv [X, -],
+  \end{equation*}
+  which is in agreement with the statement of \hyperref[def:internalhomfunctor]{Definition \ref*{def:internalhomfunctor}}.
+\end{note}
+
 \begin{notation}
   The convention at the nLab is to denote the internal hom by square braces $[A,B]$, and this is for the most part what we will do. Unfortunately, we have already used this notation for the \emph{regular} hom functor. To remedy this, we will add a subscript if the category to which the hom functor belongs is not clear: $[-,-]_{\mathsf{C}}$ for a hom functor internal to $\mathsf{C}$, $[-,-]_{\mathsf{Set}}$ for the standard hom functor (or the hom functor internal to $\mathsf{Set}$, which amounts to the same). 
 
@@ -4960,7 +4979,7 @@ We picked this example because the collection $[A, B]$ of all functions between 
 \end{definition}
 
 \begin{note}
-  Here is another definition of $[X, Y]_{\mathsf{C}}$: it is the object representing (\hyperref[def:representablefunctor]{Definition \ref*{def:representablefunctor}}) the functor
+  Here is another (clearly equivalent) definition of $[X, Y]_{\mathsf{C}}$: it is the object representing (\hyperref[def:representablefunctor]{Definition \ref*{def:representablefunctor}}) the functor
   \begin{equation*}
     T \mapsto \Hom_\mathsf{C}(T \otimes X, Y).
   \end{equation*}
@@ -5132,7 +5151,7 @@ This definition generalizes to any closed monoidal category.
 \end{definition}
 
 \begin{notation}
-  The evaluation morphism has a component
+  The evaluation morphism (\hyperref[def:evaluationmap]{Definition \ref*{def:evaluationmap}}) has a component
   \begin{equation*}
     \ev_{X^{*}, X}\colon X^{*} \otimes X \to 1.
   \end{equation*}
@@ -5223,6 +5242,10 @@ This definition generalizes to any closed monoidal category.
   We want to show that the outer square commutes. But it clearly does: that the top left square commutes is trivial, and the right and bottom `squares' are the commutativity conditions defining $f^{t}$ and $g^{t}$.
 \end{proof}
 
+\begin{note}
+  It's not clear to me why $f^{t}$ as defined above exists and is unique.
+\end{note}
+
 The above is one, but not the only, way to define dual objects. We can be more general.
 \begin{definition}[right duality]
   \label{def:rightduality}
@@ -5269,7 +5292,7 @@ The above is one, but not the only, way to define dual objects. We can be more g
 \end{definition}
 
 \begin{theorem}
-  Every rigid monoidal category is a closed monoidal category (\hyperref[def:closedmonoidalcategory]{Definition \ref*{def:closedmonoidalcategory}}) with internal hom object 
+  Every rigid monoidal category is a closed monoidal category (i.e. has an internal hom functor, see \hyperref[def:closedmonoidalcategory]{Definition \ref*{def:closedmonoidalcategory}}) with internal hom object 
   \begin{equation*}
     [A, B]_{\mathsf{C}} \simeq B \otimes A^{*}.
   \end{equation*}
@@ -5347,15 +5370,15 @@ Recall that $\mathsf{Ab}$ is the category of abelian groups (\hyperref[def:abeli
   \end{enumerate}
 \end{definition}
 
-\begin{definition}[endomorphism ring]
-  \label{def:endomorphismring}
-  Let $\mathsf{C}$ be an $\mathsf{Ab}$-enriched category, and let $A \in \Obj(\mathsf{C})$. The \defn{endomorphism ring} of $A$, denoted $\mathrm{End}(A)$, is $\Hom_{\mathsf{C}}(A, A)$, with addition given by the abelian structure and multiplication given by composition.
-\end{definition}
-
 \begin{note}
   \label{note:inabenrichedcategorynoemptyhomsets}
   In any $\mathsf{Ab}$-enriched category, every hom-set has at least one element---the identity element of the hom-set taken as an abelian group.
 \end{note}
+
+\begin{definition}[endomorphism ring]
+  \label{def:endomorphismring}
+  Let $\mathsf{C}$ be an $\mathsf{Ab}$-enriched category, and let $A \in \Obj(\mathsf{C})$. The \defn{endomorphism ring} of $A$, denoted $\mathrm{End}(A)$, is $\Hom_{\mathsf{C}}(A, A)$, with addition given by the abelian structure and multiplication given by composition.
+\end{definition}
 
 \begin{lemma}
   \label{lemma:abeliancategorycoproductsareproducts}
@@ -5461,7 +5484,7 @@ Recall that $\mathsf{Ab}$ is the category of abelian groups (\hyperref[def:abeli
   Pre-abelian categories have equalizers (\hyperref[def:equalizer]{Definition \ref*{def:equalizer}}).
 \end{lemma}
 \begin{proof}
-  It suffices to show that the kernel of $f - g$ satisfies the universal property for the equalizer of $f$ and $g$.
+  We show that in an pre-abelian category, the equalizer of $f$ and $g$ coincides with the kernel of $f - g$. It suffices to show that the kernel of $f - g$ satisfies the universal property for the equalizer of $f$ and $g$.
 
   Here is the diagram for the universal property of the kernel of $f - g$.
   \begin{equation*}
@@ -8087,10 +8110,10 @@ We will do this by defining supercommutative structures simply as commutative st
 \begin{itemize}
   \item For $k$ a field, a \defn{supercommutative $k$-superalgebra} is a commutative monoid internal to $\mathsf{SVect}_{k}$.
 
-  \item For $A$ any supercommutative superalgebra (i.e. a commutative monoid internal to $\mathsf{SVect}_{k}$), a \defn{supercommutative $A$-algebra} is 
+  \item For $A$ any supercommutative superalgebra (i.e. a commutative monoid internal to $\mathsf{SVect}_{k}$), a \defn{supercommutative $A$-algebra} is an $A$-module internal to $\mathsf{SVect}_{k}$.
 \end{itemize}
 
-In the second section, we will apply the machinery of algebraic geometry to our new understanding of supercommutative algebra, and arrive at a natural definition of a supermanifold.
+In the second section, we will apply the machinery of algebraic geometry to our new understanding of supercommutative algebra, and arrive at a natural definition of a superspace.
 
 In the third section, we generalize the ideas of the second section, leading to a definition of a super vector bundle.
 
@@ -8099,7 +8122,7 @@ For the remainder of this chapter, let $(\mathsf{C}, \otimes, 1)$ be a monoidal 
 \section{Supercommutativity}
 The goal of this section is to explain the ubiquity of supercommutativity (i.e. the Koszul sign rule) in the study of $\Z_{2}$-graded spaces. Stated roughly, the reason is this: it is the only possible multiplication law on a $\Z_{2}$-graded algebra which knows about the grading. That is to say, the only other possible multiplication law (up to an appropriate sort of isomorphism) on a $\Z_{2}$-graded algebra is the trivial one, which is equivalent to treating the vector space as ungraded. 
 
-Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector spaces in the first place. The reason for their importance to theoretical physics is Deligne's theorem, which is the topic of these notes.
+Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector spaces in the first place. Their importance to theoretical physics is partially explained by Deligne's theorem, which is the topic of these notes.
 
 \begin{definition}[category of $\Z_{2}$-graded vector spaces]
   \label{def:categoryofz2gradedvectorspaces}
@@ -8121,7 +8144,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 \end{proof}
 
 \begin{theorem}
-  There are, up to braided monoidal equivalence of categories (that is to say, a categorical equivalence \hyperref[def:categoricalequivalence]{Definition \ref*{def:categoricalequivalence}} whose functors are braided monoidal (\hyperref[def:braidedmonoidalfunctor]{Definition \ref*{def:braidedmonoidalfunctor}})), only two choices for a symmetric braiding $\gamma$ (\hyperref[def:symmetricmonoidalcategory]{Definition \ref*{def:symmetricmonoidalcategory}}) on $\mathsf{Vect}_{k}^{\Z_{2}}$, with components
+  There are only two inequivalent choices for a symmetric braiding $\gamma$ (\hyperref[def:symmetricmonoidalcategory]{Definition \ref*{def:symmetricmonoidalcategory}}) on $\mathsf{Vect}_{k}^{\Z_{2}}$ (that is to say, up to a categorical equivalence \hyperref[def:categoricalequivalence]{Definition \ref*{def:categoricalequivalence}} whose functors are braided monoidal (\hyperref[def:braidedmonoidalfunctor]{Definition \ref*{def:braidedmonoidalfunctor}})),  with components
   \begin{equation*}
     \gamma_{V,W}\colon V \otimes W \to W \otimes V:
   \end{equation*}
@@ -8140,7 +8163,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 \end{theorem}
 
 \begin{proof}
-  Consider the category $\Line(\mathsf{Vect}_{k}^{\Z_{2}})$
+  See \cite{nlab-deligne-theorem}, Proposition 3.15.
 \end{proof}
 
 \begin{definition}[category of super vector spaces]
@@ -9115,7 +9138,7 @@ Every
         \end{tikzcd},
       \end{equation*}
       agrees with the counit $\varepsilon\colon \mathscr{O}(G) \to k$.
-      Morally, this means that it squares to the identity. 
+      Morally, this means that it behaves like the `square root of the counit'.
   \end{itemize}
 \end{definition}
 
