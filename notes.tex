@@ -6437,6 +6437,20 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
         \end{tikzcd}.
       \end{equation*}
   \end{itemize}
+
+  We can represent the above data in the following way.
+  \begin{equation*}
+    \begin{tikzcd}
+      G \times G
+      \arrow[d, "m"]
+      \\
+      G
+      \arrow[loop right, "i"]
+      \\
+      *
+      \arrow[u, swap, "e"]
+    \end{tikzcd}
+  \end{equation*}
 \end{definition} 
 
 \begin{note}
@@ -6660,6 +6674,10 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
       \end{equation*}
   \end{itemize}
 \end{definition}
+
+\begin{note}
+  An internal groupoid should be thought of as a family of internal groups indexed by the `elements' of the object of objects. 
+\end{note}
 
 \begin{lemma}
   \label{lemma:interalgroupoidsaregroupobjectsinslicecategory}
@@ -8272,7 +8290,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 
 \begin{example}
   \label{eg:tensorunitisinternalmonoid}
-  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. The tensor unit $1$ is a monoid internal to $\mathsf{C}$, with product $\lambda_{1}\colon 1 \otimes 1 \to 1$ and unit $e = \lambda^{-1}_{1}\colon 1 \to 1 \otimes 1$.
+  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. The tensor unit $1$ is a monoid internal to $\mathsf{C}$, with product $\lambda_{1}\colon 1 \otimes 1 \to 1$ and unit $\mathrm{id}_{1}\colon 1 \to 1$.
 
   We could equally use $\rho$ instead of $\lambda$ by \hyperref[lemma:leftandrightunitoragreewhenpossible]{Lemma \ref*{lemma:leftandrightunitoragreewhenpossible}}.
 \end{example}
@@ -8367,6 +8385,33 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
     &= (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}.
   \end{align*}
 \end{proof} 
+
+\begin{lemma}
+  \label{lemma:unitobjectisinitialincmon}
+  For any monoidal category $(\mathsf{C}, \otimes, 1)$, the category $\mathsf{Mon}(\mathsf{C})$ has as its initial object the tensor unit $1$.
+\end{lemma}
+\begin{proof}
+  By definition, we have for any module object $A \in \mathsf{CMon}(\mathsf{C})$ a morphism 
+  \begin{equation*}
+    e\colon 1 \to A.
+  \end{equation*}
+  This is a module homomorphism by
+
+  and it is therefore unique since any other module morphism $\varphi\colon 1 \to A$ would have to make the following diagram commute, forcing $\varphi = e$.
+  \begin{equation*}
+    \begin{tikzcd}
+      1
+      \arrow[r, "\sim"]
+      \arrow[dr, swap, "e"]
+      & 1
+      \arrow[d, "\varphi"]
+      \\
+      & A
+    \end{tikzcd}
+  \end{equation*}
+
+  This is exactly the property which defines initial objects.
+\end{proof}
 
 \begin{lemma}
   \label{lemma:monoidalfunctorspreserveinternalmonoids}
@@ -8980,7 +9025,7 @@ The next step in the story is to define affine algebraic super-groups as the for
 
 \begin{definition}[commutative Hopf algebroid]
   \label{def:commutativehopfalgebroid}
-  Let $(\mathscr{A}, \otimes, 1)$ be a tensor category. Consider the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ of commutative monoids internal to $\mathscr{A}$. The category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ is a monoidal category whose bifunctor is given by the categorical product, thanks to \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
+  Let $(\mathscr{A}, \otimes, 1)$ be a tensor category. Consider the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ of commutative monoids internal to $\mathscr{A}$. \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}} tells us that the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ is a monoidal category whose bifunctor is given by the categorical product.
 
   A commutative Hopf algebroid is a groupoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ (see \hyperref[def:internalgroupoid]{Definition \ref*{def:internalgroupoid}}), i.e. a septuple $(\Spec(\Gamma), \Spec(A), s, t, e, c, i)$
   \begin{itemize}
@@ -9075,41 +9120,62 @@ The next step in the story is to define affine algebraic super-groups as the for
   Let $\mathscr{A}$ be a tensor category and $\Gamma$ and $A$ be commutative monoids internal to $\mathscr{A}$. A \defn{commutative Hopf algebra $\Gamma$ over $A$} is a commutative Hopf algebroid $(\Gamma, A, \eta_{L}, \eta_{R}, \varepsilon, \Psi, c)$ for which the left and right unit $\eta_{L}$ and $\eta_{R}$ coincide.
 \end{definition}
 
+This is a really confusing definition which looks seductively similar to, but does not at first glance agree with, the traditional definition of a commutative Hopf algebra over a field $k$. Here's how it unfolds.
+
+The standard definition of a Hopf algebra (taken from, for example, \cite{milne-affine-group-schemes}) is as follows.
+
+\begin{definition}[commutative Hopf algebra over a field]
+  \label{def:commutativehopfalgebraoverafield}
+  Let $\mathscr{A}$ be a $k$-tensor category. A \defn{commutative Hopf algebra $\Gamma$ over a field $k$} is a group object in the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$.
+\end{definition}
+
 \begin{note}
-  This is a really confusing definition which looks seductively similar to, but does not at first glance agree with, the traditional definition of a commutative Hopf algebra. Here's how it unfolds.
-
-
+  What exactly is a group object in $\mathsf{CMon}(\mathscr{A})^{\text{op}}$? Well, it's an object $H \in \Obj(\mathsf{CMon}(\mathscr{A})^{\text{op}})$, together with the following.
   \begin{itemize}
-    \item As \hyperref[def:commutativehopfalgebra]{Definition \ref*{def:commutativehopfalgebra}} tells us, a commutative Hopf algebra $\Gamma$ over $A$ is a groupoid $\begin{tikzcd} \Gamma \arrow[r, shift left, "\eta_{L}"] \arrow[r, shift right, swap, "\eta_{R}"] & A \end{tikzcd}$ internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ for which $\eta_{L}$ and $\eta_{R}$ happen to coincide.
-
-    \item By \hyperref[lemma:interalgroupoidsaregroupobjectsinslicecategory]{Lemma \ref*{lemma:interalgroupoidsaregroupobjectsinslicecategory}}, a groupoid $\begin{tikzcd} \Gamma \arrow[r, "\eta_{L} = \eta_{R}"] & A \end{tikzcd}$ internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ is equivalently a group internal to the slice category
-      \begin{equation*}
-        (\mathsf{CMon}(\mathscr{A})^{\mathrm{op}} \downarrow \mathsf{Spec}(A)).
-      \end{equation*}
-
-    \item Dualizing, we find that this is equivalent to a group internal to the coslice category
-      \begin{equation*}
-        (A \downarrow \mathsf{CMon}(\mathscr{A})).
-      \end{equation*}
-      \textcolor{red}{I no longer think this is true.}
-
-    \item By \hyperref[thm:modulesandmonoidsequivalenceofcategories]{Theorem \ref*{thm:modulesandmonoidsequivalenceofcategories}}, this is equivalent to a group internal to the category 
-      \begin{equation*}
-        \mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathscr{A})).
-      \end{equation*}
+    \item A \emph{multiplication} map $\nabla\colon H \times H \to H$;
+    \item An \emph{identity} map $\eta\colon * \to H$, where $*$ is the terminal object in $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$;
+    \item An \emph{inverse} map $S\colon H \to H$.
   \end{itemize}
+  We can organize this information like so.
+  \begin{equation*}
+    \begin{tikzcd}
+      H \times H
+      \arrow[d, "\nabla"]
+      \\
+      H 
+      \arrow[loop right, "S"]
+      \\
+      *
+      \arrow[u, swap, "\eta"]
+    \end{tikzcd}
+  \end{equation*}
 
-  The point of everything we've been saying is that it allows us to internalize commutative Hopf algebras to $\mathsf{SVect}_{k}$.
-
-  First of all, (so far) we only really care about Hopf algebras over $k$. In $\mathsf{Vect}_{k}$ and $\mathsf{SVect}_{k}$, $k \simeq 1$, the tensor unit. By \hyperref[eg:categoryof1modulesisequivalenttocategoryitself]{Example \ref*{eg:categoryof1modulesisequivalenttocategoryitself}}, $1$ is a monoid internal to $\mathscr{A}$ and $1\mhyp\mathsf{Mod}(\mathscr{A}) \simeq \mathscr{A}$. Thus, a commutative Hopf algebra over $k$ is just a group internal to $\mathsf{CMon}(\mathscr{A})$.
-
-  Thus, our generality hasn't hurt us. Much.
+  The commutative monoid $\mathscr{O}(H)$ itself comes with some structure. In particular, it has its own unit map $e\colon 1 \to \mathscr{O}(H)$, and its own multiplication $\mu\colon \mathscr{O}(H) \to \mathscr{O}(H) \to \mathscr{O}(H)$. We can add these to the above diagram as long as we remember to dualize them. We'll write $e^{\mathrm{op}} = \varepsilon$ and $\mu^{\mathrm{op}} = \Delta$.
+  \begin{equation*}
+    \begin{tikzcd}
+      H \times H
+      \arrow[d, bend left, "\nabla"]
+      \\
+      H 
+      \arrow[u, bend left, "\Delta"]
+      \arrow[loop right, "S"]
+      \arrow[d, bend left, "\varepsilon"]
+      \\
+      1
+      \arrow[u, bend left, "\eta"]
+    \end{tikzcd}
+  \end{equation*}
 \end{note}
 
-\begin{note}
-  Actually, we're off from the definition given in \cite{milne-affine-group-schemes} by an $^{\mathrm{op}}$ (or perhaps an odd number of $^{\mathrm{op}}$s). It seems possible that Hopf algebras are \emph{self-dual}, and therefore immune to $^{\mathrm{op}}$ing. I've heard that Hopf algebras \emph{are} dual to themselves in some sense, but I don't know if it's the same sense.
+\begin{theorem}
+  Commutative Hopf algebras as defined above are \emph{self-dual} in the sense that turning all the arrows around yields a structure that is again a Hopf algebra.
+\end{theorem}
+\begin{proof}
+  
+\end{proof}
 
-  Also, it makes the next step, namely defining supergroups as formally dual to supercommutative Hopf algebras, seem a little bit cheeky.
+\begin{note}
+  The above theorem means that 
 \end{note}
 
 \begin{definition}[supercommutative Hopf algebra]
