@@ -8908,8 +8908,7 @@ The upshot of the past few theorems is the following.
 \begin{definition}[restriction of scalars, extension of scalars]
   \label{def:extensionrestrictionofscalars}
   Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category, $A_{1}$ and $A_{2}$ be two commutative monoids in $\mathsf{C}$, and let $\varphi\colon A_{1} \to A_{2}$ be a homomorphism.
-
-  \begin{enumerate}
+  \begin{itemize}
     \item \defn{Restriction of scalars} is the functor which sends an $A_{2}$-module $(N, \rho)$ to the $A_{1}$-module $(N, \rho')$ whose action is defined by pre-composition with $\varphi$:
       \begin{equation*}
         \rho' \colon 
@@ -8930,7 +8929,7 @@ The upshot of the past few theorems is the following.
       \end{equation*}
 
       Restriction of scalars is denoted $\varphi_{*}\colon A_{1}\mhyp\mathsf{Mod}(\mathsf{C}) \to A_{2}\mhyp\mathsf{Mod}(\mathsf{C})$
-  \end{enumerate}
+  \end{itemize}
 \end{definition}
 
 \begin{lemma}
@@ -8983,7 +8982,7 @@ The next step in the story is to define affine algebraic super-groups as the for
   \label{def:commutativehopfalgebroid}
   Let $(\mathscr{A}, \otimes, 1)$ be a tensor category. Consider the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ of commutative monoids internal to $\mathscr{A}$. The category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ is a monoidal category whose bifunctor is given by the categorical product, thanks to \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
 
-  A \defn{commutative Hopf algebroid} is a groupoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ (see \hyperref[def:internalgroupoid]{Definition \ref*{def:internalgroupoid}}), i.e. a septuple $(\Spec(\Gamma), \Spec(A), s, t, e, c, i)$
+  A commutative Hopf algebroid is a groupoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ (see \hyperref[def:internalgroupoid]{Definition \ref*{def:internalgroupoid}}), i.e. a septuple $(\Spec(\Gamma), \Spec(A), s, t, e, c, i)$
   \begin{itemize}
     \item $\Spec(\Gamma) \in \Obj(\mathsf{CMon}(\mathscr{A})^{\mathrm{op}})$ is the \emph{object of objects}, 
     \item $\Spec(A) \in \Obj(\mathsf{CMon}(\mathscr{A})^{\mathrm{op}})$ is the \emph{object of morphisms},
@@ -9045,7 +9044,7 @@ The next step in the story is to define affine algebraic super-groups as the for
     \end{tikzcd}
   \end{equation*}
 
-  Thus, a commutative Hopf algebroid is a septuple $(\Gamma, A, \eta_{L}, \eta_{R}, \varepsilon, \Psi, c)$ consisting of the following.
+  Thus, a \defn{commutative Hopf algebroid} is a septuple $(\Gamma, A, \eta_{L}, \eta_{R}, \varepsilon, \Psi, c)$ consisting of the following.
   \begin{itemize}
     \item Commutative $\mathscr{A}$-algebras $\Gamma$ and $A$;
 
@@ -9079,10 +9078,11 @@ The next step in the story is to define affine algebraic super-groups as the for
 \begin{note}
   This is a really confusing definition which looks seductively similar to, but does not at first glance agree with, the traditional definition of a commutative Hopf algebra. Here's how it unfolds.
 
+
   \begin{itemize}
     \item As \hyperref[def:commutativehopfalgebra]{Definition \ref*{def:commutativehopfalgebra}} tells us, a commutative Hopf algebra $\Gamma$ over $A$ is a groupoid $\begin{tikzcd} \Gamma \arrow[r, shift left, "\eta_{L}"] \arrow[r, shift right, swap, "\eta_{R}"] & A \end{tikzcd}$ internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ for which $\eta_{L}$ and $\eta_{R}$ happen to coincide.
 
-    \item By \hyperref[lemma:interalgroupoidsaregroupobjectsinslicecategory]{Lemma \ref*{lemma:interalgroupoidsaregroupobjectsinslicecategory}}, a groupoid $\begin{tikzcd} \Gamma \arrow[r, shift left, "\eta_{L}"] \arrow[r, shift right, swap, "\eta_{R}"] & A \end{tikzcd}$ internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ is equivalently a group internal to the slice category
+    \item By \hyperref[lemma:interalgroupoidsaregroupobjectsinslicecategory]{Lemma \ref*{lemma:interalgroupoidsaregroupobjectsinslicecategory}}, a groupoid $\begin{tikzcd} \Gamma \arrow[r, "\eta_{L} = \eta_{R}"] & A \end{tikzcd}$ internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ is equivalently a group internal to the slice category
       \begin{equation*}
         (\mathsf{CMon}(\mathscr{A})^{\mathrm{op}} \downarrow \mathsf{Spec}(A)).
       \end{equation*}
@@ -9091,6 +9091,7 @@ The next step in the story is to define affine algebraic super-groups as the for
       \begin{equation*}
         (A \downarrow \mathsf{CMon}(\mathscr{A})).
       \end{equation*}
+      \textcolor{red}{I no longer think this is true.}
 
     \item By \hyperref[thm:modulesandmonoidsequivalenceofcategories]{Theorem \ref*{thm:modulesandmonoidsequivalenceofcategories}}, this is equivalent to a group internal to the category 
       \begin{equation*}
@@ -9138,29 +9139,126 @@ Every
         \end{tikzcd},
       \end{equation*}
       agrees with the counit $\varepsilon\colon \mathscr{O}(G) \to k$.
-      Morally, this means that it behaves like the `square root of the counit'.
+      Morally, this means that it behaves like the multiplication by $\pm 1$; this will become clear when we study the representation theory of affine algebraic supergroups.
+
+    \item The result of the composition
+      \begin{equation*}
+        \begin{tikzcd}[column sep=huge]
+          \mathscr{O}(G) 
+          \arrow[r, "(\mathrm{id} \otimes_{k} \Psi) \circ \Psi"]
+          & \mathscr{O}(G) \otimes_{k} \mathscr{O}(G) \otimes_{k} \mathscr{O}(G)
+          \arrow[r, "\varepsilon^{*} \otimes_{k} \mathrm{id} \otimes_{k} (c \circ \varepsilon^{*})"]
+          & k \otimes_{k} \mathscr{O}(G) \otimes_{k} k
+        \end{tikzcd}
+      \end{equation*}
+      is equal to the parity involution (\hyperref[def:parityinvolution]{Definition \ref*{def:parityinvolution}}).
   \end{itemize}
 \end{definition}
 
 \section{Linear super-representations as Comodules}
-d
+\begin{definition}[left comodule object]
+  \label{def:leftcomoduleobject} 
+  Let $\mathscr{A}$ be a tensor category, and let $(\Gamma, A, \eta_{L}, \eta_{R}, \varepsilon, \Psi, c)$ be a commutative Hopf algebroid (\hyperref[def:commutativehopfalgebroid]{Definition \ref*{def:commutativehopfalgebroid}}) internal to $\mathscr{A}$. A \defn{left comodule over $\Gamma$} consists of,
+  \begin{itemize}
+    \item An $A$-module object $N$ in $\mathscr{A}$ (\hyperref[def:moduleobject]{Definition \ref*{def:moduleobject}});
+
+    \item A homomorphism of $A$-modules (\hyperref[def:homomorphismofmoduleobjects]{Definition \ref*{def:homomorphismofmoduleobjects}})
+      \begin{equation*}
+        \Psi_{N}\colon N \to \Gamma \otimes_{A} N
+      \end{equation*}
+      called the \emph{coaction}.
+  \end{itemize}
+  subject to the following axioms.
+  \begin{itemize}
+    \item The composition
+      \begin{equation*}
+        \begin{tikzcd}
+          N
+          \arrow[r, "\Psi_{N}"]
+          & \Gamma \otimes_{A} N
+          \arrow[r, "\varepsilon \otimes_{A} \mathrm{id}_{N}"]
+          & A \otimes_{A} N \simeq N
+        \end{tikzcd}
+      \end{equation*}
+
+      is equal to the identity $\mathrm{id}_{N}$ on $N$.
+
+    \item The following diagram commutes.
+      \begin{equation*}
+        \begin{tikzcd}[row sep=large, column sep=large]
+          N
+          \arrow[r, "\Psi_{N}"]
+          \arrow[d, swap, "\Psi_{N}"]
+          & \Gamma \otimes_{A} N
+          \arrow[d, "\mathrm{id}_{\Gamma} \otimes_{A} \Psi_{N}"]
+          \\
+          \Gamma \otimes_{A} N
+          \arrow[r, swap, "\Psi \otimes_{A} \mathrm{id}_{N}"]
+          & \Gamma \otimes_{A} \Gamma \otimes_{A} N
+        \end{tikzcd}
+      \end{equation*}
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[comodule homomorphism]
+  \label{def:comodulehomomorphism}
+  Let $\Gamma$ be a commutative Hopf algebroid over $A$ as in \hyperref[def:leftcomoduleobject]{Definition \ref*{def:leftcomoduleobject}}, and let $N_{1}$ and $N_{2}$ be comodules over $\Gamma$. A \defn{comodule homomorphism} $\varphi\colon N_{1} \to N_{2}$ is a homomorphism of the underlying $A$-modules which makes the following diagram commute.
+  \begin{equation*}
+    \begin{tikzcd}
+      N_{1} 
+      \arrow[r, "\Psi_{N_{1}}"]
+      \arrow[d, swap, "\varphi"]
+      & \Gamma \otimes_{A} N_{1}
+      \arrow[d, "\mathrm{id}_{\Gamma}\otimes_{A} \varphi"]
+      \\
+      N_{2} 
+      \arrow[r, "\Psi_{N_{2}}"]
+      & \Gamma \otimes_{A} N_{2}
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
+
+\begin{definition}[category of comodules]
+  \label{def:categoryofcomodules}
+  Denote by $\Gamma\mhyp\mathsf{CoMod}(\mathscr{A})$ the category whose objects are comodules over $\Gamma$ (\hyperref[def:moduleobject]{Definition \ref*{def:moduleobject}}) and whose morphisms are comodule homomorphisms (\hyperref[def:homomorphismofmoduleobjects]{Definition \ref*{def:homomorphismofmoduleobjects}}).
+\end{definition}
+
+\begin{definition}[tensor product of comodules]
+  \label{def:tensorproductofcomodules}
+  Let $\Gamma$ be a commutative Hopf algebra (\hyperref[def:commutativehopfalgebra]{Definition \ref*{def:commutativehopfalgebra}}) over $k$, and let $N_{1}$ and $N_{2}$ be $\Gamma$-comodules.
+\end{definition}
+
 \section{Super fiber functors and their automorphism groups}
-We would like to view tensor categories $\mathcal{A}$ as categories of representations. Thus, we would like to be able to view the objects of $\mathcal{A}$ as being the objects of some other category $\mathcal{V}$, plus some extra structure. The extra structure should be extra in the sense that it is forgettable, so there should be a forgetful functor
+We would like to view tensor categories $\mathscr{A}$ as categories of representations. Thus, we would like to be able to view the objects of $\mathscr{A}$ as being the objects of some other category $\mathscr{V}$, plus some extra structure. The extra structure should be extra in the sense that it is forgettable, so there should be a forgetful functor
 \begin{equation*}
-  \omega\colon \mathcal{A} \rightarrow \mathcal{V}.
+  \omega\colon \mathscr{A} \rightarrow \mathscr{V}.
 \end{equation*}
 For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \mathsf{FinVect}_{k})$ of finite-dimensional $k$-linear representations of $G$ has as its objects pairs $(\rho, V)$, where $V$ is a vector space and $\rho$ is a homomorphism $G \to \mathrm{Aut}(V)$. There is an obvious forgetful functor $\mathsf{FinRep}_{k}(G) \to \mathsf{FinVect}_{k}$ which sends $(\rho, V) \to V$. Note that this functor is not `maximally forgetful' in the sense that it retains some of its structure. Thus it is wise to demand that such a functor retain a reasonable amount of structure. In our case, it should be a braided (\hyperref[def:braidedmonoidalfunctor]{Definition \ref*{def:braidedmonoidalfunctor}}) strong monoidal functor (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}}).
 
 \begin{definition}[fiber functor]
   \label{def:fiberfunctor}
-  Let $\mathcal{A}$ and $\mathcal{T}$ be two $k$-tensor categories. Suppose that both $\mathcal{S}$ and $\mathcal{T}$ satisfy the following criteria.
+  Let $\mathscr{A}$ and $\mathscr{T}$ be two $k$-tensor categories. Suppose that both $\mathscr{A}$ and $\mathscr{T}$ satisfy the following criteria.
   \begin{enumerate}
     \item All objects are of finite length.
 
     \item All of the hom-spaces are finite-dimensional as $k$-vector spaces.
   \end{enumerate}
 
-  Let $R \in \mathsf{CMon}(\mathcal{T})$.
+  Let $R \in \mathsf{CMon}(\mathscr{T})$.\footnote{In \cite{nlab-deligne-theorem}, it says that we should take $R$ from $R\mhyp\mathsf{Mod}(\mathscr{A})$; I'm siding with the original paper \cite{deligne-categories-tensorielle}.}
+
+  A functor
+  \begin{equation*}
+    \omega\colon \mathscr{A} \to R\mhyp\mathsf{Mod}(\mathscr{T})
+  \end{equation*}
+  which is
+  \begin{itemize}
+    \item braided (\hyperref[def:braidedmonoidalfunctor]{Definition \ref*{def:braidedmonoidalfunctor}}), and
+
+    \item strong monoidal (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}})
+  \end{itemize}
+  is called a \defn{fiber functor} on $\mathscr{A}$ over $R$.
+
+  If $\mathscr{T}$
 \end{definition}
 
 
@@ -9168,7 +9266,6 @@ For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \
 
 \chapter{Deligne's theorem on tensor categories}
 Deligne's theorem tells us that every $k$-tensor category, for $k$ an algebraically closed field of characteristic zero, is the category of representations of some algebraic super group.
-
 
 \section{Statement}
 
