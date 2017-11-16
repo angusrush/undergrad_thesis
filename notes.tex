@@ -699,7 +699,7 @@ In this chapter (and to some extent the following chapters), I will do my best t
 
     \item the category $\mathsf{Vect}_{k}$, whose objects are vector spaces over a field $k$ and whose morphisms are linear maps;
     \item the category $\mathsf{FinVect}_{k}$, whose objects are finite-dimensional vector spaces over a field $k$ and whose morphisms are linear maps;
-    \item the category $\mathsf{Alg}_{k}$, whose objects are algebras over a field $k$ and whose morphisms are algebra homomorphisms
+    \item the category $\mathsf{Alg}_{k}$, whose objects are algebras over a field $k$ and whose morphisms are algebra homomorphisms.
   \end{itemize}
 \end{example}
 
@@ -2158,6 +2158,29 @@ We have the following analog of \hyperref[thm:productisafunctor]{Theorem \ref*{t
 
 \begin{example}
   In $\mathsf{Vect}_{k}$, the coproduct $\oplus$ is the direct sum.
+\end{example}
+
+\begin{example}
+  In $\mathsf{Alg}_{k}$ the tensor product is the coproduct. To see this, let $A$, $B$, and $R$ be $k$-algebras. The tensor product $A \otimes_{k} B$ has canonical injections $\iota_{1}\colon A \to A \otimes B$ and $\iota_{2}\colon B \to A \otimes B$ given by
+  \begin{equation*}
+    \iota_{A}\colon v \to v \otimes 1_{B}\qquad\text{and}\qquad \iota_{B}\colon v \mapsto 1 \otimes v.
+  \end{equation*}
+  
+  Let $f_{1}\colon A \to R$ and $f_{2}\colon B \to R$ be $k$-algebra homomorphisms. Then there is a unique homomorphism $f\colon A \otimes B \to R$ which makes the following diagram commute.
+  \begin{equation*}
+    \begin{tikzcd}
+      A
+      \arrow[r, "\iota_{A}"]
+      \arrow[dr, swap, "f_{1}"]
+      & A \otimes B
+      \arrow[d, "f"]
+      & B
+      \arrow[l, swap, "\iota_{B}"]
+      \arrow[dl, "f_{2}"]
+      \\
+      & R
+    \end{tikzcd}
+  \end{equation*}
 \end{example}
 
 \subsection{Biproducts} \label{sec:biproducts}
@@ -3852,6 +3875,7 @@ We now define the so-called \emph{category of inductive objects} (or simply \emp
 
 The importance of the category of ind-objects can be seen in the following example.
 \begin{example}
+  \label{eg:inductiveobjectsaddinfinitedimensionalvectorspaces}
   Let $V$ be an infinite-dimensional vector space over some field $k$. Then $V$ can be realized as an object in the category $\mathsf{Ind}(\mathsf{FinVect})$.
 
   In fact, there is an equivalence of categories $\mathsf{Vect}_{k} \simeq \mathsf{Ind}(\mathsf{FinVect}_{k})$. Similarly, there is an equivalence of categories $\mathsf{SVect}_{k} \simeq \mathsf{Ind}(\mathsf{FinSVect}_{k})$
@@ -4224,7 +4248,7 @@ Here are two equivalent definitions which are often used.
       \arrow[l, rightsquigarrow, bend left, "\mathcal{G}"]
     \end{tikzcd}
   \end{equation*}
-  Let $\mathcal{F} \dashv \mathcal{G}$ be an adjunction. Then $\mathcal{G}$ preserves limits, i.e. if $\mathcal{D}\colon \mathsf{J} \to \mathsf{C}$ is a diagram and $\lim_{\leftarrow}\mathcal{D}$ exists in $\mathsf{C}$, then
+  Let $\mathcal{F} \dashv \mathcal{G}$ be an adjunction. Then $\mathcal{G}$ preserves limits, i.e. if $\mathcal{D}\colon \mathsf{J} \to \mathsf{C}$ is a diagram and $\lim_{\leftarrow i}\mathcal{D}_{i}$ exists in $\mathsf{C}$, then
   \begin{equation*}
     \mathcal{G}(\lim_{\leftarrow i}\mathcal{D}_{i}) \simeq \lim_{\leftarrow i} (\mathcal{G} \circ \mathcal{D}_{i}).
   \end{equation*}
@@ -5454,25 +5478,6 @@ Recall that $\mathsf{Ab}$ is the category of abelian groups (\hyperref[def:abeli
   The $(X, Y)$-component $\Phi_{X, Y}$ is an isomorphism because
 \end{proof}
 
-\begin{definition}[$k$-linear category]
-  \label{def:linearcategory}
-  An additive category $\mathsf{C}$ is \defn{$k$-linear} if for all $A$, $B \in \Obj(\mathsf{C})$ the hom-set $\Hom_{\mathsf{C}}(A, B)$ has the structure of a $k$-vector space whose additive structure is the abelian structure, and for which the composition of morphisms is $k$-linear.
-\end{definition}
-
-\begin{example}
-  The category $\mathsf{Vect}_{k}$ is $k$-linear.
-\end{example}
-
-\begin{definition}[$k$-linear functor]
-  \label{def:linearfunctor}
-  let $\mathsf{C}$ and $\mathsf{D}$ be two $k$-linear categories, and $\mathcal{F}\colon \mathsf{C} \rightsquigarrow \mathsf{D}$ a functor. Suppose that for all objects $C$, $D \in \Obj(\mathsf{C})$ all morphisms $f$, $g\colon C \to D$, and all $\alpha$, $\beta \in k$, we have
-  \begin{equation*}
-    \mathcal{F}(\alpha f + \beta g) = \alpha \mathcal{F}(f) + \beta \mathcal{G}(g).
-  \end{equation*}
-
-  Then we say that $\mathcal{F}$ is \defn{$k$-linear}.
-\end{definition}
-
 \subsection{Pre-abelian categories} \label{sec:preabeliancategories}
 \begin{definition}[pre-abelian category]
   \label{def:preabeliancategory}
@@ -6022,6 +6027,25 @@ For the remainder of the section, let $\mathsf{C}$ be an abelian category.
   According to \hyperref[def:quotient]{Definition \ref*{def:quotient}}, the quotient $V / W$ is the cokernel $(\coker(\iota), \pi_{\iota})$ of $\iota$. We saw in \hyperref[eg:invectcokernelsarequotientsbyimage]{Example \ref*{eg:invectcokernelsarequotientsbyimage}} that the cokernel of $\iota$ was $V / \im(\iota)$. However, $\im(\iota)$ is exactly $W$! So the categorical notion of the quotient $V / W$ agrees with the linear algebra notion.
 \end{example}
 
+\begin{definition}[$k$-linear category]
+  \label{def:linearcategory}
+  An abelian category $\mathsf{C}$ is \defn{$k$-linear} if for all $A$, $B \in \Obj(\mathsf{C})$ the hom-set $\Hom_{\mathsf{C}}(A, B)$ has the structure of a $k$-vector space whose additive structure is the abelian structure, and for which the composition of morphisms is $k$-linear.
+\end{definition}
+
+\begin{example}
+  The category $\mathsf{Vect}_{k}$ is $k$-linear.
+\end{example}
+
+\begin{definition}[$k$-linear functor]
+  \label{def:linearfunctor}
+  let $\mathsf{C}$ and $\mathsf{D}$ be two $k$-linear categories, and $\mathcal{F}\colon \mathsf{C} \rightsquigarrow \mathsf{D}$ a functor. Suppose that for all objects $C$, $D \in \Obj(\mathsf{C})$ all morphisms $f$, $g\colon C \to D$, and all $\alpha$, $\beta \in k$, we have
+  \begin{equation*}
+    \mathcal{F}(\alpha f + \beta g) = \alpha \mathcal{F}(f) + \beta \mathcal{G}(g).
+  \end{equation*}
+
+  Then we say that $\mathcal{F}$ is \defn{$k$-linear}.
+\end{definition}
+
 \subsection{Exact sequences}
 \begin{definition}[exact sequence]
   \label{def:exactsequence}
@@ -6246,7 +6270,7 @@ The following definition is taken almost verbatim from \cite{nlab-deligne-theore
   \begin{enumerate}
     \item essentially small (\hyperref[def:essentiallysmall]{Definition \ref*{def:essentiallysmall}})
 
-    \item $k$-linear (\hyperref[def:linearcategory]{Definition \ref*{def:linearcategory}})
+    \item $k$-linear\footnote{Hence abelian.} (\hyperref[def:linearcategory]{Definition \ref*{def:linearcategory}})
 
     \item rigid (\hyperref[def:rigidmonoidalcategory]{Definition \ref*{def:rigidmonoidalcategory}})
 
@@ -6353,6 +6377,35 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
 \begin{proof}
   Stated without proof as Proposition 3.38 in \cite{nlab-deligne-theorem}.
 \end{proof}
+
+\begin{definition}[tensor functor]
+  \label{def:tensorfunctor}
+  Let $(\mathscr{A}, \otimes_{A}, 1_{A})$ and $(\mathscr{B}, \otimes_{B}, 1_{B})$ be $k$-tensor categories. A functor $\mathcal{F}\colon \mathscr{A} \to \mathscr{B}$ is called a \defn{tensor functor} if it is
+  \begin{enumerate}
+    \item braided (\hyperref[def:braidedmonoidalfunctor]{Definition \ref*{def:braidedmonoidalfunctor}}) and
+     
+    \item strong monoidal (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}}).
+  \end{enumerate}
+\end{definition}
+
+In any $k$-tensor category $\mathscr{A}$, the hom-sets have the structure of $k$-vector spaces, and we can view them as living in $\mathsf{Vect}_{k}$. This allows us to treat vector spaces, in certain situations, as `honorary $\mathscr{A}$-objects'.
+\begin{definition}[tensor product of a vector space and a tensor category object]
+  \label{def:tensorproductofavectorspaceandatensorcategoryobject}
+  Let $\mathscr{A}$ be a $k$-tensor category. Let $V$ be a vector space. Define a functor $(-) \tilde{\otimes} X\colon \mathsf{Vect}_{k} \to \mathscr{A}$ as left-adjoint to $\Hom_{\mathscr{A}}(X,-)$:
+  \begin{equation*}
+    \Hom_{\mathscr{A}}(V \tilde{\otimes} X, Y) \simeq \Hom_{\mathsf{Vect}_{k}}(V, \Hom_{\mathscr{A}}(X, Y)).
+  \end{equation*}
+  Indeed, this extends to a functor $\tilde{\otimes}\colon \mathsf{Vect}_{k} \times \mathscr{A} \to \mathscr{A}$ in the obvious way. It is also not difficult to check that it is $k$-linear in each slot.
+\end{definition}
+
+\begin{definition}[hom between vector space and tensor category object]
+  \label{def:hombetweenvectorspaceandtensorcategoryobject}
+  Let $\mathscr{A}$ be a tensor category and $(-) \tilde{\otimes} X$ the functor from \hyperref[def:tensorproductofavectorspaceandatensorcategoryobject]{Definition \ref*{def:tensorproductofavectorspaceandatensorcategoryobject}}. Define a functor $\mathscr{H}om()$
+\end{definition}
+
+\begin{notation}
+  Although the functor $\tilde{\otimes}$ defined above is obviously not the same as the bifunctor $\otimes$ from the monoidal structure on $\mathscr{A}$, we will drop the tilde from now on. The idea is to view vector spaces as \emph{almost} $\mathscr{A}$-objects.
+\end{notation}
 
 \section{Internal objects}
 \subsection{Internal groups}
@@ -6985,6 +7038,7 @@ First, we need to define a homomorphism of presheaves. Since we defined a preshe
   Let $X$ be a topological space, $\mathcal{F}$, and let $\mathcal{G}$ be $\mathsf{C}$-sheaves on $X$. We say that $\mathcal{F}$ is \defn{locally isomorphic} to $\mathcal{G}$ if for every $x \in X$, there exists a neighborhood $U$ of $x$ such that the restriction sheaf (\hyperref[def:restrictionsheaf]{Definition \ref*{def:restrictionsheaf}}) $\mathcal{F}|_{U}$ is sheaf-isomorphic to $\mathcal{G}$.
 \end{definition}
 
+
 \section{Schemes}
 We follow closely the treatment in \cite{milne-affine-group-schemes}, together with some help from \cite{vakil-rising-sea}.
 
@@ -7037,746 +7091,6 @@ Let $A$ be a commutative ring. Denote by $V$ the set of all prime ideals in $A$.
 
 
 
-\section{Quasicoherent sheaves} \label{sec:quasicoherentsheaves}
-
-\chapter{Spinors} 
-\section{A few more algebraic concepts}
-\begin{definition}[graded algebra]
-  \label{def:gradedalgebra}
-  Let $A$ be an algebra, $G$ be a monoid. We say that $A$ is \defn{$G$-graded} if $A$ decomposes additively as  \begin{equation*}
-    A = \bigoplus_{i \in G} A_{i}
-  \end{equation*}
-  with the property that $A_{i} \cdot A_{j} \subseteq A_{i+j}$, where the addition $i+j$ is understood to be taking place in $G$.
-\end{definition}
-
-\begin{definition}[filtered algebra]
-  \label{def:filteredalgebra}
-  Let $A$ be an algebra. A \defn{filtration} on $A$ is an increasing sequence 
-  \begin{equation*}
-    \{0\} \subset F_{0} \subset F_{2} \subset \cdots \subset A
-  \end{equation*}
-  of sub vector spaces of $A$ such that
-  \begin{equation*}
-    A = \bigcup_{i\geq 0} F_{i},
-  \end{equation*}
-  and which are compatible with the multiplication law in the sense that
-  \begin{equation*}
-    F_{r} \cdot F_{s} \subseteq F_{r+s}.
-  \end{equation*}
-  A \defn{filtered algebra} is an algebra $A$ together with a filtration $\left\{ F_{i} \right\}_{i=0}^{\infty}$ of $A$.
-\end{definition}
-
-\begin{definition}[associated graded algebra]
-  Let $A$ be an algebra with a filtration $\left\{ F_{i} \right\}_{i = 1}^{\infty}$. The \defn{associated graded algebra} can be defined as follows. 
-
-  Define vector spaces
-  \begin{equation*}
-    G_{i} = F_{i}/F_{i-1}\quad \text{for }i \geq 1,\qquad G_{0} = F_{0}.
-  \end{equation*}
-  Then for all $i \geq 1$, $F_{i} = G_{i}\oplus F_{i-1}$. Iterating this, we have
-  \begin{equation*}
-    F_{i} = G_{i} \oplus G_{i-1} \oplus \cdots \oplus G_{0},
-  \end{equation*}
-  and by induction or colimits or something
-  \begin{equation*}
-    A = \bigoplus_{i=0}^{\infty} G_{i},
-  \end{equation*}
-  where the equality is to be taken as equality of vector spaces.
-
-  In order to turn $\bigoplus_{i=0}^{\infty} G_{i}$ into a graded algebra we need to define multiplication on it in such a way that it is compatible with the grading, i.e. for $\alpha \in G_{i}$ and $\beta \in G_{j}$ we should have $\alpha\cdot\beta \in G_{i+j}$. Let $\alpha = \alpha_{i} + F_{i-1}$ be the equivalence class of $\alpha$, and similarly $\beta = \beta_{j} + F_{j-1}$.
-
-  This can be accomplished by defining
-  \begin{equation*}
-    \alpha\beta = (\alpha_{i} + F_{i-1})(\beta_{j} + F_{j-1}) = \alpha_{i}\beta_{j} + F_{i+j-1} \in G_{i+j}.
-  \end{equation*}
-\end{definition}
-
-\begin{note}
-  Any graded algebra
-  \begin{equation*}
-    A = \bigoplus_{n} A_{n}
-  \end{equation*}
-  is also a filtered algebra with
-  \begin{equation*}
-    F_{n} = \bigoplus_{i=0}^{n} A_{i}.
-  \end{equation*}
-  Thus from any graded algebra $A$ one can, via the canonical filtration, arrive at an associated graded algebra which is isomorphic to $A$ as a vector space However, it will not in general be isomorphic to $A$ as an algebra.
-\end{note}
-
-\begin{definition}[tensor product of algebras]
-  \label{def:tensorproductofalgebras}
-  Let $R$ be a ring, and $A$ and $B$ be $R$-algebras. Since in particular every algebra is an $R$-module if you forget about the multiplication, we can take the tensor product of $A$ and $B$ as $R-$modules:
-  \begin{equation*}
-    A \otimes_{R} B.
-  \end{equation*}
-  We can then define a multiplication on $A \otimes_{R} B$ by defining
-  \begin{equation*}
-    (a \otimes b) \cdot (a' \otimes b') = (a \cdot a') \otimes (b \cdot b')
-  \end{equation*}
-  and extending via linearity.
-
-  The module $A \otimes_{R} B$ \emph{together with} the multiplication rule described above is called the \defn{tensor product of $A$ and $B$}.
-\end{definition}
-\begin{note}
-  This is a perfectly good definition of a tensor product for graded algebras when given the grading
-  \begin{equation*}
-    (A\otimes B)_{n} = \bigoplus_{i+j=n} a_{i} \otimes b_{j}.
-  \end{equation*}
-  However, there is another more interesting multiplication law we can give $A \otimes B$.
-\end{note}
-
-\begin{definition}[graded tensor product of algebras]
-  \label{def:gradedtensorproduct}
-  Let $A$ and $B$ be $\Z_{r}$-graded algebras. Then we have a decomposition
-  \begin{equation*}
-    A = \bigoplus_{i+j=n}^{r} A_{i}
-  \end{equation*}
-  and similarly for $B$. The \defn{graded tensor product}, denoted $\hat{\otimes}$, of $A$ and $B$ is defined by the grading
-  \begin{equation*}
-    (A \hat{\otimes} B)_{n} = \bigoplus_{i+j=n}^{r} A_{i} \otimes B_{j}
-  \end{equation*}
-  and the multiplication law 
-  \begin{equation*}
-    (a \otimes b)\cdot(c \otimes d) = (-1)^{\mathrm{deg}(b)\cdot\mathrm{deg}(c)}(ac)\otimes(bd),
-  \end{equation*}
-  where $a$-$d$ are of pure degree. 
-\end{definition}
-
-\begin{definition}[Koszul sign rule]
-  \label{def:koszulsignrule}
-  The multiplication law
-  \begin{equation*}
-    (a \otimes b)\cdot(c \otimes d) = (-1)^{\mathrm{deg}(b)\cdot\mathrm{deg}(c)}(ac)\otimes(bd),
-  \end{equation*}
-  is called the \defn{Koszul sign rule}.
-\end{definition}
-
-\begin{definition}[$\Z_2$-graded tensor product]
-  \label{def:z2gradedtensorproduct}
-  In the case we are interested in, $d = 2$. In this case we denote the tensor product of two $\Z_{2}$ graded algebras $A$ and $B$ by $A \hat{\otimes} B$, whose grading is
-  \begin{equation*}
-    (A \otimes B)_{0} = (A_{0}\otimes B_{0}) \oplus (A_{1} \otimes B_{1}),\qquad
-    (A \otimes B)_{1} = (A_{0}\otimes B_{1}) \oplus (A_{1} \otimes B_{0}).
-  \end{equation*}
-\end{definition}
-
-
-\section{Clifford algebras}
-Clifford algebras can be defined as universal objects in an appropriate category. We first define this category.
-\begin{definition}[quadratic vector space]
-  \label{def:quadraticvectorspace}
-  A \defn{quadratic vector space} is a pair $(V, q)$ where $V$ is a vector space over a field $k$ and $q$ is a (possibly degenerate) quadratic form on $V$.
-\end{definition}
-\begin{note}
-  Quadratic forms and symmetric bilinear forms can be freely exchanged via a polarization; we will use the same notation for both, differentiating them only be the number of arguments they take. For example,
-  \begin{equation*}
-    q(v) = q(v,v).
-  \end{equation*}
-\end{note}
-
-\begin{definition}[category of quadratic vector spaces]
-  \label{def:categoryofquadraticvectorspaces}
-  Let $\mathsf{QVec}$ be the category whose objects are quadratic vector spaces and whose morphisms $(V, q_{V}) \to (W, q_{W})$ are linear maps $f\colon V \to W$ such that $f^{*}q_{W} = q_{V}$.
-\end{definition}
-
-\begin{definition}[Clifford map]
-  \label{def:cliffordmap}
-  Let $(V,q)$ be a quadratic vector space and $A$ be an associative $k$-algebra with unit $1_{A}$. We say that a $k$-linear map $\varphi\colon V \to A$ is \defn{Clifford} if for all $x \in V$,
-  \begin{equation*}
-    \varphi(x)^{2} = -q(x)1_{A}.
-  \end{equation*}
-\end{definition}
-
-\begin{definition}[category $\mathsf{Cliff}(V,q)$]
-  \label{def:cliffordcategory}
-  $\mathsf{Cliff}(V,q)$ is the category whose objects are Clifford maps $f\colon V \to A$ to some associative unital $k$-algebra $A$ and whose morphisms are algebra homomorphisms $\rho\colon A \to A'$ such that the diagram
-  \begin{equation*}
-    \begin{tikzcd}
-      & V \arrow[dl, swap, "f"] \arrow[dr, "f'"] & \\
-      A \arrow[rr, "\rho"] & & A'
-    \end{tikzcd}
-  \end{equation*}
-  commutes.
-\end{definition}
-
-\begin{definition}[Clifford algebra]
-  \label{def:cliffordalgebra}
-  Let $(V,Q)$ be a quadratic vector space. The \defn{Clifford algebra} $\cliff(V,q)$ is the algebra from the initial object $(\iota, \cliff(V,q))$ in the category $\mathsf{Cliff}(V,q)$, if it exists.
-\end{definition}
-
-\begin{theorem}
-  The Clifford algebra always exists. That is to say for any quadratic vector space $(V, q)$ there is a pair $(\iota, \cliff(V,q))$ where $\iota$ is a Clifford map and $\cliff(V,q)$ is an associative unital algebra such that for any Clifford map $f\colon V \to A$, there is a unique algebra homomorphism $\cliff(f)\colon \cliff(V) \to A$ such that the following diagram commutes.
-  \begin{equation*}
-    \begin{tikzcd}
-      & V \arrow[dr, "f"] \arrow[dl, swap, "\iota"] & \\
-      \cliff(V,q) \arrow[rr, "\cliff(f)"] & & A
-    \end{tikzcd}
-  \end{equation*}
-\end{theorem}
-\begin{proof}
-  Denote by $T(V)$ the tensor algebra over $V$ and by $\phi$ the canonical injection $V 
-  \hookrightarrow T(V)$.
-
-  The universal property of the tensor algebra tells us that any linear map $f\colon V \to A$ to an associative, unital algebra $A$ can be extended to a unique algebra homomorphism $\bar{f}\colon T(V) \to A$ making the following diagram commute.
-  \begin{equation*}
-    \begin{tikzcd}
-      & V \arrow[dr, "f"] \arrow[dl, swap, "\phi"] & \\
-      T(V) \arrow[rr, "\bar{f}"] & & A
-    \end{tikzcd}
-  \end{equation*}
-  Now consider the case in which $V$ is taken to be a quadratic vector space $(V,q)$ and $f$ is Clifford. Then the algebra homomorphism $\bar{f}$ has the property that for any $v \in V^{\otimes 1}$, $\bar{f}(v \otimes v + q(v) 1) = 0$. Thus, all elements of $T(V)$ which can be written in the form
-  \begin{equation*}
-    v \otimes v + q(v)1,\qquad v \in V^{\otimes 1}
-  \end{equation*}
-  are in the kernel of $\bar{f}$, and so must be the ideal generated by such elements, which we will call $\mathscr{I}_{q}$. We can take the quotient $T(V)/\mathscr{I}_{q}$, calling the associated canonical projection $\pi_{q}\colon T(V) \to T(V)/\mathscr{I}_{q}$.
-
-  Since $\mathscr{I}_{q}$ is in the kernel of $f$, we can replace $f$ by a map $\tilde{f}\colon T(V)/\mathscr{I}_{q} \to A$. This allows us to fill in the diagram below.
-  \begin{equation*}
-    \begin{tikzcd}[column sep=huge]
-      T(V) \arrow[dd, swap, "\pi_{q}"] \arrow[drr, bend left, "\bar{f}"] & & \\
-      & V \arrow[ul, swap, "\phi"] \arrow[dl, "\pi_{q} \circ \phi"] \arrow[r, "f"] & A \\
-      {T(V)/\mathscr{I}_{q}} \arrow[urr, bend right, swap, "\tilde{f}"]
-    \end{tikzcd}
-  \end{equation*}
-  Notice that $\pi_{q} \circ \phi$ is Clifford. 
-
-  The above discussion means that for any Clifford map $f\colon V \to A$, we have a unique algebra homomorphism $\tilde{f}\colon T(V)/\mathscr{I}_{q} \to A$ such that the diagram above commutes. But that means that the pair $(\pi_{q} \circ \phi, T(V)/\mathscr{I}_{q})$ satisfies the universal property for Clifford algebras. Thus we must have that, up to a unique isomorphism, $\cliff(V,q) = T(V)/\mathscr{I}_{q}$, and $\iota = \pi_{q} \circ \phi$.
-\end{proof}
-
-\begin{theorem}
-  \label{thm:cliffordmapisafunctor}
-  The Clifford algebra defines a functor $\cliff$ from $\mathsf{QVec}$ to the category of associative unital algebras.
-\end{theorem}
-\begin{proof}
-  We need two pieces of information to determine that $\cliff$ is a functor: how it acts on the objects $(V,q)$ of $\mathsf{QVec}$, and how it acts on the morphisms $f\colon V \to V'$. We have studied in some detail how it acts on objects by sending $(V,q)$ to $\cliff(V,q)$. Now we must see how it acts on morphisms.
-
-  By definition, the morphisms $(V,q) \to (V', q')$ in $\mathsf{QVec}$ are linear maps $L\colon V \to V'$ which preserve the quadratic form. We can write down the following commutative diagram.
-  \begin{equation*}
-    \begin{tikzcd}[row sep=huge, column sep=huge]
-      {(V,q)} \arrow[dr, "\iota_{V'} \circ L"] \arrow[d, swap, "\iota_{V}"] \arrow[r, "L"] & {(V', q')} \arrow[d, "\iota_{V'}"] \\
-      {\cliff(V,q)} & {\cliff(V', q')}
-    \end{tikzcd}
-  \end{equation*}
-  Notice that the map $L$ preserves the quadratic form $q$ and $\iota_{V'}$ is Clifford. Thus, we have 
-  \begin{equation*}
-    [(\iota_{V'} \circ L)(v)]^{2} = [\iota_{V'}(L(v))]^2 = \iota_{V'}(L(v)^2) = \iota_{V'}(-q'(L(v))) = \iota_{V'}(-q(v)1) = -q(v) 1,
-  \end{equation*}
-  so the map $\iota_{V'} \circ L$ is Clifford. But the universal property of Clifford algebras guarantees us that any Clifford map from $(V,q)$ to an associative, unital algebra (of which $\cliff(V', q')$ is an example) must factor through $\cliff(V,q)$! This gives us, for any such $L$, a unique map $\cliff(V,q) \to \cliff(V', q')$ which we will call $\cliff(L)$. This fills in the diagram as follows.
-  \begin{equation*}
-    \begin{tikzcd}[row sep=huge, column sep=huge]
-      {(V,q)} \arrow[dr, "\iota_{V'} \circ L"] \arrow[d, swap, "\iota_{V}"] \arrow[r, "L"] & {(V', q')} \arrow[d, "\iota_{V'}"] \\
-      {\cliff(V,q)} \arrow[r, swap, "\exists!\cliff(L)"] & {\cliff(V', q')}
-    \end{tikzcd}
-  \end{equation*}
-  Checking that the assignment $L \mapsto \cliff(L)$ really is functorial amounts to checking that it is covariant and that it is associative, both of which follow from juxtaposition of diagrams.
-\end{proof}
-
-\begin{note}
-  The automorphism group of any quadratic vector space $(V,q)$ is the group of linear transformations which preserve the quadratic form, and is called the \emph{orthogonal group}, denoted 
-  \begin{equation*}
-    \Or(V) = \left\{ M \in \GL(V)\,\big|\, M^{*}q = q \right\}.
-  \end{equation*}
-  The functoriality of $\cliff$ means that any $M \in \Or(V)$ induces an algebra automorphsim of $\cliff(M)$, the unique map which makes the following diagram commute.
-  \begin{equation*}
-    \begin{tikzcd}
-      V \arrow[d, swap, "\iota"] \arrow[r, "M"] & V \arrow[d, "\iota"] \\
-      \cliff(V, q) \arrow[r, "\cliff(M)"] & \cliff(V, q)
-    \end{tikzcd}
-  \end{equation*}
-  To put it another way, \hyperref[thm:cliffordmapisafunctor]{Theorem \ref*{thm:cliffordmapisafunctor}} ensures us of an embedding $\Or(V,q) \hookrightarrow \mathrm{Aut}(\cliff(V,q))$.
-\end{note}
-
-\begin{theorem}
-  There is a $\Z_{2}$ grading on $\cliff(V,q)$.
-\end{theorem}
-\begin{proof}
-  Take $P \in \Or(V)$ to be the map which sends $v \mapsto -v$ for all $v \in V$. By the functoriality of $\cliff$, this extends to an algebra automorphism $\cliff(P) = \alpha$ such that $\alpha^{2} = 1_{\cliff(V,q)}$. This means that $\cliff(V,q)$ splits, as a vector space, into two parts
-  \begin{equation*}
-    \cliff(V,q) = \cliff^{0}(V,q) \oplus \cliff^{1}(V,q).
-  \end{equation*}
-  It is not hard to check that the multiplication has the grading in \hyperref[def:z2gradedtensorproduct]{Definition \ref*{def:z2gradedtensorproduct}}.
-\end{proof}
-
-\begin{lemma}
-  The Clifford algebra $\cliff(V,q)$ inherits a filtration from the tensor algebra $T(V)$.
-\end{lemma}
-\begin{proof}
-  The tensor algebra has a natural filtration given by
-  \begin{equation*}
-    F_{r} = \bigoplus_{n=0}^{r} V^{\otimes n};
-  \end{equation*}
-  we have 
-  \begin{equation*}
-    T(V) = \bigcup_{i=0}^{\infty} F_{i}
-  \end{equation*}
-  and
-  \begin{equation*}
-    F_{r} \otimes F_{s} \subseteq F_{r+s}.
-  \end{equation*}
-  This makes $T(V)$ into a filtered algebra.
-
-  Now consider the image of each $F_{r}$ under the canonical projection $\pi_{q}\colon T(V) \to T(V) / \mathscr{I}_{q}$, say
-  \begin{equation*}
-    \mathscr{F}_{r} = \pi_{q}(F_{r}).
-  \end{equation*}
-
-  Certainly, this makes $\cliff(V, q)$ into a filtered vector space. We must check that the filtration respects the algebraic structure. We have, for $\alpha \in F_{r}$ and $\beta \in F_{s}$, $\alpha \otimes \beta \in F_{r + s}$, so
-  \begin{equation*}
-    \pi_{q}(\alpha\otimes \beta) \in \mathscr{F}_{r+s}.
-  \end{equation*}
-  However, $\pi_{q}$ is an algebra homomorphism, so
-  \begin{equation*}
-    \pi_{q}(\alpha \otimes \beta) = \pi_{q}(\alpha) \cdot \pi_{q}(\beta) \in \mathscr{F}_{r} \cdot \mathscr{F}_{s}.
-  \end{equation*}
-\end{proof}
-
-\begin{theorem}
-  For any quadratic form $q$, the associated graded algebra to $\cliff(V,q)$ is isomorphic (as a vector space) to the exterior algebra $\Lambda(V)$.
-\end{theorem}
-\begin{proof}
-  Very easy to see by writing everything down in a basis. I'd really like a categorical proof of this, however.
-\end{proof}
-
-\begin{theorem}
-  Let $V = V_{1} \oplus V_{2}$ be a $q$-orthogonal decomposition of the vector space $V$. Then there is an isomorphism of Clifford algebras
-  \begin{equation*}
-    \cliff(V,q) \to \cliff(V_{1}, q_{1}) \hat{\otimes} \cliff(V_{2}, q_{2}).
-  \end{equation*}
-\end{theorem}
-\begin{proof}
-  Consider the map 
-  \begin{equation*}
-    f\colon V \to \cliff(V_{1}, q_{1}) \hat{\otimes} \cliff(V_{2}, q_{2});\qquad v \mapsto v_{1} \otimes 1 + 1 \otimes v_{2}
-  \end{equation*}
-  where $v = v_{1} + v_{2}$ is the $q$-orthogonal decomposition of $v$.
-  \begin{align*}
-    f(v) \cdot f(v) &= \left(  v_{1} \otimes 1 + 1 \otimes v_{2}\right)\cdot\left( v_{1} \otimes 1 + 1 \otimes v_{2} \right) \\
-    &= (v_{1} \cdot v_{1}) \otimes 1 + v_{1} \otimes v_{2} - v_{1} \otimes v_{2} + 1 \otimes (v_{2} \cdot v_{2}) \\
-    &= (v_{1}^{2} + v_{2}^{2})1 \\
-    &= -(q(v_{1}) + q(v_{2}))1 \\
-    &= -q(v) 1,
-  \end{align*}
-  where the minus sign on the second line comes from the fact that the image of $V$ under the canonical inclusion is in $\cliff^{1}(V,q)$ and the Koszul sign rule. Thus the map $f$ is Clifford, so it extends to an algebra homomorphism $\tilde{f}\colon \cliff(V, q) \to \cliff(V_{1}, q_{1}) \hat{\otimes} \cliff(V_{2}, q_{2})$.
-
-  This is injective since
-\end{proof}
-
-\begin{definition}[transpose]
-  \label{def:transpose}
-  On any tensor power $V^{\otimes n}$ of a vector space $V$ there is an action of the symmetric group $S_{n}$ which sends
-  \begin{equation*}
-    v_{1} \otimes \cdots \otimes v_{n} \mapsto v_{\sigma(1)} \otimes \cdots \otimes v_{\sigma(n)},\qquad \sigma \in S_{n}.
-  \end{equation*}
-  In particular, for any $n$ we have the involution
-  \begin{equation*}
-    v_{1} \otimes \cdots \otimes v_{n} \mapsto v_{n} \otimes \cdots \otimes v_{1}.
-  \end{equation*}
-
-  This extends to an algebra involution on
-  \begin{equation*}
-    T(V) = \bigoplus_{n=0}^{\infty} V^{\otimes n},
-  \end{equation*}
-  called the \defn{transpose} and denoted
-  \begin{equation*}
-    (v_{1} \otimes \cdots \otimes v_{n})^{t} = (v_{n} \otimes \cdots \otimes v_{1}).
-  \end{equation*}
-
-  Any element $I$ of the ideal $\mathscr{I}_{q}$ can be written
-  \begin{equation*}
-    I = \sum_{i} a_{i} \otimes\left( v_{i} \otimes v_{i} + q(v_{i})1 \right) \otimes b_{i},
-  \end{equation*}
-  where $a_{i}$ and $b_{i}$ can be assumed to be of pure degree. Under the action of the transpose we have 
-  \begin{equation*}
-    I^{t} = \sum_{i} (b_{i})^{t} \otimes \left( v_{i} \otimes v_{i} + q(v)1 \right) \otimes (a_{i})^{t},
-  \end{equation*}
-  which is still in $\mathscr{I}_{q}$. Thus $\mathscr{I}_{q}$ is invariant under the transpose and the transpose extends to an involution on $\cliff(V,q) = T(V) / \mathscr{I}_{q}$, which we will also denote by $(\cdot)^{t}$.
-\end{definition}
-\begin{note}
-  The transpose is an antiautomorphism, i.e. $(\psi\varphi)^{t} = \varphi^{t}\psi^{t}$.
-\end{note}
-
-\section{Pin and Spin}
-\begin{definition}[group of units of $\cliff(v, q)$]
-  \label{def:groupofunitsofcliff}
-  Denote by \defn{$\cliff^{\times}(V, q)$} the group of units of $\cliff(V, q)$.
-\end{definition}
-\begin{lemma}[properties of $\cliff^{\times}(V, q)$]
-  $\,$
-  \begin{enumerate}
-    \item For all $v \in V$ with $q(v) \neq 0$, $v \in \cliff^{\times}(V, q)$.
-
-    \item When $\mathrm{dim}(V) = n < \infty$ and $k = \R$ (or $\C$), $\cliff^{\times}(V, q)$ is a Lie group of dimension $2^{n}$.
-
-    \item The universal enveloping algebra of the Lie algebra $T_{e}(\cliff^{\times}(V, q))$ is isomorphic to $\cliff(V, q)$.
-  \end{enumerate}
-\end{lemma}
-\begin{proof}
-  $\,$
-  \begin{enumerate}
-    \item Since $v \otimes v = -q(v)1$, $v \otimes \left( -v/q(v) \right) = 1$.
-
-    \item We specialize to the case $k = \R$; $k = \C$ is the same. 
-
-      As a vector space, $\cliff(V, q) \simeq \Lambda(V) \simeq \R^{2n}$. Thus $\cliff(V, q)$ can canonically be viewed both as topological manifold with a single chart and a topological vector space. On a finite-dimensional topological vector space any (multi)linear map is continuous, so addition and multiplication are continuous. Thus the group of units is a $C^{0}$-submanifold of $\cliff(V, q)$, and multiplication restricts to a continuous map on it. 
-
-      But by a theorem of Gleason, Montgomery, and Zippin (\cite{gleason-montgomery-zippin}) any such topological group automatically has a compatible smooth atlas, and is therefore a Lie group.
-
-    \item This (or at least something equivalent to it) is just stated in \cite{michelson-lawson}; I would have no idea how one would go about proving it.
-  \end{enumerate}
-\end{proof}
-
-\begin{definition}[adjoint representation of $\cliff^{\times}(V ,q)$]
-  \label{def:adjointrepresentationofcliffordalgebra}
-  The \defn{adjoint representation} of $\cliff^{\times}(V, q)$ is the map
-  \begin{equation*}
-    \Ad\colon \cliff^{\times}(V, q) \to \mathrm{Aut}(\cliff(V, q));\qquad \varphi \mapsto \Ad_{\varphi} = \varphi(\,\cdot\,) \varphi^{-1}
-  \end{equation*}
-  i.e. $\Ad_{\varphi}(x) = \varphi x \varphi^{-1}$.
-\end{definition}
-
-\begin{lemma}
-  \label{lemma:expressionforad}
-  For any $v$ such that $q(v) \neq 0$, i.e. when $v$ belongs to the set
-  \begin{equation*}
-    \tilde{V} = \left\{ v \in V\,\big|\, q(v) \neq 0 \right\},
-  \end{equation*}
-  then $\Ad_{v}$ is an endomorphism on $V$. Furthermore, for any $w \in V$, $\Ad_{v}w$ has the explicit formula
-  \begin{equation*}
-    -\Ad_{v}(w) = w - 2\frac{q(v, w)}{q(v)}v.
-  \end{equation*}
-\end{lemma}
-\begin{proof}
-  For any $v \in \tilde{V}$, $v^{-1} = -v/q(v)$. Thus for any $w \in V$,
-  \begin{align*}
-    -q(v) \Ad_{v}(w) = -q(v) vwv^{-1} = vwv = -v^2 w -2q(v, w)v = q(v) w - 2q(v,w) v.
-  \end{align*}
-
-  Clearly, the assignment
-  \begin{equation*}
-    w \mapsto w - 2\frac{q(v, w)}{q(v)}v
-  \end{equation*}
-  is a linear map $V \to V$, hence an endomorphism.
-\end{proof}
-
-\begin{lemma}
-  For every $v \in \tilde{V}$, $\Ad_{v} \in \Or(V)$.
-\end{lemma}
-\begin{proof}
-  Let $w \in V$.
-  \begin{eqnarray*}
-    q(\Ad_{v}(w)) &=& q\left(w - 2\frac{q(v,w)}{q(v)} v,\, w - 2\frac{q(v,w)}{q(v)} v\right) \\
-    &=& q(w) - 4\frac{q(v,w)}{q(v)}q(v, w) + 4\frac{q(v, w)^{2}}{q(v)^{2}} q(v) \\
-    &=& q(w),
-  \end{eqnarray*} 
-  so $\Ad_{v}^{*}(q) = q$.
-\end{proof}
-
-\begin{definition}[pin group, spin group]
-  \label{def:pinspingroup}
-  Let $\mathrm{P}(V, q)$ denote the subgroup of $\cliff^{\times}(V, q)$ generated by $\tilde{V}$. This group is not in and of itself terribly important, but it has two important subgroups:
-  \begin{itemize}
-    \item \defn{$\Pin(V, q)$}, the subgroup of $\mathrm{P}(V, q)$ generated by those $v \in V$ with $q(v) = \pm 1$. That is to say, each element of $\Pin(V, q)$ can be written
-      \begin{equation*}
-        v_{1}v_{2}\cdots v_{r},
-      \end{equation*}
-      where each belongs to $V$, and $q(v_{i}) = \pm 1$ for all $i$.
-
-    \item \defn{$\Spin(V, q)$}, defined by 
-      \begin{equation*}
-        \Spin(V, q) = \Pin(V, q) \cap \cliff^{0}(V, q).
-      \end{equation*}
-  \end{itemize}
-\end{definition}
-
-\begin{notation}
-  For $v \in V$, denote by $R_{v}$ the reflection across the hyperplane 
-  \begin{equation*}
-    v^{\perp} = \left\{ w \in V\,\big|\, q(v, w) = 0 \right\}.
-  \end{equation*}
-  That is to say, $R_{v}$ fixes $v^{\perp}$ and maps $v \to -v$. Explicitly, 
-  \begin{equation*}
-    R_{v} w = w - 2\frac{q(v, w)}{q(v)} v.
-  \end{equation*}
-\end{notation}
-
-\begin{theorem}[Cartan-Dieudonn{\'e}]
-  \label{thm:cartandieudonne}
-  Any orthogonal transformation can be expressed as a finite number of reflections. That is, for any $A \in \Or(V, q)$, we have the decomposition
-  \begin{equation*}
-    A = R_{v_{1}} R_{v_{2}} \cdots R_{v_{n}}.
-  \end{equation*}
-  for some $n \in \N$ and some $\left\{ v_{i} \right\}_{i=1}^{n} \subseteq V$.
-\end{theorem}
-
-From \hyperref[lemma:expressionforad]{Lemma \ref*{lemma:expressionforad}}, we have the following expression for $\Ad_{v}(w)$ when $w \in \tilde{V}$:
-\begin{equation*}
-  -\Ad_{v}(w) = w - 2\frac{q(v, w)}{q(v)}v.
-\end{equation*}
-
-The RHS is simply the reflection of $w$ over the hyperplane $v^{\perp}$, i.e.
-\begin{equation*}
-  -\Ad_{v} = R_{v}.
-\end{equation*}
-However, there is a pesky minus sign in the LHS of the above. We can rectify this by modifying our definition of the adjoint slightly.
-
-\begin{definition}[twisted adjoint representation]
-  \label{def:twistedadjointrepresentation}
-  For $\varphi \in \cliff^{\times}(V, q)$, define the \defn{twisted adjoint representation}
-  \begin{equation*}
-    \tAd_{\varphi}\colon \cliff(V, q) \to \cliff(V, q);\qquad w \mapsto \alpha(\varphi)w\varphi^{-1}.
-  \end{equation*}
-
-  The word representation is justified: we can view $\tAd$ as a map $\cliff(V, q) \to \GL(\cliff(V, q))$, and this map is a homomorphism since for all $w \in \cliff^{\times}(V, q)$
-  \begin{equation*}
-    \tAd_{\varphi_{1}\varphi_{2}}(w) = \alpha(\varphi_{1} \varphi_{2}) \cdot w \cdot (\varphi_{1} \varphi_{2})^{-1} = \alpha(\varphi_{1}) \left( \alpha(\varphi_{2}) \cdot w \cdot \varphi_{2}^{-1} \right) \varphi_{1}^{-1} = (\tAd_{\varphi_{1}} \circ \tAd_{\varphi_{2}})(w).
-  \end{equation*}
-\end{definition}
-
-\begin{note}
-  The twisted adjoint representation fixes the problem it was meant to solve, i.e. for $v \in \tilde{V}$, $w \in V$,
-  \begin{equation*}
-    \tAd_{v}w = w - 2\frac{q(v, w)}{q(v)}v.
-  \end{equation*}
-  This is easy to see: $v \in \tilde{V} \subseteq V^{\otimes 1}$, so $\alpha(v) = -v$ and
-  \begin{equation*}
-    \tAd_{v}w = \alpha(v) w v^{-1} = -v w v^{-1} = -\Ad_{v} w.
-  \end{equation*}
-\end{note}
-
-\begin{definition}[$\tP(V, q)$]
-  \label{def:twistedp}
-  Let 
-  \begin{equation*}
-    \tP(V, q) = \left\{ \varphi \in \cliff^{\times}(V, q)\,\bigg|\, \tAd_{\varphi}V = V \right\},
-  \end{equation*}
-  the set of all elements of $\cliff^{\times}(V, q)$ which fix $V$ under the twisted adjoint action.
-\end{definition}
-\begin{lemma} $\mathrm{P}(V, q) \subseteq \tP(V, q)$.
-\end{lemma}
-\begin{proof}
-  Let $\varphi \in \mathrm{P}(V, q)$. Then $\varphi = \varphi_{1}\cdots \varphi_{r}$ for $\varphi_{i} \in \tilde{V}$. Since for any $v \in V$, 
-  \begin{equation*}
-    \tAd_{\varphi_{i}}v = v - 2\frac{q(\varphi, v)}{q(\varphi)}\varphi \in V
-  \end{equation*}
-  and
-  \begin{equation*}
-    \widetilde{\Ad_{\varphi}}(v) = (\widetilde{\Ad_{\varphi_{1}}} \circ \cdots \circ \widetilde{\Ad_{\varphi_{r}}}) (v),
-  \end{equation*}
-  the result follows by induction.
-\end{proof}
-
-\begin{theorem}
-  \label{thm:kerneloftwistedadjointisscalars}
-  Suppose $V$ is finite-dimensional and $q$ is nondegenerate. Then the kernel of the homomorphism
-  \begin{equation*}
-    \tAd\colon \tP(V, q) \to \GL(V)
-  \end{equation*}
-  is exactly the group $k^{\times}$ of nonzero multiples of $1$.
-\end{theorem} 
-\begin{proof}
-  Choose an orthonormal basis for $V$, i.e. a basis $\left\{ v_{i} \right\}_{i=1}^{n}$ for $V$ such that $q(v_{i}, v_{j}) = \delta_{ij}$.
-
-  Suppose $\varphi \in \ker(\tAd)$, i.e.
-  \begin{eqnarray*}
-    \tAd_{\varphi}(v) = v\qquad\text{for all }v \in V.
-  \end{eqnarray*}
-  Then
-  \begin{equation*}
-    \alpha(\varphi)v = v\varphi.
-  \end{equation*}
-
-  One can continue by showing that $\varphi$ must be independent of each $v_{i}$, and thus equal to a nonzero constant, but this is not very elegant. I think there is probably a better way.
-\end{proof}
-
-\begin{note}
-  \label{note:restrictionoftAdtopissurjective}
-  The image $\tAd(\mathrm{P}(V, q))$ is exactly the subgroup of $\Or(V, q)$ generated by reflections. But by \hyperref[thm:cartandieudonne]{Theorem \ref*{thm:cartandieudonne} (Cartan-Dieudonn{\'e})}, any element $A \in \Or(V, q)$ can be written as a product of reflections. Therefore the restriction $\tAd\colon \mathrm{P}(V, q) \to \Or(V, q)$ is surjective.
-\end{note} 
-
-\begin{definition}[norm map]
-  \label{def:normmap}
-  The \defn{norm map} is the function 
-  \begin{equation*}
-    N\colon \cliff(V, q) \to \cliff(V, q);\qquad N\colon \varphi \mapsto \varphi \cdot \alpha(\varphi^{t}).
-  \end{equation*}
-\end{definition}
-
-\begin{lemma}
-  If $V$ is finite-dimension and $q$ is nondegenerate, then the restriction of $N$ to $\tP(V, q)$ is a homomorphism 
-  \begin{equation*}
-    N\colon \tP(V, q) \to k^{\times}.
-  \end{equation*}
-\end{lemma}
-\begin{proof}
-  By definition, for any $\varphi \in \tP(V, q)$ we have 
-  \begin{equation*}
-    \alpha(\varphi) \cdot v \cdot \varphi^{-1} \in V.
-  \end{equation*}
-
-  The transpose $( \cdot )^{t}$ is the identity on $V$. Thus
-  \begin{align*}
-    \alpha(\varphi) \cdot v \cdot \varphi^{-1} &=  (\alpha(\varphi) \cdot v \cdot \varphi^{-1})^{t}  \\
-    &= (\varphi^{-1})^{t} \cdot v \cdot \alpha(\varphi^{t}).
-  \end{align*}
-
-  Thus
-  \begin{eqnarray*}
-    v &=& \varphi^{t} \cdot \alpha(\varphi) \cdot v \cdot \varphi^{-1} \cdot \alpha(\varphi^{t})^{-1} \\
-    &=& [\varphi^{t} \alpha(\varphi)]v[\alpha(\varphi^{t}) \varphi]^{-1} \\
-    &=& \alpha[\alpha(\varphi^{t}) \varphi]v[\alpha(\varphi^{t})\varphi]^{-1} \\
-    &=& \tAd_{\alpha(\varphi^{t}) \varphi} (v),
-  \end{eqnarray*}
-  so $\alpha(\varphi^{t}) \varphi \in k^{\times}$. Applying $\alpha$ we find that
-  \begin{equation*}
-    N(\varphi) = \varphi^{t} \alpha(\varphi) \in k^{\times}
-  \end{equation*}
-  as desired.
-
-  To see that $N$ is indeed a homomorphism and not just a function, it is enough to see that for any $\varphi$, $\psi \in \tP(V, q)$,
-  \begin{eqnarray*}
-    N(\varphi\psi) &=& (\varphi\psi)\cdot\alpha(\varphi\psi)^{t} \\
-    &=& \varphi \left( \psi \cdot \alpha(\psi)^{t} \right) \alpha(\varphi)^{t} \\
-    &=& \varphi N(\psi) \alpha(\varphi)^{t} \\
-    &=& \varphi \cdot \alpha(\varphi)^{t}N(\psi)  \\
-    &=& N(\varphi) \cdot N(\psi).
-  \end{eqnarray*}
-\end{proof}
-
-\begin{theorem}
-  For each $\varphi \in \tP(V, q)$, the map $\tAd_{\varphi}\colon V \to V$ preserves the quadratic form $q$, and thus belongs to $\Or(V, q)$. This gives us a representation
-  \begin{equation*}
-    \tAd\colon \tP(V, q) \to \Or(V, q).
-  \end{equation*}
-\end{theorem}
-\begin{proof}
-  First, note that $N(\alpha(\varphi)) = N(\varphi)$ since
-  \begin{equation*}
-    N(\alpha(\varphi)) = \alpha(\varphi) \alpha(\alpha(\varphi)^{t}) = \alpha(\varphi \alpha (\varphi)^{t}) = \alpha(N(\varphi)) = N(\varphi).
-  \end{equation*}
-
-  Also, for all $v \in V$, 
-  \begin{equation*}
-    N(v) = v \alpha(v^{t}) = v\cdot(-v) = -v^2 = q(v).
-  \end{equation*}
-
-  Hence, for any $v \in \tilde{V}$ and any $\varphi \in \tP(V, q)$, we have
-  \begin{equation*}
-    N(\tAd_{\varphi}(v)) = N(\varphi\cdot v\cdot \alpha(\varphi)^{-1}) = N(\varphi)\cdot N(v) \cdot N(\varphi^{-1}) = N(v) = q(v).
-  \end{equation*}
-  But by definition, $\tAd_{\varphi}(v) \in V$, so
-  \begin{equation*}
-    N(\tAd_{\varphi}(v)) = q(\tAd_{\varphi}(v)).
-  \end{equation*}
-
-  Thus, $q(\tAd_{\varphi}(v)) = q(v)$, so $\tAd_{\varphi}^{*}(q) = q$.
-\end{proof}
-
-\begin{definition}[$\SP(V, q)$]
-  \label{def:spgroup}
-  Let 
-  \begin{equation*}
-    \SP(V, q) = \mathrm{P}(V, q) \cap \cliff^{0}(V, q),
-  \end{equation*}
-  i.e. the subset of $\mathrm{P}(V, q)$ generated by products of the form
-  \begin{equation*}
-    v_{1} \cdot v_{2} \cdots v_{n},\qquad n\text{ even}.
-  \end{equation*}
-\end{definition}
-
-\begin{lemma}
-  The restriction 
-  \begin{equation*}
-    \tAd\colon \SP(V, q) \to \SO(V, q)
-  \end{equation*}
-  is surjective.
-\end{lemma}
-\begin{proof}
-  Since for any $v \in \tilde{V}$ the determinant $\det(R_{v}) = -1$, any element $R$ of $\SO(V, q)$ must be those expressible as an even number of reflections 
-  \begin{equation*}
-    R = R_{v_{1}} \circ R_{v_{2}} \cdots \circ R_{v_{n}} = R_{v_{1} \cdot v_{2} \cdots v_{n}}.
-  \end{equation*}
-  But since $n$ is even $v_{1} \cdot v_{2} \cdots v_{n} \in \SP(V, q)$ by definition, so $R$ is in the image $\tAd(\SP(V, q))$.
-\end{proof}
-
-\begin{note}
-  We know that the maps
-  \begin{equation*}
-    \tAd\colon \PP(V, q) \to \Or(V, q)\qquad\text{and}\qquad \tAd\colon \SP(V, q) \to \SO(V, q)
-  \end{equation*}
-  are surjective.
-
-  It is reasonable to wonder if the restrictions
-  \begin{equation*}
-    \tAd\colon \Pin(V, q) \to \Or(V, q)\qquad\text{and}\quad \tAd\colon \Spin(V, q) \to \SO(V, q)
-  \end{equation*}
-  are also surjective. This seems likely because $R_{v}$ is invariant under the scaling of $v$, i.e. $R_{tv} = R_{v}$ for $t \neq 0$, so one could try to normalize any $v$ so that $q(v) = \pm 1$. 
-
-  This sort of works. Since $q$ is quadratic, for any $v \in V$, $t \in k$ we have $q(tv) = t^2 q(v)$. The above restrictions will be surjective only if for any $a \neq 0$, we can solve at least one of the equations $t^{2} = \pm a$. This leads us to the following definition.
-\end{note} 
-\begin{definition}[spin field]
-  \label{def:spinfield}
-  A field $k$ is called \defn{spin} if for all $a \in k$ at least one of the equations
-  \begin{equation*}
-    t^{2} = a,\qquad t^{2} = -a
-  \end{equation*}
-  can be solved.
-\end{definition}
-\begin{example}
-  The fields $\R$, $\C$, and $\Z_{p}$ where $p$ is a prime congruent to $3\ (\mathrm{mod}\ 4)$ are spin. The field $\Q$ of rationals is not.
-\end{example}
-
-\begin{lemma}
-  If $V$ is a $k$-vector space and $k$ is spin, then the restrictions
-  \begin{equation*}
-    \tAd\colon \Pin(V, q) \to \Or(V, q)\qquad\text{and}\quad \tAd\colon \Spin \to \SO(V, q)
-  \end{equation*}
-  are surjections.
-\end{lemma}
-\begin{proof}
-  We already sort of know how to prove this.
-
-  Suppose $O \in \Or(V, q)$. Then we can express $O$ as a finite product of reflections
-  \begin{equation*}
-    O = R_{v_{1}} \circ R_{v_{2}} \circ \cdots \circ R_{v_{n}},\qquad n \in \N.
-  \end{equation*} 
-  But since $k$ is by assumption spin we can find for each $i \in \left\{ 1, \ldots, n \right\}$ a number $t_{i}$ such that $q(t_{i} v_{i}) = \pm 1$. Since $R_{t_{i} v_{i}} = R_{v_{i}}$, we have
-  \begin{equation*}
-    O = R_{t_{1} v_{1}} \circ R_{t_{2} v_{2}} \circ \cdots \circ R_{t_{n} v_{n}} = R_{t_{1} v_{1} \cdot t_{2} v_{2} \cdots t_{n} v_{n}},
-  \end{equation*}
-  where $t_{1} v_{1} \cdot t_{2} v_{2} \cdots t_{n} v_{n} \in \Pin(V, q)$.
-
-  The proof that the second restriction is a surjection is the same except that $n$ must be even.
-\end{proof}
-
-\begin{theorem}
-  Let $V$ be a finite-dimensional vector space over a spin field $k$, and suppose $q$ is a non-degenerate quadratic form on $V$. Then there are short exact sequences
-  \begin{equation*}
-    \begin{tikzcd}[row sep=tiny]
-      0 \arrow[r] & F \arrow[r] & \arrow[r, "\tAd"] \Spin(V, q) & \arrow[r] \SO(V, q) & 1 \\
-      0 \arrow[r] & F \arrow[r] & \Pin(V, q) \arrow[r, "\tAd"] & \arrow[r] \Or(V, q) & 1 \\
-    \end{tikzcd}
-  \end{equation*}
-  where
-  \begin{equation*}
-    F = \left\{ \varphi \in k\,\big|\, \varphi^{2} = \pm 1 \right\} =
-    \begin{cases}
-      \Z_{2} = \left\{ 1, -1 \right\} & \text{if } \sqrt{-1} \notin k \\
-      \Z_{4} = \left\{\pm 1, \pm \sqrt{-1}\right\} & \text{otherwise.}
-    \end{cases}
-  \end{equation*}
-\end{theorem}
-\begin{proof}
-  We already know that both $\Pin(V, q)$ and $\Spin(V, q)$ contain $F$ so the maps from $F$ are injective. We have just shown that $\tAd$ is surjective. Therefore, all we have to show is that in both cases,
-  \begin{equation*}
-    \ker(\tAd) = F.
-  \end{equation*}
-
-  To this end, let $\varphi \in \Pin(V, q) = v_{1}\cdots v_{n}$ be in $\ker(\tAd)$. Then
-  \begin{equation*}
-    \varphi^{2} = N(\varphi) = N(v_{1})\cdots N(v_{n}) = v_{1}^{2} \cdots v_{n}^{2} = (\pm 1)\cdots (\pm 1) = \pm 1,
-  \end{equation*}
-  so $\varphi \in K$. In fact, this logic also holds for $\varphi \in \Spin(V, q)$ if we imagine that $n$ is even. But we already know that $K \subseteq \ker(\tAd)$, so $K = \ker(\tAd)$ and we are done.
-\end{proof}
 
 \chapter{Some basic superalgebra} 
 In this chapter we give some basic definitions of various super-* structures in a haphazard, rushed way. The clarifying categorical aspects will be left until the following chapter.
@@ -7797,11 +7111,11 @@ In this chapter we give some basic definitions of various super-* structures in 
 \end{definition}
 
 \begin{note}
-  Of course, not all elements $c \in A$ are in $A_{0}$ or $A_{1}$; formulae which talk about the grading must be understood to be extended via additivity. The axiom concerning the multiplicative grading, for example, can be taken to say that if $a = a_{0} + a_{1}$ and $b = b_{0} + b_{1}$, then
+  Of course, not all elements $c \in A$ are in $A_{0}$ or $A_{1}$; formulae which talk about the grading must be understood to be extended via additivity. If $a = a_{0} + a_{1}$ and $b = b_{0} + b_{1}$, then
   \begin{equation*}
     ab = a_{0} b_{0} + a_{1} b_{0} + a_{0} b_{1} + a_{1} b_{1},
   \end{equation*}
-  and the axiom applies to each monomial.
+  and the axiom concerning the multiplicative grading can be taken to say that the grading applies to each monomial.
 \end{note}
 
 \begin{example}[exterior algebra]
@@ -8152,7 +7466,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 \end{note}
 
 \begin{lemma}
-  The $\Z_{2}$-graded tensor product (\hyperref[def:z2gradedtensorproduct]{Definition \ref*{def:z2gradedtensorproduct}}) can be extended to a bifunctor 
+  The $\Z_{2}$-graded tensor product (\hyperref[def:tensorproduttofz2gradedvectorspaces]{Definition \ref*{def:tensorproduttofz2gradedvectorspaces}}) can be extended to a bifunctor 
   \begin{equation*}
     \otimes\colon \mathsf{Vect}_k^{\Z_{2}} \times \mathsf{Vect}_k^{\Z_{2}} \rightsquigarrow \mathsf{Vect}_k^{\Z_{2}}.
   \end{equation*}
@@ -8614,6 +7928,13 @@ As we saw in \hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma
 
 We might take this idea even further: given \emph{any} associative algebra $A$, we can think of its formal dual as some sort of generalized manifold. 
 
+\begin{note}
+  My plan is to replace the above introduction with an exposition of why defining algebraic groups as group objects in $\mathsf{CMon}(\mathsf{SVect}_{k})$ is a good idea from an algebro-geometric perspective (without leaning on smooth manifolds, which are too poorly behaved to furnish a good example), as well as explaining exactly what is meant by `formal duality'. I'll leave it in for now, but what follows will be the \emph{real} introduction.
+\end{note}
+
+
+
+\subsection{Affine schemes, categorically}
 \begin{definition}[affine scheme of an algebra]
   \label{def:affineschemeofanalgebra}
   Let $\mathsf{C}$ be a symmetric monoidal category. Write
@@ -8706,7 +8027,11 @@ In fact, with some mild conditions on the vector bundles and modules in question
   See \cite{nestruev-smooth-manifolds-observables} 11.33, page 183.
 \end{proof}
 
-As before, one is lead to the assumption that one could generalize the idea of a vector bundle by relaxing the requrements on the modules under consideration. The `generalized vector bundles' arising in this way are called \emph{quasicoherent sheaves} (\hyperref[sec:quasicoherentsheaves]{Section \ref*{sec:quasicoherentsheaves}}).
+As before, one is lead to the assumption that one could generalize the idea of a vector bundle by relaxing the requrements on the modules under consideration. The `generalized vector bundles' arising in this way are called \emph{quasicoherent sheaves}.
+
+\begin{note}
+  The notion of a generalized vector bundle isn't actually used. The mathematical edifice below is introduced so as to define a more general version of Hopf algebra, which also isn't used. I'll probably take it all out at some point.
+\end{note}
 
 \begin{definition}[module object]
   \label{def:moduleobject}
@@ -9150,7 +8475,7 @@ The standard definition of a Hopf algebra (taken from, for example, \cite{milne-
     \end{tikzcd}
   \end{equation*}
 
-  The commutative monoid $\mathscr{O}(H)$ itself comes with some structure. In particular, it has its own unit map $e\colon 1 \to \mathscr{O}(H)$, and its own multiplication $\mu\colon \mathscr{O}(H) \to \mathscr{O}(H) \to \mathscr{O}(H)$. We can add these to the above diagram as long as we remember to dualize them. We'll write $e^{\mathrm{op}} = \varepsilon$ and $\mu^{\mathrm{op}} = \Delta$.
+  The commutative monoid $\mathscr{O}(H)$ itself comes with some structure. In particular, it has its own unit map $e\colon 1 \to \mathscr{O}(H)$, and its own multiplication $\mu\colon \mathscr{O}(H \times H) \to \mathscr{O}(H)$. We can add these to the above diagram as long as we remember to dualize them. We'll write $e^{\mathrm{op}} = \varepsilon$ and $\mu^{\mathrm{op}} = \Delta$.
   \begin{equation*}
     \begin{tikzcd}
       H \times H
@@ -9175,7 +8500,7 @@ The standard definition of a Hopf algebra (taken from, for example, \cite{milne-
 \end{proof}
 
 \begin{note}
-  The above theorem means that 
+  The above theorem means that it doesn't matter whether we define an object as
 \end{note}
 
 \begin{definition}[supercommutative Hopf algebra]
@@ -9292,6 +8617,24 @@ Every
 \begin{definition}[tensor product of comodules]
   \label{def:tensorproductofcomodules}
   Let $\Gamma$ be a commutative Hopf algebra (\hyperref[def:commutativehopfalgebra]{Definition \ref*{def:commutativehopfalgebra}}) over $k$, and let $N_{1}$ and $N_{2}$ be $\Gamma$-comodules.
+
+  The \defn{comodule tensor product} is the object $N_{1} \otimes_{k} N_{1}$ together with the coaction $N_{1} \otimes_{k} N_{2} \to \Gamma \otimes_{k} N_{1} \otimes_{k} N_{2}$ given by the composition
+  \begin{equation*}
+    \begin{tikzcd}
+      N_{1} \otimes_{k} N_{2}
+      \arrow[r, "\Psi_{1} \otimes_{k} \Psi_{2}"]
+      & \Gamma \otimes_{k} N_{2} \otimes_{k} \Gamma \otimes_{k} N_{2}
+      \arrow[r, "\gamma"]
+      & \Gamma \otimes_{k} \Gamma \otimes_{k} N_{1} \otimes_{k} N_{2}
+      \arrow[r, "\nabla"]
+      & \Gamma \otimes_{k} N_{1} \otimes_{k} N_{2}
+    \end{tikzcd}.
+  \end{equation*}
+\end{definition}
+
+\begin{definition}[linear representation of a supergroup]
+  \label{def:linearrepresentationofsupergroup}
+  Let $G$ be a supergroup (that is, by \hyperref[def:affinealgebraicsupergroup]{Definition \ref*{def:affinealgebraicsupergroup}}, the formal dual of a supercommutative Hopf algebra).
 \end{definition}
 
 \section{Super fiber functors and their automorphism groups}
@@ -9299,7 +8642,7 @@ We would like to view tensor categories $\mathscr{A}$ as categories of represent
 \begin{equation*}
   \omega\colon \mathscr{A} \rightarrow \mathscr{V}.
 \end{equation*}
-For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \mathsf{FinVect}_{k})$ of finite-dimensional $k$-linear representations of $G$ has as its objects pairs $(\rho, V)$, where $V$ is a vector space and $\rho$ is a homomorphism $G \to \mathrm{Aut}(V)$. There is an obvious forgetful functor $\mathsf{FinRep}_{k}(G) \to \mathsf{FinVect}_{k}$ which sends $(\rho, V) \to V$. Note that this functor is not `maximally forgetful' in the sense that it retains some of its structure. Thus it is wise to demand that such a functor retain a reasonable amount of structure. In our case, it should be a braided (\hyperref[def:braidedmonoidalfunctor]{Definition \ref*{def:braidedmonoidalfunctor}}) strong monoidal functor (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}}).
+For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \mathsf{FinVect}_{k})$ of finite-dimensional $k$-linear representations of $G$ has as its objects pairs $(\rho, V)$, where $V$ is a vector space and $\rho$ is a homomorphism $G \to \mathrm{Aut}(V)$. There is an obvious forgetful functor $\mathsf{FinRep}_{k}(G) \to \mathsf{FinVect}_{k}$ which sends $(\rho, V) \to V$. Note that this functor is not `maximally forgetful' in the sense that it retains some of its structure. Thus it is wise to demand that such a functor retain a reasonable amount of structure. In our case, it should be a tensor functor (\hyperref[def:tensorfunctor]{Definition \ref*{def:tensorfunctor}}).
 
 \begin{definition}[fiber functor]
   \label{def:fiberfunctor}
@@ -9310,25 +8653,75 @@ For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \
     \item All of the hom-spaces are finite-dimensional as $k$-vector spaces.
   \end{enumerate}
 
-  Let $R \in \mathsf{CMon}(\mathscr{T})$.\footnote{In \cite{nlab-deligne-theorem}, it says that we should take $R$ from $R\mhyp\mathsf{Mod}(\mathscr{A})$; I'm siding with the original paper \cite{deligne-categories-tensorielle}.}
+  Let $R \in \mathsf{CMon}(\mathsf{Ind}(\mathscr{T}))$, where $\mathsf{Ind}(\mathscr{T})$ is the \emph{category of inductive objects over $\mathscr{T}$}, see \hyperref[def:categoryofindobjects]{Definition \ref*{def:categoryofindobjects}}.
 
-  A functor
+  A tensor functor (\hyperref[def:tensorfunctor]{Definition \ref*{def:tensorfunctor}})
   \begin{equation*}
-    \omega\colon \mathscr{A} \to R\mhyp\mathsf{Mod}(\mathscr{T})
+    \omega\colon \mathscr{A} \to R\mhyp\mathsf{Mod}(\mathsf{Ind}(\mathscr{T}))
   \end{equation*}
-  which is
-  \begin{itemize}
-    \item braided (\hyperref[def:braidedmonoidalfunctor]{Definition \ref*{def:braidedmonoidalfunctor}}), and
-
-    \item strong monoidal (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}})
-  \end{itemize}
   is called a \defn{fiber functor} on $\mathscr{A}$ over $R$.
-
-  If $\mathscr{T}$
 \end{definition}
 
+\begin{note}
+  There is a \emph{lot} of confusion (at least on my end) stemming from the fact that many authors (e.g. EGNO in \cite{EGNO-tensor-categories}) denote by $\mathsf{Vect}_{k}$ the category of \emph{finite-dimensional} $k$-vector spaces. The nLab article \cite{nlab-deligne-theorem} mixes the two notations. 
+\end{note}
+
+\begin{definition}[super fiber functor, neutral super tannakian category]
+  \label{def:suberfiberfunctorneutralsupertannakiancategory}
+  A fiber functor over $\mathscr{T} = \mathsf{FinSVect}$ is called a \defn{super fiber functor}. A tensor category $\mathscr{A}$ which admits a super fiber functor is called a \defn{neutral super tannakian category}.
+
+  Note that in this case a fiber functor over $\mathsf{FinSVect}_{k}$ is a fiber functor to
+  \begin{equation*}
+    \mathsf{CMon}(\mathsf{Ind}(\mathsf{FinSVect}_{k})) = \mathsf{CMon}(\mathsf{SVect}_{k}).
+  \end{equation*}
+\end{definition}
 
 \section{Super-exterior powers and Schur functors}
+One of the core ideas of category theory is that the intrinsic structure of an object can often be best understood by studying its relationships to other objects. For $V$ a vector space, one defines its dimension $\dim(V)$ as the cardinality of any linearly independent spanning subset of $V$. When moving to the category $\mathsf{Vect}_{k}$, one does not have the option of defining things in terms of elements. However, there is an alternate way of defining $\dim(V)$ which does not reference the elements: it is the smallest natural number $n$ such 
+\begin{equation*}
+  \bigwedge^{n} V = 0.
+\end{equation*}
+
+This definition is very appealing because the notion of an exterior product makes sense in any tensor category. 
+
+\begin{definition}[exterior power]
+  \label{def:exteriorpowerintensorcategory}
+  Let $(\mathscr{A}, \otimes, 1)$ be a $k$-tensor category with braiding $\gamma$. Let $X \in \Obj(\mathscr{A})$. For any $n \in \N$, we can use $\gamma$ to build an action of $S_{n}$ on $X^{\otimes n}$ (by Mac Lane's coherence theorem, the specifics of how we do this don't matter).
+
+  We define an \defn{antisymmetrization map} $A\colon X^{\otimes n} \to X^{\otimes n}$ by
+  \begin{equation*}
+    A_{n} = \frac{1}{n!}\sum_{\sigma \in S_{n}} \mathrm{sgn}(\sigma) \sigma.
+  \end{equation*}
+
+  The \defn{$n$th exterior power} of $X$, denoted $\bigwedge^{n}X$, is then defined to be the cokernel (\hyperref[def:cokernalofmorphism]{Definition \ref*{def:cokernalofmorphism}}) of $A_{n}$.
+\end{definition}
+
+However, this notion is not general enough to completely capture the dimension in a tensor category. Suppose that $\mathscr{A} = \mathsf{SFinVect}_{k}$, and $X$ is a super vector space concentrated in odd degree. Then the action of $\sigma$ on $X$ comes alrcady with a factor of $\mathrm{sgn}(\sigma)$ from the super braiding, and $A_{n}$ reduces to the symmetrization of $X^{\otimes n}$, which never vanishes. What is needed is an operation which is general enough to include both symmetrization and antisymmetrization.
+
+The correct generalization turns out to be that of a \emph{Schur functor}. But before we define Schur functors, we need to recall some representation theory.
+
+\subsection{Interlude: representations of the symmetric group}
+Much of this section is from \cite{jpmds-representation-theory-symmetric-groups}.
+
+Let $G$ be a group. We say that two elements $g$ and $g'$ are \emph{conjugate} if there exists $h \in G$ such that $g' = hgh^{-1}$. Conjugacy is an equivalence relation, and partitions a group into \emph{conjugacy classes}.
+
+The conjugacy classes of $S_{n}$ are in one-to-one correspondence with partitions of $n$, notated by so-called \emph{Young tableaux}. 
+
+\begin{definition}[partition]
+  \label{def:partition}
+  A partition $\lambda$ is a sequence of integers $\lambda_{1} \geq \lambda_{2} \geq \cdots \geq \lambda_{s} > 0$. For simplicity, we will define $\lambda_{r} = 0$ for $r > s$. We denote
+  \begin{equation*}
+    \left|\lambda\right| = \sum_{i = 1}^{r} \lambda_{r},
+  \end{equation*}
+  and say that $\lambda$ is a \defn{partition of $\left|\lambda\right|$}.
+\end{definition}
+
+The importance of the conjugacy classes is that they correspond precisely to irreducible representations of $S_{n}$. Thus for any partition $\lambda$ of $n$ we have an irreducible representation $\rho_{\lambda}$ of $S_{n}$ on a vector space $V_{\lambda}$.
+
+\begin{definition}[Schur functor]
+  \label{def:schurfunctor}
+  Any
+\end{definition}
 
 \chapter{Deligne's theorem on tensor categories}
 Deligne's theorem tells us that every $k$-tensor category, for $k$ an algebraically closed field of characteristic zero, is the category of representations of some algebraic super group.
@@ -9910,19 +9303,9 @@ These, plus several other technical requirements ()
 
 \chapter{Questions}
 \begin{enumerate}
-  \item Where am I pitching this? I have my doubts that I can 
-    \begin{itemize}
-      \item explain what a category is, and
-      \item explain what an algebraic super-group is
-      \item explain the little group method
-    \end{itemize}
-    in a coherent way in the span of 25 minutes.
+  \item Higgs stuff?
 
-  \item Is 25 minutes a cutoff in the same way 20 pages is a cutoff, or is it hard?
-
-  \item Deligne's paper doesn't have (as far as I can tell) the unexplainable $\mathsf{Ind}$ in the definition of a fiber functor that the nLab does. My temptation is to ignore it.
-
-  \item I'm missing an odd number of $\text{op}$s in \hyperref[def:supercommutativehopfalgebra]{Definition \ref*{def:supercommutativehopfalgebra}}.
+  \item Bibliographic style?
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
@@ -10089,5 +9472,9 @@ These, plus several other technical requirements ()
   \bibitem{wigner-little-group} E. Wigner.
     \textit{On Unitary Representations of the Inhomogeneous Lorentz Group.}
     Annals of Mathematics. Second Series, Vol. 40, No. 1 (Jan., 1939), pp. 149-204
+
+  \bibitem{jpmds-representation-theory-symmetric-groups} J. P. M. dos Santos.
+    \emph{Representation theory of symmetric groups.}
+    \url{https://www.math.tecnico.ulisboa.pt/~ggranja/joaopedro.pdf}
 \end{thebibliography}
 \end{document}
