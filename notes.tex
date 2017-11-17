@@ -2838,6 +2838,7 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
 \end{proof}
 
 \begin{note}
+  \label{note:covariantyonedaembedding}
   We defined the Yoneda embedding to be the functor $A \mapsto h_{A}$; this is sometimes called the \emph{contravariant Yoneda embedding}. We could also have studied to map $A$ to $h^{A}$, called the \emph{covariant Yoneda embedding}, in which case a slight modification of the proof of the Yoneda lemma would have told us that the map
   \begin{equation*}
     \Hom_{\mathsf{C}}(B, A) \to \Hom_{[\mathsf{C}, \mathsf{Set}]}(h^{A}, h^{B})
@@ -7911,33 +7912,35 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 
 
 \section{Supergeometry}
-\begin{definition}
-  \label{def:functorcinfinity}
-  Let $M$ be a $C^{\infty}$ manifold (that is, recalling \hyperref[eg:moreexamplesofcategories]{Example \ref*{eg:moreexamplesofcategories}}, an object in the category $\mathsf{SmoothMfd}$.) The functor 
-  \begin{equation*}
-    C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}
-  \end{equation*}
-  is the defined by sending $M$ to the $\R$-algebra of smooth functions $M \to \R$, and morphisms $\varphi\colon M \to N$ to homomorphisms of $\R$-algebras $C^{\infty}(N) \to C^{\infty}(M)$ via the pullback. 
-\end{definition}
+%\begin{definition}
+%  \label{def:functorcinfinity}
+%  Let $M$ be a $C^{\infty}$ manifold (that is, recalling \hyperref[eg:moreexamplesofcategories]{Example \ref*{eg:moreexamplesofcategories}}, an object in the category $\mathsf{SmoothMfd}$.) The functor 
+%  \begin{equation*}
+%    C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}
+%  \end{equation*}
+%  is the defined by sending $M$ to the $\R$-algebra of smooth functions $M \to \R$, and morphisms $\varphi\colon M \to N$ to homomorphisms of $\R$-algebras $C^{\infty}(N) \to C^{\infty}(M)$ via the pullback. 
+%\end{definition}
+%
+%\begin{theorem}
+%  The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}).
+%\end{theorem}
+%\begin{proof}
+%  See \cite{KMS-natural-operations-differential-geometry}, lemma 35.8, corollaries 35.9 and 35.10.
+%\end{proof}
+%
+%As we saw in \hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}, the meaning of this theorem is that the functor $C^{^\infty}$ is injective on objects up to isomorphism. Thus, we can identify any smooth manifold with (the formal dual of) its algebra of functions, and if we are given any $\R$-algebra in the range of the functor $C^{\infty}$, we can always find a smooth manifold, unique up to isomorphism, which gives rise to it.
+%
+%We might take this idea even further: given \emph{any} associative algebra $A$, we can think of its formal dual as some sort of generalized manifold. 
+%
+%\begin{note}
+%  My plan is to replace the above introduction with an exposition of why defining algebraic groups as group objects in $\mathsf{CMon}(\mathsf{SVect}_{k})$ is a good idea from an algebro-geometric perspective (without leaning on smooth manifolds, which are too poorly behaved to furnish a good example), as well as explaining exactly what is meant by `formal duality'. I'll leave it in for now, but what follows will be the \emph{real} introduction.
+%\end{note}
 
-\begin{theorem}
-  The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}).
-\end{theorem}
-\begin{proof}
-  See \cite{KMS-natural-operations-differential-geometry}, lemma 35.8, corollaries 35.9 and 35.10.
-\end{proof}
-
-As we saw in \hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}, the meaning of this theorem is that the functor $C^{^\infty}$ is injective on objects up to isomorphism. Thus, we can identify any smooth manifold with (the formal dual of) its algebra of functions, and if we are given any $\R$-algebra in the range of the functor $C^{\infty}$, we can always find a smooth manifold, unique up to isomorphism, which gives rise to it.
-
-We might take this idea even further: given \emph{any} associative algebra $A$, we can think of its formal dual as some sort of generalized manifold. 
-
-\begin{note}
-  My plan is to replace the above introduction with an exposition of why defining algebraic groups as group objects in $\mathsf{CMon}(\mathsf{SVect}_{k})$ is a good idea from an algebro-geometric perspective (without leaning on smooth manifolds, which are too poorly behaved to furnish a good example), as well as explaining exactly what is meant by `formal duality'. I'll leave it in for now, but what follows will be the \emph{real} introduction.
-\end{note}
+This section expands on ideas taken from \cite{milne-affine-group-schemes}.
 
 The objects central to our interests will be so-called \emph{algebraic super-groups}. These are a generalization of the notion of an \emph{algebraic group}, which is a group object in the category of algebraic varieties.
 
-First, we must generalize the notion of an algebraic variety. Recall \hyperref[def:algebraicvariety]{Definition \ref*{def:algebraicvariety}}: an algebraic variety is a surface cut out as the zero set of polynomials. 
+First, we must generalize the notion of an algebraic variety. Recall \hyperref[def:algebraicvariety]{Definition \ref*{def:algebraicvariety}}: an algebraic variety is a surface cut out as the zero set of a set of polynomials. 
 
 Let $k$ be an algebraically closed field of characteristic zero and let 
 \begin{equation*}
@@ -7956,7 +7959,7 @@ Clearly, if $\mathfrak{a} = (S)$ is the ideal generated by $S$, then $Z_{R}(S) =
 
 Any homomorphism of $k$-algebras $\varphi\colon R \to R'$ induces a map $Z_{R}(\mathfrak{a}) \to Z_{R'}(\mathfrak{a})$. Therefore, any ideal $\mathfrak{a}$ defines a functor 
 \begin{equation*}
-  \mathcal{V}\colon k\mhyp\mathsf{Alg} \to \mathsf{Set}; R \mapsto Z_{R}(\mathfrak{a})
+  \mathcal{V}_{\mathfrak{a}}\colon k\mhyp\mathsf{Alg} \to \mathsf{Set};\qquad R \mapsto Z_{R}(\mathfrak{a})
 \end{equation*}
 which takes a $k$-algebra to its zero set.
 
@@ -7966,13 +7969,13 @@ which takes a $k$-algebra to its zero set.
     A = k[x_{1}, x_{2}, \ldots, x_{n}]/\mathfrak{a}.
   \end{equation*}
 
-  The functor $\mathcal{V}\colon R \mapsto Z_{R}(\mathfrak{a})$ is representable (\hyperref[def:representablefunctor]{Definition \ref*{def:representablefunctor}}), represented by the $k$-algebra 
+  The functor $\mathcal{V}_{\mathfrak{a}}\colon R \mapsto Z_{R}(\mathfrak{a})$ is representable (\hyperref[def:representablefunctor]{Definition \ref*{def:representablefunctor}}), represented by the $k$-algebra 
   \begin{equation*}
     A = k[x_{1}, x_{2}, \ldots, x_{n}]/\mathfrak{a}.
   \end{equation*}
 \end{theorem}
 \begin{proof}
-  We need to show that $\mathcal{V}$ is naturally isomorphic to the covariant Yoneda embedding (\hyperref[def:yonedaembedding]{Definition \ref*{def:yonedaembedding}})
+  We need to show that $\mathcal{V}_{\mathfrak{a}}$ is naturally isomorphic to the covariant functor
   \begin{equation*}
     h^{A}\colon R \mapsto \Hom_{k\mhyp\mathsf{Alg}}(A, R),
   \end{equation*}
@@ -8004,10 +8007,71 @@ which takes a $k$-algebra to its zero set.
     \Phi_{R}\colon \eta \mapsto (\bar{\eta}(x_{1}), \bar{\eta}(x_{2}), \ldots, \bar{\eta}(x_{n})).
   \end{equation*}
 
-  To simplify notation, let $a_{i} = \bar{\eta}(x_{i})$.
+  To simplify notation, let $\bar{\eta}(x_{i}) = a_{i}$.
 
-  Of course, a priori the codomain of this map is just $R^{n}$. Our first job is to show that our map is well-defined, i.e. that for any $f \in \mathfrak{a}$, $f(a_{1}, a_{2}, \ldots a_{n}) = 0$.
+  Of course, a priori the codomain of $\Phi_{R}$ is just $R^{n}$. Our first job is to show that our map is well-defined, i.e. that for any $f \in \mathfrak{a}$, $f(a_{1}, a_{2}, \ldots a_{n}) = 0$.
+
+  Any $f \in k[x_{1}, x_{2}, \ldots, x_{n}]$ can be written
+  \begin{equation*}
+    f(x_{1}, \ldots, x_{n}) = \sum a_{D} x_{1}^{d_{1}}\cdots x_{n}^{d_{n}},
+  \end{equation*}
+  where $D$ is a multi-index. Now,
+  \begin{align*}
+    \bar{\eta}(f(x_{1}, \ldots, x_{n})) &= \bar{\eta}\left( \sum a_{D} x_{1}^{d_{1}}\cdots x_{n}^{d_{n}} \right) \\
+    &= \sum a_{D} \bar{\eta}(x_{1})^{d_{1}}\cdots \bar{\eta}(x_{n})^{d_{n}} &\text{since $\bar{\eta}$ is a homomorphism} \\
+    &= \sum a_{D} a_{1}^{d_{1}}\cdots a_{i}^{d_{n}} \\
+    &= f(a_{1}, \ldots, a_{n}).
+  \end{align*}
+
+  But since the above diagram commutes, $\bar{\eta}(f) = \eta(\pi(f)) = \eta(0) = 0$, since $\eta \in \mathfrak{a}$.
+
+  We still must show that $\Phi_{R}$ is bijective. It is clearly injective since any homomorphism 
+  \begin{equation*}
+    k[x_{1}, x_{2}, \ldots, x_{n}] \to R
+  \end{equation*}
+  is completely determined by how it behaves on the $x_{i}$, and the homomorphism $\bar{\eta}$ is uniquely determined by $\eta$. It is surjective since any tuple $(a_{1}, a_{2}, \ldots, a_{n})$ is the image of the unique homomorphism which sends $x_{i} \mapsto a_{i}$, $i = 1$, $2$, \dots, $n$.
+
+  It remains only to show that $\Phi_{R}$ is natural, which can be seen from the commutativity of the following diagram (with $\varphi\colon R \to R'$ a homomorphism).
+  \begin{equation*}
+    \begin{tikzcd}
+      \Hom_{k\mhyp\mathsf{Alg}}(A, R)
+      \arrow[rrr, "\varphi \circ (-)"]
+      \arrow[ddd, swap, "\Phi_{R}"]
+      & & & \Hom_{k\mhyp\mathsf{Alg}}(A, R')
+      \arrow[ddd, "\Phi_{R'}"]
+      \\
+      & \eta
+      \arrow[r, mapsto]
+      \arrow[d, mapsto]
+      & \varphi \circ \eta
+      \arrow[d, mapsto]
+      \\
+      & (\bar{\eta}(x_1), \ldots, \bar{\eta}(x_{n}))
+      \arrow[r, mapsto]
+      & ((\phi \circ \bar{\eta})(x_1), \ldots, (\phi \circ \bar{\eta})(x_{n}))
+      \\
+      Z_{R}(\mathfrak{a})
+      \arrow[rrr, "\mathcal{V}_{\mathfrak{a}}(\varphi)"]
+      & & & Z_{R'}(\mathfrak{a})
+    \end{tikzcd}
+  \end{equation*}
 \end{proof}
+
+The meaning of the above theorem is that we can study the variety cut out by the zeroes of the ideal $\mathfrak{a}$ by studying the hom-set $\Hom_{k\mhyp\mathsf{Vect}}(A = k[x_{i}]/\mathfrak{a}, R)$. This is a significant abstraction, but there is a lot of benefit to it: we have studied hom-sets in some detail, and we can apply results about them to the study of varieties.
+
+However, we can take this abstraction even further. Since by definition any variety over $R$ is the zero-set $Z_{R}(\mathfrak{a})$ of some ideal $\mathfrak{a}$, the study of varieties is reduced to the study of representable functors $R \mapsto \mathsf{Set}$. Given any ideal $\mathfrak{a}$, we can take the quotient $k[x_{i}]/\mathfrak{a}$ to get a finitely-presented algebra, and every finitely presented algebra arises in this way. Therefore, instead of studying ideals, we can study finitely presented algebras $A$. This leads to our second equivalent definition of an affine algebraic variety.
+
+\begin{definition}[affine algebraic variety]
+  \label{def:affinealgebraicvariety2}
+  An \defn{affine algebraic variety} is a representable functor $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ represented by a finitely presented algebra. The category of affine algebraic varieties is thus given by the category of representable functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$.
+\end{definition}
+
+The covariant Yoneda lemma (see \hyperref[note:covariantyonedaembedding]{Note \ref*{note:covariantyonedaembedding}}) $A \mapsto h^{A}$ now steps in, and tells us that the category of representable functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ is equivalent to the category $\mathsf{Alg}^{\mathrm{op}}$. This gives us our third definition of an affine algebraic variety.
+
+\begin{definition}[affine algebraic variety]
+  \label{def:affinealgebraicvariety3}
+  An \defn{affine algebraic variety} is the formal dual of a finitely presented $k$-algebra; that is, it is an object in the category $\mathsf{Alg}_{k}^{\mathrm{op}}$.
+\end{definition}
 
 \subsection{Affine schemes, categorically}
 \begin{definition}[affine scheme of an algebra]
@@ -8400,26 +8464,26 @@ The upshot of the past few theorems is the following.
 
 \section{Supergroups as supercommutative Hopf algebras}
 
-The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ defined in \hyperref[def:functorcinfinity]{Definition \ref*{def:functorcinfinity}} was fully faithful, but not essentially surjective. Thus, we can decrese the codomain of the functor $C^{\infty}$ to include only smooth algebras:
-\begin{equation*}
-  C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \hookrightarrow \mathsf{SmoothAlg}_{\R}.
-\end{equation*}
-
-In this case, $C^{\infty}$ preserves coproducts, in the sense that
-\begin{equation*}
-  C^{\infty}(M \times N) \simeq C^{\infty}(M) \otimes^{c} C^{\infty}(N),
-\end{equation*}
-where $\times$ is the product in $\mathsf{SmoothMfd}$, i.e. the product manifold, and $\otimes^{c}$ is the coproduct in $\mathsf{SmoothAlg}_{\R}$, i.e. the so-called \emph{completed tensor product}.
-
-Now suppose we are interested in a Lie group $G$, i.e. a group object in the category $\mathsf{SmoothMfd}$. Then we have a group operation 
-\begin{equation*}
-  m\colon G \times G \to G
-\end{equation*}
-which induces on $\mathsf{SmoothAlg}_{\R}$ a `dual product' 
-\begin{equation*}
-  C^{\infty}(G) \to C^{\infty} (G) \otimes^{c} C^{\infty}(G).
-\end{equation*}
-Moreover, applying $C^{\infty}$ to the coherence diagrams for the group structure on $G$ yields dual coherence diagrams enforcing `co-associativity,' etc. This gives $C^{\infty}(G)$ the structure of a \emph{Hopf algebra}.
+%The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ defined in \hyperref[def:functorcinfinity]{Definition \ref*{def:functorcinfinity}} was fully faithful, but not essentially surjective. Thus, we can decrese the codomain of the functor $C^{\infty}$ to include only smooth algebras:
+%\begin{equation*}
+%  C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \hookrightarrow \mathsf{SmoothAlg}_{\R}.
+%\end{equation*}
+%
+%In this case, $C^{\infty}$ preserves coproducts, in the sense that
+%\begin{equation*}
+%  C^{\infty}(M \times N) \simeq C^{\infty}(M) \otimes^{c} C^{\infty}(N),
+%\end{equation*}
+%where $\times$ is the product in $\mathsf{SmoothMfd}$, i.e. the product manifold, and $\otimes^{c}$ is the coproduct in $\mathsf{SmoothAlg}_{\R}$, i.e. the so-called \emph{completed tensor product}.
+%
+%Now suppose we are interested in a Lie group $G$, i.e. a group object in the category $\mathsf{SmoothMfd}$. Then we have a group operation 
+%\begin{equation*}
+%  m\colon G \times G \to G
+%\end{equation*}
+%which induces on $\mathsf{SmoothAlg}_{\R}$ a `dual product' 
+%\begin{equation*}
+%  C^{\infty}(G) \to C^{\infty} (G) \otimes^{c} C^{\infty}(G).
+%\end{equation*}
+%Moreover, applying $C^{\infty}$ to the coherence diagrams for the group structure on $G$ yields dual coherence diagrams enforcing `co-associativity,' etc. This gives $C^{\infty}(G)$ the structure of a \emph{Hopf algebra}.
 
 The next step in the story is to define affine algebraic super-groups as the formal duals to \emph{supercommutative Hopf algebras}. To do this, we need to study the category theory of Hopf algebras. However, in the name of full generality, the nLab article \cite{nlab-deligne-theorem} does everything with \emph{Hopf algebroids}, and so will I---in for a penny, in for a pound, after all. If you're not interested in full generality, it won't hurt to skip to \hyperref[def:supercommutativehopfalgebra]{Definition \ref*{def:supercommutativehopfalgebra}}.
 
@@ -8571,7 +8635,7 @@ The standard definition of a Hopf algebra (taken from, for example, \cite{milne-
   Commutative Hopf algebras as defined above are \emph{self-dual} in the sense that turning all the arrows around yields a structure that is again a Hopf algebra.
 \end{theorem}
 \begin{proof}
-  
+
 \end{proof}
 
 \begin{note}
