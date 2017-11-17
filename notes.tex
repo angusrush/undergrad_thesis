@@ -144,6 +144,10 @@ The fact that it's just a collection of notes means that it assumes as backgroun
 \chapter{The Mackey machine}
 The \emph{Mackey machine} is another name for the so-called \emph{method of induced representations} developed by George Mackey in \cite{mackey-induced-representations}. 
 
+\begin{note}
+  This definitely won't make it into the final project.
+\end{note}
+
 \textbf{The cast of characters:}
 \begin{itemize}
   \item $G$: The heroine. A topological group which is Hausdorff, separable, and locally compact.
@@ -507,7 +511,7 @@ In this chapter we collect some basic definitions and corollaries so that we may
 
 \begin{definition}[projective module]
   \label{def:projectivemodule}
-  Let $A$ be a commutative ring, and $P$ an $A$-module. One says that $P$ is \defn{projective} if for any $A$-module epimorphism $\varphi\colon Q \to R$ and any homomorphism $\psi\colon P \to R$. there exists a homomorphism $\xi\colon P \to Q$ such that $\varphi \circ \xi = \psi$, i.e. the folowing diagram commutes.
+  Let $A$ be a commutative ring, and $P$ an $A$-module. One says that $P$ is \defn{projective} if for any $A$-module epimorphism $\varphi\colon Q \to R$ and any homomorphism $\psi\colon P \to R$. there exists a homomorphism $\xi\colon P \to Q$ such that $\varphi \circ \xi = \psi$, i.e. the following diagram commutes.
   \begin{equation*}
     \begin{tikzcd}
       & P
@@ -2528,23 +2532,23 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
   \label{def:curriedhomfunctor}
   Let $\mathsf{C}$ be a locally small category, $A \in \Obj(\mathsf{C})$. We can construct from the hom functor $\Hom_{\mathsf{C}}$
   \begin{itemize}
-    \item a functor $Y^{A}\colon \mathsf{C} \rightsquigarrow \mathsf{Set}$ which maps
+    \item a functor $h^{A}\colon \mathsf{C} \rightsquigarrow \mathsf{Set}$ which maps
       \begin{itemize}
         \item an object $B \in \Obj(\mathsf{C})$ to the set $\Hom_{\mathsf{C}}(A, B)$, and
 
         \item a morphism $f\colon B \to B'$ to a $\mathsf{Set}$-function
           \begin{equation*}
-            Y^{A}(f)\colon \Hom_{\mathsf{C}}(A, B) \to \Hom_{\mathsf{C}}(A, B'); \qquad m \mapsto f \circ m.
+            h^{A}(f)\colon \Hom_{\mathsf{C}}(A, B) \to \Hom_{\mathsf{C}}(A, B'); \qquad m \mapsto f \circ m.
           \end{equation*} 
       \end{itemize}
 
-    \item a functor $Y_{A}\colon \mathsf{C}^{\mathrm{op}} \rightsquigarrow \mathsf{Set}$ which maps
+    \item a functor $h_{A}\colon \mathsf{C}^{\mathrm{op}} \rightsquigarrow \mathsf{Set}$ which maps
       \begin{itemize}
         \item an object $B \in \Obj(\mathsf{C})$ to the set $\Hom_{\mathsf{C}}(B, A)$, and
 
         \item a morphism $f\colon B \to B'$ to a $\mathsf{Set}$-function
           \begin{equation*}
-            Y_{A}(f)\colon \Hom_{\mathsf{C}}(B', A) \to \Hom_{\mathsf{C}}(B, A); \qquad m \mapsto m \circ f.
+            h_{A}(f)\colon \Hom_{\mathsf{C}}(B', A) \to \Hom_{\mathsf{C}}(B, A); \qquad m \mapsto m \circ f.
           \end{equation*} 
       \end{itemize}
   \end{itemize}
@@ -2579,7 +2583,7 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
 
   In fact this bijection is natural in $X$. That is to say, there is a natural bijection between the following functors $\mathsf{C}^{\mathrm{op}} \to \mathsf{Set}$:
   \begin{equation*}
-    Y_{A \times B}\colon X \to \Hom_{\mathsf{C}}(X, A \times B)\qquad\text{and}\qquad Y_{A} \times Y_{B}\colon X \to \Hom_{\mathsf{C}}(X, A) \times \Hom_{\mathsf{C}}(X, B).
+    h_{A \times B}\colon X \to \Hom_{\mathsf{C}}(X, A \times B)\qquad\text{and}\qquad h_{A} \times h_{B}\colon X \to \Hom_{\mathsf{C}}(X, A) \times \Hom_{\mathsf{C}}(X, B).
   \end{equation*}
 
   Let's prove naturality. Let
@@ -2624,7 +2628,7 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
   \end{equation*}
   and vice versa. Similar reasoning yields a natural bijection between the following functors $\mathsf{C} \rightsquigarrow \mathsf{Set}$:
   \begin{equation*}
-    Y^{A \amalg B} \Rightarrow Y^{A} \times Y^{B}.
+    h^{A \amalg B} \Rightarrow h^{A} \times h^{B}.
   \end{equation*}
 
   The exponential is a little bit more complicated: it allows us to trade a morphism
@@ -2651,8 +2655,8 @@ Roughly speaking, a functor $\mathsf{C} \rightsquigarrow \mathsf{Set}$ is repres
   \begin{equation*}
     \eta\colon \mathcal{F} \Rightarrow 
     \begin{cases}
-      Y^{A}, & \text{if $\mathcal{F}$ is covariant} \\
-      Y_{A}, & \text{if $\mathcal{F}$ is contravariant.}
+      h^{A}, & \text{if $\mathcal{F}$ is covariant} \\
+      h_{A}, & \text{if $\mathcal{F}$ is contravariant.}
     \end{cases}
   \end{equation*}
 \end{definition}
@@ -2664,7 +2668,7 @@ Roughly speaking, a functor $\mathsf{C} \rightsquigarrow \mathsf{Set}$ is repres
 \begin{example}
   Consider the forgetful functor $\mathcal{U}\colon \mathsf{Grp} \rightsquigarrow \mathsf{Set}$ which sends a group to its underlying set, and a group homomorphism to its underlying function. This functor is represented by the group $\Z$.
 
-  To see this, we have to check that there is a natural isomorphism $\eta$ between $\mathcal{U}$ and $Y^{\Z} = \Hom_{\mathsf{Grp}}(\Z, -)$. That is to say, for each group $G$, there a $\mathsf{Set}$-isomorphism (i.e. a bijection)
+  To see this, we have to check that there is a natural isomorphism $\eta$ between $\mathcal{U}$ and $h^{\Z} = \Hom_{\mathsf{Grp}}(\Z, -)$. That is to say, for each group $G$, there a $\mathsf{Set}$-isomorphism (i.e. a bijection)
   \begin{equation*}
     \eta_{G}\colon \mathcal{U}(G) \to \Hom_{\mathsf{Grp}}(\Z, G)
   \end{equation*}
@@ -2684,7 +2688,7 @@ Roughly speaking, a functor $\mathsf{C} \rightsquigarrow \mathsf{Set}$ is repres
       \arrow[d, "\eta_{H}"]
       \\
       \Hom_{\mathsf{Grp}}(\Z, G)
-      \arrow[r, "Y^{\Z}(f)"]
+      \arrow[r, "h^{\Z}(f)"]
       & \Hom_{\mathsf{Grp}}(\Z, H)
     \end{tikzcd}
   \end{equation*}
@@ -2710,29 +2714,29 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
   \label{def:yonedaembedding}
   Let $\mathsf{C}$ be a locally small category. The \defn{Yoneda embedding} is the functor
   \begin{equation*}
-    \mathcal{Y}\colon \mathsf{C} \rightsquigarrow [\mathsf{C}^{\mathrm{op}}, \mathsf{Set}], \qquad A \mapsto Y_{A} = \Hom_{\mathsf{C}}(-, A).
+    \mathcal{Y}\colon \mathsf{C} \rightsquigarrow [\mathsf{C}^{\mathrm{op}}, \mathsf{Set}], \qquad A \mapsto h_{A} = \Hom_{\mathsf{C}}(-, A).
   \end{equation*}
   where $[\mathsf{C}^{\mathrm{op}}, \mathsf{Set}]$ is the category of functors $\mathsf{C}^{\mathrm{op}} \rightsquigarrow \mathsf{Set}$, defined in \hyperref[def:functorcategory]{Definition \ref*{def:functorcategory}}.
 
-  Of course, we also need to say how $\mathcal{Y}$ behaves on morphisms. Let $f\colon A \to A'$. Then $\mathcal{Y}(f)$ will be a morphism from $Y_{A}$ to $Y_{A'}$, i.e. a natural transformation $Y_{A} \Rightarrow Y_{A'}$. We can specify how it behaves by specifying its components $(\mathcal{Y}(f))_{B}$. 
+  Of course, we also need to say how $\mathcal{Y}$ behaves on morphisms. Let $f\colon A \to A'$. Then $\mathcal{Y}(f)$ will be a morphism from $h_{A}$ to $h_{A'}$, i.e. a natural transformation $h_{A} \Rightarrow h_{A'}$. We can specify how it behaves by specifying its components $(\mathcal{Y}(f))_{B}$. 
 
   Plugging in definitions, we find that $(\mathcal{Y}(f))_{B}$ is a map $\Hom_{\mathsf{C}}(B, A) \to \Hom_{\mathsf{C}}(B, A')$. But we know how to get such a map---we can compose all of the maps $B \to A$ with $f$ to get maps $B \to A'$. So $\mathcal{Y}(f)$, as a natural transformation $\Hom_{\mathsf{C}}(-, A) \to \Hom_{\mathsf{C}}(-, A')$, simply composes everything in sight with $f$.
 \end{definition}
 
 \begin{theorem}[Yoneda lemma]
-  Let $\mathcal{F}$ be a functor from $\mathsf{C}^{\mathrm{op}}$ to $\mathsf{Set}$. Let $A \in \Obj(\mathsf{C})$. Then there is a set-isomorphism (i.e. a bijection) $\eta$ between the set $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{A}, \mathcal{F})$ of natural transformations $Y_{A} \Rightarrow \mathcal{F}$ and the set $\mathcal{F}(A)$. Furthermore, this isomorphism is natural in $A$.
+  Let $\mathcal{F}$ be a functor from $\mathsf{C}^{\mathrm{op}}$ to $\mathsf{Set}$. Let $A \in \Obj(\mathsf{C})$. Then there is a set-isomorphism (i.e. a bijection) $\eta$ between the set $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(h_{A}, \mathcal{F})$ of natural transformations $h_{A} \Rightarrow \mathcal{F}$ and the set $\mathcal{F}(A)$. Furthermore, this isomorphism is natural in $A$.
 \end{theorem}
 \begin{note}
-  A quick admission before we begin: we will be sweeping a lot of issues with size under the rug in what follows by tacitly assuming that $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{A}, \mathcal{F})$ is a set. The reader will have to trust that everything works out in the end.
+  A quick admission before we begin: we will be sweeping a lot of issues with size under the rug in what follows by tacitly assuming that $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(h_{A}, \mathcal{F})$ is a set. The reader will have to trust that everything works out in the end.
 \end{note}
 \begin{proof}
-  A natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$ consists of a collection of $\mathsf{Set}$-morphisms (that is to say, functions) $\Phi_{B}\colon \Hom_{\mathsf{C}}(B, A) \to \mathcal{F}(A)$, one for each $B \in \Obj(\mathsf{C})$. We need to show that to each element of $\mathcal{F}(A)$ there corresponds exactly one $\Phi$. We will do this by showing that any $\Phi$ is completely determined by where $\Phi_{A}$ sends the identity morphism $1_{A} \in \Hom_{\mathsf{C}}(A, A)$, so there is exactly one natural transformation for each place $\Phi$ can send $1_{A}$.
+  A natural transformation $\Phi\colon h_{A} \Rightarrow \mathcal{F}$ consists of a collection of $\mathsf{Set}$-morphisms (that is to say, functions) $\Phi_{B}\colon \Hom_{\mathsf{C}}(B, A) \to \mathcal{F}(A)$, one for each $B \in \Obj(\mathsf{C})$. We need to show that to each element of $\mathcal{F}(A)$ there corresponds exactly one $\Phi$. We will do this by showing that any $\Phi$ is completely determined by where $\Phi_{A}$ sends the identity morphism $1_{A} \in \Hom_{\mathsf{C}}(A, A)$, so there is exactly one natural transformation for each place $\Phi$ can send $1_{A}$.
 
   The proof that this is the case can be illustrated by the following commutative diagram.
   \begin{equation*}
     \begin{tikzcd}
       \Hom(A, A)
-      \arrow[rrr, "Y_{A}(f)"]
+      \arrow[rrr, "h_{A}(f)"]
       \arrow[ddd, swap, "\Phi_{A}"]
       & & & \Hom(B, A)
       \arrow[ddd, "\Phi_{B}"]
@@ -2752,7 +2756,7 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
       & & & \mathcal{F}(B)
     \end{tikzcd}
   \end{equation*}
-  Here's what the above diagram means. The natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$ has a component $\Phi_{A}\colon \Hom_{\mathsf{C}}(A, A) \to \mathcal{F}(A)$, and $\Phi_{A}$ has to send the identity transformation $1_{A}$ \emph{somewhere}. It can send it to any element of $\mathcal{F}(A)$; let's call $\Phi_{A}(1_{A}) = a$.
+  Here's what the above diagram means. The natural transformation $\Phi\colon h_{A} \Rightarrow \mathcal{F}$ has a component $\Phi_{A}\colon \Hom_{\mathsf{C}}(A, A) \to \mathcal{F}(A)$, and $\Phi_{A}$ has to send the identity transformation $1_{A}$ \emph{somewhere}. It can send it to any element of $\mathcal{F}(A)$; let's call $\Phi_{A}(1_{A}) = a$.
 
   Now the naturality conditions force our hand. For any $B \in \Obj(\mathsf{C})$ and any $f\colon B \to A$, the naturality square above means that $\Phi_{B}(f)$ \emph{has to} be equal to $(\mathcal{F}f)(a)$. We get no choice in the matter.
 
@@ -2761,23 +2765,23 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
   Well, almost. We still have to show that the bijection we constructed above is natural. To that end, let $f\colon B \to A$. We need to show that the following square commutes.
   \begin{equation*}
     \begin{tikzcd}
-      \Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{A}, \mathcal{F})
+      \Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(h_{A}, \mathcal{F})
       \arrow[r, "\eta_{A}"]
       \arrow[d, swap, "{\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(\mathcal{Y}(f), \mathcal{F})}"]
       & \mathcal{F}(A)
       \arrow[d, "\mathcal{F}(f)"]
       \\
-      \Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{B}, \mathcal{F})
+      \Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(h_{B}, \mathcal{F})
       \arrow[r, "\eta_{B}"]
       & \mathcal{F}(B)
     \end{tikzcd}
   \end{equation*}
 
-  This deserves a lot of explanation. The natural transformation $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(\mathcal{Y}(f), \mathcal{F})$ looks complicated, but it's really not since we know what the hom functor does: it takes every natural transformation $Y_{A} \Rightarrow \mathcal{F}$ and pre-composes it with $\mathcal{Y}(f)$. The natural transformation $\eta_{A}$ takes a natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$ and sends it to the element $\Phi_{A}(1_{A}) \in \mathcal{F}(A)$.
+  This deserves a lot of explanation. The natural transformation $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(\mathcal{Y}(f), \mathcal{F})$ looks complicated, but it's really not since we know what the hom functor does: it takes every natural transformation $h_{A} \Rightarrow \mathcal{F}$ and pre-composes it with $\mathcal{Y}(f)$. The natural transformation $\eta_{A}$ takes a natural transformation $\Phi\colon h_{A} \Rightarrow \mathcal{F}$ and sends it to the element $\Phi_{A}(1_{A}) \in \mathcal{F}(A)$.
 
-  So, starting at the top left with a natural transformation $\Phi\colon Y_{A} \Rightarrow \mathcal{F}$, we can go to the bottom right in two ways.
+  So, starting at the top left with a natural transformation $\Phi\colon h_{A} \Rightarrow \mathcal{F}$, we can go to the bottom right in two ways.
   \begin{enumerate}
-    \item We can head down to $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{B}, \mathcal{F})$, mapping 
+    \item We can head down to $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(h_{B}, \mathcal{F})$, mapping 
       \begin{equation*}
         \Phi \mapsto \Phi \circ \mathcal{Y}(f),
       \end{equation*}
@@ -2821,22 +2825,22 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
 \begin{proof}
   We have to show that for all $A$, $B \in \Obj(\mathsf{C})$, the map
   \begin{equation*}
-    \mathcal{Y}_{A, B}\colon \Hom_{\mathsf{C}}(A, B) \to \Hom_{[\mathsf{C}^{\mathrm{op}}, \mathsf{Set}]}(Y_{A}, Y_{B})
+    \mathcal{Y}_{A, B}\colon \Hom_{\mathsf{C}}(A, B) \to \Hom_{[\mathsf{C}^{\mathrm{op}}, \mathsf{Set}]}(h_{A}, h_{B})
   \end{equation*}
   is a bijection.
 
-  Fix $B \in \Obj(\mathsf{C})$, and consider the functor $Y_{B}$. By the Yoneda lemma, there is a bijection between $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{A}, Y_{B})$ and $Y_{B}(A)$. By definition,
+  Fix $B \in \Obj(\mathsf{C})$, and consider the functor $h_{B}$. By the Yoneda lemma, there is a bijection between $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(h_{A}, h_{B})$ and $h_{B}(A)$. By definition,
   \begin{equation*}
-    Y_{B}(A) = \Hom_{\mathsf{C}}(A, B).
+    h_{B}(A) = \Hom_{\mathsf{C}}(A, B).
   \end{equation*}
 
-  But $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(Y_{A}, Y_{B})$ is nothing else but $\Hom_{[\mathsf{C}^{\mathrm{op}}, \mathsf{Set}]}(Y_{A}, Y_{B})$, so we are done.
+  But $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(h_{A}, h_{B})$ is nothing else but $\Hom_{[\mathsf{C}^{\mathrm{op}}, \mathsf{Set}]}(h_{A}, h_{B})$, so we are done.
 \end{proof}
 
 \begin{note}
-  We defined the Yoneda embedding to be the functor $A \mapsto Y_{A}$; this is sometimes called the \emph{contravariant Yoneda embedding}. We could also have studied to map $A$ to $Y^{A}$, called the \emph{covariant Yoneda embedding}, in which case a slight modification of the proof of the Yoneda lemma would have told us that the map
+  We defined the Yoneda embedding to be the functor $A \mapsto h_{A}$; this is sometimes called the \emph{contravariant Yoneda embedding}. We could also have studied to map $A$ to $h^{A}$, called the \emph{covariant Yoneda embedding}, in which case a slight modification of the proof of the Yoneda lemma would have told us that the map
   \begin{equation*}
-    \Hom_{\mathsf{C}}(B, A) \to \Hom_{[\mathsf{C}, \mathsf{Set}]}(Y^{A}, Y^{B})
+    \Hom_{\mathsf{C}}(B, A) \to \Hom_{[\mathsf{C}, \mathsf{Set}]}(h^{A}, h^{B})
   \end{equation*}
   is a natural bijection. This is often called the \emph{covariant Yoneda lemma}.
 \end{note}
@@ -2851,7 +2855,7 @@ Here is a situation in which the Yoneda lemma is commonly used.
   which is natural in $A$. Then $B \simeq B'$
 \end{corollary}
 \begin{proof}
-  We have a natural isomorphism $Y_{B} \Rightarrow Y_{B'}$. Since the Yoneda embedding is fully faithful, it is injective on objects up to isomorphism (\hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}). Thus, since $Y_{B}$ and $Y_{B'}$ are isomorphic, so must be $B \simeq B'$.
+  We have a natural isomorphism $h_{B} \Rightarrow h_{B'}$. Since the Yoneda embedding is fully faithful, it is injective on objects up to isomorphism (\hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}). Thus, since $h_{B}$ and $h_{B'}$ are isomorphic, so must be $B \simeq B'$.
 \end{proof}
 
 \subsection{Applications}
@@ -5212,13 +5216,13 @@ This definition generalizes to any closed monoidal category.
   By analogy, for $f \in \Hom_{\mathsf{C}}(X, Y)$, we should define the dual morphism $f^{t} \in \Hom_{\mathsf{C}}(B^{*}, A^{*})$ by demanding that the following diagram commutes.
   \begin{equation*}
     \begin{tikzcd}[row sep=huge, column sep=huge]
-      Y^{*} \otimes X
+      h^{*} \otimes X
       \arrow[r, "f^{t} \otimes 1_{X}"]
       \arrow[d, swap, "1_{Y} \otimes f"]
       & X^{*} \otimes X
       \arrow[d, "\ev_{X}"]
       \\
-      Y^{*} \otimes Y
+      h^{*} \otimes Y
       \arrow[r, "\ev_{Y}"]
       & 1
     \end{tikzcd}
@@ -5245,16 +5249,16 @@ This definition generalizes to any closed monoidal category.
       Z^{*} \otimes X
       \arrow[r, "g^{t} \otimes 1_{X}"]
       \arrow[d, swap, "1_{Z^{*}} \otimes f"]
-      & Y^{*} \otimes X
+      & h^{*} \otimes X
       \arrow[r, "f^{t} \otimes 1_{X}"]
-      \arrow[d, swap, "1_{Y^{*}} \otimes f"]
+      \arrow[d, swap, "1_{h^{*}} \otimes f"]
       & X^{*} \otimes X
       \arrow[dd, "\ev_{X}"]
       \\
       Z^{*} \otimes Y
       \arrow[r, "g^{t} \otimes 1_{Y}"]
       \arrow[d, swap, "1_{Z^{*}} \otimes g"]
-      & Y^{*} \otimes Y
+      & h^{*} \otimes Y
       \arrow[dr, "\ev_{Y}"]
       \\
       Z^{*} \otimes Z
@@ -6778,15 +6782,14 @@ The elementary notions of algebraic geometry are assumed, but a few definitions 
   Note that if this were a real textbook on algebraic geometry, we would be careful about the definition of $\mathbb{A}^{n}$, defining it as a torsor over the the vector space $k^{n}$.
 \end{definition} 
 
-\begin{definition}[algebraic set]
-  \label{def:algebraicset}
-  A subset $S \subseteq \mathbb{A}^{n}$ is called an \defn{algebraic set} if it is closed in the Zariski topology.
+\begin{definition}[affine algebraic variety]
+  \label{def:algebraicvariety}
+  A subset $S \subseteq \mathbb{A}^{n}$ is called an \defn{affine algebraic variety} if it is closed in the Zariski topology.
 \end{definition}
 
-\begin{definition}[affine variety]
-  \label{def:affinevariety}
-  An \defn{affine variety} is an irreducible algebraic set.
-\end{definition}
+\begin{note}
+  For many authors (e.g. Hartshorne, \cite{hartshorne-algebraic-geometry}) demand that a variety be irreducible. We do not.
+\end{note}
 
 \begin{lemma}
   The maximal ideals of $A = k[x_{1}, \ldots, x_{n}]$ correspond to the points of $\mathbb{A}^{n}$.
@@ -7744,7 +7747,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   \begin{equation*}
     e_{\mathcal{F}(A)}\colon
     \begin{tikzcd}
-      1_{\mathcal{D}}
+      1_{\mathscr{D}}
       \arrow[r, "\varphi"]
       & \mathcal{F}(1_{\mathsf{C}})
       \arrow[r, "\mathcal{F}(e_{A})"]
@@ -7932,7 +7935,79 @@ We might take this idea even further: given \emph{any} associative algebra $A$, 
   My plan is to replace the above introduction with an exposition of why defining algebraic groups as group objects in $\mathsf{CMon}(\mathsf{SVect}_{k})$ is a good idea from an algebro-geometric perspective (without leaning on smooth manifolds, which are too poorly behaved to furnish a good example), as well as explaining exactly what is meant by `formal duality'. I'll leave it in for now, but what follows will be the \emph{real} introduction.
 \end{note}
 
+The objects central to our interests will be so-called \emph{algebraic super-groups}. These are a generalization of the notion of an \emph{algebraic group}, which is a group object in the category of algebraic varieties.
 
+First, we must generalize the notion of an algebraic variety. Recall \hyperref[def:algebraicvariety]{Definition \ref*{def:algebraicvariety}}: an algebraic variety is a surface cut out as the zero set of polynomials. 
+
+Let $k$ be an algebraically closed field of characteristic zero and let 
+\begin{equation*}
+  S \subseteq k[x_{1}, x_{2}, \ldots, x_{n}] 
+\end{equation*}
+be a set of polynomials. For any $k$-algebra $R$, we can define the \emph{zero set} of $S$ over $R$ as follows:
+\begin{equation*}
+  Z_{R}(S) = \left\{ (a_{1}, a_{2}, \ldots, a_{n}) \in R^{n} \,\big|\, f(a_{1}, a_{2}, \ldots, a_{n}) = 0\text{ for all }f \in S \right\}.
+\end{equation*}
+
+Sets of the type $Z_{R}(S)$ are known as algebraic varieties.
+
+This is a perfectly good definition of an algebraic variety, but it is unwieldy and does not generalize well. In this section we will explore a definition better suited to the task at hand. First, we must make a few observations.
+
+Clearly, if $\mathfrak{a} = (S)$ is the ideal generated by $S$, then $Z_{R}(S) = Z_{R}(\mathfrak{a})$ for any $k$-algebra $R$. 
+
+Any homomorphism of $k$-algebras $\varphi\colon R \to R'$ induces a map $Z_{R}(\mathfrak{a}) \to Z_{R'}(\mathfrak{a})$. Therefore, any ideal $\mathfrak{a}$ defines a functor 
+\begin{equation*}
+  \mathcal{V}\colon k\mhyp\mathsf{Alg} \to \mathsf{Set}; R \mapsto Z_{R}(\mathfrak{a})
+\end{equation*}
+which takes a $k$-algebra to its zero set.
+
+\begin{theorem}
+  Let $\mathfrak{a} \subseteq k[x_{1}, x_{2}, \ldots, x_{n}]$ be an ideal, let
+  \begin{equation*}
+    A = k[x_{1}, x_{2}, \ldots, x_{n}]/\mathfrak{a}.
+  \end{equation*}
+
+  The functor $\mathcal{V}\colon R \mapsto Z_{R}(\mathfrak{a})$ is representable (\hyperref[def:representablefunctor]{Definition \ref*{def:representablefunctor}}), represented by the $k$-algebra 
+  \begin{equation*}
+    A = k[x_{1}, x_{2}, \ldots, x_{n}]/\mathfrak{a}.
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  We need to show that $\mathcal{V}$ is naturally isomorphic to the covariant Yoneda embedding (\hyperref[def:yonedaembedding]{Definition \ref*{def:yonedaembedding}})
+  \begin{equation*}
+    h^{A}\colon R \mapsto \Hom_{k\mhyp\mathsf{Alg}}(A, R),
+  \end{equation*}
+  i.e. that there is a bijection
+  \begin{equation*}
+    \Phi_{R}\colon \Hom_{k\mhyp\mathsf{Alg}}(A, R) \to Z_{R}(\mathfrak{a})
+  \end{equation*}
+  which is natural in $R$.
+
+  We define $\Phi_{R}$ as follows. Let $\eta\in \Hom_{k\mhyp\mathsf{Alg}}(A, R)$. Then $\eta$ extends uniquely to a $k$-algebra homomorphism 
+  \begin{equation*}
+    \bar{\eta}\colon k[x_{1}, x_{2}, \ldots, x_{n}] \to R
+  \end{equation*}
+  which vanishes on $\mathfrak{a}$. That is, we have the following commutative diagram.
+  \begin{equation*}
+    \begin{tikzcd}
+      k[x_{1}, x_{2}, \ldots, x_{n}]
+      \arrow[d, twoheadrightarrow, swap, "\pi"]
+      \arrow[dr, "\bar{\eta}"]
+      \\
+      A
+      \arrow[r, "\eta"]
+      & R
+    \end{tikzcd}
+  \end{equation*}
+
+  We then define
+  \begin{equation*}
+    \Phi_{R}\colon \eta \mapsto (\bar{\eta}(x_{1}), \bar{\eta}(x_{2}), \ldots, \bar{\eta}(x_{n})).
+  \end{equation*}
+
+  To simplify notation, let $a_{i} = \bar{\eta}(x_{i})$.
+
+  Of course, a priori the codomain of this map is just $R^{n}$. Our first job is to show that our map is well-defined, i.e. that for any $f \in \mathfrak{a}$, $f(a_{1}, a_{2}, \ldots a_{n}) = 0$.
+\end{proof}
 
 \subsection{Affine schemes, categorically}
 \begin{definition}[affine scheme of an algebra]
@@ -8662,10 +8737,6 @@ For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \
   is called a \defn{fiber functor} on $\mathscr{A}$ over $R$.
 \end{definition}
 
-\begin{note}
-  There is a \emph{lot} of confusion (at least on my end) stemming from the fact that many authors (e.g. EGNO in \cite{EGNO-tensor-categories}) denote by $\mathsf{Vect}_{k}$ the category of \emph{finite-dimensional} $k$-vector spaces. The nLab article \cite{nlab-deligne-theorem} mixes the two notations. 
-\end{note}
-
 \begin{definition}[super fiber functor, neutral super tannakian category]
   \label{def:suberfiberfunctorneutralsupertannakiancategory}
   A fiber functor over $\mathscr{T} = \mathsf{FinSVect}$ is called a \defn{super fiber functor}. A tensor category $\mathscr{A}$ which admits a super fiber functor is called a \defn{neutral super tannakian category}.
@@ -8709,7 +8780,7 @@ The conjugacy classes of $S_{n}$ are in one-to-one correspondence with partition
 
 \begin{definition}[partition]
   \label{def:partition}
-  A partition $\lambda$ is a sequence of integers $\lambda_{1} \geq \lambda_{2} \geq \cdots \geq \lambda_{s} > 0$. For simplicity, we will define $\lambda_{r} = 0$ for $r > s$. We denote
+  Denote by $\lambda$ is a sequence of integers $\lambda_{1} \geq \lambda_{2} \geq \cdots \geq \lambda_{s} > 0$. For simplicity, we will define $\lambda_{r} = 0$ for $r > s$. We denote
   \begin{equation*}
     \left|\lambda\right| = \sum_{i = 1}^{r} \lambda_{r},
   \end{equation*}
@@ -9306,6 +9377,8 @@ These, plus several other technical requirements ()
   \item Higgs stuff?
 
   \item Bibliographic style?
+
+  \item How do physicists do supergeometry? Harish-Chandra pairs?
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
