@@ -141,50 +141,50 @@ Almost none of the material is original, including the order of presentation, wh
 
 The fact that it's just a collection of notes means that it assumes as background more or less exactly what I knew before I started (although I have made some effort to keep it self-contained). This means that it probably won't be very useful to anyone other than me.
 
-\chapter{The Mackey machine}
-The \emph{Mackey machine} is another name for the so-called \emph{method of induced representations} developed by George Mackey in \cite{mackey-induced-representations}. 
-
-\begin{note}
-  This definitely won't make it into the final project.
-\end{note}
-
-\textbf{The cast of characters:}
-\begin{itemize}
-  \item $G$: The heroine. A topological group which is Hausdorff, separable, and locally compact.
-
-  \item $S$: $G$'s right-hand man. $S$ is a a topological space. When $S$ is united with his friends $\mathcal{B}$ and $\mu$, he grows stronger, becoming a \emph{measure space}. In this heightened state he admits a measurable right $G$-action, i.e. a map 
-    \begin{equation*}
-      S \times G \to S;\qquad (s, g) \mapsto sg.
-    \end{equation*}
-    which is measurable for any fixed $g \in G$.
-    
-
-  \item $\mathcal{B}$: The Borel $\sigma$-algebra on $S$.
-
-  \item $\mu$: A measure on $S$ which is \emph{$G$-invariant} in the sense that 
-    \begin{equation*}
-      \mu(Eg) = \mu(E)
-    \end{equation*}
-    for any set $E \subseteq S$.
-
-  \item $\mathscr{H}$: The separable Hilbert space of complex-valued, Borel-measurable, square-integrable functions on $S$. $\mathscr{H}$'s full name is $\mathscr{L}^{2}(S, \mu)$.
-\end{itemize}
-
-Any $g \in G$ defines an operator $U_{g}$ on $\mathscr{H}$ as follows:
-\begin{equation*}
-  U_{g}(f)(s) = f(sg).
-\end{equation*}
-
-\begin{theorem}
-  The operators $U_{g}$ defined in this way have the following properties.
-  \begin{enumerate}
-    \item $U(g)$ is unitary for all $g \in G$
-
-    \item $U(g) U(h) = U(gh)$.
-
-    \item The assignment $g \mapsto U_{g}$ is continuous.
-  \end{enumerate}
-\end{theorem}
+%\chapter{The Mackey machine}
+%The \emph{Mackey machine} is another name for the so-called \emph{method of induced representations} developed by George Mackey in \cite{mackey-induced-representations}. 
+%
+%\begin{note}
+%  This definitely won't make it into the final project.
+%\end{note}
+%
+%\textbf{The cast of characters:}
+%\begin{itemize}
+%  \item $G$: The heroine. A topological group which is Hausdorff, separable, and locally compact.
+%
+%  \item $S$: $G$'s right-hand man. $S$ is a a topological space. When $S$ is united with his friends $\mathcal{B}$ and $\mu$, he grows stronger, becoming a \emph{measure space}. In this heightened state he admits a measurable right $G$-action, i.e. a map 
+%    \begin{equation*}
+%      S \times G \to S;\qquad (s, g) \mapsto sg.
+%    \end{equation*}
+%    which is measurable for any fixed $g \in G$.
+%    
+%
+%  \item $\mathcal{B}$: The Borel $\sigma$-algebra on $S$.
+%
+%  \item $\mu$: A measure on $S$ which is \emph{$G$-invariant} in the sense that 
+%    \begin{equation*}
+%      \mu(Eg) = \mu(E)
+%    \end{equation*}
+%    for any set $E \subseteq S$.
+%
+%  \item $\mathscr{H}$: The separable Hilbert space of complex-valued, Borel-measurable, square-integrable functions on $S$. $\mathscr{H}$'s full name is $\mathscr{L}^{2}(S, \mu)$.
+%\end{itemize}
+%
+%Any $g \in G$ defines an operator $U_{g}$ on $\mathscr{H}$ as follows:
+%\begin{equation*}
+%  U_{g}(f)(s) = f(sg).
+%\end{equation*}
+%
+%\begin{theorem}
+%  The operators $U_{g}$ defined in this way have the following properties.
+%  \begin{enumerate}
+%    \item $U(g)$ is unitary for all $g \in G$
+%
+%    \item $U(g) U(h) = U(gh)$.
+%
+%    \item The assignment $g \mapsto U_{g}$ is continuous.
+%  \end{enumerate}
+%\end{theorem}
 
 \chapter{Algebra}
 
@@ -6742,26 +6742,26 @@ In any $k$-tensor category $\mathscr{A}$, the hom-sets have the structure of $k$
   Let $C = (C_{0}, C_{1}, s, t, e, c, i)$ be a groupoid internal to $\mathsf{C}$ such that $s = t$. Then $C$ is equivalently a group internal to the slice category $(\mathsf{C} \downarrow C_{0})$.
 \end{lemma}
 
-\section{Higher categories} \label{sec:highercategories}
-This section follows \cite{baez-higher-categories} closely.
-
-One of the main benefits of categories is that they let us distinguish between different notions of sameness. In a set, two elements are either the same or different, and that is that. In a category, however, objects can be the same in certain ways without being identical: there are many $n$-dimensional real vector spaces, but they are all isomorphic. However this notion of `sameness without identity' is not omnipresent in category theory; we still have to resort to the limited, set-theoretic sense of equivalence when talking about morphisms.
-
-In higher category theory, this is remedied by introducing 2-morphisms, which are `morphisms between morphisms.' We can then say that two 1-morphisms are isomorphic if there is a pair of mutually inverse 2-morphisms between them. If you take a category and add 2-morphisms, what you get is called a 2-category.
-\begin{equation*}
-  \begin{tikzcd}[row sep=huge, column sep=huge]
-    A 
-    \arrow[r, bend left, "f", ""{name=UL, anchor=south east}, ""{name=UR, anchor=south west}]
-    \arrow[r, swap, bend right, "g", ""{name=DL, anchor=north east}, ""{name=DR, anchor=north west}]
-    \arrow[Rightarrow, from=UL , to=DL,] 
-    \arrow[Leftarrow, from=UR , to=DR,] 
-    & B
-  \end{tikzcd}
-\end{equation*}
-Of course, we now have no notion of isomorphism for 2-categories, so we must add 3-morphisms, etc. The result of the $n$th iteration of this procedure is called an $n$-category. If you keep going forever (or more rigorously, formally consider the object you'd get if you did), you get an $\infty$-category.
-
-You may have noticed that we have been using the same notation ($\Rightarrow$) for 2-morphisms and natural transformations. The reason for this, as you may have guessed, is that natural transformations are the morphisms in the 2-category $\mathsf{Cat}$ of (small) categories.
-
+%\section{Higher categories} \label{sec:highercategories}
+%This section follows \cite{baez-higher-categories} closely.
+%
+%One of the main benefits of categories is that they let us distinguish between different notions of sameness. In a set, two elements are either the same or different, and that is that. In a category, however, objects can be the same in certain ways without being identical: there are many $n$-dimensional real vector spaces, but they are all isomorphic. However this notion of `sameness without identity' is not omnipresent in category theory; we still have to resort to the limited, set-theoretic sense of equivalence when talking about morphisms.
+%
+%In higher category theory, this is remedied by introducing 2-morphisms, which are `morphisms between morphisms.' We can then say that two 1-morphisms are isomorphic if there is a pair of mutually inverse 2-morphisms between them. If you take a category and add 2-morphisms, what you get is called a 2-category.
+%\begin{equation*}
+%  \begin{tikzcd}[row sep=huge, column sep=huge]
+%    A 
+%    \arrow[r, bend left, "f", ""{name=UL, anchor=south east}, ""{name=UR, anchor=south west}]
+%    \arrow[r, swap, bend right, "g", ""{name=DL, anchor=north east}, ""{name=DR, anchor=north west}]
+%    \arrow[Rightarrow, from=UL , to=DL,] 
+%    \arrow[Leftarrow, from=UR , to=DR,] 
+%    & B
+%  \end{tikzcd}
+%\end{equation*}
+%Of course, we now have no notion of isomorphism for 2-categories, so we must add 3-morphisms, etc. The result of the $n$th iteration of this procedure is called an $n$-category. If you keep going forever (or more rigorously, formally consider the object you'd get if you did), you get an $\infty$-category.
+%
+%You may have noticed that we have been using the same notation ($\Rightarrow$) for 2-morphisms and natural transformations. The reason for this, as you may have guessed, is that natural transformations are the morphisms in the 2-category $\mathsf{Cat}$ of (small) categories.
+%
 \chapter{A few concepts from algebraic geometry}
 \section{Elementary notions}
 The elementary notions of algebraic geometry are assumed, but a few definitions are given here for concreteness. For the remainder of this section, let $k$ be an algebraically closed field of characteristic $0$.
@@ -7093,6 +7093,20 @@ Let $A$ be a commutative ring. Denote by $V$ the set of all prime ideals in $A$.
   where $(f)$ is the ideal generated by $f$. Subsets of this form are called the \emph{principal open subsets} of $V$.
 \end{definition}
 
+\begin{theorem}
+  The principle open subsets form a basis for the Zariski topology on $V$.
+\end{theorem}
+\begin{proof}
+  
+\end{proof}
+
+\begin{lemma}
+  Let $\varphi\colon A \to B$ be a homomorphism of commutative rings. Then if $\mathfrak{b}$ is a prime ideal in $B$, $\varphi^{-1}(\mathfrak{b})$ is a prime ideal in $A$.
+\end{lemma}
+
+\begin{corollary}
+  The map $\Spec$ extends to a contravariant functor $\mathsf{CRing} \to \mathsf{Top}$.
+\end{corollary}
 
 
 
@@ -7300,21 +7314,27 @@ We have the following analog to \hyperref[thm:propertiesofcommutator]{Theorem \r
     \item My apologies for the formatting.
       \begin{enumerate}[label= Equality \arabic*:]
         \item 
-          \begin{multline*}
-            a[b,c] = a(bc-(-1)^{\tilde{b}\cdot \tilde{c}}cb) = abc-(-1)^{\tilde{b}\cdot \tilde{c}}acb = abc-(-1)^{\tilde{b}\cdot \tilde{c}} (-1)^{\tilde{a}\cdot \tilde{c}}cab\\
-            =(ab)c - (-1)^{\tilde{ab}\cdot \tilde{c}} c(ab) = [ab,c]
-          \end{multline*}
+          \begin{align*}
+            a[b,c] &= a(bc-(-1)^{\tilde{b}\cdot \tilde{c}}cb) \\
+            &= abc-(-1)^{\tilde{b}\cdot \tilde{c}}acb \\
+            &= abc-(-1)^{\tilde{b}\cdot \tilde{c}} (-1)^{\tilde{a}\cdot \tilde{c}}cab\\
+            &=(ab)c - (-1)^{\tilde{ab}\cdot \tilde{c}} c(ab) \\
+            &= [ab,c]
+          \end{align*}
 
         \item 
-          \begin{multline*}
-            [ab,c] = (ab)c - (-1)^{\widetilde{ab}\cdot \tilde{c}} c(ab) = (-1)^{\tilde{a}\cdot \tilde{b}}\left((ba)c  -  (-1)^{\widetilde{ab}\cdot \tilde{c}}c(ba) \right)= (-1)^{\tilde{a}\cdot \tilde{b}}[ba,c] \\
-          \end{multline*}
+          \begin{align*}
+            [ab,c] &= (ab)c - (-1)^{\widetilde{ab}\cdot \tilde{c}} c(ab) \\
+            &= (-1)^{\tilde{a}\cdot \tilde{b}}\left((ba)c  -  (-1)^{\widetilde{ab}\cdot \tilde{c}}c(ba) \right)\\
+            &= (-1)^{\tilde{a}\cdot \tilde{b}}[ba,c] \\
+          \end{align*}
         \item
-          \begin{multline*}
-            (-1)^{\tilde{a}\cdot \tilde{b}}[ba,c] = (-1)^{\tilde{a}\cdot \tilde{b}}\left((ba)c  -  (-1)^{\tilde{ab}\cdot \tilde{c}}c(ba) \right) \\
-            = (-1)^{\tilde{a}\cdot \tilde{b}} \left( b(ac) - (-1)^{\tilde{c}(\tilde{a} + \tilde{b})} (-1)^{\tilde{a}\cdot \tilde{b}} (-1)^{\tilde{a}\cdot \tilde{c}} (ac)b\right) = (-1)^{\tilde{a}\cdot \tilde{b}}\left( b(ac) - (-1)^{\tilde{b}(\tilde{a}+\tilde{c})} (ac)b \right) \\
-            = (-1)^{\tilde{a}\cdot \tilde{b}} [b,ac]
-          \end{multline*}
+          \begin{align*}
+            (-1)^{\tilde{a}\cdot \tilde{b}}[ba,c] &= (-1)^{\tilde{a}\cdot \tilde{b}}\left((ba)c  -  (-1)^{\tilde{ab}\cdot \tilde{c}}c(ba) \right) \\
+            &= (-1)^{\tilde{a}\cdot \tilde{b}} \left( b(ac) - (-1)^{\tilde{c}(\tilde{a} + \tilde{b})} (-1)^{\tilde{a}\cdot \tilde{b}} (-1)^{\tilde{a}\cdot \tilde{c}} (ac)b\right) \\
+            &= (-1)^{\tilde{a}\cdot \tilde{b}}\left( b(ac) - (-1)^{\tilde{b}(\tilde{a}+\tilde{c})} (ac)b \right) \\
+            &= (-1)^{\tilde{a}\cdot \tilde{b}} [b,ac]
+          \end{align*}
 
         \item Similar.
       \end{enumerate}
@@ -7910,269 +7930,76 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   It is easy to show that these maps make the necessary diagrams commute.
 \end{definition}
 
-
-\section{Supergeometry}
-%\begin{definition}
-%  \label{def:functorcinfinity}
-%  Let $M$ be a $C^{\infty}$ manifold (that is, recalling \hyperref[eg:moreexamplesofcategories]{Example \ref*{eg:moreexamplesofcategories}}, an object in the category $\mathsf{SmoothMfd}$.) The functor 
-%  \begin{equation*}
-%    C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}
-%  \end{equation*}
-%  is the defined by sending $M$ to the $\R$-algebra of smooth functions $M \to \R$, and morphisms $\varphi\colon M \to N$ to homomorphisms of $\R$-algebras $C^{\infty}(N) \to C^{\infty}(M)$ via the pullback. 
-%\end{definition}
-%
-%\begin{theorem}
-%  The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}).
-%\end{theorem}
-%\begin{proof}
-%  See \cite{KMS-natural-operations-differential-geometry}, lemma 35.8, corollaries 35.9 and 35.10.
-%\end{proof}
-%
-%As we saw in \hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}, the meaning of this theorem is that the functor $C^{^\infty}$ is injective on objects up to isomorphism. Thus, we can identify any smooth manifold with (the formal dual of) its algebra of functions, and if we are given any $\R$-algebra in the range of the functor $C^{\infty}$, we can always find a smooth manifold, unique up to isomorphism, which gives rise to it.
-%
-%We might take this idea even further: given \emph{any} associative algebra $A$, we can think of its formal dual as some sort of generalized manifold. 
-%
-%\begin{note}
-%  My plan is to replace the above introduction with an exposition of why defining algebraic groups as group objects in $\mathsf{CMon}(\mathsf{SVect}_{k})$ is a good idea from an algebro-geometric perspective (without leaning on smooth manifolds, which are too poorly behaved to furnish a good example), as well as explaining exactly what is meant by `formal duality'. I'll leave it in for now, but what follows will be the \emph{real} introduction.
-%\end{note}
-
-This section expands on ideas taken from \cite{milne-affine-group-schemes}.
-
-The objects central to our interests will be so-called \emph{algebraic super-groups}. These are a generalization of the notion of an \emph{algebraic group}, which is a group object in the category of algebraic varieties.
-
-First, we must generalize the notion of an algebraic variety. Recall \hyperref[def:algebraicvariety]{Definition \ref*{def:algebraicvariety}}: an algebraic variety is a surface cut out as the zero set of a set of polynomials. 
-
-Let $k$ be an algebraically closed field of characteristic zero and let 
-\begin{equation*}
-  S \subseteq k[x_{1}, x_{2}, \ldots, x_{n}] 
-\end{equation*}
-be a set of polynomials. For any $k$-algebra $R$, we can define the \emph{zero set} of $S$ over $R$ as follows:
-\begin{equation*}
-  Z_{R}(S) = \left\{ (a_{1}, a_{2}, \ldots, a_{n}) \in R^{n} \,\big|\, f(a_{1}, a_{2}, \ldots, a_{n}) = 0\text{ for all }f \in S \right\}.
-\end{equation*}
-
-Sets of the type $Z_{R}(S)$ are known as algebraic varieties.
-
-This is a perfectly good definition of an algebraic variety, but it is unwieldy and does not generalize well. In this section we will explore a definition better suited to the task at hand. First, we must make a few observations.
-
-Clearly, if $\mathfrak{a} = (S)$ is the ideal generated by $S$, then $Z_{R}(S) = Z_{R}(\mathfrak{a})$ for any $k$-algebra $R$. 
-
-Any homomorphism of $k$-algebras $\varphi\colon R \to R'$ induces a map $Z_{R}(\mathfrak{a}) \to Z_{R'}(\mathfrak{a})$. Therefore, any ideal $\mathfrak{a}$ defines a functor 
-\begin{equation*}
-  \mathcal{V}_{\mathfrak{a}}\colon k\mhyp\mathsf{Alg} \to \mathsf{Set};\qquad R \mapsto Z_{R}(\mathfrak{a})
-\end{equation*}
-which takes a $k$-algebra to its zero set.
-
 \begin{theorem}
-  Let $\mathfrak{a} \subseteq k[x_{1}, x_{2}, \ldots, x_{n}]$ be an ideal, let
-  \begin{equation*}
-    A = k[x_{1}, x_{2}, \ldots, x_{n}]/\mathfrak{a}.
-  \end{equation*}
-
-  The functor $\mathcal{V}_{\mathfrak{a}}\colon R \mapsto Z_{R}(\mathfrak{a})$ is representable (\hyperref[def:representablefunctor]{Definition \ref*{def:representablefunctor}}), represented by the $k$-algebra 
-  \begin{equation*}
-    A = k[x_{1}, x_{2}, \ldots, x_{n}]/\mathfrak{a}.
-  \end{equation*}
+  Let $\mathsf{C}$ be a symmetric monoidal category. The category $\mathsf{CMon}(\mathsf{C})$ has coproducts, given by the tensor product of monoids.
 \end{theorem}
 \begin{proof}
-  We need to show that $\mathcal{V}_{\mathfrak{a}}$ is naturally isomorphic to the covariant functor
-  \begin{equation*}
-    h^{A}\colon R \mapsto \Hom_{k\mhyp\mathsf{Alg}}(A, R),
-  \end{equation*}
-  i.e. that there is a bijection
-  \begin{equation*}
-    \Phi_{R}\colon \Hom_{k\mhyp\mathsf{Alg}}(A, R) \to Z_{R}(\mathfrak{a})
-  \end{equation*}
-  which is natural in $R$.
-
-  We define $\Phi_{R}$ as follows. Let $\eta\in \Hom_{k\mhyp\mathsf{Alg}}(A, R)$. Then $\eta$ extends uniquely to a $k$-algebra homomorphism 
-  \begin{equation*}
-    \bar{\eta}\colon k[x_{1}, x_{2}, \ldots, x_{n}] \to R
-  \end{equation*}
-  which vanishes on $\mathfrak{a}$. That is, we have the following commutative diagram.
-  \begin{equation*}
-    \begin{tikzcd}
-      k[x_{1}, x_{2}, \ldots, x_{n}]
-      \arrow[d, twoheadrightarrow, swap, "\pi"]
-      \arrow[dr, "\bar{\eta}"]
-      \\
-      A
-      \arrow[r, "\eta"]
-      & R
-    \end{tikzcd}
-  \end{equation*}
-
-  We then define
-  \begin{equation*}
-    \Phi_{R}\colon \eta \mapsto (\bar{\eta}(x_{1}), \bar{\eta}(x_{2}), \ldots, \bar{\eta}(x_{n})).
-  \end{equation*}
-
-  To simplify notation, let $\bar{\eta}(x_{i}) = a_{i}$.
-
-  Of course, a priori the codomain of $\Phi_{R}$ is just $R^{n}$. Our first job is to show that our map is well-defined, i.e. that for any $f \in \mathfrak{a}$, $f(a_{1}, a_{2}, \ldots a_{n}) = 0$.
-
-  Any $f \in k[x_{1}, x_{2}, \ldots, x_{n}]$ can be written
-  \begin{equation*}
-    f(x_{1}, \ldots, x_{n}) = \sum a_{D} x_{1}^{d_{1}}\cdots x_{n}^{d_{n}},
-  \end{equation*}
-  where $D$ is a multi-index. Now,
-  \begin{align*}
-    \bar{\eta}(f(x_{1}, \ldots, x_{n})) &= \bar{\eta}\left( \sum a_{D} x_{1}^{d_{1}}\cdots x_{n}^{d_{n}} \right) \\
-    &= \sum a_{D} \bar{\eta}(x_{1})^{d_{1}}\cdots \bar{\eta}(x_{n})^{d_{n}} &\text{since $\bar{\eta}$ is a homomorphism} \\
-    &= \sum a_{D} a_{1}^{d_{1}}\cdots a_{i}^{d_{n}} \\
-    &= f(a_{1}, \ldots, a_{n}).
-  \end{align*}
-
-  But since the above diagram commutes, $\bar{\eta}(f) = \eta(\pi(f)) = \eta(0) = 0$, since $\eta \in \mathfrak{a}$.
-
-  We still must show that $\Phi_{R}$ is bijective. It is clearly injective since any homomorphism 
-  \begin{equation*}
-    k[x_{1}, x_{2}, \ldots, x_{n}] \to R
-  \end{equation*}
-  is completely determined by how it behaves on the $x_{i}$, and the homomorphism $\bar{\eta}$ is uniquely determined by $\eta$. It is surjective since any tuple $(a_{1}, a_{2}, \ldots, a_{n})$ is the image of the unique homomorphism which sends $x_{i} \mapsto a_{i}$, $i = 1$, $2$, \dots, $n$.
-
-  It remains only to show that $\Phi_{R}$ is natural, which can be seen from the commutativity of the following diagram (with $\varphi\colon R \to R'$ a homomorphism).
-  \begin{equation*}
-    \begin{tikzcd}
-      \Hom_{k\mhyp\mathsf{Alg}}(A, R)
-      \arrow[rrr, "\varphi \circ (-)"]
-      \arrow[ddd, swap, "\Phi_{R}"]
-      & & & \Hom_{k\mhyp\mathsf{Alg}}(A, R')
-      \arrow[ddd, "\Phi_{R'}"]
-      \\
-      & \eta
-      \arrow[r, mapsto]
-      \arrow[d, mapsto]
-      & \varphi \circ \eta
-      \arrow[d, mapsto]
-      \\
-      & (\bar{\eta}(x_1), \ldots, \bar{\eta}(x_{n}))
-      \arrow[r, mapsto]
-      & ((\phi \circ \bar{\eta})(x_1), \ldots, (\phi \circ \bar{\eta})(x_{n}))
-      \\
-      Z_{R}(\mathfrak{a})
-      \arrow[rrr, "\mathcal{V}_{\mathfrak{a}}(\varphi)"]
-      & & & Z_{R'}(\mathfrak{a})
-    \end{tikzcd}
-  \end{equation*}
+  
 \end{proof}
 
-The meaning of the above theorem is that we can study the variety cut out by the zeroes of the ideal $\mathfrak{a}$ by studying the hom-set $\Hom_{k\mhyp\mathsf{Vect}}(A = k[x_{i}]/\mathfrak{a}, R)$. This is a significant abstraction, but there is a lot of benefit to it: we have studied hom-sets in some detail, and we can apply results about them to the study of varieties.
+\begin{corollary}
+  \label{cor:cmonophasproducts}
+  For any symmetric monoidal category $\mathsf{C}$, the category $\mathsf{CMon}(\mathsf{C})^{\mathrm{op}}$ has finite products.
+\end{corollary}
 
-However, we can take this abstraction even further. Since by definition any variety over $R$ is the zero-set $Z_{R}(\mathfrak{a})$ of some ideal $\mathfrak{a}$, the study of varieties is reduced to the study of representable functors $R \mapsto \mathsf{Set}$. Given any ideal $\mathfrak{a}$, we can take the quotient $k[x_{i}]/\mathfrak{a}$ to get a finitely-presented algebra, and every finitely presented algebra arises in this way. Therefore, instead of studying ideals, we can study finitely presented algebras $A$. This leads to our second equivalent definition of an affine algebraic variety.
 
-\begin{definition}[affine algebraic variety]
-  \label{def:affinealgebraicvariety2}
-  An \defn{affine algebraic variety} is a representable functor $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ represented by a finitely presented algebra. The category of affine algebraic varieties is thus given by the category of representable functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$.
-\end{definition}
-
-The covariant Yoneda lemma (see \hyperref[note:covariantyonedaembedding]{Note \ref*{note:covariantyonedaembedding}}) $A \mapsto h^{A}$ now steps in, telling us that the category of representable functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ is equivalent to the category $\mathsf{Alg}^{\mathrm{op}}$. This gives us our third definition of an affine algebraic variety.
-
-\begin{definition}[affine algebraic variety]
-  \label{def:affinealgebraicvariety3}
-  An \defn{affine algebraic variety} is the `formal dual' of a finitely presented $k$-algebra; that is, it is an object in the category $\mathsf{Alg}_{k}^{\mathrm{op}}$.
-\end{definition}
-
-Recall (\hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebrasaremonoidsinternaltovect}}) that a commutative monoid in the category $\mathsf{Vect}_{k}$ is precisely a $k$-algebra.
-
-\subsection{Affine schemes, categorically}
-\begin{definition}[affine scheme of an algebra]
-  \label{def:affineschemeofanalgebra}
-  Let $\mathsf{C}$ be a symmetric monoidal category. Write
-  \begin{equation*}
-    \mathsf{Aff}(\mathsf{C}) = \mathsf{CMon}(\mathsf{C})^{\text{op}}.
-  \end{equation*}
-
-  For any $A \in \mathsf{CMon}(\mathsf{C})$, denote by $\Spec(A)$ the same object in the opposite category $\mathsf{Aff}(\mathsf{C})$. Call this the \defn{affine scheme} of $A$.
-
-  Conversely, for any $X \in \mathsf{Aff}(\mathsf{C})$, write 
-  \begin{equation*}
-    \mathscr{O}(X) \in \Obj(\mathsf{CMon}(\mathsf{C})).
-  \end{equation*}
-  for the same object viewed in the opposite category.
-\end{definition}
-
-\begin{definition}[affine super scheme]
-  \label{def:affinesuperscheme}
-  When $\mathsf{C} = \mathsf{SVect}_{k}$, we call the objects in $\mathsf{Aff}(\mathsf{SVect}_{k})$ \defn{affine super schemes} over $k$.
-\end{definition}
-
-\begin{note}
-  The reader is probably now almost as lost as the author was while writing this section. Here is a brief overview of the story so far.
-
-  As always, $(\mathsf{C}, \otimes, 1)$ denotes at worst a plain old monoidal category and at best a tensor category. We try to prove things as generally possible, but the case we really care about is when $\mathsf{C} = \mathsf{SVect}_{k}$.
-
-  The idea of this section is to generalize the correspondence 
-  \begin{equation*}
-    \left\{ \text{$C^{\infty}$ manifold $M$} \right\} \longleftrightarrow \left\{ \text{Algebra of functions $C^{\infty}(M) \in \mathsf{Alg}_{\R}$} \right\}
-  \end{equation*}
-
-  First, we look at monoids internal to $\mathsf{C}$; these form a category called $\mathsf{Mon}(\mathsf{C})$, which has a full subcategory of commutative monoids $\mathsf{CMon}(\mathsf{C})$. When $\mathsf{C} = \mathsf{SVect}_{k}$, $\mathsf{CMon}(\mathsf{SVect}_{k})$ is nothing else but the category whose objects are supercommutative, associative $k$-superalgebras with unity, denoted $\mathsf{SCAlg}_{k}$.
-
-  The idea is that we can view the category of $k$-super spaces as dual to $\mathsf{SCAlg}_{k}$. Thus, we call 
-  \begin{equation*}
-    \mathsf{CMon}(\mathsf{SVect}_{k})^{\mathrm{op}} \equiv \mathsf{Aff}(\mathsf{SVect}_{k}),
-  \end{equation*}
-  the so-called \emph{category of affine super-schemes over $k$}. For any $A \in \Obj(\mathsf{SCAlg}_{k})$, we denote the associated affine super scheme by $\Spec(A)$.
-\end{note}
-
-\section{Modules in tensor categories; super vector bundles}
+\section{Modules in tensor categories}
 Some of the material from this section is from \cite{nestruev-smooth-manifolds-observables}. Due to time constraints, most of the proofs are omitted. Hopefully this is not a permanent situation.
 
-We saw in the last section that we can view the duals of associative algebras as generalized manifolds. In this section, we will see that we can pull the same trick for vector bundles.
-
-\begin{definition}[category of vector bundles over a manifold]
-  \label{def:categoryofvectorbundlesoveramanifold}
-  Let $M$ be a $C^{\infty}$ manifold. Denote by $\mathsf{VectBund}_{X}$ the category whose objects are vector bundles 
-  \begin{equation*}
-    \begin{tikzcd}
-      V 
-      \arrow[r, "\pi"]
-      & X
-    \end{tikzcd}
-  \end{equation*}
-  and whose morphisms are maps $\varphi\colon V \to V'$ which preserve basepoint, i.e. maps $V \to V'$ which make the following diagram commute,
-  \begin{equation*}
-    \begin{tikzcd}[column sep=tiny]
-      V
-      \arrow[rr, "\varphi"]
-      \arrow[rd, swap, "\pi"]
-      & & V'
-      \arrow[ld, "\pi'"]
-      \\
-      & X
-    \end{tikzcd}
-  \end{equation*}
-  and which map fibers to their image fibers linearly.
-
-  We will also need the full subcategory $\mathsf{VectBund}_{X}^{\text{fin}} \subset \mathsf{VectBund}_{X}$ whose objects are vector bundles of finite rank (i.e vector bundles whose fibers are finite-dimensional vector spaces).
-\end{definition}
-
-For any vector bundle $\pi\colon V \to X$, the set of all sections $\Gamma_{X}(V)$ can be given the structure of a $C^{\infty}$-module. Furthermore, any morphism $\varphi\colon V \to V'$ determines a homomorphism of modules $\Gamma_{X}(V) \to \Gamma_{X}(V')$ by sending $\sigma \to \varphi \circ \sigma$. This gives us a functor $\mathsf{VectBund}_{X} \rightsquigarrow C^{\infty}(X)\mhyp\mathsf{Mod}$.
-
-In fact, with some mild conditions on the vector bundles and modules in question, we can say more. First, we consider only vector bundles whose fibers are finite-dimensional; this means we restrict our attention to the category $\mathsf{VectBund}^{\mathrm{fin}}_{X}$. Second, not all modules arise as modules over vector bundles of finite rank; it turns out that all modules which arise in this way are projective (\hyperref[def:projectivemodule]{Definition \ref*{def:projectivemodule}}) and finitely generated (\hyperref[def:finitelygeneratedmodule]{Definition \ref*{def:finitelygeneratedmodule}}).
-
-\begin{definition}[category of finitely-generated projective $C^{\infty}$-modules]
-  \label{def:categoryofyaddayaddasmoothmodules}
-  Denote by $C^{\infty}(X)\mhyp\mathsf{Mod}_{\mathrm{proj}}^{\mathrm{fin\ gen}}$ the category of smooth, finitely-generated $C^{\infty}(X)$-modules.
-\end{definition}
-
-\begin{theorem}[smooth Serre-Swan theorem]
-  The functor 
-  \begin{equation*}
-    \mathsf{VectBund}^{\mathrm{fin}}_{X} \rightsquigarrow C^{\infty}(X)\mhyp\mathsf{Mod}^{\mathrm{fin\,gen}}_{\mathrm{proj}}
-  \end{equation*}
-  which sends each vector bundle to its module of sections is an equivalence of categories.
-\end{theorem}
-\begin{proof}
-  See \cite{nestruev-smooth-manifolds-observables} 11.33, page 183.
-\end{proof}
-
-As before, one is lead to the assumption that one could generalize the idea of a vector bundle by relaxing the requrements on the modules under consideration. The `generalized vector bundles' arising in this way are called \emph{quasicoherent sheaves}.
-
-\begin{note}
-  The notion of a generalized vector bundle isn't actually used. The mathematical edifice below is introduced so as to define a more general version of Hopf algebra, which also isn't used. I'll probably take it all out at some point.
-\end{note}
+% We saw in the last section that we can view the duals of associative algebras as generalized manifolds. In this section, we will see that we can pull the same trick for vector bundles.
+% 
+% \begin{definition}[category of vector bundles over a manifold]
+%   \label{def:categoryofvectorbundlesoveramanifold}
+%   Let $M$ be a $C^{\infty}$ manifold. Denote by $\mathsf{VectBund}_{X}$ the category whose objects are vector bundles 
+%   \begin{equation*}
+%     \begin{tikzcd}
+%       V 
+%       \arrow[r, "\pi"]
+%       & X
+%     \end{tikzcd}
+%   \end{equation*}
+%   and whose morphisms are maps $\varphi\colon V \to V'$ which preserve basepoint, i.e. maps $V \to V'$ which make the following diagram commute,
+%   \begin{equation*}
+%     \begin{tikzcd}[column sep=tiny]
+%       V
+%       \arrow[rr, "\varphi"]
+%       \arrow[rd, swap, "\pi"]
+%       & & V'
+%       \arrow[ld, "\pi'"]
+%       \\
+%       & X
+%     \end{tikzcd}
+%   \end{equation*}
+%   and which map fibers to their image fibers linearly.
+% 
+%   We will also need the full subcategory $\mathsf{VectBund}_{X}^{\text{fin}} \subset \mathsf{VectBund}_{X}$ whose objects are vector bundles of finite rank (i.e vector bundles whose fibers are finite-dimensional vector spaces).
+% \end{definition}
+% 
+% For any vector bundle $\pi\colon V \to X$, the set of all sections $\Gamma_{X}(V)$ can be given the structure of a $C^{\infty}$-module. Furthermore, any morphism $\varphi\colon V \to V'$ determines a homomorphism of modules $\Gamma_{X}(V) \to \Gamma_{X}(V')$ by sending $\sigma \to \varphi \circ \sigma$. This gives us a functor $\mathsf{VectBund}_{X} \rightsquigarrow C^{\infty}(X)\mhyp\mathsf{Mod}$.
+% 
+% In fact, with some mild conditions on the vector bundles and modules in question, we can say more. First, we consider only vector bundles whose fibers are finite-dimensional; this means we restrict our attention to the category $\mathsf{VectBund}^{\mathrm{fin}}_{X}$. Second, not all modules arise as modules over vector bundles of finite rank; it turns out that all modules which arise in this way are projective (\hyperref[def:projectivemodule]{Definition \ref*{def:projectivemodule}}) and finitely generated (\hyperref[def:finitelygeneratedmodule]{Definition \ref*{def:finitelygeneratedmodule}}).
+% 
+% \begin{definition}[category of finitely-generated projective $C^{\infty}$-modules]
+%   \label{def:categoryofyaddayaddasmoothmodules}
+%   Denote by $C^{\infty}(X)\mhyp\mathsf{Mod}_{\mathrm{proj}}^{\mathrm{fin\ gen}}$ the category of smooth, finitely-generated $C^{\infty}(X)$-modules.
+% \end{definition}
+% 
+% \begin{theorem}[smooth Serre-Swan theorem]
+%   The functor 
+%   \begin{equation*}
+%     \mathsf{VectBund}^{\mathrm{fin}}_{X} \rightsquigarrow C^{\infty}(X)\mhyp\mathsf{Mod}^{\mathrm{fin\,gen}}_{\mathrm{proj}}
+%   \end{equation*}
+%   which sends each vector bundle to its module of sections is an equivalence of categories.
+% \end{theorem}
+% \begin{proof}
+%   See \cite{nestruev-smooth-manifolds-observables} 11.33, page 183.
+% \end{proof}
+% 
+% As before, one is lead to the assumption that one could generalize the idea of a vector bundle by relaxing the requrements on the modules under consideration. The `generalized vector bundles' arising in this way are called \emph{quasicoherent sheaves}.
+% 
+% \begin{note}
+%   The notion of a generalized vector bundle isn't actually used. The mathematical edifice below is introduced so as to define a more general version of Hopf algebra, which also isn't used. I'll probably take it all out at some point.
+% \end{note}
 
 \begin{definition}[module object]
   \label{def:moduleobject}
@@ -8218,7 +8045,7 @@ As before, one is lead to the assumption that one could generalize the idea of a
 
 \begin{example}
   \label{eg:categoryof1modulesisequivalenttocategoryitself}
-  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. As we saw in \hyperref[eg:tensorunitisinternalmonoid]{Example \ref*{eg:tensorunitisinternalmonoid}}, we can view $1$ as a monoid internal to $\mathsf{C}$. Then for every object $C \in \Obj(\mathsf{C})$, the left unitor $\lambda_{C}\colon 1 \otimes C \to C$ makes $C$ into a a left module.
+  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. As we saw in \hyperref[eg:tensorunitisinternalmonoid]{Example \ref*{eg:tensorunitisinternalmonoid}}, we can view the tensor unit $1 \in \Obj(\mathsf{C})$ as a monoid internal to $\mathsf{C}$. Then for every object $C \in \Obj(\mathsf{C})$, the left unitor $\lambda_{C}\colon 1 \otimes C \to C$ makes $C$ into a a left module.
 
   This holds for any $C \in \Obj(\mathsf{C})$, and in fact gives an equivalence of categories
   \begin{equation*}
@@ -8389,11 +8216,11 @@ As before, one is lead to the assumption that one could generalize the idea of a
 The upshot of the past few theorems is the following.
 \begin{theorem}
   \label{thm:quasiffinevarietieshaveproducts}
-  Let $\mathsf{A}$ be a tensor category. Let $A \in \Obj(\mathsf{CMon}(\mathsf{A}))$ be a commutative monoid in $\mathsf{A}$.
+  Let $\mathcal{A}$ be a tensor category. Let $A \in \Obj(\mathsf{CMon}(\mathcal{A}))$ be a commutative monoid in $\mathcal{A}$.
 
-  Let $A_{1}$ and $A_{2}$ be two $A$-algebras in the sense of \hyperref[def:internalalgebra]{Definition \ref*{def:internalalgebra}}. By \hyperref[def:affinesuperscheme]{Definition \ref*{def:affinesuperscheme}}, we can regard $A_{1}$ and $A_{2}$ as affine schemes, i.e. as objects $\Spec(A_{1})$, $\Spec(A_{2}) \in \mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathsf{A}))$.
+  Let $A_{1}$ and $A_{2}$ be two $A$-algebras in the sense of \hyperref[def:internalalgebra]{Definition \ref*{def:internalalgebra}}. By \hyperref[def:affinesuperscheme]{Definition \ref*{def:affinesuperscheme}}, we can regard $A_{1}$ and $A_{2}$ as affine schemes, i.e. as objects $\Spec(A_{1})$, $\Spec(A_{2}) \in \mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathcal{A}))$.
 
-  Then the category $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathsf{A}))$ has products. Further, these are dual the product $A_{1} \otimes_{A} A_{2}$, in the sense that there exists a natural isomorphism
+  Then the category $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathcal{A}))$ has products. Further, these are dual the product $A_{1} \otimes_{A} A_{2}$, in the sense that there exists a natural isomorphism
   \begin{equation*}
     \Spec(A_{1}) \times \Spec(A_{2}) \simeq \Spec(A_{1} \otimes_{A} A_{2}).
   \end{equation*}
@@ -8413,7 +8240,7 @@ The upshot of the past few theorems is the following.
       C
     \end{tikzcd}
   \end{equation*}
-  in $\mathsf{CMon}(\mathsf{C})$ coincides with the tensor product $A \otimes_{C} B$ in $A\mhyp\mathsf{Mod}(\mathsf{C})$. Equivalently, it tells us that the \emph{coproduct} in $(A \downarrow\mathsf{CMon}(\mathsf{C}))$ coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$, which by \hyperref[thm:modulesandmonoidsequivalenceofcategories]{Theorem \ref*{thm:modulesandmonoidsequivalenceofcategories}} is categorically equivalent to $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathsf{A}))^{\mathrm{op}}$. Dualizing \emph{this} is what gives us the statement of \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
+  in $\mathsf{CMon}(\mathsf{C})$ coincides with the tensor product $A \otimes_{C} B$ in $A\mhyp\mathsf{Mod}(\mathsf{C})$. Equivalently, it tells us that the \emph{coproduct} in $(A \downarrow\mathsf{CMon}(\mathsf{C}))$ coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$, which by \hyperref[thm:modulesandmonoidsequivalenceofcategories]{Theorem \ref*{thm:modulesandmonoidsequivalenceofcategories}} is categorically equivalent to $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathcal{A}))^{\mathrm{op}}$. Dualizing \emph{this} is what gives us the statement of \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
 \end{note}
 
 \begin{definition}[restriction of scalars, extension of scalars]
@@ -8450,19 +8277,226 @@ The upshot of the past few theorems is the following.
   \end{equation*}
 \end{lemma}
 
-\begin{note}
-  Again a recapitulation is in order. For $M$ a $C^{\infty}$ manifold one has the correspondence
+%\begin{note}
+%  Again a recapitulation is in order. For $M$ a $C^{\infty}$ manifold one has the correspondence
+%  \begin{equation*}
+%    \left\{ \text{Vector bundles on $M$} \right\} \longleftrightarrow \left\{ \text{Finitely-generated projective $C^{\infty}(M)$-modules} \right\}.
+%  \end{equation*}
+%
+%  So far, our business has been to replace $C^{\infty}$ geometry with supergeometry. In doing so, we generalized the idea of a $C^{\infty}$ manifold, arriving at the definition of a so-called \emph{affine super-scheme} $\Spec(A)$ which is given by the dual of a supercommutative, associative $k$-superalgebra $A$.
+%
+%  In this chapter, we saw that vector bundles over a manifold $M$ were dual to finitely-generated, projective $C^{\infty}(M)$ modules. This led to a more general notion of vector bundle, a so-called \emph{quasi-coherent sheaf} over an affine super scheme $\Spec(A)$, defined via the correspondence
+%  \begin{equation*}
+%    \left\{ \text{Quasi-coherent sheaves over an affine super scheme $\Spec(A)$} \right\} \longleftrightarrow \left\{ \text{$A$-modules internal to $\mathsf{SVect}_{k}$} \right\}.
+%  \end{equation*}
+%\end{note}
+
+\section{Supervarieties}
+%\begin{definition}
+%  \label{def:functorcinfinity}
+%  Let $M$ be a $C^{\infty}$ manifold (that is, recalling \hyperref[eg:moreexamplesofcategories]{Example \ref*{eg:moreexamplesofcategories}}, an object in the category $\mathsf{SmoothMfd}$.) The functor 
+%  \begin{equation*}
+%    C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}
+%  \end{equation*}
+%  is the defined by sending $M$ to the $\R$-algebra of smooth functions $M \to \R$, and morphisms $\varphi\colon M \to N$ to homomorphisms of $\R$-algebras $C^{\infty}(N) \to C^{\infty}(M)$ via the pullback. 
+%\end{definition}
+%
+%\begin{theorem}
+%  The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}).
+%\end{theorem}
+%\begin{proof}
+%  See \cite{KMS-natural-operations-differential-geometry}, lemma 35.8, corollaries 35.9 and 35.10.
+%\end{proof}
+%
+%As we saw in \hyperref[lemma:fullyfaithfulfunctorinjectiveuptoisomorphism]{Lemma \ref*{lemma:fullyfaithfulfunctorinjectiveuptoisomorphism}}, the meaning of this theorem is that the functor $C^{^\infty}$ is injective on objects up to isomorphism. Thus, we can identify any smooth manifold with (the formal dual of) its algebra of functions, and if we are given any $\R$-algebra in the range of the functor $C^{\infty}$, we can always find a smooth manifold, unique up to isomorphism, which gives rise to it.
+%
+%We might take this idea even further: given \emph{any} associative algebra $A$, we can think of its formal dual as some sort of generalized manifold. 
+%
+%\begin{note}
+%  My plan is to replace the above introduction with an exposition of why defining algebraic groups as group objects in $\mathsf{CMon}(\mathsf{SVect}_{k})$ is a good idea from an algebro-geometric perspective (without leaning on smooth manifolds, which are too poorly behaved to furnish a good example), as well as explaining exactly what is meant by `formal duality'. I'll leave it in for now, but what follows will be the \emph{real} introduction.
+%\end{note}
+
+This section expands on ideas taken from \cite{milne-affine-group-schemes}.
+
+The objects central to our interests will be so-called \emph{algebraic super-groups}. These are a generalization of the notion of an \emph{algebraic group}, which is a group object in the category of algebraic varieties.
+
+First, we must generalize the notion of an algebraic variety. Recall \hyperref[def:algebraicvariety]{Definition \ref*{def:algebraicvariety}}: an algebraic variety is a surface cut out as the zero set of a set of polynomials. 
+
+\subsection{Varieties as formal duals to algebras}
+
+Let $k$ be an algebraically closed field of characteristic zero and let 
+\begin{equation*}
+  S \subseteq k[x_{1}, x_{2}, \ldots, x_{n}] 
+\end{equation*}
+be a set of polynomials. For any $k$-algebra $R$, we can define the \emph{zero set} of $S$ over $R$ as follows:
+\begin{equation*}
+  Z_{R}(S) = \left\{ (a_{1}, a_{2}, \ldots, a_{n}) \in R^{n} \,\big|\, f(a_{1}, a_{2}, \ldots, a_{n}) = 0\text{ for all }f \in S \right\}.
+\end{equation*}
+
+We can see that algebraic varieties over $R$ are precisely sets of the type $Z_{R}(S)$.
+
+This is a perfectly good definition of an algebraic variety, but it is poorly suited to the task at hand. In this section we will find a better one. First, we must make a few observations.
+
+Clearly, if $\mathfrak{a} = (S)$ is the ideal generated by $S$, then $Z_{R}(S) = Z_{R}(\mathfrak{a})$ for any $k$-algebra $R$. 
+
+Any homomorphism of $k$-algebras $\varphi\colon R \to R'$ induces a map $Z_{R}(\mathfrak{a}) \to Z_{R'}(\mathfrak{a})$. Therefore, any ideal $\mathfrak{a}$ defines a functor 
+\begin{equation*}
+  \mathcal{V}_{\mathfrak{a}}\colon k\mhyp\mathsf{Alg} \to \mathsf{Set};\qquad R \mapsto Z_{R}(\mathfrak{a})
+\end{equation*}
+which takes a $k$-algebra to its zero set.
+
+\begin{theorem}
+  Let $\mathfrak{a} \subseteq k[x_{1}, x_{2}, \ldots, x_{n}]$ be an ideal, let
   \begin{equation*}
-    \left\{ \text{Vector bundles on $M$} \right\} \longleftrightarrow \left\{ \text{Finitely-generated projective $C^{\infty}(M)$-modules} \right\}.
+    A = k[x_{1}, x_{2}, \ldots, x_{n}]/\mathfrak{a}
+  \end{equation*}
+  be the so-called \emph{coordinate ring} of $Z_{R}(\mathfrak{a})$.
+
+  The functor $\mathcal{V}_{\mathfrak{a}}\colon R \mapsto Z_{R}(\mathfrak{a})$ is representable (\hyperref[def:representablefunctor]{Definition \ref*{def:representablefunctor}}). It is represented by the $k$-algebra 
+  \begin{equation*}
+    A = k[x_{1}, x_{2}, \ldots, x_{n}]/\mathfrak{a}.
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  We need to show that $\mathcal{V}_{\mathfrak{a}}$ is naturally isomorphic to the functor
+  \begin{equation*}
+    h^{A}\colon R \mapsto \Hom_{k\mhyp\mathsf{Alg}}(A, R),
+  \end{equation*}
+  i.e. that there is a bijection
+  \begin{equation*}
+    \Phi_{R}\colon \Hom_{k\mhyp\mathsf{Alg}}(A, R) \to Z_{R}(\mathfrak{a})
+  \end{equation*}
+  which is natural in $R$.
+
+  We define $\Phi_{R}$ as follows. Let $\eta\in \Hom_{k\mhyp\mathsf{Alg}}(A, R)$. Then $\eta$ extends uniquely to a $k$-algebra homomorphism 
+  \begin{equation*}
+    \bar{\eta}\colon k[x_{1}, x_{2}, \ldots, x_{n}] \to R
+  \end{equation*}
+  which vanishes on $\mathfrak{a}$. That is, we have the following commutative diagram.
+  \begin{equation*}
+    \begin{tikzcd}
+      k[x_{1}, x_{2}, \ldots, x_{n}]
+      \arrow[d, twoheadrightarrow, swap, "\pi"]
+      \arrow[dr, "\bar{\eta}"]
+      \\
+      A
+      \arrow[r, "\eta"]
+      & R
+    \end{tikzcd}
   \end{equation*}
 
-  So far, our business has been to replace $C^{\infty}$ geometry with supergeometry. In doing so, we generalized the idea of a $C^{\infty}$ manifold, arriving at the definition of a so-called \emph{affine super-scheme} $\Spec(A)$ which is given by the dual of a supercommutative, associative $k$-superalgebra $A$.
-
-  In this chapter, we saw that vector bundles over a manifold $M$ were dual to finitely-generated, projective $C^{\infty}(M)$ modules. This led to a more general notion of vector bundle, a so-called \emph{quasi-coherent sheaf} over an affine super scheme $\Spec(A)$, defined via the correspondence
+  We then define
   \begin{equation*}
-    \left\{ \text{Quasi-coherent sheaves over an affine super scheme $\Spec(A)$} \right\} \longleftrightarrow \left\{ \text{$A$-modules internal to $\mathsf{SVect}_{k}$} \right\}.
+    \Phi_{R}\colon \eta \mapsto (\bar{\eta}(x_{1}), \bar{\eta}(x_{2}), \ldots, \bar{\eta}(x_{n})).
   \end{equation*}
-\end{note}
+
+  To simplify notation, let $\bar{\eta}(x_{i}) = a_{i}$.
+
+  Of course, a priori the codomain of $\Phi_{R}$ is just $R^{n}$. Our first job is to show that our map is well-defined, i.e. that for any $f \in \mathfrak{a}$, $f(a_{1}, a_{2}, \ldots a_{n}) = 0$.
+
+  Any $f \in k[x_{1}, x_{2}, \ldots, x_{n}]$ can be written
+  \begin{equation*}
+    f(x_{1}, \ldots, x_{n}) = \sum c_{D} x_{1}^{d_{1}}\cdots x_{n}^{d_{n}},
+  \end{equation*}
+  where $D$ is a multi-index. Now,
+  \begin{align*}
+    \bar{\eta}(f(x_{1}, \ldots, x_{n})) &= \bar{\eta}\left( \sum c_{D} x_{1}^{d_{1}}\cdots x_{n}^{d_{n}} \right) \\
+    &= \sum c_{D} \bar{\eta}(x_{1})^{d_{1}}\cdots \bar{\eta}(x_{n})^{d_{n}} &\text{since $\bar{\eta}$ is a homomorphism} \\
+    &= \sum c_{D} a_{1}^{d_{1}}\cdots a_{i}^{d_{n}} \\
+    &= f(a_{1}, \ldots, a_{n}).
+  \end{align*}
+
+  But since the above diagram commutes, $\bar{\eta}(f) = \eta(\pi(f)) = \eta(0) = 0$, since $\eta \in \mathfrak{a}$.
+
+  We still must show that $\Phi_{R}$ is bijective. It is clearly injective since any homomorphism 
+  \begin{equation*}
+    k[x_{1}, x_{2}, \ldots, x_{n}] \to R
+  \end{equation*}
+  is completely determined by how it behaves on the $x_{i}$, and the homomorphism $\bar{\eta}$ is uniquely determined by $\eta$. It is surjective since any tuple $(a_{1}, a_{2}, \ldots, a_{n})$ is the image of the unique homomorphism which sends $x_{i} \mapsto a_{i}$, $i = 1$, $2$, \dots, $n$.
+
+  It remains only to show that $\Phi_{R}$ is natural, which can be seen from the commutativity of the following diagram (with $\varphi\colon R \to R'$ a homomorphism).
+  \begin{equation*}
+    \begin{tikzcd}
+      \Hom_{k\mhyp\mathsf{Alg}}(A, R)
+      \arrow[rrr, "\varphi \circ (-)"]
+      \arrow[ddd, swap, "\Phi_{R}"]
+      & & & \Hom_{k\mhyp\mathsf{Alg}}(A, R')
+      \arrow[ddd, "\Phi_{R'}"]
+      \\
+      & \eta
+      \arrow[r, mapsto]
+      \arrow[d, mapsto]
+      & \varphi \circ \eta
+      \arrow[d, mapsto]
+      \\
+      & (\bar{\eta}(x_1), \ldots, \bar{\eta}(x_{n}))
+      \arrow[r, mapsto]
+      & ((\phi \circ \bar{\eta})(x_1), \ldots, (\phi \circ \bar{\eta})(x_{n}))
+      \\
+      Z_{R}(\mathfrak{a})
+      \arrow[rrr, "\mathcal{V}_{\mathfrak{a}}(\varphi)"]
+      & & & Z_{R'}(\mathfrak{a})
+    \end{tikzcd}
+  \end{equation*}
+\end{proof}
+
+The meaning of the above theorem is that we can study the variety cut out by the zeroes of the ideal $\mathfrak{a}$ in $R^{n}$ by studying the hom-set $\Hom_{k\mhyp\mathsf{Vect}}(A = k[x_{i}]/\mathfrak{a}, R)$. There is a lot of benefit to this new perspective: we have studied hom functors in some detail, and we can apply results about them to the study of varieties.
+
+However, we can take this abstraction further. Since by definition any variety over $R$ is the zero-set $Z_{R}(\mathfrak{a})$ of some ideal $\mathfrak{a}$, the study of varieties over $R$ is reduced to the study of functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ which are represented by some finitely-presented $k$-algebra $A$. The image of $R$ under such a functor would be of the form $\Hom_{k\mhyp\mathsf{Alg}}(A, R)$, hence naturally isomorphic to $Z_{R}(\mathfrak{a})$.
+
+\begin{definition}[affine algebraic variety 2]
+  \label{def:affinealgebraicvariety2}
+  An \defn{affine algebraic variety} is a representable functor $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ represented by a finitely presented algebra. 
+  
+  The category of affine algebraic varieties is thus given by the category of functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ which are representable by a finitely presented $k$-algebra.
+\end{definition}
+
+The covariant Yoneda lemma (see \hyperref[note:covariantyonedaembedding]{Note \ref*{note:covariantyonedaembedding}}) now steps in, telling us that the category of representable functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ is equivalent to the opposite of the category of finitely presented $k$-algebras.
+
+Recall (\hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebrasaremonoidsinternaltovect}}) that a commutative monoid in the category $\mathsf{Vect}_{k}$ is precisely a $k$-algebra. Clearly a finitely presented $k$-algebra is a commutative monoid in the category $\mathsf{CMon}(\mathsf{FinVect}_{k})$. This gives us our third definition of an affine algebraic variety.
+
+\begin{definition}[affine algebraic variety 3]
+  \label{def:affinealgebraicvariety3}
+  An \defn{affine algebraic variety} is the `formal dual' of a finitely presented $k$-algebra; that is, it is an object in the category $\mathsf{CMon}(\mathsf{FinVect}_{k})^{\mathrm{op}}$.
+
+  By the `formal dual' of a finitely-presented $k$-algebra $A$, we mean that given a finitly-presented $k$-algebra, we can always use the following recipe to end up with a $k$-algebra, and that given a homomorphism $A \to B$, we can construct a morphism of affine algebraic varieties $Z(\mathfrak{b}) \to Z(\mathfrak{a})$.
+  \begin{enumerate}
+    \item We start with a finitely-presented $k$-algebra A, which by definition can always be expressed as a quotient $k[x_{1}, x_{2}, \ldots, x_{n}]/\mathfrak{a}$ for some ideal $\mathfrak{a}$.
+
+    \item We dualize, viewing $A$ as an object in the opposite category $k\mhyp\mathsf{Alg}^{\mathrm{op}}$.
+      
+    \item We apply the covariant Yoneda embedding to get the functor 
+      \begin{equation*}
+        h^{A} = \Hom_{k\mhyp\mathsf{Alg}}(A, -)\colon k\mhyp\mathsf{Alg} \to \mathsf{Set}.
+      \end{equation*}
+
+      By the covariant Yoneda lemma, this embedding is an equivalence of categories.
+
+    \item Evaluating this functor on any $k$-algebra $R$ yields the set $\Hom_{k\mhyp\mathsf{Alg}}(A, R)$. For each $f \in \Hom_{k\mhyp\mathsf{Alg}}(A, R)$, the images $a_{i} = f(x_{i})$ of the generators $x_{i}$ give a point $(a_{1}, a_{2}, \ldots, a_{n}) \in R^{n}$ which lies on the variety in question.
+  \end{enumerate}
+\end{definition}
+
+\subsection{Affine schemes, categorically}
+\begin{definition}[affine scheme of an algebra]
+  \label{def:affineschemeofanalgebra}
+  Let $\mathsf{C}$ be a symmetric monoidal category. Write
+  \begin{equation*}
+    \mathsf{Aff}(\mathsf{C}) = \mathsf{CMon}(\mathsf{C})^{\text{op}}.
+  \end{equation*}
+
+  For any $A \in \mathsf{CMon}(\mathsf{C})$, denote by $\Spec(A)$ the same object in the opposite category $\mathsf{Aff}(\mathsf{C})$. Call this the \defn{affine scheme} of $A$.
+
+  Conversely, for any $X \in \mathsf{Aff}(\mathsf{C})$, write 
+  \begin{equation*}
+    \mathscr{O}(X) \in \Obj(\mathsf{CMon}(\mathsf{C})).
+  \end{equation*}
+  for the same object viewed in the opposite category.
+\end{definition}
+
+\begin{definition}[affine super scheme]
+  \label{def:affinesuperscheme}
+  When $\mathsf{C} = \mathsf{FinSVect}_{k}$, we call the objects in $\mathsf{Aff}(\mathsf{FinSVect}_{k})$ \defn{affine super schemes} over $k$.
+\end{definition}
 
 \section{Supergroups as supercommutative Hopf algebras}
 
@@ -8581,19 +8615,23 @@ The next step in the story is to define affine algebraic super-groups as the for
   And more\dots
 \end{definition}
 
-\begin{definition}[commutative Hopf algebra]
-  \label{def:commutativehopfalgebra}
-  Let $\mathscr{A}$ be a tensor category and $\Gamma$ and $A$ be commutative monoids internal to $\mathscr{A}$. A \defn{commutative Hopf algebra $\Gamma$ over $A$} is a commutative Hopf algebroid $(\Gamma, A, \eta_{L}, \eta_{R}, \varepsilon, \Psi, c)$ for which the left and right unit $\eta_{L}$ and $\eta_{R}$ coincide.
+\begin{definition}[commutative Hopf algebra over a monoid modelled on a tensor category]
+  \label{def:commutativehopfalgebraoveramonoidmodelledonatensorcategory}
+  Let $\mathscr{A}$ be a tensor category and $\Gamma$ and $A$ be commutative monoids internal to $\mathscr{A}$. A \defn{commutative Hopf algebra $\Gamma$ over $A$ modelled on $\mathscr{A}$} is a commutative Hopf algebroid $(\Gamma, A, \eta_{L}, \eta_{R}, \varepsilon, \Psi, c)$ for which the left and right unit $\eta_{L}$ and $\eta_{R}$ coincide.
 \end{definition}
 
 This is a really confusing definition which looks seductively similar to, but does not at first glance agree with, the traditional definition of a commutative Hopf algebra over a field $k$. Here's how it unfolds.
 
 The standard definition of a Hopf algebra (taken from, for example, \cite{milne-affine-group-schemes}) is as follows.
 
-\begin{definition}[commutative Hopf algebra over a field]
-  \label{def:commutativehopfalgebraoverafield}
-  Let $\mathscr{A}$ be a $k$-tensor category. A \defn{commutative Hopf algebra $\Gamma$ over a field $k$} is a group object in the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$.
+\begin{definition}[commutative Hopf algebra over a field modelled on a tensor category]
+  \label{def:commutativehopfalgebraoverafieldmodelledonatensorcategory}
+  Let $\mathscr{A}$ be a $k$-tensor category. A \defn{commutative Hopf algebra $H$ over a field $k$ modelled on $\mathscr{A}$} is a group object in the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$.
 \end{definition}
+
+\begin{note}
+  By \hyperref[cor:cmonophasproducts]{Corollary \ref*{cor:cmonophasproducts}}, the product $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ always has products.
+\end{note}
 
 \begin{note}
   What exactly is a group object in $\mathsf{CMon}(\mathscr{A})^{\text{op}}$? Well, it's an object $H \in \Obj(\mathsf{CMon}(\mathscr{A})^{\text{op}})$, together with the following.
@@ -8644,15 +8682,31 @@ The standard definition of a Hopf algebra (taken from, for example, \cite{milne-
   The above theorem means that it doesn't matter whether we define an object as
 \end{note}
 
-\begin{definition}[supercommutative Hopf algebra]
-  \label{def:supercommutativehopfalgebra}
-  A \defn{supercommutative Hopf algebra over $k$} is a group internal to $\mathsf{CMon}(\mathsf{SVect}_{k})^{\mathrm{op}}$.
+\begin{definition}[commutative Hopf algebra]
+  \label{def:commutativehopfalgebra}
+  A \defn{commutative Hopf algebra} is a commutative Hopf algebra over $k$ modelled on $\mathsf{FinVect}_{k}$. That is, it is a group object in the category $\mathsf{CMon}(\mathsf{FinVect}_{k})^{\mathrm{op}} = k\mhyp\mathsf{Alg}^{\text{fin gen}}$.
 \end{definition}
 
-\begin{definition}[affine algebraic supergroup]
-  \label{def:affinealgebraicsupergroup}
-  An \defn{affine algebraic supergroup} $G$ is the formal dual of a supercommutative Hopf algebra $\mathscr{O}(G)$. (Recall from \hyperref[def:affineschemeofanalgebra]{Definition \ref*{def:affineschemeofanalgebra}} that $\mathscr{O}(G)$ is the (Hopf) algebra of functions to which $G$ is formally dual.)
+\begin{definition}[supercommutative Hopf algebra]
+  \label{def:supercommutativehopfalgebra}
+  A \defn{supercommutative Hopf algebra} is a commutative Hopf algebra over $k$ modelled on $\mathsf{FinSVect}_{k}$. That is, it is a group object in the category $\mathsf{CMon}(\mathsf{FinSVect}_{k})^{\mathrm{op}} = k\mhyp\mathsf{SAlg}^{\text{fin gen}}$.
 \end{definition}
+
+\begin{definition}[affine group]
+  \label{def:affinegroup}
+  An \defn{affine group} is a commutative Hopf algebra.
+\end{definition}
+
+\begin{note}
+  This definition should not be taken too literally. The meaning is that we are to view a commutative Hopf algebra as a group object in the category $\mathsf{CMon}(\mathsf{FinVect}_{k})^{\mathrm{op}}$, which as we saw in REF is equivalent to the category of functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ which are representable by finitely presented $k$-algebras. Evaluating these functors on a $k$-algebra $R$ gives the set $\mathsf{Z}_{R}(\mathfrak{a}) \subseteq R^{n}$ of points underlying the associated variety. The group structure then translates to a group structure on this set whose group operations are given by regular maps.
+\end{note}
+
+\begin{definition}[affine supergroup]
+  \label{def:affinesupergroup}
+  An affine supergroup is a supercommutative Hopf algebra.
+\end{definition}
+
+
 
 Every 
 
@@ -8775,7 +8829,7 @@ Every
 
 \begin{definition}[linear representation of a supergroup]
   \label{def:linearrepresentationofsupergroup}
-  Let $G$ be a supergroup (that is, by \hyperref[def:affinealgebraicsupergroup]{Definition \ref*{def:affinealgebraicsupergroup}}, the formal dual of a supercommutative Hopf algebra).
+  Let $G$ be a supergroup (that is, by \hyperref[def:affinesupergroup]{Definition \ref*{def:affinesupergroup}}, a supercommutative Hopf algebra).
 \end{definition}
 
 \section{Super fiber functors and their automorphism groups}
@@ -8863,8 +8917,6 @@ The importance of the conjugacy classes is that they correspond precisely to irr
 \chapter{Deligne's theorem on tensor categories}
 Deligne's theorem tells us that every $k$-tensor category, for $k$ an algebraically closed field of characteristic zero, is the category of representations of some algebraic super group.
 
-\section{Statement}
-
 The following statement of Deligne's theorem was taken, mutatis mutandis, from \cite{nlab-deligne-theorem}.
 
 \begin{theorem}[Deligne's theorem on tensor categories]
@@ -8901,17 +8953,17 @@ Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheo
     is equivalent to the category of representations of the automorphism supergroup of $\omega$.
 \end{enumerate}
 
-\section{Proof}
-\subsection{Part 1}
-\begin{proposition}
-  \label{prop:deligne1}
-  Let 
-\end{proposition}
 \chapter{Relevance to physics}
+\section{Practicalities of supergeometry}
+\subsection{The super Lie algebra of an algebraic super-group}
+
+\subsection{Super Harish-Chandra pairs}
+
+
 \section{Wigner's classification of fundamental particle species}
 This section follows \cite{haag-local-quantum-physics} closely. Some stuff was taken from \cite{sexl-urbantke-relativity-groups-particles}.
 
-The axioms of quantum mechanics tell us that the states of a quantum system correspond to vectors $\psi$ belonging to some Hilbert space $\mathscr{H}$. However, this is not the end of the story. The observable quantities built from the states, i.e. the conditional probabilities
+The axioms of quantum mechanics tell us that the states of a quantum system correspond to vectors $\psi$ belonging to some separable Hilbert space $\mathscr{H}$. However, this is not the end of the story. The observable quantities built from the states, i.e. the conditional probabilities
 \begin{equation*}
   P(\varphi | \psi) = \frac{\left|\left\langle \varphi | \psi \right\rangle\right|^{2}}{\norm{\varphi}^{2} \cdot \norm{\psi}^{2}}
 \end{equation*}
@@ -9440,11 +9492,7 @@ These, plus several other technical requirements ()
 
 \chapter{Questions}
 \begin{enumerate}
-  \item Higgs stuff?
-
-  \item Bibliographic style?
-
-  \item How do physicists do supergeometry? Harish-Chandra pairs?
+  \item Any new information on vacuum orbits? 
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
