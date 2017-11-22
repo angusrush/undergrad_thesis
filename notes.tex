@@ -410,6 +410,34 @@ In this chapter we collect some basic definitions and corollaries so that we may
   \end{itemize}
 \end{definition}
 
+\begin{definition}[localization]
+  \label{def:localizationofaring}
+  Let $R$ be a commutative ring with unity, and let $S$ be a subset of $R$. The \defn{localization of $R$ at $S$} is given, as a set, by the quotient 
+  \begin{equation*}
+    R \times S / \sim,
+  \end{equation*}
+  where $(r_{1}, r_{2}) \sim (s_{1}, s_{2})$ if there exists $t \in S$ such that 
+  \begin{equation*}
+    t(r_{1} s_{2} - r_{2} s_{1}) = 0.
+  \end{equation*}
+  It is easy to check that this is an equivalence relation.
+
+  The multiplication and addition on $S^{-1}R$ are defined via
+  \begin{equation*}
+    (r_{1}, s_{2}) \times (r_{2}, s_{2}) = (r_{1}r_{2}, s_{1}s_{2}),
+  \end{equation*}
+  and
+  \begin{equation*}
+    (r_{1}, s_{2}) + (r_{2}, s_{2}) = (r_{1}s_{2} + r_{2}s_{1}, s_{1}s_{2}).
+  \end{equation*}
+\end{definition}
+
+\begin{note}
+  The idea is to think of $S^{-1}R$ as consisting of fractions $\frac{r}{s}$. The addition and multiplication laws are therefore just mimic the addition and multiplication of fractions.
+
+  There is a ring homomorphism $R \to S^{-1}R$ which maps $r \mapsto \frac{r}{1}$. This is not injective in general.
+\end{note}
+
 \section{Modules}
 \begin{definition}[module]
   \label{def:module}
@@ -679,6 +707,10 @@ In this chapter (and to some extent the following chapters), I will do my best t
   Following Aluffi (\cite{aluffi-algebra-chapter-0}), we will use the sans-serif font \texttt{mathsf} to denote categories. For example $\mathsf{C}$, $\mathsf{Set}$.
 
   If ever it is potentially unclear which category we are talking about, we will add a subscript to $\Hom$, writing for example $\Hom_{\mathsf{C}}(A,B)$ instead of $\Hom(A,B)$.
+\end{notation}
+
+\begin{notation}
+  The identity morphism $1_{A}$ is often simply denoted by $A$. We will avoid this in the earlier chapters since it is potentially confusing, but use it freely in later chapters.
 \end{notation}
 
 \begin{example}
@@ -1959,7 +1991,6 @@ Again, with the diagram helpfully rotated, we have the following.
     \end{tikzcd}
   \end{equation*}
   commutes. If we re-arrange our diagram a bit, it is not too hard to see that it is equivalent to the one given above. Thus, we can say: a product of two sets $X_{1}$ and $X_{2}$ is a final object in the category $(\Delta \downarrow (X_{1}, X_{2}))$
-
 \end{example}
 
 \section{Cartesian closed categories} \label{sec:cartesianclosedcategories}
@@ -6793,10 +6824,6 @@ The elementary notions of algebraic geometry are assumed, but a few definitions 
   Many authors (e.g. Hartshorne \cite{hartshorne-algebraic-geometry}) demand that a variety be irreducible. 
 \end{note}
 
-\begin{lemma}
-  The maximal ideals of $A = k[x_{1}, \ldots, x_{n}]$ correspond to the points of $\mathbb{A}^{n}$.
-\end{lemma}
-
 \section{Sheaves}
 \subsection{Presheaves}
 
@@ -6905,6 +6932,8 @@ Of course, we must check that $\mathsf{Open}(X)$ really is a category.
   The map $\alpha$ is constructed similary from the maps $\mathrm{res}_{U_{i} \cap U_{j}, U_{i}}$.
 
   For each $\mathcal{F}(U_{i} \cap U_{j})$, there is a canonical projection down to $\mathcal{F}(U_{j})$, and from there a restriction $\mathrm{res}_{U_{j} \cap U_{j}, U_{i}}$. The map $\beta$ is the composition of these.
+
+  To see that this is an equality, 
 \end{note} 
 
 \begin{example}[important example continued]
@@ -7068,7 +7097,9 @@ First, we need to define a homomorphism of presheaves. Since we defined a preshe
 \section{Schemes}
 We follow closely the treatment in \cite{milne-affine-group-schemes}, together with some help from \cite{vakil-rising-sea}.
 
-This is only a rushed introduction to this subject. It should be expanded with, for example, examples.
+\begin{note}
+  This section really needs a lot of filling out. The goal of the section is an explanation of the fact that $\mathsf{Alg}_{k}^{\mathrm{op}}$ is categorically equivalent to the category of affine schemes over $k$. This will justify talking about objects in $\mathsf{Alg}_{k}^{\mathrm{op}}$ as if they had geometric structure.
+\end{note}
 
 Let $A$ be a commutative ring. Denote by $V$ the set of all prime ideals in $A$. For any ideal $\mathfrak{a} \in V$, we write
 \begin{equation*}
@@ -7128,10 +7159,25 @@ Since $\spec(A)$ is a topological space, it makes sense to talk about a sheaf of
 
 Since $\mathcal{B}$ is closed under finite intersections, we can use it as the collection of objects in a category of opens $\mathsf{Open}(\mathcal{B})$ (see \hyperref[def:opencategory]{Definition \ref*{def:opencategory}}).\footnote{This is a slightly different notation to the one in \hyperref[def:opencategory]{Definition \ref*{def:opencategory}}. Here we're specifying the open subsets rather than the underlying topological space.} A sheaf of on $\mathcal{B}$ is a contravariant functor $\mathsf{Open}(\mathcal{B}) \to \mathsf{Ring}$ which satisfies the sheaf conditions (\hyperref[def:sheaf]{Definition \ref*{def:sheaf}}).
 
-We now define a sheaf on $\mathcal{B}$ as follows: For $f \in A$, define 
+We now define a sheaf $\mathscr{O}_{V}$ on $\mathcal{B}$ as follows: For any principal open subset $D$, define
 \begin{equation*}
-  S_{D(f)} = 
+  S_{D} = A \setminus \bigcup_{\mathfrak{p} \in D} \mathfrak{p}.
 \end{equation*}
+Clearly, $S_{D}$ is multiplicatively closed. It is also \emph{saturated}, i.e. if $fg \in S_{D}$ then $f \in S_{D}$ and $g \in S_{D}$.
+
+In particular, if $D = D(f)$, then $S_{D}$ is the smallest multiplicatively closed saturated subset containing $f$, i.e.
+\begin{equation*}
+  S_{D(f)} = \left\{ f^{n}\,\big|\, n = 0, 1, 2, \ldots \right\}. 
+\end{equation*}
+
+We then define $\mathscr{O}_{V}(D) = S_{D}^{-1}A$, the localization of $A$ by $S_{D}$ (\hyperref[def:localizationofaring]{Definition \ref*{def:localizationofaring}}). If $D \subset D'$ then $S_{D'} \subset S_{D}$ so there is an embedding $S_{D'}^{-1} A \hookrightarrow S_{D}^{-1} A$. These embeddings are functorial, so $\mathscr{O}_{V}$ is indeed a presheaf. In fact, they satisfy the sheaf conditions.
+
+Write $\Spec(A)$ for the ringed space $(\spec(A), \mathscr{O}_{\spec(A)})$. In fact it is a locally ringed space.
+
+\begin{definition}[affine scheme]
+  \label{def:affinescheme}
+  An \defn{affine scheme} is a ringed space which is isomorphic to $(\spec(A), \mathscr{O}_{\spec(A)}))$ for some $A$. 
+\end{definition}
 
 \begin{lemma}
   Let $\varphi\colon A \to B$ be a homomorphism of commutative rings. Then if $\mathfrak{b}$ is a prime ideal in $B$, $\varphi^{-1}(\mathfrak{b})$ is a prime ideal in $A$.
@@ -7140,12 +7186,6 @@ We now define a sheaf on $\mathcal{B}$ as follows: For $f \in A$, define
 \begin{corollary}
   The map $\spec$ extends to a contravariant functor $\mathsf{CRing} \to \mathsf{Top}$.
 \end{corollary}
-
-\begin{definition}[affine scheme]
-  \label{def:affinescheme}
-  An \defn{affine scheme} is a scheme which is isomorphic to 
-\end{definition}
-
 
 
 \chapter{Some basic superalgebra} 
@@ -8434,9 +8474,8 @@ which takes a $k$-algebra to its zero set.
 \begin{theorem}
   Let $\mathfrak{a} \subseteq k[x_{1}, x_{2}, \ldots, x_{n}]$ be an ideal, let
   \begin{equation*}
-    A = k[x_{1}, x_{2}, \ldots, x_{n}]/\mathfrak{a}
+    A = k[x_{1}, x_{2}, \ldots, x_{n}]/\mathfrak{a}.
   \end{equation*}
-  be the so-called \emph{coordinate ring} of $Z_{R}(\mathfrak{a})$.
 
   The functor $\mathcal{V}_{\mathfrak{a}}\colon R \mapsto Z_{R}(\mathfrak{a})$ is representable (\hyperref[def:representablefunctor]{Definition \ref*{def:representablefunctor}}). It is represented by the $k$-algebra 
   \begin{equation*}
@@ -8781,11 +8820,13 @@ The standard definition of a Hopf algebra (taken from, for example, \cite{milne-
 
 \begin{definition}[affine group]
   \label{def:affinegroup}
-  An \defn{affine group} is a commutative Hopf algebra.
+  An \defn{affine group} is a commutative Hopf algebra. If $G$ is the affine group, we will denote the Hopf algebra by $\mathscr{O}(G)$.
 \end{definition}
 
 \begin{note}
   This definition should not be taken too literally. The meaning is that we are to view a commutative Hopf algebra as a group object in the category $\mathsf{CMon}(\mathsf{FinVect}_{k})^{\mathrm{op}}$, which as we saw in REF is equivalent to the category of functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ which are representable by finitely presented $k$-algebras. Evaluating these functors on a $k$-algebra $R$ gives the set $Z_{R}(\mathfrak{a}) \subseteq R^{n}$ of points underlying the associated variety. The group structure then translates to a group structure on this set whose group operations are given by regular maps.
+
+  A more formulaic approach is to immediately view the object $A \in k\mhyp\mathsf{Alg}^{\mathrm{op}}$ as an affine scheme $\Spec(A)$. Then the geometry comes for free.
 \end{note}
 
 \begin{definition}[affine supergroup]
@@ -8793,8 +8834,9 @@ The standard definition of a Hopf algebra (taken from, for example, \cite{milne-
   An affine supergroup is a supercommutative Hopf algebra.
 \end{definition}
 
-
-
+\begin{note}
+  The spirit of the above note applies, but some changes must be made. In particular, for an affine supergroup $G$, the associated supercommutative Hopf algebra $\mathscr{O}(H)$ must be viewed as an affine super scheme.
+\end{note}
 
 \begin{definition}[inner parity]
   \label{def:innerparity}
@@ -8828,90 +8870,133 @@ The standard definition of a Hopf algebra (taken from, for example, \cite{milne-
 \end{definition}
 
 \section{Linear super-representations as Comodules}
-\begin{definition}[left comodule object]
-  \label{def:leftcomoduleobject} 
-  Let $\mathscr{A}$ be a tensor category, and let $(\Gamma, A, \eta_{L}, \eta_{R}, \varepsilon, \Psi, c)$ be a commutative Hopf algebroid (\hyperref[def:commutativehopfalgebroid]{Definition \ref*{def:commutativehopfalgebroid}}) internal to $\mathscr{A}$. A \defn{left comodule over $\Gamma$} consists of,
-  \begin{itemize}
-    \item An $A$-module object $N$ in $\mathscr{A}$ (\hyperref[def:moduleobject]{Definition \ref*{def:moduleobject}});
-
-    \item A homomorphism of $A$-modules (\hyperref[def:homomorphismofmoduleobjects]{Definition \ref*{def:homomorphismofmoduleobjects}})
-      \begin{equation*}
-        \Psi_{N}\colon N \to \Gamma \otimes_{A} N
-      \end{equation*}
-      called the \emph{coaction}.
-  \end{itemize}
-  subject to the following axioms.
-  \begin{itemize}
-    \item The composition
-      \begin{equation*}
-        \begin{tikzcd}
-          N
-          \arrow[r, "\Psi_{N}"]
-          & \Gamma \otimes_{A} N
-          \arrow[r, "\varepsilon \otimes_{A} \mathrm{id}_{N}"]
-          & A \otimes_{A} N \simeq N
-        \end{tikzcd}
-      \end{equation*}
-
-      is equal to the identity $\mathrm{id}_{N}$ on $N$.
-
-    \item The following diagram commutes.
-      \begin{equation*}
-        \begin{tikzcd}[row sep=large, column sep=large]
-          N
-          \arrow[r, "\Psi_{N}"]
-          \arrow[d, swap, "\Psi_{N}"]
-          & \Gamma \otimes_{A} N
-          \arrow[d, "\mathrm{id}_{\Gamma} \otimes_{A} \Psi_{N}"]
-          \\
-          \Gamma \otimes_{A} N
-          \arrow[r, swap, "\Psi \otimes_{A} \mathrm{id}_{N}"]
-          & \Gamma \otimes_{A} \Gamma \otimes_{A} N
-        \end{tikzcd}
-      \end{equation*}
-  \end{itemize}
-\end{definition}
-
-\begin{definition}[comodule homomorphism]
-  \label{def:comodulehomomorphism}
-  Let $\Gamma$ be a commutative Hopf algebroid over $A$ as in \hyperref[def:leftcomoduleobject]{Definition \ref*{def:leftcomoduleobject}}, and let $N_{1}$ and $N_{2}$ be comodules over $\Gamma$. A \defn{comodule homomorphism} $\varphi\colon N_{1} \to N_{2}$ is a homomorphism of the underlying $A$-modules which makes the following diagram commute.
+\begin{definition}[comodule object]
+  \label{def:comoduleobject}
+  Let $\mathscr{A}$ be a tensor category, let $A$ be a commutative Hopf algebra over $k$ modelled on $\mathscr{A}$ (\hyperref[def:commutativehopfalgebraoverafieldmodelledonatensorcategory]{Definition \ref*{def:commutativehopfalgebraoverafieldmodelledonatensorcategory}}). 
+  
+  An \defn{$A$-comodule} is a pair $(N, \rho)$, where $N \in \Obj(\mathsf{CMon}(\mathscr{A}))$ and
+  \begin{equation*}
+    \rho\colon N \to A \otimes N
+  \end{equation*}
+  is a module morphism which makes the following diagrams commute.
   \begin{equation*}
     \begin{tikzcd}
-      N_{1} 
-      \arrow[r, "\Psi_{N_{1}}"]
-      \arrow[d, swap, "\varphi"]
-      & \Gamma \otimes_{A} N_{1}
-      \arrow[d, "\mathrm{id}_{\Gamma}\otimes_{A} \varphi"]
-      \\
-      N_{2} 
-      \arrow[r, "\Psi_{N_{2}}"]
-      & \Gamma \otimes_{A} N_{2}
+      V
+      \arrow[r, "\rho"]
+      & V \otimes A
+      \arrow[r, shift left, "V \otimes \rho"]
+      \arrow[r, shift right, swap, "\Delta \otimes A"]
+      & V \otimes V \otimes A
+    \end{tikzcd}
+  \end{equation*}
+  \begin{equation*}
+    \begin{tikzcd}
+      V
+      \arrow[rr, bend left, "V"]
+      \arrow[r, swap, "\rho"]
+      & V \otimes A
+      \arrow[r, swap, "V \otimes \varepsilon"]
+      & V
     \end{tikzcd}
   \end{equation*}
 \end{definition}
 
+\begin{definition}[comodule homomorphism]
+  \label{def:comodulehomomorphism}
+  Let $N$ and $N'$ be $A$-comodule objects. A \defn{$A$-comodule homomorphism} $\varphi\colon N \to N'$ is a homomorphism of commutative monoids which makes the following diagram commute.
+\end{definition}
+
 \begin{definition}[category of comodules]
   \label{def:categoryofcomodules}
-  Denote by $\Gamma\mhyp\mathsf{CoMod}(\mathscr{A})$ the category whose objects are comodules over $\Gamma$ (\hyperref[def:moduleobject]{Definition \ref*{def:moduleobject}}) and whose morphisms are comodule homomorphisms (\hyperref[def:homomorphismofmoduleobjects]{Definition \ref*{def:homomorphismofmoduleobjects}}).
+  Denote by $A\mhyp\mathsf{Comod}$ the category whose objects are comodules over $A$ (\hyperref[def:comoduleobject]{Definition \ref*{def:comoduleobject}}) and whose morphisms are comodule homomorphisms (\hyperref[def:comodulehomomorphism]{Definition \ref*{def:comodulehomomorphism}}).
 \end{definition}
+
+%\begin{definition}[left comodule object over a hopf algebroid]
+%  \label{def:leftcomoduleobjectoverhopfalgebroid} 
+%  Let $\mathscr{A}$ be a tensor category, and let $(\Gamma, A, \eta_{L}, \eta_{R}, \varepsilon, \Psi, c)$ be a commutative Hopf algebroid (\hyperref[def:commutativehopfalgebroid]{Definition \ref*{def:commutativehopfalgebroid}}) internal to $\mathscr{A}$. A \defn{left comodule over $\Gamma$} consists of,
+%  \begin{itemize}
+%    \item An $A$-module object $N$ in $\mathscr{A}$ (\hyperref[def:moduleobject]{Definition \ref*{def:moduleobject}});
+%
+%    \item A homomorphism of $A$-modules (\hyperref[def:homomorphismofmoduleobjects]{Definition \ref*{def:homomorphismofmoduleobjects}})
+%      \begin{equation*}
+%        \Psi_{N}\colon N \to \Gamma \otimes_{A} N
+%      \end{equation*}
+%      called the \emph{coaction}.
+%  \end{itemize}
+%  subject to the following axioms.
+%  \begin{itemize}
+%    \item The composition
+%      \begin{equation*}
+%        \begin{tikzcd}
+%          N
+%          \arrow[r, "\Psi_{N}"]
+%          & \Gamma \otimes_{A} N
+%          \arrow[r, "\varepsilon \otimes_{A} \mathrm{id}_{N}"]
+%          & A \otimes_{A} N \simeq N
+%        \end{tikzcd}
+%      \end{equation*}
+%
+%      is equal to the identity $\mathrm{id}_{N}$ on $N$.
+%
+%    \item The following diagram commutes.
+%      \begin{equation*}
+%        \begin{tikzcd}[row sep=large, column sep=large]
+%          N
+%          \arrow[r, "\Psi_{N}"]
+%          \arrow[d, swap, "\Psi_{N}"]
+%          & \Gamma \otimes_{A} N
+%          \arrow[d, "\mathrm{id}_{\Gamma} \otimes_{A} \Psi_{N}"]
+%          \\
+%          \Gamma \otimes_{A} N
+%          \arrow[r, swap, "\Psi \otimes_{A} \mathrm{id}_{N}"]
+%          & \Gamma \otimes_{A} \Gamma \otimes_{A} N
+%        \end{tikzcd}
+%      \end{equation*}
+%  \end{itemize}
+%\end{definition}
+%
+%\begin{definition}[comodule homomorphism]
+%  \label{def:comoduleoverahopfalgebrahomomorphism}
+%  Let $\Gamma$ be a commutative Hopf algebroid over $A$ as in \hyperref[def:leftcomoduleobjectoverhopfalgebroid]{Definition \ref*{def:leftcomoduleobjectoverhopfalgebroid}}, and let $N_{1}$ and $N_{2}$ be comodules over $\Gamma$. A \defn{comodule homomorphism} $\varphi\colon N_{1} \to N_{2}$ is a homomorphism of the underlying $A$-modules which makes the following diagram commute.
+%  \begin{equation*}
+%    \begin{tikzcd}
+%      N_{1} 
+%      \arrow[r, "\Psi_{N_{1}}"]
+%      \arrow[d, swap, "\varphi"]
+%      & \Gamma \otimes_{A} N_{1}
+%      \arrow[d, "\mathrm{id}_{\Gamma}\otimes_{A} \varphi"]
+%      \\
+%      N_{2} 
+%      \arrow[r, "\Psi_{N_{2}}"]
+%      & \Gamma \otimes_{A} N_{2}
+%    \end{tikzcd}
+%  \end{equation*}
+%\end{definition}
+%
+%\begin{definition}[category of comodules]
+%  \label{def:categoryofcomodules}
+%  Denote by $\Gamma\mhyp\mathsf{CoMod}(\mathscr{A})$ the category whose objects are comodules over $\Gamma$ (\hyperref[def:moduleobject]{Definition \ref*{def:moduleobject}}) and whose morphisms are comodule homomorphisms (\hyperref[def:homomorphismofmoduleobjects]{Definition \ref*{def:homomorphismofmoduleobjects}}).
+%\end{definition}
 
 \begin{definition}[tensor product of comodules]
   \label{def:tensorproductofcomodules}
-  Let $\Gamma$ be a commutative Hopf algebra (\hyperref[def:commutativehopfalgebra]{Definition \ref*{def:commutativehopfalgebra}}) over $k$, and let $N_{1}$ and $N_{2}$ be $\Gamma$-comodules.
+  Let $A$ be a commutative Hopf algebra (\hyperref[def:commutativehopfalgebra]{Definition \ref*{def:commutativehopfalgebra}}) over $k$, and let $N$ and $N'$ be $A$-comodules (\hyperref[def:comoduleobject]{Definition \ref*{def:comoduleobject}}).
 
-  The \defn{comodule tensor product} is the object $N_{1} \otimes_{k} N_{1}$ together with the coaction $N_{1} \otimes_{k} N_{2} \to \Gamma \otimes_{k} N_{1} \otimes_{k} N_{2}$ given by the composition
+  The \defn{comodule tensor product} is the object $N \otimes N'$ together with the coaction $N \otimes N' \to A \otimes N \otimes N'$ given by the composition
   \begin{equation*}
     \begin{tikzcd}
-      N_{1} \otimes_{k} N_{2}
-      \arrow[r, "\Psi_{1} \otimes_{k} \Psi_{2}"]
-      & \Gamma \otimes_{k} N_{2} \otimes_{k} \Gamma \otimes_{k} N_{2}
+      N \otimes N'
+      \arrow[r, "\rho \otimes \rho'"]
+      & A \otimes N \otimes A \otimes N'
       \arrow[r, "\gamma"]
-      & \Gamma \otimes_{k} \Gamma \otimes_{k} N_{1} \otimes_{k} N_{2}
+      & A \otimes A \otimes N \otimes N'
       \arrow[r, "\nabla"]
-      & \Gamma \otimes_{k} N_{1} \otimes_{k} N_{2}
+      & A \otimes N \otimes N'
     \end{tikzcd}.
   \end{equation*}
 \end{definition}
+
+Let $H$ be a 
 
 \begin{definition}[linear representation of a supergroup]
   \label{def:linearrepresentationofsupergroup}
