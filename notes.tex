@@ -98,6 +98,7 @@
 \newcommand{\cod}{\mathrm{cod}}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\End}{\mathrm{End}}
+\newcommand{\Aut}{\mathrm{Aut}}
 \newcommand{\Spec}{\mathrm{Spec}}
 \newcommand{\spec}{\mathrm{spec}}
 \newcommand{\id}{\mathrm{id}}
@@ -2433,9 +2434,9 @@ That takes care of how it sends objects to objects, but any functor has to send 
 
 A morphism in $\mathsf{C} \times \mathsf{C}$ between two objects $(A', A)$ and $(B', B)$ is an ordered pair $(f', f)$ of two morphisms:
 \begin{equation*}
-  f'\colon A' \to B'\qquad\text{and}\qquad f\colon A \to A,
+  f\colon A \to B'\qquad\text{and}\qquad f\colon A' \to B',
 \end{equation*}
-where $A$, $B \in \Obj(\mathsf{C})$ and $A'$, $B' \in \Obj(\mathsf{C}^{\mathrm{op}})$. We can draw this as follows.
+where $A$, $B$, $A'$, and $B' \in \Obj(\mathsf{C})$. We can draw this as follows.
 \begin{equation*}
   \begin{tikzcd}[row sep=tiny]
     A' 
@@ -2546,47 +2547,6 @@ Let's formalize this in a definition.
   \end{equation*}
 \end{definition}
 
-The hom functor as defined above is cute, but not a whole lot else. Things get interesting when we curry it.
-
-Recall from computer science the concept of currying. Suppose we are given a function of two arguments, say $f(x, y)$. The idea of currying is this: if we like, we can view $f$ as a family of functions of only one variable $y$, indexed by $x$:
-\begin{equation*}
-  h_{x}(y) = f(x, y).
-\end{equation*}
-
-We can even view $h$ as a function which takes one argument $x$, and which returns a \emph{function} $h_{x}$ of one variable $y$.
-
-This sets up a correspondence between functions $f\colon A \times B \to C$ and functions $h\colon A \to C^{B}$, where $C^{B}$ is the set of functions $B \to C$. The map which replaces $f$ by $h$ is called \emph{currying}. We can also go the other way (i.e. $h \mapsto f$), which is called \emph{uncurrying}.
-
-We have been intentionally vague about the nature of our function $f$, and what sort of arguments it might take; everything we have said also holds for, say, bifunctors.
-
-In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}}$. We can fix any $A \in \Obj(\mathsf{C})$ and curry either argument. This gives us the following.
-
-\begin{definition}[curried hom functor]
-  \label{def:curriedhomfunctor}
-  Let $\mathsf{C}$ be a locally small category, $A \in \Obj(\mathsf{C})$. We can construct from the hom functor $\Hom_{\mathsf{C}}$
-  \begin{itemize}
-    \item a functor $h^{A}\colon \mathsf{C} \rightsquigarrow \mathsf{Set}$ which maps
-      \begin{itemize}
-        \item an object $B \in \Obj(\mathsf{C})$ to the set $\Hom_{\mathsf{C}}(A, B)$, and
-
-        \item a morphism $f\colon B \to B'$ to a $\mathsf{Set}$-function
-          \begin{equation*}
-            h^{A}(f)\colon \Hom_{\mathsf{C}}(A, B) \to \Hom_{\mathsf{C}}(A, B'); \qquad m \mapsto f \circ m.
-          \end{equation*} 
-      \end{itemize}
-
-    \item a functor $h_{A}\colon \mathsf{C}^{\mathrm{op}} \rightsquigarrow \mathsf{Set}$ which maps
-      \begin{itemize}
-        \item an object $B \in \Obj(\mathsf{C})$ to the set $\Hom_{\mathsf{C}}(B, A)$, and
-
-        \item a morphism $f\colon B \to B'$ to a $\mathsf{Set}$-function
-          \begin{equation*}
-            h_{A}(f)\colon \Hom_{\mathsf{C}}(B', A) \to \Hom_{\mathsf{C}}(B, A); \qquad m \mapsto m \circ f.
-          \end{equation*} 
-      \end{itemize}
-  \end{itemize}
-\end{definition}
-
 \begin{example}
   \label{eg:naturaltransformationsforcccs}
   Hom functors give us a new way of looking at the universal property for products, coproducts, and exponentials.
@@ -2679,6 +2639,47 @@ In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}
   The fact that the functors are more complicated does not hurt us: the above bijection is still natural.
 \end{example}
 
+The hom functor as defined above is cute, but not a whole lot else. Things get interesting when we curry it.
+
+Recall from computer science the concept of currying. Suppose we are given a function of two arguments, say $f(x, y)$. The idea of currying is this: if we like, we can view $f$ as a family of functions of only one variable $y$, indexed by $x$:
+\begin{equation*}
+  h_{x}(y) = f(x, y).
+\end{equation*}
+
+We can even view $h$ as a function which takes one argument $x$, and which returns a \emph{function} $h_{x}$ of one variable $y$.
+
+This sets up a correspondence between functions $f\colon A \times B \to C$ and functions $h\colon A \to C^{B}$, where $C^{B}$ is the set of functions $B \to C$. The map which replaces $f$ by $h$ is called \emph{currying}. We can also go the other way (i.e. $h \mapsto f$), which is called \emph{uncurrying}.
+
+We have been intentionally vague about the nature of our function $f$, and what sort of arguments it might take; everything we have said also holds for, say, bifunctors.
+
+In particular, it gives us two more ways to view our bifunctor $\Hom_{\mathsf{C}}$. We can fix any $A \in \Obj(\mathsf{C})$ and curry either argument. This gives us the following.
+
+\begin{definition}[curried hom functor]
+  \label{def:curriedhomfunctor}
+  Let $\mathsf{C}$ be a locally small category, $A \in \Obj(\mathsf{C})$. We can construct from the hom functor $\Hom_{\mathsf{C}}$
+  \begin{itemize}
+    \item a functor $h^{A}\colon \mathsf{C} \rightsquigarrow \mathsf{Set}$ which maps
+      \begin{itemize}
+        \item an object $B \in \Obj(\mathsf{C})$ to the set $\Hom_{\mathsf{C}}(A, B)$, and
+
+        \item a morphism $f\colon B \to B'$ to a $\mathsf{Set}$-function
+          \begin{equation*}
+            h^{A}(f)\colon \Hom_{\mathsf{C}}(A, B) \to \Hom_{\mathsf{C}}(A, B'); \qquad m \mapsto f \circ m.
+          \end{equation*} 
+      \end{itemize}
+
+    \item a functor $h_{A}\colon \mathsf{C}^{\mathrm{op}} \rightsquigarrow \mathsf{Set}$ which maps
+      \begin{itemize}
+        \item an object $B \in \Obj(\mathsf{C})$ to the set $\Hom_{\mathsf{C}}(B, A)$, and
+
+        \item a morphism $f\colon B \to B'$ to a $\mathsf{Set}$-function
+          \begin{equation*}
+            h_{A}(f)\colon \Hom_{\mathsf{C}}(B', A) \to \Hom_{\mathsf{C}}(B, A); \qquad m \mapsto m \circ f.
+          \end{equation*} 
+      \end{itemize}
+  \end{itemize}
+\end{definition}
+
 \subsection{Representable functors}
 Roughly speaking, a functor $\mathsf{C} \rightsquigarrow \mathsf{Set}$ is representable if it is 
 
@@ -2699,7 +2700,7 @@ Roughly speaking, a functor $\mathsf{C} \rightsquigarrow \mathsf{Set}$ is repres
 \end{note}
 
 \begin{example}
-  Consider the forgetful functor $\mathcal{U}\colon \mathsf{Grp} \rightsquigarrow \mathsf{Set}$ which sends a group to its underlying set, and a group homomorphism to its underlying function. This functor is represented by the group $\Z$.
+  Consider the forgetful functor $\mathcal{U}\colon \mathsf{Grp} \rightsquigarrow \mathsf{Set}$ which sends a group to its underlying set, and a group homomorphism to its underlying function. This functor is represented by the group $(\Z, +)$.
 
   To see this, we have to check that there is a natural isomorphism $\eta$ between $\mathcal{U}$ and $h^{\Z} = \Hom_{\mathsf{Grp}}(\Z, -)$. That is to say, for each group $G$, there a $\mathsf{Set}$-isomorphism (i.e. a bijection)
   \begin{equation*}
@@ -2729,7 +2730,7 @@ Roughly speaking, a functor $\mathsf{C} \rightsquigarrow \mathsf{Set}$ is repres
 \end{example}
 
 \subsection{The Yoneda embedding}
-The Yoneda embedding is a very powerful tool which allows us to prove things about any locally small category by embedding that category into $\mathsf{Set}$, and using the structure which $\mathsf{Set}$ has. 
+The Yoneda embedding is a very powerful tool which allows us to prove things about any locally small category by embedding that category into $\mathsf{Set}$, and using the enormous amount of structure that $\mathsf{Set}$ has. 
 
 In the thread \cite{baez-categories-usenet} on the sci.math google group, John Baez explains the importance of the Yoneda lemma in the following way.
 
@@ -2810,7 +2811,7 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
     \end{tikzcd}
   \end{equation*}
 
-  This deserves a lot of explanation. The natural transformation $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(\mathcal{Y}(f), \mathcal{F})$ looks complicated, but it's really not since we know what the hom functor does: it takes every natural transformation $h_{A} \Rightarrow \mathcal{F}$ and pre-composes it with $\mathcal{Y}(f)$. The natural transformation $\eta_{A}$ takes a natural transformation $\Phi\colon h_{A} \Rightarrow \mathcal{F}$ and sends it to the element $\Phi_{A}(1_{A}) \in \mathcal{F}(A)$.
+  This is notationally dense, and deserves a lot of explanation. The natural transformation $\Hom_{[\mathsf{C}^{\text{op}}, \mathsf{Set}]}(\mathcal{Y}(f), \mathcal{F})$ looks complicated, but it's really not since we know what the hom functor does: it takes every natural transformation $h_{A} \Rightarrow \mathcal{F}$ and pre-composes it with $\mathcal{Y}(f)$. The natural transformation $\eta_{A}$ takes a natural transformation $\Phi\colon h_{A} \Rightarrow \mathcal{F}$ and sends it to the element $\Phi_{A}(1_{A}) \in \mathcal{F}(A)$.
 
   So, starting at the top left with a natural transformation $\Phi\colon h_{A} \Rightarrow \mathcal{F}$, we can go to the bottom right in two ways.
   \begin{enumerate}
@@ -2874,7 +2875,7 @@ In the thread \cite{baez-categories-usenet} on the sci.math google group, John B
   \label{note:covariantyonedaembedding}
   We defined the Yoneda embedding to be the functor $A \mapsto h_{A}$; this is sometimes called the \emph{contravariant Yoneda embedding}. We could also have studied to map $A$ to $h^{A}$, called the \emph{covariant Yoneda embedding}, in which case a slight modification of the proof of the Yoneda lemma would have told us that the map
   \begin{equation*}
-    \Hom_{\mathsf{C}}(B, A) \to \Hom_{[\mathsf{C}, \mathsf{Set}]}(h^{A}, h^{B})
+    \Hom_{\mathsf{C^{\mathrm{op}}}}(B, A) \to \Hom_{[\mathsf{C}, \mathsf{Set}]}(h^{A}, h^{B})
   \end{equation*}
   is a natural bijection. This is often called the \emph{covariant Yoneda lemma}.
 \end{note}
@@ -2897,7 +2898,7 @@ We have now built up enough machinery to make the proofs of a great variety of t
 
 It is possible, for example, to prove that the product is associative in \emph{any} locally small category, just from the fact that it is associative in $\mathsf{Set}$.
 \begin{lemma}
-  There is a natural isomorphism $\alpha$ between $(A \times B) \times C$ and $A \times (B \times C)$ for any sets $A$, $B$, and $C$.
+  The Cartesian product is associative in $\mathsf{Set}$. That is, there is a natural isomorphism $\alpha$ between $(A \times B) \times C$ and $A \times (B \times C)$ for any sets $A$, $B$, and $C$.
 \end{lemma}
 \begin{proof}
   The isomorphism is given by $\alpha_{A, B, C}\colon ((a, b), c) \mapsto (a, (b, c))$. This is natural because for functions like this,
@@ -4295,7 +4296,7 @@ Here are two equivalent definitions which are often used.
   We have the following chain of isomorphisms, natural in $Y \in \Obj(\mathsf{D})$.
   \begin{align*}
     \Hom_{\mathsf{D}}(Y, \mathcal{G}(\lim_{\leftarrow i}\mathcal{D}_{i})) &\simeq \Hom_{\mathsf{C}}(\mathcal{F}(Y), \lim_{\leftarrow i}\mathcal{D}_{i}) \\
-    &\simeq \lim_{\leftarrow i} \Hom_{\mathsf{C}}(\mathcal{G}(Y), \mathcal{D}_{i}) \\
+    &\simeq \lim_{\leftarrow i} \Hom_{\mathsf{C}}(\mathcal{G}(Y), \mathcal{D}_{i}) &\left(\text{\hyperref[thm:homfunctorpreserveslimits]{Theorem \ref*{thm:homfunctorpreserveslimits}}}\right) \\
     &\simeq \lim_{\leftarrow i} \Hom_{\mathsf{D}}(Y, \mathcal{G}\circ \mathcal{D}_{i}) \\
     &\simeq \Hom_{\mathsf{C}}(Y, \lim_{\leftarrow i}(\mathcal{G}\circ \mathcal{D}_{i})).
   \end{align*}
@@ -4317,7 +4318,7 @@ Here are two equivalent definitions which are often used.
 \section{Monoidal categories} \label{sec:monoidalcategories}
 Recall the definition of a monoid (\hyperref[def:monoid]{Definition \ref*{def:monoid}}). Basically, a monoid is a group without inverses. 
 
-Monoidal categories are the first ingredient in the categorification and generalization of the tensor product. Roughly speaking, the tensor product allows us to multiply two vector spaces to produce a new vector space. There are natural isomorphisms making this multiplication associative, and an `identity vector space' given by the ground field regarded as a one-dimensional vector space over itself. That is to say the tensor product gives the set of all vector spaces the structure of a monoid.
+Monoidal categories are the first ingredient in the categorification and generalization of the tensor product. Roughly speaking, the tensor product allows us to multiply two vector spaces to produce a new vector space. There are natural isomorphisms making this multiplication associative, and an `identity vector space' given by the ground field regarded as a one-dimensional vector space over itself. This means that the tensor product gives the set of all vector spaces the structure of a monoid.
 
 A monoidal category will be a category in which the objects have the structure of a monoid, i.e. there is a suitably defined `multiplication' which is unital and associative. The prototypical example of categorical multiplication is the product (see \hyperref[eg:universalpropertyofproducts]{Example \ref*{eg:universalpropertyofproducts}}), although it is far from the only one.
 
@@ -7805,6 +7806,12 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   \end{align*}
 \end{proof} 
 
+\begin{example}
+  For a super vector space concentrate in even degree, a supercommutative superalgebra is just a commutative algebra.
+
+  Thus, for an $n$-dimensional vector space
+\end{example}
+
 \begin{lemma}
   \label{lemma:unitobjectisinitialincmon}
   For any monoidal category $(\mathsf{C}, \otimes, 1)$, the category $\mathsf{Mon}(\mathsf{C})$ has as its initial object the tensor unit $1$.
@@ -8049,6 +8056,10 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 \section{Modules in tensor categories}
 Some of the material from this section is from \cite{nestruev-smooth-manifolds-observables}. Due to time constraints, most of the proofs are omitted. Hopefully this is not a permanent situation.
 
+\begin{note}
+  It appears that the material in this chapter is necessary for understanding the proof of Deligne's theorem, but not its statement. It will almost certainly not make it into the project.
+\end{note}
+
 % We saw in the last section that we can view the duals of associative algebras as generalized manifolds. In this section, we will see that we can pull the same trick for vector bundles.
 % 
 % \begin{definition}[category of vector bundles over a manifold]
@@ -8270,115 +8281,115 @@ Some of the material from this section is from \cite{nestruev-smooth-manifolds-o
   See \cite{nlab-deligne-theorem}, Proposition 3.65.
 \end{proof}
 
-\begin{definition}[internal algebra]
-  \label{def:internalalgebra}
-  Let $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ be the symmetric monoidal category of $A$-modules internal to $\mathsf{C}$. A monoid internal to $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ is called an \defn{$A$-algebra}; a commutative monoid internal to $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ is called a \defn{commutative $A$-algebra}.
-\end{definition}
-
-\begin{theorem}
-  \label{thm:modulesandmonoidsequivalenceofcategories}
-  Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category, and let $A$ be a commutative monoid internal to $\mathsf{C}$. Recall that
-  \begin{itemize}
-    \item $(A\mhyp\mathsf{Mod}, \otimes_{A}, A)$ is the category of $A$-modules internal to $\mathsf{C}$, and $\mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C}))$ is the category of commutative $A$-algebras internal to $\mathsf{C}$.
-
-    \item $(A \downarrow\mathsf{CMon}(\mathsf{C}))$ is the coslice category (\hyperref[def:coslicecategory]{Definition \ref*{def:coslicecategory}}) whose objects are morphisms $A \to E$, with $E$ a commutative monoid in $\mathsf{C}$.
-  \end{itemize}
-
-  Then there is an equivalence of categories
-  \begin{equation*}
-    \mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C})) \simeq (A \downarrow\mathsf{CMon}(\mathsf{C})).
-  \end{equation*}
-\end{theorem}
-\begin{proof}
-  See \cite{nlab-deligne-theorem}, Proposition 3.68.
-\end{proof}
-
-\begin{theorem}
-  \label{thm:tensorproductofcommutativemonoidsispushout}
-  Let $\mathsf{C}$ be a tensor category, and let $f\colon A \to B$ and $g\colon A \to C$ be two morphisms in the category $\mathsf{CMon}(\mathsf{C})$ (that is, objects in the category $(A \downarrow\mathsf{CMon}(\mathsf{C}))$). Then the $\mathsf{C}$-object underlying the pushout in $\mathsf{CMon}(\mathsf{C})$ (that is, the coproduct in $(A \downarrow\mathsf{CMon}(\mathsf{C}))$) coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$. That is, 
-  \begin{equation*}
-    \mathcal{U}\left( B \amalg_{A} C \right) \simeq B \otimes_{A} C,
-  \end{equation*}
-  where $B \amalg_{A} C$ is given by the pushout square 
-  \begin{equation*}
-    \begin{tikzcd}
-      A 
-      \arrow[r, "f"]
-      \arrow[d, swap, "g"]
-      & B
-      \arrow[d]
-      \\
-      C
-      \arrow[r]
-      & B \amalg_{A} C
-    \end{tikzcd}
-  \end{equation*}
-  and $\mathcal{U}$ is the forgetful functor $\mathsf{CMon}(\mathsf{C}) \to \mathsf{C}$ which sends commutative monoids to their underlying objects.
-\end{theorem}
-
-The upshot of the past few theorems is the following.
-\begin{theorem}
-  \label{thm:quasiffinevarietieshaveproducts}
-  Let $\mathcal{A}$ be a tensor category. Let $A \in \Obj(\mathsf{CMon}(\mathcal{A}))$ be a commutative monoid in $\mathcal{A}$.
-
-  Let $A_{1}$ and $A_{2}$ be two $A$-algebras in the sense of \hyperref[def:internalalgebra]{Definition \ref*{def:internalalgebra}}. By \hyperref[def:affinesuperscheme]{Definition \ref*{def:affinesuperscheme}}, we can regard $A_{1}$ and $A_{2}$ as affine schemes, i.e. as objects $\Spec(A_{1})$, $\Spec(A_{2}) \in \mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathcal{A}))$.
-
-  Then the category $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathcal{A}))$ has products. Further, these are dual the product $A_{1} \otimes_{A} A_{2}$, in the sense that there exists a natural isomorphism
-  \begin{equation*}
-    \Spec(A_{1}) \times \Spec(A_{2}) \simeq \Spec(A_{1} \otimes_{A} A_{2}).
-  \end{equation*}
-\end{theorem} 
-
-\begin{note}
-  Be careful! It may appear at first glance that in \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}} we should be talking about the \emph{fiber product} rather than the cartesian product. This is not the case! 
-
-  To be more specific: \hyperref[thm:tensorproductofcommutativemonoidsispushout]{Theorem \ref*{thm:tensorproductofcommutativemonoidsispushout}} tells us that the pushout of the diagram 
-  \begin{equation*}
-    \begin{tikzcd}
-      A
-      \arrow[r, "f"]
-      \arrow[d, swap, "g"]
-      & B
-      \\
-      C
-    \end{tikzcd}
-  \end{equation*}
-  in $\mathsf{CMon}(\mathsf{C})$ coincides with the tensor product $A \otimes_{C} B$ in $A\mhyp\mathsf{Mod}(\mathsf{C})$. Equivalently, it tells us that the \emph{coproduct} in $(A \downarrow\mathsf{CMon}(\mathsf{C}))$ coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$, which by \hyperref[thm:modulesandmonoidsequivalenceofcategories]{Theorem \ref*{thm:modulesandmonoidsequivalenceofcategories}} is categorically equivalent to $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathcal{A}))^{\mathrm{op}}$. Dualizing \emph{this} is what gives us the statement of \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
-\end{note}
-
-\begin{definition}[restriction of scalars, extension of scalars]
-  \label{def:extensionrestrictionofscalars}
-  Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category, $A_{1}$ and $A_{2}$ be two commutative monoids in $\mathsf{C}$, and let $\varphi\colon A_{1} \to A_{2}$ be a homomorphism.
-  \begin{itemize}
-    \item \defn{Restriction of scalars} is the functor which sends an $A_{2}$-module $(N, \rho)$ to the $A_{1}$-module $(N, \rho')$ whose action is defined by pre-composition with $\varphi$:
-      \begin{equation*}
-        \rho' \colon 
-        \begin{tikzcd}
-          A_{1} \otimes N
-          \arrow[r, "\varphi \otimes 1_{N}"]
-          & A_{2} \otimes N
-          \arrow[r, "\rho"]
-          & N
-        \end{tikzcd}.
-      \end{equation*}
-
-      Restriction of scalars is denoted by $\varphi^{*}\colon A_{2}\mhyp\mathsf{Mod}(\mathsf{C}) \to A_{1}\mhyp\mathsf{Mod}(\mathsf{C})$.
-
-    \item Extension of scalars, which sends an $A_{1}$-module to the free $A_{2}$-module (\hyperref[eg:freemodule]{Example \ref*{eg:freemodule}}).
-      \begin{equation*}
-        A_{2} \otimes_{A_{1}} N.
-      \end{equation*}
-
-      Restriction of scalars is denoted $\varphi_{*}\colon A_{1}\mhyp\mathsf{Mod}(\mathsf{C}) \to A_{2}\mhyp\mathsf{Mod}(\mathsf{C})$
-  \end{itemize}
-\end{definition}
-
-\begin{lemma}
-  The restriction and extension of scalars form an adjunction
-  \begin{equation*}
-    \varphi_{*} \dashv \varphi^{*}.
-  \end{equation*}
-\end{lemma}
+%\begin{definition}[internal algebra]
+%  \label{def:internalalgebra}
+%  Let $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ be the symmetric monoidal category of $A$-modules internal to $\mathsf{C}$. A monoid internal to $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ is called an \defn{$A$-algebra}; a commutative monoid internal to $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ is called a \defn{commutative $A$-algebra}.
+%\end{definition}
+%
+%\begin{theorem}
+%  \label{thm:modulesandmonoidsequivalenceofcategories}
+%  Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category, and let $A$ be a commutative monoid internal to $\mathsf{C}$. Recall that
+%  \begin{itemize}
+%    \item $(A\mhyp\mathsf{Mod}, \otimes_{A}, A)$ is the category of $A$-modules internal to $\mathsf{C}$, and $\mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C}))$ is the category of commutative $A$-algebras internal to $\mathsf{C}$.
+%
+%    \item $(A \downarrow\mathsf{CMon}(\mathsf{C}))$ is the coslice category (\hyperref[def:coslicecategory]{Definition \ref*{def:coslicecategory}}) whose objects are morphisms $A \to E$, with $E$ a commutative monoid in $\mathsf{C}$.
+%  \end{itemize}
+%
+%  Then there is an equivalence of categories
+%  \begin{equation*}
+%    \mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C})) \simeq (A \downarrow\mathsf{CMon}(\mathsf{C})).
+%  \end{equation*}
+%\end{theorem}
+%\begin{proof}
+%  See \cite{nlab-deligne-theorem}, Proposition 3.68.
+%\end{proof}
+%
+%\begin{theorem}
+%  \label{thm:tensorproductofcommutativemonoidsispushout}
+%  Let $\mathsf{C}$ be a tensor category, and let $f\colon A \to B$ and $g\colon A \to C$ be two morphisms in the category $\mathsf{CMon}(\mathsf{C})$ (that is, objects in the category $(A \downarrow\mathsf{CMon}(\mathsf{C}))$). Then the $\mathsf{C}$-object underlying the pushout in $\mathsf{CMon}(\mathsf{C})$ (that is, the coproduct in $(A \downarrow\mathsf{CMon}(\mathsf{C}))$) coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$. That is, 
+%  \begin{equation*}
+%    \mathcal{U}\left( B \amalg_{A} C \right) \simeq B \otimes_{A} C,
+%  \end{equation*}
+%  where $B \amalg_{A} C$ is given by the pushout square 
+%  \begin{equation*}
+%    \begin{tikzcd}
+%      A 
+%      \arrow[r, "f"]
+%      \arrow[d, swap, "g"]
+%      & B
+%      \arrow[d]
+%      \\
+%      C
+%      \arrow[r]
+%      & B \amalg_{A} C
+%    \end{tikzcd}
+%  \end{equation*}
+%  and $\mathcal{U}$ is the forgetful functor $\mathsf{CMon}(\mathsf{C}) \to \mathsf{C}$ which sends commutative monoids to their underlying objects.
+%\end{theorem}
+%
+%The upshot of the past few theorems is the following.
+%\begin{theorem}
+%  \label{thm:quasiffinevarietieshaveproducts}
+%  Let $\mathcal{A}$ be a tensor category. Let $A \in \Obj(\mathsf{CMon}(\mathcal{A}))$ be a commutative monoid in $\mathcal{A}$.
+%
+%  Let $A_{1}$ and $A_{2}$ be two $A$-algebras in the sense of \hyperref[def:internalalgebra]{Definition \ref*{def:internalalgebra}}. By \hyperref[def:affinesuperscheme]{Definition \ref*{def:affinesuperscheme}}, we can regard $A_{1}$ and $A_{2}$ as affine schemes, i.e. as objects $\Spec(A_{1})$, $\Spec(A_{2}) \in \mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathcal{A}))$.
+%
+%  Then the category $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathcal{A}))$ has products. Further, these are dual the product $A_{1} \otimes_{A} A_{2}$, in the sense that there exists a natural isomorphism
+%  \begin{equation*}
+%    \Spec(A_{1}) \times \Spec(A_{2}) \simeq \Spec(A_{1} \otimes_{A} A_{2}).
+%  \end{equation*}
+%\end{theorem} 
+%
+%\begin{note}
+%  Be careful! It may appear at first glance that in \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}} we should be talking about the \emph{fiber product} rather than the cartesian product. This is not the case! 
+%
+%  To be more specific: \hyperref[thm:tensorproductofcommutativemonoidsispushout]{Theorem \ref*{thm:tensorproductofcommutativemonoidsispushout}} tells us that the pushout of the diagram 
+%  \begin{equation*}
+%    \begin{tikzcd}
+%      A
+%      \arrow[r, "f"]
+%      \arrow[d, swap, "g"]
+%      & B
+%      \\
+%      C
+%    \end{tikzcd}
+%  \end{equation*}
+%  in $\mathsf{CMon}(\mathsf{C})$ coincides with the tensor product $A \otimes_{C} B$ in $A\mhyp\mathsf{Mod}(\mathsf{C})$. Equivalently, it tells us that the \emph{coproduct} in $(A \downarrow\mathsf{CMon}(\mathsf{C}))$ coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$, which by \hyperref[thm:modulesandmonoidsequivalenceofcategories]{Theorem \ref*{thm:modulesandmonoidsequivalenceofcategories}} is categorically equivalent to $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathcal{A}))^{\mathrm{op}}$. Dualizing \emph{this} is what gives us the statement of \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
+%\end{note}
+%
+%\begin{definition}[restriction of scalars, extension of scalars]
+%  \label{def:extensionrestrictionofscalars}
+%  Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category, $A_{1}$ and $A_{2}$ be two commutative monoids in $\mathsf{C}$, and let $\varphi\colon A_{1} \to A_{2}$ be a homomorphism.
+%  \begin{itemize}
+%    \item \defn{Restriction of scalars} is the functor which sends an $A_{2}$-module $(N, \rho)$ to the $A_{1}$-module $(N, \rho')$ whose action is defined by pre-composition with $\varphi$:
+%      \begin{equation*}
+%        \rho' \colon 
+%        \begin{tikzcd}
+%          A_{1} \otimes N
+%          \arrow[r, "\varphi \otimes 1_{N}"]
+%          & A_{2} \otimes N
+%          \arrow[r, "\rho"]
+%          & N
+%        \end{tikzcd}.
+%      \end{equation*}
+%
+%      Restriction of scalars is denoted by $\varphi^{*}\colon A_{2}\mhyp\mathsf{Mod}(\mathsf{C}) \to A_{1}\mhyp\mathsf{Mod}(\mathsf{C})$.
+%
+%    \item Extension of scalars, which sends an $A_{1}$-module to the free $A_{2}$-module (\hyperref[eg:freemodule]{Example \ref*{eg:freemodule}}).
+%      \begin{equation*}
+%        A_{2} \otimes_{A_{1}} N.
+%      \end{equation*}
+%
+%      Restriction of scalars is denoted $\varphi_{*}\colon A_{1}\mhyp\mathsf{Mod}(\mathsf{C}) \to A_{2}\mhyp\mathsf{Mod}(\mathsf{C})$
+%  \end{itemize}
+%\end{definition}
+%
+%\begin{lemma}
+%  The restriction and extension of scalars form an adjunction
+%  \begin{equation*}
+%    \varphi_{*} \dashv \varphi^{*}.
+%  \end{equation*}
+%\end{lemma}
 
 %\begin{note}
 %  Again a recapitulation is in order. For $M$ a $C^{\infty}$ manifold one has the correspondence
@@ -8547,9 +8558,9 @@ The meaning of the above theorem is that we can study the variety cut out by the
 
 However, we can take this abstraction further. Since by definition any variety over $R$ is the zero-set $Z_{R}(\mathfrak{a})$ of some ideal $\mathfrak{a}$, the study of varieties over $R$ is reduced to the study of functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ which are represented by some finitely-presented $k$-algebra $A$. The image of $R$ under such a functor would be of the form $\Hom_{k\mhyp\mathsf{Alg}}(A, R)$, hence naturally isomorphic to $Z_{R}(\mathfrak{a})$.
 
-\begin{definition}[affine algebraic variety 2]
+\begin{definition}[affine (algebraic) variety 2]
   \label{def:affinealgebraicvariety2}
-  An \defn{affine algebraic variety} is a representable functor $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ represented by a finitely presented algebra. 
+  An \defn{affine variety} is a representable functor $k\mhyp\mathsf{Alg} \to \mathsf{Set}$. An affine variety is \defn{algebraic} if it is represented by a finitely presented $k$-algebra.
 
   The category of affine algebraic varieties is thus given by the category of functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ which are representable by a finitely presented $k$-algebra.
 \end{definition}
@@ -8558,9 +8569,9 @@ By the covariant Yoneda lemma (see \hyperref[note:covariantyonedaembedding]{Note
 
 Recall (\hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebrasaremonoidsinternaltovect}}) that a commutative monoid in the category $\mathsf{Vect}_{k}$ is precisely a $k$-algebra. Clearly a finitely presented $k$-algebra is a commutative monoid in the category $\mathsf{CMon}(\mathsf{FinVect}_{k})$. This gives us our third definition of an affine algebraic variety.
 
-\begin{definition}[affine algebraic variety 3]
+\begin{definition}[affine (algebraic) variety 3]
   \label{def:affinealgebraicvariety3}
-  An \defn{affine algebraic variety} is the `formal dual' of a finitely presented $k$-algebra; that is, it is an object in the category $\mathsf{CMon}(\mathsf{FinVect}_{k})^{\mathrm{op}}$.
+  An \defn{affine variety} is the `formal dual' of a $k$-algebra; that is, it is an object in the category $k\mhyp\mathsf{Alg}^{\mathrm{op}}$. An affine variety is \defn{algebraic} if it is dual to a finitely presented $k$-algebra.
 
   By the `formal dual' of a finitely-presented $k$-algebra $A$, we mean that given a finitly-presented $k$-algebra, we can always use the following recipe to end up with an algebraic variety.
 
@@ -8593,21 +8604,22 @@ Recall (\hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebras
     \mathsf{Aff}(\mathscr{A}) = \mathsf{CMon}(\mathscr{A})^{\text{op}}.
   \end{equation*}
 
-  For any $A \in \mathsf{CMon}(\mathsf{C})$, denote by $\Spec(A)$ the same object in the opposite category $\mathsf{Aff}(\mathsf{C})$. Call this the \defn{affine scheme} of $A$.
+  For any $A \in \mathsf{CMon}(\mathscr{A})$, denote by $\Spec(A)$ the same object in the opposite category $\mathsf{Aff}(\mathscr{A})$. Call this the \defn{affine scheme} of $A$.
 
-  Conversely, for any $X \in \mathsf{Aff}(\mathsf{C})$, write 
+  Conversely, for any $X \in \mathsf{Aff}(\mathscr{A})$, write 
   \begin{equation*}
-    \mathscr{O}(X) \in \Obj(\mathsf{CMon}(\mathsf{C})).
+    \mathscr{O}(X) \in \Obj(\mathsf{CMon}(\mathscr{A})).
   \end{equation*}
   for the same object viewed in the opposite category.
 \end{definition}
 
 \begin{definition}[affine super scheme]
   \label{def:affinesuperscheme}
-  When $\mathsf{C} = \mathsf{FinSVect}_{k}$, we call the objects in $\mathsf{Aff}(\mathsf{FinSVect}_{k})$ \defn{affine super schemes} over $k$.
+  When $\mathscr{A} = \mathsf{FinSVect}_{k}$, we call the objects in $\mathsf{Aff}(\mathsf{FinSVect}_{k})$ \defn{affine super schemes} over $k$.
 \end{definition}
 
 \section{Supergroups as supercommutative Hopf algebras}
+\subsection{Supercommutative Hopf algebras}
 
 %The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ defined in \hyperref[def:functorcinfinity]{Definition \ref*{def:functorcinfinity}} was fully faithful, but not essentially surjective. Thus, we can decrese the codomain of the functor $C^{\infty}$ to include only smooth algebras:
 %\begin{equation*}
@@ -8630,7 +8642,7 @@ Recall (\hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebras
 %\end{equation*}
 %Moreover, applying $C^{\infty}$ to the coherence diagrams for the group structure on $G$ yields dual coherence diagrams enforcing `co-associativity,' etc. This gives $C^{\infty}(G)$ the structure of a \emph{Hopf algebra}.
 
-The next step in the story is to define affine algebraic super-groups as affine super-schemes over \emph{supercommutative Hopf algebras}. To do this, we need to study the category theory of Hopf algebras. %However, in the name of full generality, the nLab article \cite{nlab-deligne-theorem} does everything with \emph{Hopf algebroids}, and so will I---in for a penny, in for a pound, after all. If you're not interested in full generality, it won't hurt to skip to \hyperref[def:supercommutativehopfalgebra]{Definition \ref*{def:supercommutativehopfalgebra}}.
+The next step in the story is to define affine algebraic super-groups as affine super-schemes over \emph{supercommutative Hopf algebras}. To do this, we need to understand the category theory of Hopf algebras so we know how to generalize them. %However, in the name of full generality, the nLab article \cite{nlab-deligne-theorem} does everything with \emph{Hopf algebroids}, and so will I---in for a penny, in for a pound, after all. If you're not interested in full generality, it won't hurt to skip to \hyperref[def:supercommutativehopfalgebra]{Definition \ref*{def:supercommutativehopfalgebra}}.
 
 %\begin{definition}[commutative Hopf algebroid]
 %  \label{def:commutativehopfalgebroid}
@@ -8739,7 +8751,7 @@ The next step in the story is to define affine algebraic super-groups as affine 
 \end{definition}
 
 \begin{note}
-  It's looking like perhaps we want to define Hopf algebras as \emph{the formal duals} of groups in $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$. See \hyperref[eg:slnisahopfalgebra]{Example \ref*{eg:slnisahopfalgebra}}.
+  It's looking like perhaps we want to define Hopf algebras as \emph{the formal duals} of groups in $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ (where here \emph{dual} simply means as an object in the opposite category). See \hyperref[eg:slnisahopfalgebra]{Example \ref*{eg:slnisahopfalgebra}}. With this in mind, the names of these morphisms are \emph{extremely} misleading; for the correct ones see \hyperref[eg:slnisahopfalgebra]{Example \ref*{eg:slnisahopfalgebra}}.
 \end{note}
 
 \begin{note}
@@ -8782,17 +8794,6 @@ The commutative monoid $\mathscr{O}(H)$ itself comes with some structure. In par
   \end{tikzcd}
 \end{equation*}
 
-\begin{theorem}
-  Commutative Hopf algebras as defined above are \emph{self-dual} in the sense that turning all the arrows around yields a structure that is again a Hopf algebra.
-\end{theorem}
-\begin{proof}
-
-\end{proof}
-
-\begin{note}
-  The above theorem means that it doesn't matter whether we define an object as
-\end{note}
-
 \begin{definition}[commutative Hopf algebra]
   \label{def:commutativehopfalgebra}
   A \defn{commutative Hopf algebra} is a commutative Hopf algebra over $k$ modelled on $\mathsf{FinVect}_{k}$. That is, it is a group object in the category $\mathsf{CMon}(\mathsf{FinVect}_{k})^{\mathrm{op}} = k\mhyp\mathsf{Alg}^{\text{fin gen}}$.
@@ -8800,22 +8801,21 @@ The commutative monoid $\mathscr{O}(H)$ itself comes with some structure. In par
 
 \begin{definition}[supercommutative Hopf algebra]
   \label{def:supercommutativehopfalgebra}
-  A \defn{supercommutative Hopf algebra} is a commutative Hopf algebra over $k$ modelled on $\mathsf{FinSVect}_{k}$. That is, it is a group object in the category $\mathsf{CMon}(\mathsf{FinSVect}_{k})^{\mathrm{op}} = k\mhyp\mathsf{SAlg}^{\text{fin gen}}$.
+  A \defn{supercommutative Hopf algebra} is a commutative Hopf algebra over $k$ modelled on $\mathsf{FinSVect}_{k}$. That is, it is a group object in the category $\mathsf{CMon}(\mathsf{FinSVect}_{k})^{\mathrm{op}} = k\mhyp\mathsf{SAlg}^{\text{fin pres}}$.
 \end{definition}
 
-\begin{definition}[affine group]
+\subsection{What does this have to do with algebraic super groups?}
+Simply put, groups are like a generalized sort of algebraic variety which are also groups. 
+
+\begin{definition}[affine (algebraic) group]
   \label{def:affinegroup}
-  An \defn{affine group} is a commutative Hopf algebra. If $G$ is the affine group, we will denote the Hopf algebra by $\mathscr{O}(G)$.
+  An \defn{affine group} is an affine (algebraic) variety that is also a group, i.e. a group object in the category of representable functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ (represented by a finitely presented $k$-algebra).
 \end{definition}
-
-\begin{note}
-  This definition should not be taken too literally. The meaning is that we are to view a commutative Hopf algebra as a group object in the category $\mathsf{CMon}(\mathsf{FinVect}_{k})^{\mathrm{op}}$, which as we saw in REF is equivalent to the category of functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ which are representable by finitely presented $k$-algebras. Evaluating these functors on a $k$-algebra $R$ gives the set $Z_{R}(\mathfrak{a}) \subseteq R^{n}$ of points underlying the associated variety. The group structure then translates to a group structure on this set whose group operations are given by regular maps.
-
-  A more formulaic approach is to immediately view the object $A \in k\mhyp\mathsf{Alg}^{\mathrm{op}}$ as an affine scheme $\Spec(A)$. Then the geometry comes for free.
-\end{note}
 
 \begin{example}
   \label{eg:slnisahopfalgebra}
+  The prototypical example of an affine group is $\SL_{n}$. Here we will explain how $\SL_{n}$ is a commutative Hopf algebra.
+
   As we have seen (\hyperref[eg:twofunctorsgrptocring]{Example \ref*{eg:twofunctorsgrptocring}}), $\GL_{n}$ is a functor $\mathsf{CRing} \to \mathsf{Grp}$. The same is certainly true of $\SL_{n}$, which will be more convenient to study. 
 
   We can also view $\SL_{n}$ as a functor to $\mathsf{Set}$ by composing it with the forgetful functor $\mathsf{Grp} \to \mathsf{Set}$. Since all $k$-algebras are in particular commutative rings, we can also view $\SL_{n}$ as a functor $k\mhyp\mathsf{Alg} \to \mathsf{Set}$. This is the viewpoint we will take from now on. 
@@ -8846,11 +8846,11 @@ The commutative monoid $\mathscr{O}(H)$ itself comes with some structure. In par
 
   By the Yoneda lemma, we can learn everything we need to know about $h^{A}$ by studying its opposite object under the embedding $h^{A} \mapsto A$, where $A$ is viewed as an object in the opposite category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$. In particular: 
   \begin{itemize}
-    \item The unit $e\colon h^{*} \to h^{A}$ is the image of a map $\varepsilon\colon A \to *$, where $*$ is the trivial algebra.
+    \item The identity $e\colon h^{*} \to h^{A}$ is the image of a map $\varepsilon\colon A \to *$, where $* = k$ is the initial object in the category $k\mhyp\mathsf{Alg}$.
 
     \item The inverse $i\colon h^{A} \to h^{A}$ is the image of a map $S\colon A \to A$
 
-    \item By combining \hyperref[thm:tensorproductiscoproductincategoryofcommutativemonoids]{Theorem \ref*{thm:tensorproductiscoproductincategoryofcommutativemonoids}} and the coproduct section of \hyperref[eg:naturaltransformationsforcccs]{Example \ref*{eg:naturaltransformationsforcccs}}, $h^{A} \times h^{A} \simeq h^{A \otimes A}$. Therefore the multiplication $m$ can be viewed as a natural transformation $h^{A \otimes A} \to h^{A}$, and its image is a map $A \to A \otimes A$, which we'll call $\Delta$.
+    \item By combining \hyperref[thm:tensorproductiscoproductincategoryofcommutativemonoids]{Theorem \ref*{thm:tensorproductiscoproductincategoryofcommutativemonoids}} and the coproduct section of \hyperref[eg:naturaltransformationsforcccs]{Example \ref*{eg:naturaltransformationsforcccs}}, $h^{A} \times h^{A} \simeq h^{A \otimes A}$. Therefore the multiplication $m$ can be viewed as a natural transformation $h^{A \otimes A} \to h^{A}$, and its counterpart on $k\mhyp\mathsf{Alg}$ is a map $A \to A \otimes A$, which we'll call $\Delta$.
   \end{itemize}
 
   Now let's consider how these behave on elements. First, we need some notation. Let 
@@ -8860,13 +8860,60 @@ The commutative monoid $\mathscr{O}(H)$ itself comes with some structure. In par
   be the canonical projection, and let $x_{ij} = \pi(X_{ij})$.
 
   \begin{itemize}
-    \item Since the trivial algebra (i.e. the algebra over the zero vector space) is a zero object, there is only one possible choice for the map $\varepsilon$: it sends everything to zero.
+    \item The counit $\varepsilon$ maps 
+      \begin{equation*}
+        x_{ij} \mapsto 
+        \begin{cases}
+          1, &i = j\\
+          0, &i \neq j
+        \end{cases}.
+      \end{equation*}
 
     \item The map $S\colon A \to A$ sends each $x_{ij}$ to the $(i, j)$th element in the formal inverse matrix $(x_{ij})^{-1}$.
 
     \item The map $\Delta\colon A \mapsto A \otimes A$ maps
       \begin{equation*}
-        x_{ij} \mapsto \sum_{n=1}^{n} x_{ik} \otimes x_{kj}.
+        x_{ij} \mapsto \sum_{k=1}^{n} x_{ik} \otimes x_{kj}.
+      \end{equation*}
+  \end{itemize}
+\end{example}
+
+The algebraic group $\SL_{n}$ is easier than $\GL_{n}$ because its defining equation, $\det(X_{ij}) = 1$, defines it in terms of the zeroes of a polynomial. We can treat the case $G = \GL_{n}$ in a similar way; we just have to be a bit tricky.
+
+\begin{example}
+  \label{eg:glnisanalgebraicgroup}
+  We now show that $\GL_{n}$ is an algebraic group. Unfortunately, the set
+  \begin{equation*}
+    \left\{ (x_{11}, x_{12} \ldots, x_{nn}) \in R^{n}\,\big|\, \det(x_{ij}) \neq 0 \right\}
+  \end{equation*}
+  is not given by the zeroes of any sets of polynomials, so we cannot mimic exactly the construction of $\SL_{n}$. We have to be tricky.
+
+  The trick is to add an extra coordinate and then ignore it. Define
+  \begin{equation*}
+    A = k[X_{11}, X_{12}, \ldots, X_{nn}, Y] / (\det(X_{ij})\cdot Y - 1),
+  \end{equation*}
+  let $\pi$ be the canonical projection as before, and let
+  \begin{equation*}
+    x_{ij} = \pi(X_{ij}),\qquad y = \pi(Y).
+  \end{equation*}
+
+  Then $\GL_{n}$, as a functor $k\mhyp\mathsf{Alg} \to \mathsf{Set}$, is represented by $A$. We have the same maps as before, but this time slightly extended:
+  \begin{itemize}
+    \item The counit $\varepsilon$ maps 
+      \begin{equation*}
+        x_{ij} \mapsto 
+        \begin{cases}
+          1, &i = j\\
+          0, &i \neq j
+        \end{cases},
+        \qquad\text{and}\quad y \mapsto 1.
+      \end{equation*}
+
+    \item The map $S\colon A \to A$ sends each $x_{ij}$ to $y\cdot(x)_{ij}^{-1}$ (where $(x)_{ij}^{-1}$ is the $(i,j)$th element of the formal `inverse matrix' to $x_{ij}$), and $y$ to 1.
+
+    \item The map $\Delta\colon A \mapsto A \otimes A$ maps
+      \begin{equation*}
+        x_{ij} \mapsto \sum_{k=1}^{n} x_{ik} \otimes x_{kj},\qquad\text{and}\quad y \mapsto y \otimes y.
       \end{equation*}
   \end{itemize}
 \end{example}
@@ -8889,9 +8936,9 @@ The commutative monoid $\mathscr{O}(H)$ itself comes with some structure. In par
         \begin{tikzcd}
           \mathscr{O}(G) 
           \arrow[r, "\Psi"]
-          & \mathscr{O}(G) \otimes_{k} \mathscr{O}(G)
-          \arrow[r, "\varepsilon^{*} \otimes_{k} \varepsilon^{*}"]
-          & k \otimes_{k} k \simeq k
+          & \mathscr{O}(G) \otimes \mathscr{O}(G)
+          \arrow[r, "\varepsilon^{*} \otimes \varepsilon^{*}"]
+          & k \otimes k \simeq k
         \end{tikzcd},
       \end{equation*}
       agrees with the counit $\varepsilon\colon \mathscr{O}(G) \to k$.
@@ -8901,10 +8948,10 @@ The commutative monoid $\mathscr{O}(H)$ itself comes with some structure. In par
       \begin{equation*}
         \begin{tikzcd}[column sep=huge]
           \mathscr{O}(G) 
-          \arrow[r, "(\mathrm{id} \otimes_{k} \Psi) \circ \Psi"]
-          & \mathscr{O}(G) \otimes_{k} \mathscr{O}(G) \otimes_{k} \mathscr{O}(G)
-          \arrow[r, "\varepsilon^{*} \otimes_{k} \mathrm{id} \otimes_{k} (c \circ \varepsilon^{*})"]
-          & k \otimes_{k} \mathscr{O}(G) \otimes_{k} k
+          \arrow[r, "(\mathrm{id} \otimes \Psi) \circ \Psi"]
+          & \mathscr{O}(G) \otimes \mathscr{O}(G) \otimes \mathscr{O}(G)
+          \arrow[r, "\varepsilon^{*} \otimes \mathrm{id} \otimes (c \circ \varepsilon^{*})"]
+          & k \otimes \mathscr{O}(G) \otimes k
         \end{tikzcd}
       \end{equation*}
       is equal to the parity involution (\hyperref[def:parityinvolution]{Definition \ref*{def:parityinvolution}}).
@@ -8912,6 +8959,7 @@ The commutative monoid $\mathscr{O}(H)$ itself comes with some structure. In par
 \end{definition}
 
 \section{Linear super-representations as Comodules}
+\subsection{Comodules in tensor categories}
 \begin{definition}[comodule object]
   \label{def:comoduleobject}
   Let $\mathscr{A}$ be a $k$-tensor category, let $A$ be a commutative Hopf algebra over $k$ modelled on $\mathscr{A}$ (\hyperref[def:commutativehopfalgebraoverafieldmodelledonatensorcategory]{Definition \ref*{def:commutativehopfalgebraoverafieldmodelledonatensorcategory}}). 
@@ -9050,11 +9098,29 @@ The commutative monoid $\mathscr{O}(H)$ itself comes with some structure. In par
     \end{tikzcd}.
   \end{equation*}
 \end{definition}
+\subsection{Representations}
+Let $G$ be an affine group over 
 
 \begin{definition}[linear representation of a group]
   \label{def:linearrepresentationofgroup}
-  Let $G$ be an algebraic group, and let $H = \mathscr{O}(G)$ be its defining commutative Hopf algebra modelled on a $k$-tensor category $\mathsf{FinVect}_{k}$. A \defn{linear representation} of $G$ is an $H$-comodule modelled on $\mathsf{FinVect}_{k}$.
+  Let $G$ be an algebraic group, and let $H = \mathscr{O}(G)$ be its commutative Hopf algebra modelled on a $k$-tensor category $\mathsf{FinVect}_{k}$. A \defn{linear representation} of $G$ on $V \in \Obj(\mathsf{FinVect}_{k})$ is a natural transformation $r\colon G \to \mathrm{Aut}_{R\mhyp\mathsf{Mod}}(V \otimes -)$, where $V \otimes R$ has the module structure from \hyperref[eg:freemodule]{Example \ref*{eg:freemodule}}.
+
+  That is, for every commutative $k$-algebra $R$, it is a group homomorphism $G(r) \to \mathrm{Aut}_{R\mhyp\mathsf{Mod}}(V \otimes R)$ which makes the naturality square commute.
 \end{definition}
+
+\begin{example}
+  Let $G = \SL_{n}$. Then its associated Hopf algebra is
+  \begin{equation*}
+    \mathscr{O}(\SL_{n}) = A = k[X_{11}, X_{12}, \ldots, X_{nn}] / (\det(X_{ij}) - 1),
+  \end{equation*}
+  with the Hopf algebra structure investigated in \hyperref[eg:slnisahopfalgebra]{Example \ref*{eg:slnisahopfalgebra}}.
+
+  According to \hyperref[def:linearrepresentationofgroup]{Definition \ref*{def:linearrepresentationofgroup}}, a \defn{linear representation} of $\SL_{n}$ is a natural transformation $r\colon \SL_{n} \to \mathrm{Aut}_{R\mhyp\mathsf{Mod}}(V \otimes R)$. That is, it is for each commutative $k$-algebra $R$ a group homomorphism 
+  \begin{equation*}
+    r_{R}\colon \SL(R) \to \Aut_{R\mhyp\mathsf{Mod}_{k}}(V \otimes R)
+  \end{equation*}
+  which makes the naturality square commute.
+\end{example}
 
 \begin{definition}[linear representation of a supergroup]
   \label{def:linearrepresentationofsupergroup}
@@ -9066,7 +9132,7 @@ We would like to view tensor categories $\mathscr{A}$ as categories of represent
 \begin{equation*}
   \omega\colon \mathscr{A} \rightarrow \mathscr{V}.
 \end{equation*}
-For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \mathsf{FinVect}_{k})$ of finite-dimensional $k$-linear representations of $G$ has as its objects pairs $(\rho, V)$, where $V$ is a vector space and $\rho$ is a homomorphism $G \to \mathrm{Aut}(V)$. There is an obvious forgetful functor $\mathsf{FinRep}_{k}(G) \to \mathsf{FinVect}_{k}$ which sends $(\rho, V) \to V$. Note that this functor is not `maximally forgetful' in the sense that it retains some of its structure. Thus it is wise to demand that such a functor retain a reasonable amount of structure. In our case, it should be a tensor functor (\hyperref[def:tensorfunctor]{Definition \ref*{def:tensorfunctor}}).
+For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \mathsf{FinVect}_{k})$ of finite-dimensional $k$-linear representations of $G$ has as its objects pairs $(\rho, V)$, where $V$ is a vector space and $\rho$ is a homomorphism $G \to \mathrm{Aut}(V)$. There is an obvious forgetful functor $\mathsf{FinRep}_{k}(G) \to \mathsf{FinVect}_{k}$ which sends $(\rho, V) \to V$. Note that this functor is not `maximally forgetful' in the sense that it retains some of its structure. Thus it is wise to demand that such a functor $\omega$ retain a reasonable amount of structure. In our case, it should be a tensor functor (\hyperref[def:tensorfunctor]{Definition \ref*{def:tensorfunctor}}).
 
 \begin{definition}[fiber functor]
   \label{def:fiberfunctor}
@@ -9723,14 +9789,8 @@ These, plus several other technical requirements ()
 \begin{enumerate}
   \item Any new information on vacuum orbits? 
 
-  \item Why does the tensor product/coproduct thing commute?
-
-  \item Are algebraic groups actually varieties, or are they functors which, when evaluated on a $r^{k}$-algebra, give a variety in $R^{n}$.
-
-
   \item Could I cite \emph{this} in my project? E.g. \emph{for proof, see therorem so-and-so}
 
-  \item Over a field, are all finitely-presented algebras 
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
