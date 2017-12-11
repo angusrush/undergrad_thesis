@@ -64,14 +64,14 @@
 
 % My commands
 \newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
-\newcommand{\tder}[2]{\frac{\text{d} #1}{\text{d} #2}}
+\newcommand{\tder}[2]{\frac{d #1}{d #2}}
 \newcommand{\R}{\mathbb{R}} 
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\Z}{\mathbb{Z}} 
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\N}{\mathbb{N}} 
-\newcommand{\dd}{\text{d}} 
-\newcommand{\Mod}[1]{\(\text{mod}#1\)}
+\newcommand{\dd}{\mathrm{d}} 
+\newcommand{\Mod}[1]{\(\mathrm{mod}#1\)}
 \newcommand{\defn}[1]{\ul{#1}}
 \newcommand{\cliff}{\mathrm{C}\ell}
 \newcommand{\Ad}{\mathrm{Ad}}
@@ -100,7 +100,7 @@
 \newcommand{\End}{\mathrm{End}}
 \newcommand{\Aut}{\mathrm{Aut}}
 \newcommand{\Spec}{\mathrm{Spec}}
-\newcommand{\spec}{\mathrm{spec}}
+\newcommand{\spec}{\mathrm{Spec}}
 \newcommand{\id}{\mathrm{id}}
 
 % Hyphen for names of categories
@@ -6286,7 +6286,7 @@ The following definition is taken almost verbatim from \cite{nlab-deligne-theore
 \end{definition}
 
 \begin{example}
-  $\mathsf{Vect}_{k}$ is a tensor category. It is 
+  $\mathsf{FinVect}_{k}$ is a tensor category. It is 
 \end{example}
 
 In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheorem}}, several notions of size are used. We collect them here.
@@ -6405,7 +6405,9 @@ In any $k$-tensor category $\mathscr{A}$, the hom-sets have the structure of $k$
   Although the functor $\tilde{\otimes}$ defined above is obviously not the same as the bifunctor $\otimes$ from the monoidal structure on $\mathscr{A}$, we will drop the tilde from now on. The idea is to view vector spaces as \emph{almost} $\mathscr{A}$-objects.
 \end{notation}
 
-\section{Internal objects}
+\section{Internalization}
+One of the things category theory is best for is generalization. One of the most powerful ways of doing this is known as \emph{internalization}.
+
 \subsection{Internal groups}
 \begin{definition}[group object]
   \label{def:groupobject}
@@ -7058,7 +7060,7 @@ First, we need to define a homomorphism of presheaves. Since we defined a preshe
 We follow closely the treatment in \cite{milne-affine-group-schemes}, together with some help from \cite{vakil-rising-sea}.
 
 \begin{note}
-  This section really needs a lot of filling out. The goal of the section is an explanation of the fact that $\mathsf{Alg}_{k}^{\mathrm{op}}$ is categorically equivalent to the category of affine schemes over $k$. This will justify talking about objects in $\mathsf{Alg}_{k}^{\mathrm{op}}$ as if they had geometric structure.
+  This section really needs a lot of filling out, as well as a fair amount of fixing. The goal of the section is an explanation of the fact that $\mathsf{Alg}_{k}^{\mathrm{op}}$ is categorically equivalent to the category of affine schemes over $k$. This will justify talking about objects in $\mathsf{Alg}_{k}^{\mathrm{op}}$ as if they had geometric structure.
 \end{note}
 
 Let $A$ be a commutative ring. Denote by $V$ the set of all prime ideals in $A$. For any ideal $\mathfrak{a} \in V$, we write
@@ -7521,6 +7523,8 @@ The goal of this section is to explain the ubiquity of supercommutativity (i.e. 
 
 Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector spaces in the first place. Their importance to theoretical physics is partially explained by Deligne's theorem, which is the topic of these notes.
 
+\subsection{The category $\mathsf{SVect}_{k}$}
+
 \begin{definition}[category of $\Z_{2}$-graded vector spaces]
   \label{def:categoryofz2gradedvectorspaces}
   The \defn{category of $\Z_{2}$-graded vector spaces}, i.e. the category whose objects are $\Z_{2}$-graded vector spaces (\hyperref[def:z2gradedvectorspace]{Definition \ref*{def:z2gradedvectorspace}}) and whose morphisms are $\Z_{2}$-graded vector space morphisms, is notated $\mathsf{Vect}_{k}^{\Z_{2}}$.
@@ -7607,6 +7611,8 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   Then we need to show that some diagrams commute. With the choices made above, there is basically nothing to check.
 \end{proof}
 
+\subsection{Commutative monoids}
+
 \begin{definition}[internal monoid]
   \label{def:internalmonoid}
   Let $\mathsf{C}$ be a monoidal category (\hyperref[def:monoidalcategory]{Definition \ref*{def:monoidalcategory}}) with monoidal structure $(\otimes, 1, \alpha, \lambda, \rho)$. A \defn{monoid internal to $\mathsf{C}$} is 
@@ -7676,7 +7682,7 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 
 \begin{definition}[morphism of monoids]
   \label{def:homomorphismofmonoids}
-  A \defn{homomorphism} of monoids $(A_{1}, \mu_{1}, e_{1}) \to (A_{2}, e_{2}, \mu_{2})$ is a morphism $f\colon A_{1} \to A_{2}$ such that the following diagrams commute.
+  A \defn{homomorphism} of monoids $(A_{1}, \mu_{1}, e_{1}) \to (A_{2}, \mu_{2}, e_{2})$ is a morphism $f\colon A_{1} \to A_{2}$ such that the following diagrams commute.
   \begin{equation*}
     \begin{tikzcd}
       A_{1} \otimes A_{1}
@@ -7710,73 +7716,12 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   Denote by $\mathsf{CMon}(\mathsf{C}, \otimes, 1)$ the full subcategory of $\mathsf{Mon}(\mathsf{C}, \otimes, 1)$ whose objects are commutative monoids.
 \end{definition}
 
-\begin{example}
-  \label{eg:algebrasaremonoidsinternaltovect}
-  A monoid internal to $\mathsf{Vect}_{k}$ is is nothing else but an associative $k$-algebra with unity. Let us see that this agrees with \hyperref[def:algebraoverafield]{Definition \ref*{def:algebraoverafield}}.
-
-  Let $(A, e, \mu)$ be a monoid internal to $\mathsf{Vect}$. We need to find a product $\cdot\colon A \times A \to A$ and a unit element $1 \in A$; show that the product is bilinear and associative; and that the unit behaves like a unit.
-
-  We have a linear map $\mu\colon V \otimes V \to V$, which is a bilinear map $V \times V \to V$ if we pre-compose it with the tensor product:
-  \begin{equation*}
-    (v, v') \mapsto v \cdot v' = \mu(v \otimes v').
-  \end{equation*}
-  It's associative since the associativity diagram says that
-  \begin{equation*}
-    (v_{1} \cdot v_{2}) \cdot v_{3} = \mu((v_{1} \otimes v_{2}) \otimes v_{3}) = \mu(v_{1} \otimes (v_{2} \otimes v_{3})) = v_{1} \cdot (v_{2} \cdot v_{3}).
-  \end{equation*}
-
-  The unit element is even easier: we take the image of the unit in $1=k$ under the map $e$; call it $1_{V} = e(1_{k})$. To see that this behaves like a unit, we let it act on $v \in V$:
-  \begin{equation*}
-    1 \cdot v = \mu(1 \otimes v).
-  \end{equation*}
-  However, the unitality diagram says that this has to equal $\lambda\colon 1 \otimes V \to V$, and we know how that behaves from \hyperref[eg:vectisamonoidalcategory]{Example \ref*{eg:vectisamonoidalcategory}}: it sends $r \otimes v \mapsto rv$. With $r = 1$, it just sends $1 \otimes v \mapsto v$ as we'd like. 
-
-  The story for multiplication on the right is identical, but with $\rho$ instead of $\lambda$.
-
-  Now, let $A$ be a unital, associative $k$-algebra. We need to show that $A$ is a monoid internal to $\mathsf{Vect}_{k}$. The map $A \otimes A \to A$ is exactly that guaranteed by the universal property of the tensor product; the map $e$ sends $r \in k$ to $r_{1_{A}} \in A$. It is easy to show that the appropriate diagrams commute.
-\end{example}  
-
-\begin{example}
-  A commutative monoid internal to $\mathsf{Vect}_{k}$ is exactly a commutative, associative $k$-algebra with unity.
-\end{example}
-
-\begin{theorem}
-  A supercommutative superalgebra (\hyperref[def:supercommutativesuperalgebra]{Definition \ref*{def:supercommutativesuperalgebra}}) is nothing else but a commutative monoid in the symmetric monoidal category $\mathsf{SVect}_{k}$.
-\end{theorem}
-\begin{proof}
-  Let $V = V_{0} \oplus V_{1}$ be a super vector space. We define, as in \hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebrasaremonoidsinternaltovect}}, a bilinear map $V \times V \to V$ by pre-composing $\mu$ with the tensor product on $\mathsf{SVect}_{k}$:
-  \begin{equation*}
-    \cdot\colon (v, v') \mapsto \mu(v \otimes v').
-  \end{equation*}
-  The product as defined here inherits the correct grading from the graded tensor product. The unit element is the image of the unit in $k$ under $e$, and the verification that this behaves correctly is identical to that in \hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebrasaremonoidsinternaltovect}}.
-
-  All that remains is the verification of the Koszul sign rule: we must have the multiplication law
-  \begin{equation*}
-    v_{1} \cdot v_{2} = (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}.
-  \end{equation*}
-
-  But we do by the following:
-  \begin{align*}
-    v_{1} \cdot v_{2} &= \mu(v_{1} \otimes v_{2}) \\
-    &= \mu(\gamma_{V, V}(v_{1} \otimes v_{2})) &\left( \substack{\text{by the commutativity diagram}\\ \text{in \hyperref[def:internalmonoid]{Definition \ref*{def:internalmonoid}}}} \right)\\ 
-    &= \mu((-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}) \\
-    &= (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} \mu(v_{2} \otimes v_{1}) \\
-    &= (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}.
-  \end{align*}
-\end{proof} 
-
-\begin{example}
-  For a super vector space concentrate in even degree, a supercommutative superalgebra is just a commutative algebra.
-
-  Thus, for an $n$-dimensional vector space
-\end{example}
-
 \begin{lemma}
   \label{lemma:unitobjectisinitialincmon}
   For any monoidal category $(\mathsf{C}, \otimes, 1)$, the category $\mathsf{Mon}(\mathsf{C})$ has as its initial object the tensor unit $1$.
 \end{lemma}
 \begin{proof}
-  By definition, we have for any module object $A \in \mathsf{CMon}(\mathsf{C})$ a morphism 
+  By definition, we have for any module object $A \in \mathsf{Mon}(\mathsf{C})$ a morphism 
   \begin{equation*}
     e\colon 1 \to A.
   \end{equation*}
@@ -7798,9 +7743,13 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   This is exactly the property which defines initial objects.
 \end{proof}
 
+\begin{corollary}
+  For any symmetric monoidal category $(\mathsf{C}, \otimes, 1)$, the category $\mathsf{CMon}(\mathsf{C})$ has initial object $1$.
+\end{corollary}
+
 \begin{lemma}
   \label{lemma:monoidalfunctorspreserveinternalmonoids}
-  Let $(\mathsf{C}, \otimes_{\mathsf{C}}, 1_{\mathsf{C}})$ and $(\mathsf{D}, \otimes_{\mathsf{D}}, 1_{\mathsf{D}})$ be monoidal categories, and let $(\mathcal{F}, \Phi, \varphi)$ be a lax monoidal functor (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}}) $\mathsf{C} \rightsquigarrow \mathsf{D}$. Then for any monoid $(A, \mu_{A}, e_{A})$ in $\mathsf{C}$, its image $\mathcal{F}(A)$ can be made a monoid in $\mathsf{D}$ by setting
+  Let $(\mathsf{C}, \otimes_{\mathsf{C}}, 1_{\mathsf{C}})$ and $(\mathsf{D}, \otimes_{\mathsf{D}}, 1_{\mathsf{D}})$ be monoidal categories, and let $(\mathcal{F}, \Phi, \varphi)$ be a lax monoidal functor $\mathsf{C} \rightsquigarrow \mathsf{D}$ (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}}). Then for any monoid $(A, \mu_{A}, e_{A})$ in $\mathsf{C}$, its image $\mathcal{F}(A)$ in $\mathsf{D}$ can be made a monoid by setting
   \begin{equation*}
     \mu_{\mathcal{F}(A)}\colon 
     \begin{tikzcd}
@@ -7892,54 +7841,6 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
 %  Hopefully it's now obvious why we aren't proving the rest of these.
 \end{proof}
 
-\begin{theorem}
-  There is a full subcategory inclusion
-  \begin{equation*}
-    \begin{tikzcd}
-      \mathsf{CAlg}_{k}
-      \arrow[d, equals]
-      \arrow[r, "\iota", hookrightarrow]
-      & \mathsf{SCAlg}_{k}
-      \arrow[d, equals]
-      \\
-      \mathsf{CMon}(\mathsf{Vect}_{k}) 
-      \arrow[r, "\iota", hookrightarrow]
-      & \mathsf{CMon}(\mathsf{SVect}_{k})
-    \end{tikzcd}
-  \end{equation*}
-  of commutative algebras into supercommutative algebras induced via \hyperref[lemma:monoidalfunctorspreserveinternalmonoids]{Lemma \ref*{lemma:monoidalfunctorspreserveinternalmonoids}} by the full inclusion $\mathcal{I}\colon \mathsf{Vect}_{k} \hookrightarrow \mathsf{SVect}_{k}$ (which is a strong braided monoidal functor by \hyperref[lemma:monoidalinclusionofvectorspacesintosupervectorspaces]{Lemma \ref*{lemma:monoidalinclusionofvectorspacesintosupervectorspaces}}). The image of a commutative algebra $A$ under $\iota$ is the supercommutative algebra $A \oplus 0$, and the image of a morphism $f\colon A \to B$ is the morphism $f \oplus 0\colon A \oplus 0 \to B \oplus 0$.
-  \begin{equation*}
-    \begin{tikzcd}
-      \mathsf{CAlg}_{k}
-      \arrow[r, hookrightarrow]
-      & \mathsf{SCAlg}_{k}
-      \arrow[l, bend left, "(-)_{\text{even}}"]
-      \arrow[l, bend right, swap, "(-)/(-)_{\text{odd}}"]
-    \end{tikzcd}
-  \end{equation*}
-
-  The functor $\iota$ has both left and right adjoints, where
-  \begin{enumerate}
-    \item the right adjoint $(-)_{\text{even}}$ sends a supercommutative algebra to its even part, and
-    \item the left adjoint $(-)/(-)_{\text{odd}}$ sends a supercommutative algebra to the quotient by the ideal which is generated by its odd part. Informally, this means that every odd-graded element is sent to zero.
-  \end{enumerate}
-\end{theorem}
-\begin{note}
-  At the moment, I can't figure out the difference between $(-)_{\text{even}}$ and $(-)/(-)_{\text{odd}}$. They both throw out the odd elements.
-\end{note}
-\begin{proof}
-  To show that $\iota$ is a full subcategory inclusion, we need to show that it is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}), i.e. that for all commutative $k$-algebras $A$ and $B$, every morphism $f\in \Hom_{\mathsf{SCAlg}_{k}}(\iota(A), \iota(B))$ can be written as the image $\iota(\tilde{f})$ of some morphism $\tilde{f} \in \Hom_{\mathsf{CAlg}_{k}}(A, B)$, and the morphism $\tilde{f}$ is unique.
-
-  Any such morphism $f$ is direct sum $f_{0} \oplus f_{1}$, where $f_{0}\colon A_{0} \to B_{0}$ and $f_{1}\colon A_{1} \to B_{1}$. Every supercommutative superalgebra in the image of $\iota$ is of the form $A \oplus 0$, so $f_{0}\colon A \to B$ and $f_{1}\colon 0 \to 0$. Thus $f$ can be written $\iota(f_{0})$, and $f_{0}$ is the unique morphism with this property.
-
-  We now demonstrate the adjunctions by exhibiting hom-set isomorphisms.
-  \begin{enumerate}
-    \item $\iota \dashv (-)_{\text{even}}$ 
-
-      We want 
-  \end{enumerate}
-\end{proof}
-
 \begin{definition}[tensor product of commutative monoids]
   \label{def:tensorproductofcommutativemonoids}
   Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category and $(E_{1}, \mu_{1}, e_{1})$ and $(E_{2}, \mu_{2}, e_{2})$ monoids internal to $\mathsf{C}$. Then we can construct a new monoid internal to $\mathsf{C}$, the \defn{tensor product} of $E_{1}$ and $E_{2}$ with
@@ -7947,11 +7848,11 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   \begin{enumerate}
     \item The object given by $E_{1} \otimes E_{2}$
 
-    \item The map multiplication map
+    \item The multiplication map
       \begin{equation*}
         \mu_{E_{1} \otimes E_{2}}\colon (E_{1} \otimes E_{2}) \otimes (E_{1} \otimes E_{2}) \to (E_{1} \otimes E_{2})
       \end{equation*}
-      given by (notationally suppressing the obvious identities, etc.)
+      given by (notationally suppressing the obvious identities and associators)
       \begin{equation*}
         \begin{tikzcd}[column sep=huge]
           E_{1} \otimes E_{2} \otimes E_{1} \otimes E_{2} 
@@ -8011,358 +7912,125 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   For any symmetric monoidal category $\mathsf{C}$, the category $\mathsf{CMon}(\mathsf{C})^{\mathrm{op}}$ has finite products.
 \end{corollary}
 
+\subsection{Algebras}
+\begin{definition}[commutative (super)algebra]
+  \label{def:commutativesuperornotalgebra}
+  Let $\mathscr{A}$ be either $\mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$. A \defn{commutative $\mathscr{A}$-algebra} is a commutative monoid internal to $\mathscr{A}$. The category of commutative $\mathscr{A}$-algebras is $\mathsf{CMon}(\mathscr{A})$.
 
-\section{Modules in tensor categories}
-Some of the material from this section is from \cite{nestruev-smooth-manifolds-observables}. Due to time constraints, most of the proofs are omitted. Hopefully this is not a permanent situation.
+  If $\mathscr{A} = \mathsf{Vect}_{k}$, we call the objects of $\mathsf{CMon}(\mathscr{A})$ \defn{commutative algebras}. If $\mathscr{A} = \mathsf{SVect}_{k}$, we call them \defn{supercommutative superalgebras}.
+
+  That is to say, an algebra is a triple $(A, \nabla, \eta)$ which makes the following diagrams commute.
+  \begin{equation*}
+    \begin{tikzcd}[row sep=large, column sep=large]
+      A \otimes A \otimes A
+      \arrow[r, "A \otimes \nabla"]
+      \arrow[d, swap, "\nabla \otimes A"]
+      & A \otimes A 
+      \arrow[d, "\nabla"]
+      \\
+      A \otimes A
+      \arrow[r, "\nabla"]
+      & A
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
 
 \begin{note}
-  It appears that the material in this chapter is necessary for understanding the proof of Deligne's theorem, but not its statement. It will almost certainly not make it into the project.
+  Although \emph{supercommutative superalgebra} is the most precise name, it sounds a bit silly so we often call simply \emph{supercommutative algebras}.
 \end{note}
 
-% We saw in the last section that we can view the duals of associative algebras as generalized manifolds. In this section, we will see that we can pull the same trick for vector bundles.
-% 
-% \begin{definition}[category of vector bundles over a manifold]
-%   \label{def:categoryofvectorbundlesoveramanifold}
-%   Let $M$ be a $C^{\infty}$ manifold. Denote by $\mathsf{VectBund}_{X}$ the category whose objects are vector bundles 
-%   \begin{equation*}
-%     \begin{tikzcd}
-%       V 
-%       \arrow[r, "\pi"]
-%       & X
-%     \end{tikzcd}
-%   \end{equation*}
-%   and whose morphisms are maps $\varphi\colon V \to V'$ which preserve basepoint, i.e. maps $V \to V'$ which make the following diagram commute,
-%   \begin{equation*}
-%     \begin{tikzcd}[column sep=tiny]
-%       V
-%       \arrow[rr, "\varphi"]
-%       \arrow[rd, swap, "\pi"]
-%       & & V'
-%       \arrow[ld, "\pi'"]
-%       \\
-%       & X
-%     \end{tikzcd}
-%   \end{equation*}
-%   and which map fibers to their image fibers linearly.
-% 
-%   We will also need the full subcategory $\mathsf{VectBund}_{X}^{\text{fin}} \subset \mathsf{VectBund}_{X}$ whose objects are vector bundles of finite rank (i.e vector bundles whose fibers are finite-dimensional vector spaces).
-% \end{definition}
-% 
-% For any vector bundle $\pi\colon V \to X$, the set of all sections $\Gamma_{X}(V)$ can be given the structure of a $C^{\infty}$-module. Furthermore, any morphism $\varphi\colon V \to V'$ determines a homomorphism of modules $\Gamma_{X}(V) \to \Gamma_{X}(V')$ by sending $\sigma \to \varphi \circ \sigma$. This gives us a functor $\mathsf{VectBund}_{X} \rightsquigarrow C^{\infty}(X)\mhyp\mathsf{Mod}$.
-% 
-% In fact, with some mild conditions on the vector bundles and modules in question, we can say more. First, we consider only vector bundles whose fibers are finite-dimensional; this means we restrict our attention to the category $\mathsf{VectBund}^{\mathrm{fin}}_{X}$. Second, not all modules arise as modules over vector bundles of finite rank; it turns out that all modules which arise in this way are projective (\hyperref[def:projectivemodule]{Definition \ref*{def:projectivemodule}}) and finitely generated (\hyperref[def:finitelygeneratedmodule]{Definition \ref*{def:finitelygeneratedmodule}}).
-% 
-% \begin{definition}[category of finitely-generated projective $C^{\infty}$-modules]
-%   \label{def:categoryofyaddayaddasmoothmodules}
-%   Denote by $C^{\infty}(X)\mhyp\mathsf{Mod}_{\mathrm{proj}}^{\mathrm{fin\ gen}}$ the category of smooth, finitely-generated $C^{\infty}(X)$-modules.
-% \end{definition}
-% 
-% \begin{theorem}[smooth Serre-Swan theorem]
-%   The functor 
-%   \begin{equation*}
-%     \mathsf{VectBund}^{\mathrm{fin}}_{X} \rightsquigarrow C^{\infty}(X)\mhyp\mathsf{Mod}^{\mathrm{fin\,gen}}_{\mathrm{proj}}
-%   \end{equation*}
-%   which sends each vector bundle to its module of sections is an equivalence of categories.
-% \end{theorem}
-% \begin{proof}
-%   See \cite{nestruev-smooth-manifolds-observables} 11.33, page 183.
-% \end{proof}
-% 
-% As before, one is lead to the assumption that one could generalize the idea of a vector bundle by relaxing the requrements on the modules under consideration. The `generalized vector bundles' arising in this way are called \emph{quasicoherent sheaves}.
-% 
-% \begin{note}
-%   The notion of a generalized vector bundle isn't actually used. The mathematical edifice below is introduced so as to define a more general version of Hopf algebra, which also isn't used. I'll probably take it all out at some point.
-% \end{note}
+\begin{example}
+  \label{eg:algebrasaremonoidsinternaltovect}
+  Let us see that a monoid internal to $\mathsf{Vect}_{k}$ really is an associative $k$-algebra with unity. 
 
-\begin{definition}[module object]
-  \label{def:moduleobject}
-  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category, and $(A, \mu, e)$ a monoid internal to $\mathsf{C}$. A \defn{[left] module object} in $\mathsf{C}$ over $A$ is
-  \begin{enumerate}
-    \item An object $N \in \mathsf{Obj}(\mathsf{C})$ and
+  Let $(A, \mu, e)$ be a monoid internal to $\mathsf{Vect}_{k}$. We need to find a product $\cdot\colon A \times A \to A$ and a unit element $1 \in A$; show that the product is bilinear and associative; and that the unit behaves like a unit.
 
-    \item A morphism $\rho\colon A \otimes N \to N$ (called the \emph{action})
-  \end{enumerate}
-  such that the following diagrams commute.
-  \begin{enumerate}
-    \item (unitality)
-      \begin{equation*}
-        \begin{tikzcd}
-          1 \otimes N
-          \arrow[r, "e \otimes 1_{N}"]
-          \arrow[dr, swap, "\lambda_{N}"]
-          & A \otimes N
-          \arrow[d, "\rho"]
-          \\
-          & N
-        \end{tikzcd}
-      \end{equation*}
+  We have a linear map $\mu\colon V \otimes V \to V$, which gives us a bilinear map $V \times V \to V$ by pre-composition with the tensor product functor:
+  \begin{equation*}
+      \begin{tikzcd}
+        V \times V
+        \arrow[r, "\otimes"]
+        & V \otimes V
+        \arrow[r, "\mu"]
+        & V
+      \end{tikzcd};
+      \qquad
+    (v, v') \mapsto v \cdot v' \mu(v \otimes v') \equiv v \cdot v'.
+  \end{equation*}
+  It's associative since the associativity diagram says that
+  \begin{equation*}
+    (v_{1} \cdot v_{2}) \cdot v_{3} = \mu((v_{1} \otimes v_{2}) \otimes v_{3}) = \mu(v_{1} \otimes (v_{2} \otimes v_{3})) = v_{1} \cdot (v_{2} \cdot v_{3}).
+  \end{equation*}
 
-    \item (action property)
-      \begin{equation*}
-        \begin{tikzcd}
-          (A \otimes A) \otimes N
-          \arrow[r, "{\alpha_{A, A, N}}"]
-          \arrow[d, swap, "\mu \otimes 1_{N}"]
-          & A \otimes (A \otimes N)
-          \arrow[r, "A \otimes \rho"]
-          & A \otimes N
-          \arrow[d, "\rho"]
-          \\
-          A \otimes N
-          \arrow[rr, "\rho"]
-          & & N
-        \end{tikzcd}
-      \end{equation*}
-  \end{enumerate}
-\end{definition}
+  For the unit, we take the image of the unit in $1=k$ under the map $e$; call it $1_{V} = e(1_{k})$. To see that this behaves like a unit, we let it act on $v \in V$:
+  \begin{equation*}
+    1 \cdot v = \mu(1 \otimes v).
+  \end{equation*}
+  However, the unitality diagram says that this has to equal $\lambda\colon 1 \otimes V \to V$, and we know how that behaves from \hyperref[eg:vectisamonoidalcategory]{Example \ref*{eg:vectisamonoidalcategory}}: it sends $r \otimes v \mapsto rv$. With $r = 1$, it just sends $1 \otimes v \mapsto v$ as we'd like. 
+
+  The story for multiplication on the right is identical, but with $\rho$ instead of $\lambda$.
+
+  Now, let $A$ be a unital, associative $k$-algebra. We need to show that $A$ is a monoid internal to $\mathsf{Vect}_{k}$. The map $A \otimes A \to A$ is exactly that guaranteed by the universal property of the tensor product; the map $e$ sends $r \in k$ to $r\cdot 1_{A} \in A$. It is easy to show that the appropriate diagrams commute.
+\end{example}  
 
 \begin{example}
-  \label{eg:categoryof1modulesisequivalenttocategoryitself}
-  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. As we saw in \hyperref[eg:tensorunitisinternalmonoid]{Example \ref*{eg:tensorunitisinternalmonoid}}, we can view the tensor unit $1 \in \Obj(\mathsf{C})$ as a monoid internal to $\mathsf{C}$. Then for every object $C \in \Obj(\mathsf{C})$, the left unitor $\lambda_{C}\colon 1 \otimes C \to C$ makes $C$ into a a left module.
-
-  This holds for any $C \in \Obj(\mathsf{C})$, and in fact gives an equivalence of categories
-  \begin{equation*}
-    \mathsf{C} \simeq 1\mhyp\mathsf{Mod}(\mathsf{C}).
-  \end{equation*}
-\end{example}
-
-\begin{definition}[homomorphism of module objects]
-  \label{def:homomorphismofmoduleobjects}
-  A homomorphism of [left] $A$-module objects $(N_{1}, \rho_{1})$, $(N_{2}, \rho_{2})$ is a morphism
-  \begin{equation*}
-    f\colon N_{1} \to N_{2}
-  \end{equation*}
-  such that the diagram
-  \begin{equation*}
-    \begin{tikzcd}
-      A \otimes N_{1}
-      \arrow[r, "1_{A} \otimes f"]
-      \arrow[d, swap, "\rho_{1}"]
-      & A \otimes N_{2}
-      \arrow[d, "\rho_{2}"]
-      \\
-      N_{1}
-      \arrow[r, swap, "f"]
-      & N_{2}
-    \end{tikzcd}
-  \end{equation*}
-  commutes.
-\end{definition}
-
-\begin{definition}[category of internal $A$-modules]
-  \label{def:categoryofinternalmodules}
-  Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category. Write $A\mhyp\mathsf{Mod}(\mathsf{C})$ for the category whose objects are $A$-modules internal to $\mathsf{C}$ and whose morphisms are homomorphisms of module objects.
-\end{definition}
-
-\begin{example}
-  \label{eg:anyringisamoduleoveritself}
-  Any monoid $(A, \mu, e)$ is a left-module over itself with $\rho = \mu$.
+  A commutative monoid internal to $\mathsf{Vect}_{k}$ is exactly a commutative, associative $k$-algebra with unity.
 \end{example}
 
 \begin{example}
-  \label{eg:freemodule}
-  Let $\mathsf{C}$ be a monoidal category, $C \in \Obj(\mathsf{C})$, $(A, \mu, e)$ a monoid internal to $\mathsf{C}$. Then $A \otimes C$ has a natural left-module structure with
+  A supercommutative superalgebra (\hyperref[def:supercommutativesuperalgebra]{Definition \ref*{def:supercommutativesuperalgebra}}) is nothing else but a commutative monoid in the symmetric monoidal category $\mathsf{SVect}_{k}$.
+
+  Let $V = V_{0} \oplus V_{1}$ be a super vector space. We define, as in \hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebrasaremonoidsinternaltovect}}, a bilinear map $V \times V \to V$ by pre-composing $\mu$ with the tensor product on $\mathsf{SVect}_{k}$:
   \begin{equation*}
-    \rho\colon A \otimes (A \otimes C) \to A \otimes C
+    \cdot\colon (v, v') \mapsto \mu(v \otimes v').
   \end{equation*}
-  given by the composition.
+  The product as defined here inherits the correct grading from the graded tensor product. The unit element is the image of the unit in $k$ under $e$, and the verification that this behaves correctly is identical to that in \hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebrasaremonoidsinternaltovect}}.
+
+  All that remains is the verification of the Koszul sign rule: we must have the multiplication law
   \begin{equation*}
-    \begin{tikzcd}
-      A \otimes (A \otimes C)
-      \arrow[r, "{\alpha_{A, A ,C}^{-1}}"]
-      & (A \otimes A) \otimes C
-      \arrow[r, "\rho \otimes 1_{C}"]
-      & A \otimes C
-    \end{tikzcd}.
+    v_{1} \cdot v_{2} = (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}.
   \end{equation*}
 
-  Modules of this form are called \defn{free modules} because the the functor 
-  \begin{equation*}
-    \mathcal{F}_{A}\colon \mathsf{C} \to A\mhyp\mathsf{Mod}(\mathsf{C});\qquad C \mapsto (C \otimes A, \rho)
-  \end{equation*}
-  which sends an object to its free $A$-module is left-adjoint to the functor 
-  \begin{equation*}
-    \mathcal{U}\colon A\mhyp\mathsf{Mod}(\mathsf{C}) \to \mathsf{C};\qquad (N, \rho) \mapsto N.
-  \end{equation*}
+  But we do by the following:
+  \begin{align*}
+    v_{1} \cdot v_{2} &= \mu(v_{1} \otimes v_{2}) \\
+    &= \mu(\gamma_{V, V}(v_{1} \otimes v_{2})) &\left( \substack{\text{by the commutativity diagram}\\ \text{in \hyperref[def:internalmonoid]{Definition \ref*{def:internalmonoid}}}} \right)\\ 
+    &= \mu((-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \otimes v_{1}) \\
+    &= (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} \mu(v_{2} \otimes v_{1}) \\
+    &= (-1)^{\tilde{v_{1}} \cdot \tilde{v_{2}}} v_{2} \cdot v_{1}.
+  \end{align*}
+\end{example} 
 
-  To see this,
+\begin{example}
+  For a super vector space concentrated in even degree, i.e. of the form $V \oplus 0$, a supercommutative superalgebra is just a commutative algebra.
 \end{example}
 
-\begin{definition}[tensor product of module objects]
-  \label{def:tensorproductofmoduleobjects}
-  Let $(\mathsf{C}, \otimes, 1)$ be a closed symmetric monoidal category with braiding $\gamma$. For any commutative monoid $(A, \mu, e)$ and two left $A$-module objects $(N_{1}, \rho_{1})$ and $(N_{2}, \rho_{2})$, the \defn{tensor product of module objects}, denoted $N_{1} \otimes_{A} N_{2}$, is the coequalizer
-  \begin{equation*}
-    \begin{tikzcd}[column sep=huge]
-      N_{1} \otimes A \otimes N_{2}
-      \arrow[r, shift left=1.5, "1_{N_{1}} \otimes \rho_{2}"]
-      \arrow[r, shift right=1.5, swap, "{\rho_{1} \circ (\gamma_{N_{1}, A} \otimes N_{2})}"]
-      & N_{1} \otimes N_{2}
-      \arrow[r, "\mathrm{coeq}"]
-      & N_{1} \otimes_{A} N_{2}
-    \end{tikzcd}
-  \end{equation*}
-
-  That is to say, roughly speaking, it is the quotient of $N_{1} \otimes A \otimes N_{2}$ by the smallest equivalence relation so that left-multiplication agrees with right-multiplication.
-\end{definition}
-
-\begin{definition}[function module]
-  \label{def:functionmodule}
-  For $(N_{1}, \rho_{1})$ and $(N_{2}, \rho_{2})$ two $A$-modules internal to a closed symmetric monoidal category $(\mathsf{C}, \otimes, 1)$, the \defn{function module} $\hom_{A}(N_{1}, N_{1})$ is, as an object, the equalizer 
-  \begin{equation*}
-    \begin{tikzcd}
-      \hom_{A}(N_{1}, N_{2})
-      \arrow[rr, "\mathrm{equ}"]
-      & & {[N_{1}, N_{2}]_{\mathsf{C}}}
-      \arrow[rr, "{[\rho_{1}, 1_{N_{2}}]_{\mathsf{C}}}"]
-      \arrow[dr, swap, "A \otimes (-)"]
-      & & {[A \otimes N_{1}, N_{2}]_{\mathsf{C}}}
-      \\
-      & & & {[A \otimes N_{1}, A \otimes N_{2}]_{\mathsf{C}}}
-      \arrow[ur, swap, "{[1_{A \otimes N_{1}}, \rho_2]_{\mathsf{C}}}"]
-    \end{tikzcd},
-  \end{equation*}
-  where $[-,-]_{\mathsf{C}}$ denotes the hom functor internal to $\mathsf{C}$, and $A \otimes (-)$ is the natural transformation from \hyperref[lemma:cantensorbothsidesofinternalhom]{Lemma \ref*{lemma:cantensorbothsidesofinternalhom}}.
-
-  The left action $A \otimes \hom_{A}(N_{1}, N_{2}) \to \hom_{A}(N_{1}, N_{2})$ is given by 
-\end{definition}
+The above example is a reflection of the following.
 
 \begin{theorem}
-  Let $(\mathsf{C}, \otimes, 1)$ be a closed symmetric monoidal category, and let $(A, \mu, e)$ be a commutative monoid internal to $\mathsf{C}$. Then if $\mathsf{C}$ has all coequalizers, the category $A\mhyp\mathsf{Mod}(\mathsf{C})$ of $A$-modules internal to $\mathsf{C}$ becomes a symmetric monoidal category with
-  \begin{itemize}
-    \item The tensor product $\otimes$ given by $\otimes_{A}$ (see \hyperref[def:tensorproductofmoduleobjects]{Definition \ref*{def:tensorproductofmoduleobjects}}).
-
-    \item The tensor unit 1 given by $A$, with the $A$-module structure as in \hyperref[eg:anyringisamoduleoveritself]{Example \ref*{eg:anyringisamoduleoveritself}}.
-  \end{itemize}
-
-  Additionally, if all equalizers exist the $\mathsf{C}$ is a closed monoidal category, with the function module $\hom_{A}$ from \hyperref[def:functionmodule]{Definition \ref*{def:functionmodule}} acting as the internal hom.
+  There is a full subcategory inclusion
+  \begin{equation*}
+    \begin{tikzcd}
+      \mathsf{Alg}_{k}
+      \arrow[d, equals]
+      \arrow[r, "\iota", hookrightarrow]
+      & \mathsf{SAlg}_{k}
+      \arrow[d, equals]
+      \\
+      \mathsf{CMon}(\mathsf{Vect}_{k}) 
+      \arrow[r, "\iota", hookrightarrow]
+      & \mathsf{CMon}(\mathsf{SVect}_{k})
+    \end{tikzcd}
+  \end{equation*}
+  of commutative algebras into supercommutative algebras induced via \hyperref[lemma:monoidalfunctorspreserveinternalmonoids]{Lemma \ref*{lemma:monoidalfunctorspreserveinternalmonoids}} by the full inclusion $\mathcal{I}\colon \mathsf{Vect}_{k} \hookrightarrow \mathsf{SVect}_{k}$ (which is a strong braided monoidal functor by \hyperref[lemma:monoidalinclusionofvectorspacesintosupervectorspaces]{Lemma \ref*{lemma:monoidalinclusionofvectorspacesintosupervectorspaces}}). The image of a commutative algebra $A$ under $\iota$ is the supercommutative algebra $A \oplus 0$, and the image of a morphism $f\colon A \to B$ is the morphism $f \oplus 0\colon A \oplus 0 \to B \oplus 0$.
 \end{theorem}
 \begin{proof}
-  See \cite{nlab-deligne-theorem}, Proposition 3.65.
+  To show that $\iota$ is a full subcategory inclusion, we need to show that it is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}), i.e. that for all commutative $k$-algebras $A$ and $B$, every morphism $f\in \Hom_{\mathsf{SAlg}_{k}}(\iota(A), \iota(B))$ can be written as the image $\iota(\tilde{f})$ of some morphism $\tilde{f} \in \Hom_{\mathsf{Alg}_{k}}(A, B)$, and the morphism $\tilde{f}$ is unique.
+
+  Any such morphism $f$ is direct sum $f_{0} \oplus f_{1}$, where $f_{0}\colon A_{0} \to B_{0}$ and $f_{1}\colon A_{1} \to B_{1}$. Every supercommutative superalgebra in the image of $\iota$ is of the form $A \oplus 0$, so $f_{0}\colon A \to B$ and $f_{1}\colon 0 \to 0$. Thus $f$ can be written $\iota(f_{0})$, where $f_{0}$ is clearly unique.
 \end{proof}
 
-%\begin{definition}[internal algebra]
-%  \label{def:internalalgebra}
-%  Let $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ be the symmetric monoidal category of $A$-modules internal to $\mathsf{C}$. A monoid internal to $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ is called an \defn{$A$-algebra}; a commutative monoid internal to $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ is called a \defn{commutative $A$-algebra}.
-%\end{definition}
-%
-%\begin{theorem}
-%  \label{thm:modulesandmonoidsequivalenceofcategories}
-%  Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category, and let $A$ be a commutative monoid internal to $\mathsf{C}$. Recall that
-%  \begin{itemize}
-%    \item $(A\mhyp\mathsf{Mod}, \otimes_{A}, A)$ is the category of $A$-modules internal to $\mathsf{C}$, and $\mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C}))$ is the category of commutative $A$-algebras internal to $\mathsf{C}$.
-%
-%    \item $(A \downarrow\mathsf{CMon}(\mathsf{C}))$ is the coslice category (\hyperref[def:coslicecategory]{Definition \ref*{def:coslicecategory}}) whose objects are morphisms $A \to E$, with $E$ a commutative monoid in $\mathsf{C}$.
-%  \end{itemize}
-%
-%  Then there is an equivalence of categories
-%  \begin{equation*}
-%    \mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C})) \simeq (A \downarrow\mathsf{CMon}(\mathsf{C})).
-%  \end{equation*}
-%\end{theorem}
-%\begin{proof}
-%  See \cite{nlab-deligne-theorem}, Proposition 3.68.
-%\end{proof}
-%
-%\begin{theorem}
-%  \label{thm:tensorproductofcommutativemonoidsispushout}
-%  Let $\mathsf{C}$ be a tensor category, and let $f\colon A \to B$ and $g\colon A \to C$ be two morphisms in the category $\mathsf{CMon}(\mathsf{C})$ (that is, objects in the category $(A \downarrow\mathsf{CMon}(\mathsf{C}))$). Then the $\mathsf{C}$-object underlying the pushout in $\mathsf{CMon}(\mathsf{C})$ (that is, the coproduct in $(A \downarrow\mathsf{CMon}(\mathsf{C}))$) coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$. That is, 
-%  \begin{equation*}
-%    \mathcal{U}\left( B \amalg_{A} C \right) \simeq B \otimes_{A} C,
-%  \end{equation*}
-%  where $B \amalg_{A} C$ is given by the pushout square 
-%  \begin{equation*}
-%    \begin{tikzcd}
-%      A 
-%      \arrow[r, "f"]
-%      \arrow[d, swap, "g"]
-%      & B
-%      \arrow[d]
-%      \\
-%      C
-%      \arrow[r]
-%      & B \amalg_{A} C
-%    \end{tikzcd}
-%  \end{equation*}
-%  and $\mathcal{U}$ is the forgetful functor $\mathsf{CMon}(\mathsf{C}) \to \mathsf{C}$ which sends commutative monoids to their underlying objects.
-%\end{theorem}
-%
-%The upshot of the past few theorems is the following.
-%\begin{theorem}
-%  \label{thm:quasiffinevarietieshaveproducts}
-%  Let $\mathcal{A}$ be a tensor category. Let $A \in \Obj(\mathsf{CMon}(\mathcal{A}))$ be a commutative monoid in $\mathcal{A}$.
-%
-%  Let $A_{1}$ and $A_{2}$ be two $A$-algebras in the sense of \hyperref[def:internalalgebra]{Definition \ref*{def:internalalgebra}}. By \hyperref[def:affinesuperscheme]{Definition \ref*{def:affinesuperscheme}}, we can regard $A_{1}$ and $A_{2}$ as affine schemes, i.e. as objects $\Spec(A_{1})$, $\Spec(A_{2}) \in \mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathcal{A}))$.
-%
-%  Then the category $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathcal{A}))$ has products. Further, these are dual the product $A_{1} \otimes_{A} A_{2}$, in the sense that there exists a natural isomorphism
-%  \begin{equation*}
-%    \Spec(A_{1}) \times \Spec(A_{2}) \simeq \Spec(A_{1} \otimes_{A} A_{2}).
-%  \end{equation*}
-%\end{theorem} 
-%
-%\begin{note}
-%  Be careful! It may appear at first glance that in \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}} we should be talking about the \emph{fiber product} rather than the cartesian product. This is not the case! 
-%
-%  To be more specific: \hyperref[thm:tensorproductofcommutativemonoidsispushout]{Theorem \ref*{thm:tensorproductofcommutativemonoidsispushout}} tells us that the pushout of the diagram 
-%  \begin{equation*}
-%    \begin{tikzcd}
-%      A
-%      \arrow[r, "f"]
-%      \arrow[d, swap, "g"]
-%      & B
-%      \\
-%      C
-%    \end{tikzcd}
-%  \end{equation*}
-%  in $\mathsf{CMon}(\mathsf{C})$ coincides with the tensor product $A \otimes_{C} B$ in $A\mhyp\mathsf{Mod}(\mathsf{C})$. Equivalently, it tells us that the \emph{coproduct} in $(A \downarrow\mathsf{CMon}(\mathsf{C}))$ coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$, which by \hyperref[thm:modulesandmonoidsequivalenceofcategories]{Theorem \ref*{thm:modulesandmonoidsequivalenceofcategories}} is categorically equivalent to $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathcal{A}))^{\mathrm{op}}$. Dualizing \emph{this} is what gives us the statement of \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
-%\end{note}
-%
-%\begin{definition}[restriction of scalars, extension of scalars]
-%  \label{def:extensionrestrictionofscalars}
-%  Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category, $A_{1}$ and $A_{2}$ be two commutative monoids in $\mathsf{C}$, and let $\varphi\colon A_{1} \to A_{2}$ be a homomorphism.
-%  \begin{itemize}
-%    \item \defn{Restriction of scalars} is the functor which sends an $A_{2}$-module $(N, \rho)$ to the $A_{1}$-module $(N, \rho')$ whose action is defined by pre-composition with $\varphi$:
-%      \begin{equation*}
-%        \rho' \colon 
-%        \begin{tikzcd}
-%          A_{1} \otimes N
-%          \arrow[r, "\varphi \otimes 1_{N}"]
-%          & A_{2} \otimes N
-%          \arrow[r, "\rho"]
-%          & N
-%        \end{tikzcd}.
-%      \end{equation*}
-%
-%      Restriction of scalars is denoted by $\varphi^{*}\colon A_{2}\mhyp\mathsf{Mod}(\mathsf{C}) \to A_{1}\mhyp\mathsf{Mod}(\mathsf{C})$.
-%
-%    \item Extension of scalars, which sends an $A_{1}$-module to the free $A_{2}$-module (\hyperref[eg:freemodule]{Example \ref*{eg:freemodule}}).
-%      \begin{equation*}
-%        A_{2} \otimes_{A_{1}} N.
-%      \end{equation*}
-%
-%      Restriction of scalars is denoted $\varphi_{*}\colon A_{1}\mhyp\mathsf{Mod}(\mathsf{C}) \to A_{2}\mhyp\mathsf{Mod}(\mathsf{C})$
-%  \end{itemize}
-%\end{definition}
-%
-%\begin{lemma}
-%  The restriction and extension of scalars form an adjunction
-%  \begin{equation*}
-%    \varphi_{*} \dashv \varphi^{*}.
-%  \end{equation*}
-%\end{lemma}
 
-%\begin{note}
-%  Again a recapitulation is in order. For $M$ a $C^{\infty}$ manifold one has the correspondence
-%  \begin{equation*}
-%    \left\{ \text{Vector bundles on $M$} \right\} \longleftrightarrow \left\{ \text{Finitely-generated projective $C^{\infty}(M)$-modules} \right\}.
-%  \end{equation*}
-%
-%  So far, our business has been to replace $C^{\infty}$ geometry with supergeometry. In doing so, we generalized the idea of a $C^{\infty}$ manifold, arriving at the definition of a so-called \emph{affine super-scheme} $\Spec(A)$ which is given by the dual of a supercommutative, associative $k$-superalgebra $A$.
-%
-%  In this chapter, we saw that vector bundles over a manifold $M$ were dual to finitely-generated, projective $C^{\infty}(M)$ modules. This led to a more general notion of vector bundle, a so-called \emph{quasi-coherent sheaf} over an affine super scheme $\Spec(A)$, defined via the correspondence
-%  \begin{equation*}
-%    \left\{ \text{Quasi-coherent sheaves over an affine super scheme $\Spec(A)$} \right\} \longleftrightarrow \left\{ \text{$A$-modules internal to $\mathsf{SVect}_{k}$} \right\}.
-%  \end{equation*}
-%\end{note}
 
 \section{Supervarieties}
 %\begin{definition}
@@ -8410,13 +8078,15 @@ We can see that algebraic varieties over $R$ are precisely sets of the type $Z_{
 
 This is a perfectly good definition of an algebraic variety, but it is poorly suited to the task at hand. In this section we will find a better one. First, we must make a few observations.
 
-Clearly, if $\mathfrak{a} = (S)$ is the ideal generated by $S$, then $Z_{R}(S) = Z_{R}(\mathfrak{a})$ for any $k$-algebra $R$. 
+\begin{itemize}
+  \item Clearly, if $\mathfrak{a} = (S)$ is the ideal generated by $S$, then $Z_{R}(S) = Z_{R}(\mathfrak{a})$ for any $k$-algebra $R$. 
 
-Any homomorphism of $k$-algebras $\varphi\colon R \to R'$ induces a map $Z_{R}(\mathfrak{a}) \to Z_{R'}(\mathfrak{a})$. Therefore, any ideal $\mathfrak{a}$ defines a functor 
-\begin{equation*}
-  \mathcal{V}_{\mathfrak{a}}\colon k\mhyp\mathsf{Alg} \to \mathsf{Set};\qquad R \mapsto Z_{R}(\mathfrak{a})
-\end{equation*}
-which takes a $k$-algebra to its zero set.
+  \item Any homomorphism of $k$-algebras $\varphi\colon R \to R'$ induces a map $Z_{R}(\mathfrak{a}) \to Z_{R'}(\mathfrak{a})$. Therefore, any ideal $\mathfrak{a}$ defines a functor 
+    \begin{equation*}
+      \mathcal{V}_{\mathfrak{a}}\colon k\mhyp\mathsf{Alg} \to \mathsf{Set};\qquad R \mapsto Z_{R}(\mathfrak{a})
+    \end{equation*}
+    which takes a $k$-algebra to its zero set.
+\end{itemize}
 
 \begin{theorem}
   \label{thm:zerosetisrepresentablefunctor}
@@ -8513,9 +8183,11 @@ which takes a $k$-algebra to its zero set.
   \end{equation*}
 \end{proof}
 
-The meaning of the above theorem is that we can study the variety cut out by the zeroes of the ideal $\mathfrak{a}$ in $R^{n}$ by studying the hom-set $\Hom_{k\mhyp\mathsf{Vect}}(A = k[x_{i}]/\mathfrak{a}, R)$. There is a lot of benefit to this new perspective: we have studied hom functors in some detail, and we can apply results about them to the study of varieties.
+The meaning of the above theorem is that we can study the variety cut out by the zeroes of the ideal $\mathfrak{a}$ in $R^{n}$ by studying the hom-set $\Hom_{k\mhyp\mathsf{Alg}}(A = k[x_{i}]/\mathfrak{a}, R)$. There is a lot of benefit to this new perspective: we have studied hom functors in some detail, and we can apply results about them to the study of varieties.
 
-However, we can take this abstraction further. Since by definition any variety over $R$ is the zero-set $Z_{R}(\mathfrak{a})$ of some ideal $\mathfrak{a}$, the study of varieties over $R$ is reduced to the study of functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ which are represented by some finitely-presented $k$-algebra $A$. The image of $R$ under such a functor would be of the form $\Hom_{k\mhyp\mathsf{Alg}}(A, R)$, hence naturally isomorphic to $Z_{R}(\mathfrak{a})$.
+However, we can take this abstraction further. Since by definition any variety over $R$ is the zero-set $Z_{R}(\mathfrak{a})$ of some ideal $\mathfrak{a}$, we can view the study of varieties over $R$ as equivalent to the study of those functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ which are represented by some finitely-presented $k$-algebra $A = k[x_{i}]/\mathfrak{a}$. The image of $R$ under such a functor would be of the form $\Hom_{k\mhyp\mathsf{Alg}}(A, R)$, hence naturally isomorphic to $Z_{R}(\mathfrak{a})$.
+
+This new perspective allows us to make a new definition, which will be more useful to us.
 
 \begin{definition}[affine (algebraic) variety 2]
   \label{def:affinealgebraicvariety2}
@@ -8524,9 +8196,7 @@ However, we can take this abstraction further. Since by definition any variety o
   The category of affine algebraic varieties is thus given by the category of functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ which are representable by a finitely presented $k$-algebra.
 \end{definition}
 
-By the covariant Yoneda lemma (see \hyperref[note:covariantyonedaembedding]{Note \ref*{note:covariantyonedaembedding}}), the category of representable functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ is equivalent to the opposite of the category of finitely presented $k$-algebras.
-
-Recall (\hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebrasaremonoidsinternaltovect}}) that a commutative monoid in the category $\mathsf{Vect}_{k}$ is precisely a $k$-algebra. Clearly a finitely presented $k$-algebra is a commutative monoid in the category $\mathsf{CMon}(\mathsf{FinVect}_{k})$. This gives us our third definition of an affine algebraic variety.
+By the covariant Yoneda lemma (see \hyperref[note:covariantyonedaembedding]{Note \ref*{note:covariantyonedaembedding}}), the category of functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ is equivalent to the opposite of the category of $k$-algebras, and the subcategory of such functors which are represented by a finitely presented $k$-algebra is equivalent to the opposite of the category of finitely presented $k$-algebras. This gives us the following equivalent definition.
 
 \begin{definition}[affine (algebraic) variety 3]
   \label{def:affinealgebraicvariety3}
@@ -8550,35 +8220,111 @@ Recall (\hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebras
   \end{enumerate}
 \end{definition}
 
-\subsection{Varieties modelled on a general tensor category}
-\begin{definition}[algebra modelled on a tensor category]
-  \label{def:algebramodelledonatensorcategory}
-  Let $\mathscr{A}$ be a $k$-tensor category. The \defn{category of $k$-algebras modelled on $\mathscr{A}$} is the category $\mathsf{CMon}(\mathscr{A})$.
+\begin{note}
+  The condition of finite presentability is necessary from a geometric point of view to preserve the interpretation of $h^{A}$ as being the functor which assigns to a group `$R$-points', i.e. its points in affine $R$-space $\mathbb{A}^{n}_{R}$. However, as long as we vow to view these algebras only algebraically, we can just as easily work with algebras that are not finitely presented. It is still possible to view these algebras as formal duals to geometrical structures, namely schemes.
+\end{note}
+
+\subsection{Supervarieties}
+The generality introduced in the last section allows us to give a slick definition of a supervariety. 
+%
+%\begin{definition}[algebra modelled on a tensor category]
+%  \label{def:algebramodelledonatensorcategory}
+%  Let $\mathscr{A}$ be a $k$-tensor category. The \defn{category of $k$-algebras modelled on $\mathscr{A}$} is the category $\mathsf{CMon}(\mathscr{A})$.
+%\end{definition}
+
+\begin{definition}[affine supervariety]
+  \label{def:supervariety}
+  A \defn{affine supervariety} is equivalently defined by
+  \begin{itemize}
+    \item A representable functor $\mathsf{SAlg}_{k} \to \mathsf{Set}$;
+
+    \item a supercommutative superalgebra. That is, an object in the category $\mathsf{SAlg}_{k}$.
+
+  \end{itemize}
+  These notions are dual to each other in that there is a contravariant equivalence of categories between them, since by the Yoneda lemma the category of representable functors $\mathsf{SAlg}_{k} \to \mathsf{Set}$ is equivalent to $\mathsf{SAlg}_{k}^{\mathrm{op}}$.
+
+  If we are given a supervariety in the form of a functor $G\colon \mathsf{SAlg}_{k} \to \mathsf{Set}$, we call the associated superalgebra $\mathscr{O}(G)$. If we are given a supercommutative superalgebra $A$, we call the associated functor $\spec(A)$. Both of these are simply different notations for the opposite functor.
+
+  Since we will be dealing only with affine supervarieties, we will often refer to them as simply supervarieties.
 \end{definition}
 
-\begin{definition}[affine scheme of an algebra]
-  \label{def:affineschemeofanalgebra}
-  Let $\mathscr{A}$ be a tensor category, and let $A$ be a $k$-algebra modelled on $\mathscr{A}$. Then write
-  \begin{equation*}
-    \mathsf{Aff}(\mathscr{A}) = \mathsf{CMon}(\mathscr{A})^{\text{op}}.
-  \end{equation*}
-
-  For any $A \in \mathsf{CMon}(\mathscr{A})$, denote by $\Spec(A)$ the same object in the opposite category $\mathsf{Aff}(\mathscr{A})$. Call this the \defn{affine scheme} of $A$.
-
-  Conversely, for any $X \in \mathsf{Aff}(\mathscr{A})$, write 
-  \begin{equation*}
-    \mathscr{O}(X) \in \Obj(\mathsf{CMon}(\mathscr{A})).
-  \end{equation*}
-  for the same object viewed in the opposite category.
-\end{definition}
-
-\begin{definition}[affine super scheme]
-  \label{def:affinesuperscheme}
-  When $\mathscr{A} = \mathsf{FinSVect}_{k}$, we call the objects in $\mathsf{Aff}(\mathsf{FinSVect}_{k})$ \defn{affine super schemes} over $k$.
-\end{definition}
+Note that we do not give any definition of an affine algebraic supervariety. The reason for this is that the motivation for the definition of an affine algebraic variety is purely geometrical, and imagining supervarieties as embedded in $\mathbb{A}_{A}^{n}$ for $A$ a supercommutative algebra turns out not to be the correct approach. For the correct geometric interpretation of supervarieties, one needs to the theory of super schemes, which are beyond the scope of these notes. For us, it will suffice to consider supervarieties purely algebraically.
 
 \section{Supergroups as supercommutative Hopf algebras}
-\subsection{Supercommutative Hopf algebras}
+We have seen that a (super)variety $A$ can be viewed as the formal dual of (super)commutative algebra $\mathscr{O}(A)$. We will soon define affine (super)groups to be (super)varieties which are also groups, i.e. group objects $(A, m, e)$ in the category of affine (super)varieties. This extra structure on $A$ will correspond to extra structure on the algebra $\mathscr{O}(A)$ to which it is formally dual, giving it the structure of a \emph{Hopf algebra}.
+
+\subsection{Coalgebras}
+Coalgebras are dual to algebras. In other words, to get the definition of a coalgebra, we take the definition of an algebra and turn the arrows around. More formally, we have the following.
+
+\begin{definition}[coalgebra]
+  \label{def:coalgebra}
+  Let $\mathscr{A}$ be either $\mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$ An $\mathscr{A}$-coalgebra is dual to a monoid internal to $\mathscr{A}^{\mathrm{op}}$. Thus the category of coalgebras is 
+  \begin{equation*}
+    \mathsf{CMon}(\mathscr{A}^{\mathrm{op}})^{\mathrm{op}}.
+  \end{equation*}
+
+  That is, a coalgebra is a triple $(C, \Delta, \varepsilon)$ where 
+  \begin{itemize}
+    \item $C \in \Obj(\mathsf{C})$;
+
+    \item $\Delta\colon C \to C \times C$; and
+
+    \item $\varepsilon\colon C \to k$;
+  \end{itemize}
+  which make the following diagrams commute.
+  \begin{equation*}
+    \begin{tikzcd}[row sep=large, column sep=large]
+      C
+      \arrow[r, "\Delta"]
+      \arrow[d, swap, "\Delta"]
+      & C \otimes C
+      \arrow[d, "C \otimes \Delta"]
+      \\
+      C \otimes C
+      \arrow[r, swap, "\Delta \otimes C"]
+      & C \otimes C \otimes C
+    \end{tikzcd}
+  \end{equation*}
+  \begin{equation*}
+    \begin{tikzcd}
+      C 
+      \arrow[rr, bend left, "C"]
+      \arrow[rd, swap, "\Delta"]
+      && C
+      \\
+      & C \otimes C
+      \arrow[ru, shift left, "C \otimes \varepsilon"]
+      \arrow[ru, shift right, swap, "\varepsilon \otimes C"]
+    \end{tikzcd}
+  \end{equation*}
+
+  A homomorphism of coalgebras $(C, \Delta_{C}, \varepsilon_{C}) \to (D, \Delta_{D}, \varepsilon_{D})$ is a morphism $f \in \Hom_{\mathscr{A}}(C, D)$ which makes the following diagram commute.
+  \begin{equation*}
+    \begin{tikzcd}
+      C \otimes C
+      \arrow[r, "f \otimes f"]
+      & D \otimes D
+      \\
+      C 
+      \arrow[r, "f"]
+      \arrow[u, "\Delta_{C}"]
+      & D
+      \arrow[u, swap, "\Delta_{D}"]
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
+
+\subsection{Bialgebras}
+\begin{definition}[bialgebra]
+  \label{def:bialgebra}
+  A $\mathscr{A}$-bialgebra is a monoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$. 
+\end{definition}
+
+\begin{lemma}
+  Equivalently, it is a quintuple $(A, \nabla, \eta, \Delta, \varepsilon)$, where $(A, \nabla, \eta)$ is an algebra and $(A, \Delta, \varepsilon)$ is a coalgebra.
+\end{lemma}
+
+\subsection{(Super)commutative Hopf algebras}
 
 %The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ defined in \hyperref[def:functorcinfinity]{Definition \ref*{def:functorcinfinity}} was fully faithful, but not essentially surjective. Thus, we can decrese the codomain of the functor $C^{\infty}$ to include only smooth algebras:
 %\begin{equation*}
@@ -8601,7 +8347,7 @@ Recall (\hyperref[eg:algebrasaremonoidsinternaltovect]{Example \ref*{eg:algebras
 %\end{equation*}
 %Moreover, applying $C^{\infty}$ to the coherence diagrams for the group structure on $G$ yields dual coherence diagrams enforcing `co-associativity,' etc. This gives $C^{\infty}(G)$ the structure of a \emph{Hopf algebra}.
 
-The next step in the story is to define affine algebraic super-groups as affine super-schemes over \emph{supercommutative Hopf algebras}. To do this, we need to understand the category theory of Hopf algebras so we know how to generalize them. %However, in the name of full generality, the nLab article \cite{nlab-deligne-theorem} does everything with \emph{Hopf algebroids}, and so will I---in for a penny, in for a pound, after all. If you're not interested in full generality, it won't hurt to skip to \hyperref[def:supercommutativehopfalgebra]{Definition \ref*{def:supercommutativehopfalgebra}}.
+%The next step in the story is to define affine algebraic super-groups as affine super-schemes over \emph{supercommutative Hopf algebras}. To do this, we need to understand the category theory of Hopf (super)algebras. However, in the name of full generality, the nLab article \cite{nlab-deligne-theorem} does everything with \emph{Hopf algebroids}, and so will I---in for a penny, in for a pound, after all. If you're not interested in full generality, it won't hurt to skip to \hyperref[def:supercommutativehopfalgebra]{Definition \ref*{def:supercommutativehopfalgebra}}.
 
 %\begin{definition}[commutative Hopf algebroid]
 %  \label{def:commutativehopfalgebroid}
@@ -8704,72 +8450,85 @@ The next step in the story is to define affine algebraic super-groups as affine 
 %
 %The standard definition of a Hopf algebra (taken from, for example, \cite{milne-affine-group-schemes}) is as follows.
 
-\begin{definition}[commutative Hopf algebra over a field modelled on a tensor category]
-  \label{def:commutativehopfalgebraoverafieldmodelledonatensorcategory}
-  Let $\mathscr{A}$ be a $k$-tensor category. A \defn{commutative Hopf algebra $H$ over a field $k$ modelled on $\mathscr{A}$} is a group object in the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$.
+\begin{definition}[(super)commutative Hopf algebra]
+  \label{def:superornotcommutativehopfalgebra}
+  Let $\mathscr{A} = \mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$. A \defn{commutative $\mathscr{A}$-Hopf algebra} is the formal dual to a group object in the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$.
+
+  If $\mathscr{A} = \mathsf{Vect}_{k}$, then we call the objects of $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ \defn{commutative Hopf algebras}. If $\mathscr{A} = \mathsf{SVect}_{k}$, we call them \defn{supercommutative Hopf algebras}.
 \end{definition}
 
 \begin{note}
-  It's looking like perhaps we want to define Hopf algebras as \emph{the formal duals} of groups in $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ (where here \emph{dual} simply means as an object in the opposite category). See \hyperref[eg:slnisahopfalgebra]{Example \ref*{eg:slnisahopfalgebra}}. With this in mind, the names of these morphisms are \emph{extremely} misleading; for the correct ones see \hyperref[eg:slnisahopfalgebra]{Example \ref*{eg:slnisahopfalgebra}}.
+  By \hyperref[cor:cmonophasproducts]{Corollary \ref*{cor:cmonophasproducts}}, the product $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ always has products, and by \hyperref[lemma:unitobjectisinitialincmon]{Lemma \ref*{lemma:unitobjectisinitialincmon}} it has terminal objects. This means that it makes sense to talk about group objects.
 \end{note}
 
-\begin{note}
-  By \hyperref[cor:cmonophasproducts]{Corollary \ref*{cor:cmonophasproducts}}, the product $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ always has products, hence group objects always exist.
-\end{note}
+What exactly is the dual to a group object in $\mathsf{CMon}(\mathscr{A})^{\text{op}}$? First, let's answer the question: what is a group object in $\mathsf{CMon}(\mathscr{A})^{\text{op}}$. Then we can dualize.
 
-What exactly is a group object in $\mathsf{CMon}(\mathscr{A})^{\text{op}}$? Well, it's an object $H \in \Obj(\mathsf{CMon}(\mathscr{A})^{\text{op}})$, together with the following.
+A group object in the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ consists of object $\spec(H) \in \Obj(\mathsf{CMon}(\mathscr{A})^{\text{op}})$, together with the following.
 \begin{itemize}
-  \item A \emph{multiplication} map $\nabla\colon H \times H \to H$;
-  \item An \emph{identity} map $\eta\colon * \to H$, where $*$ is the terminal object in $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$;
-  \item An \emph{inverse} map $S\colon H \to H$.
+  \item A \emph{multiplication} map $\mu\colon \spec(H) \times \spec(H) \to \spec(H)$;
+  \item An \emph{identity} map $\iota\colon \spec(*) \to \spec(H)$, where $*$ is the terminal object in $\mathsf{CMon}(\mathscr{A})$;
+  \item An \emph{inverse} map $i\colon \spec(H) \to \spec(H)$.
 \end{itemize}
 We can organize this information like so.
 \begin{equation*}
   \begin{tikzcd}
-    H \times H
+    \spec(H) \times \spec(H)
+    \arrow[d, "\mu"]
+    \\
+    \spec(H) 
+    \arrow[loop right, "i"]
+    \\
+    \spec(*)
+    \arrow[u, swap, "\iota"]
+  \end{tikzcd}
+\end{equation*}
+
+The commutative monoid $H$ itself comes with some structure. In particular, it has its own unit map $\eta\colon * \to H$, and its own multiplication $\nabla\colon H \otimes H \to H$. We can write this like.
+
+\begin{equation*}
+  \begin{tikzcd}
+    H \otimes H
     \arrow[d, "\nabla"]
     \\
-    H 
-    \arrow[loop right, "S"]
+    H
     \\
     *
     \arrow[u, swap, "\eta"]
   \end{tikzcd}
 \end{equation*}
 
-The commutative monoid $\mathscr{O}(H)$ itself comes with some structure. In particular, it has its own unit map $e\colon 1 \to \mathscr{O}(H)$, and its own multiplication $\mu\colon \mathscr{O}(H \times H) \to \mathscr{O}(H)$. We can add these to the above diagram as long as we remember to dualize them. We'll write $e^{\mathrm{op}} = \varepsilon$ and $\mu^{\mathrm{op}} = \Delta$.
+We can take the information from the first diagram and put it on the second as long as we dualize. Remember: by \hyperref[thm:tensorproductiscoproductincategoryofcommutativemonoids]{Theorem \ref*{thm:tensorproductiscoproductincategoryofcommutativemonoids}}, $\spec(H) \times \spec(H) = \spec(H \otimes H)$.
+
 \begin{equation*}
   \begin{tikzcd}
-    H \times H
+    H \otimes H
     \arrow[d, bend left, "\nabla"]
     \\
-    H 
-    \arrow[u, bend left, "\Delta"]
+    H
     \arrow[loop right, "S"]
-    \arrow[d, bend left, "\varepsilon"]
+    \arrow[u, bend left, "\Delta"]
+    \arrow[d, swap, bend right, "\varepsilon"]
     \\
-    1
-    \arrow[u, bend left, "\eta"]
+    *
+    \arrow[u, swap, bend right, "\eta"]
   \end{tikzcd}
 \end{equation*}
 
-\begin{definition}[commutative Hopf algebra]
-  \label{def:commutativehopfalgebra}
-  A \defn{commutative Hopf algebra} is a commutative Hopf algebra over $k$ modelled on $\mathsf{FinVect}_{k}$. That is, it is a group object in the category $\mathsf{CMon}(\mathsf{FinVect}_{k})^{\mathrm{op}} = k\mhyp\mathsf{Alg}^{\text{fin gen}}$.
-\end{definition}
-
-\begin{definition}[supercommutative Hopf algebra]
-  \label{def:supercommutativehopfalgebra}
-  A \defn{supercommutative Hopf algebra} is a commutative Hopf algebra over $k$ modelled on $\mathsf{FinSVect}_{k}$. That is, it is a group object in the category $\mathsf{CMon}(\mathsf{FinSVect}_{k})^{\mathrm{op}} = k\mhyp\mathsf{SAlg}^{\text{fin pres}}$.
-\end{definition}
-
 \subsection{What does this have to do with algebraic super groups?}
-Simply put, groups are like a generalized sort of algebraic variety which are also groups. 
-
-\begin{definition}[affine (algebraic) group]
-  \label{def:affinegroup}
-  An \defn{affine group} is an affine (algebraic) variety that is also a group, i.e. a group object in the category of representable functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ (represented by a finitely presented $k$-algebra).
+\begin{definition}[affine (super)group]
+  \label{def:affinesuperornotgroup}
+  An \defn{affine $\mathscr{A}$-group} is an affine (super)variety that is also a group, i.e. a group object in the category of representable functors $\mathsf{CMon}(\mathscr{A}) \to \mathsf{Set}$.
 \end{definition}
+
+By the Yoneda lemma, we could equivalently say that an affine super group $G$ is a group internal to the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$. In particular it is a monoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ if we forget about the inverse-assigning morphism $S$, and hence a dual to a coalgbra. 
+
+This means that $\mathscr{O}(G)$ is both an algebra $(\mathscr{O}(G), \nabla, \eta)$ and a bialgebra $(\mathscr{O}(G), \Delta, \varepsilon)$. But we can say more.
+
+\begin{note}
+  We could equivalently define an affine (super)group as the formal dual of a (super)commutative Hopf algebra.
+
+  If we are given an affine (super)group in the form of a functor $G$, we write $\mathscr{O}(G)$ for the corresponding Hopf algebra. If we are given a Hopf algebra $H$, write $\spec(H)$ for the corresponding functor.
+\end{note}
 
 \begin{example}
   \label{eg:slnisahopfalgebra}
@@ -8803,7 +8562,7 @@ Simply put, groups are like a generalized sort of algebraic variety which are al
     \SL_{n} \simeq \Hom_{k\mhyp\mathsf{Alg}}(A, -) = h^{A}.
   \end{equation*}
 
-  By the Yoneda lemma, we can learn everything we need to know about $h^{A}$ by studying its opposite object under the embedding $h^{A} \mapsto A$, where $A$ is viewed as an object in the opposite category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$. In particular: 
+  By the Yoneda lemma, we can learn everything we need to know about $h^{A}$ by studying its opposite object under the embedding $h^{A} \mapsto A$, where $A$ is viewed as an object in the opposite category $\mathsf{Alg}_{k} = \mathsf{CMon}(\mathsf{Vect}_{k})$. In particular: 
   \begin{itemize}
     \item The identity $e\colon h^{*} \to h^{A}$ is the image of a map $\varepsilon\colon A \to *$, where $* = k$ is the initial object in the category $k\mhyp\mathsf{Alg}$.
 
@@ -8877,15 +8636,6 @@ The algebraic group $\SL_{n}$ is easier than $\GL_{n}$ because its defining equa
   \end{itemize}
 \end{example}
 
-\begin{definition}[affine supergroup]
-  \label{def:affinesupergroup}
-  An affine supergroup is a supercommutative Hopf algebra.
-\end{definition}
-
-\begin{note}
-  The spirit of the above note applies, but some changes must be made. In particular, for an affine supergroup $G$, the associated supercommutative Hopf algebra $\mathscr{O}(H)$ must be viewed as an affine super scheme.
-\end{note}
-
 \begin{definition}[inner parity]
   \label{def:innerparity}
   Let $G$ be an affine algebraic supergroup. An \defn{inner parity} on $G$ is an superalgebra homomorphism $\varepsilon^{*}\colon \mathscr{O}(G) \to k$ such that
@@ -8917,11 +8667,365 @@ The algebraic group $\SL_{n}$ is easier than $\GL_{n}$ because its defining equa
   \end{itemize}
 \end{definition}
 
-\section{Linear super-representations as Comodules}
-\subsection{Comodules in tensor categories}
+\section{Modules and comodules in symmetric monoidal categories}
+For the remainder of this section, $\mathscr{A}$ will stand for either $\mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$.
+
+\subsection{Modules}
+Due to time constraints, most of the proofs in this section are omitted. Hopefully this is not a permanent situation.
+
+\begin{note}
+  It appears that the material in this chapter is necessary for understanding the proof of Deligne's theorem, but not its statement. It will almost certainly not make it into the project.
+\end{note}
+
+% We saw in the last section that we can view the duals of associative algebras as generalized manifolds. In this section, we will see that we can pull the same trick for vector bundles.
+% 
+% \begin{definition}[category of vector bundles over a manifold]
+%   \label{def:categoryofvectorbundlesoveramanifold}
+%   Let $M$ be a $C^{\infty}$ manifold. Denote by $\mathsf{VectBund}_{X}$ the category whose objects are vector bundles 
+%   \begin{equation*}
+%     \begin{tikzcd}
+%       V 
+%       \arrow[r, "\pi"]
+%       & X
+%     \end{tikzcd}
+%   \end{equation*}
+%   and whose morphisms are maps $\varphi\colon V \to V'$ which preserve basepoint, i.e. maps $V \to V'$ which make the following diagram commute,
+%   \begin{equation*}
+%     \begin{tikzcd}[column sep=tiny]
+%       V
+%       \arrow[rr, "\varphi"]
+%       \arrow[rd, swap, "\pi"]
+%       & & V'
+%       \arrow[ld, "\pi'"]
+%       \\
+%       & X
+%     \end{tikzcd}
+%   \end{equation*}
+%   and which map fibers to their image fibers linearly.
+% 
+%   We will also need the full subcategory $\mathsf{VectBund}_{X}^{\text{fin}} \subset \mathsf{VectBund}_{X}$ whose objects are vector bundles of finite rank (i.e vector bundles whose fibers are finite-dimensional vector spaces).
+% \end{definition}
+% 
+% For any vector bundle $\pi\colon V \to X$, the set of all sections $\Gamma_{X}(V)$ can be given the structure of a $C^{\infty}$-module. Furthermore, any morphism $\varphi\colon V \to V'$ determines a homomorphism of modules $\Gamma_{X}(V) \to \Gamma_{X}(V')$ by sending $\sigma \to \varphi \circ \sigma$. This gives us a functor $\mathsf{VectBund}_{X} \rightsquigarrow C^{\infty}(X)\mhyp\mathsf{Mod}$.
+% 
+% In fact, with some mild conditions on the vector bundles and modules in question, we can say more. First, we consider only vector bundles whose fibers are finite-dimensional; this means we restrict our attention to the category $\mathsf{VectBund}^{\mathrm{fin}}_{X}$. Second, not all modules arise as modules over vector bundles of finite rank; it turns out that all modules which arise in this way are projective (\hyperref[def:projectivemodule]{Definition \ref*{def:projectivemodule}}) and finitely generated (\hyperref[def:finitelygeneratedmodule]{Definition \ref*{def:finitelygeneratedmodule}}).
+% 
+% \begin{definition}[category of finitely-generated projective $C^{\infty}$-modules]
+%   \label{def:categoryofyaddayaddasmoothmodules}
+%   Denote by $C^{\infty}(X)\mhyp\mathsf{Mod}_{\mathrm{proj}}^{\mathrm{fin\ gen}}$ the category of smooth, finitely-generated $C^{\infty}(X)$-modules.
+% \end{definition}
+% 
+% \begin{theorem}[smooth Serre-Swan theorem]
+%   The functor 
+%   \begin{equation*}
+%     \mathsf{VectBund}^{\mathrm{fin}}_{X} \rightsquigarrow C^{\infty}(X)\mhyp\mathsf{Mod}^{\mathrm{fin\,gen}}_{\mathrm{proj}}
+%   \end{equation*}
+%   which sends each vector bundle to its module of sections is an equivalence of categories.
+% \end{theorem}
+% \begin{proof}
+%   See \cite{nestruev-smooth-manifolds-observables} 11.33, page 183.
+% \end{proof}
+% 
+% As before, one is lead to the assumption that one could generalize the idea of a vector bundle by relaxing the requrements on the modules under consideration. The `generalized vector bundles' arising in this way are called \emph{quasicoherent sheaves}.
+% 
+% \begin{note}
+%   The notion of a generalized vector bundle isn't actually used. The mathematical edifice below is introduced so as to define a more general version of Hopf algebra, which also isn't used. I'll probably take it all out at some point.
+% \end{note}
+
+\begin{definition}[module object]
+  \label{def:moduleobject}
+  Let $(A, \mu, e)$ a monoid internal to $\mathscr{A}$. A \defn{[left] module object} in $\mathscr{A}$ over $A$ is
+  \begin{enumerate}
+    \item An object $N \in \Obj(\mathscr{A})$ and
+
+    \item A morphism $\rho\colon A \otimes N \to N$ (called the \emph{action})
+  \end{enumerate}
+  such that the following diagrams commute.
+  \begin{enumerate}
+    \item (unitality)
+      \begin{equation*}
+        \begin{tikzcd}
+          1 \otimes N
+          \arrow[r, "e \otimes 1_{N}"]
+          \arrow[dr, swap, "\lambda_{N}"]
+          & A \otimes N
+          \arrow[d, "\rho"]
+          \\
+          & N
+        \end{tikzcd}
+      \end{equation*}
+
+    \item (action property)
+      \begin{equation*}
+        \begin{tikzcd}
+          A \otimes A \otimes N
+          \arrow[d, swap, "\mu \otimes N"]
+          \arrow[r, "A \otimes \rho"]
+          & A \otimes N
+          \arrow[d, "\rho"]
+          \\
+          A \otimes N
+          \arrow[r, "\rho"]
+          & N
+        \end{tikzcd}
+      \end{equation*}
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[homomorphism of module objects]
+  \label{def:homomorphismofmoduleobjects}
+  A homomorphism of [left] $A$-module objects $(N_{1}, \rho_{1})$, $(N_{2}, \rho_{2})$ is a morphism
+  \begin{equation*}
+    f\colon N_{1} \to N_{2}
+  \end{equation*}
+  such that the diagram
+  \begin{equation*}
+    \begin{tikzcd}
+      A \otimes N_{1}
+      \arrow[r, "1_{A} \otimes f"]
+      \arrow[d, swap, "\rho_{1}"]
+      & A \otimes N_{2}
+      \arrow[d, "\rho_{2}"]
+      \\
+      N_{1}
+      \arrow[r, swap, "f"]
+      & N_{2}
+    \end{tikzcd}
+  \end{equation*}
+  commutes.
+\end{definition}
+
+\begin{definition}[category of internal $A$-modules]
+  \label{def:categoryofinternalmodules}
+  Let $(\mathscr{A}, \otimes, 1)$ be a symmetric monoidal category. Write $A\mhyp\mathsf{Mod}(\mathscr{A})$ for the category whose objects are $A$-modules internal to $\mathscr{A}$ and whose morphisms are homomorphisms of module objects.
+
+  The subscript will often be dropped if the category we're talking about is obvious.
+\end{definition}
+
+\begin{example}
+  \label{eg:categoryof1modulesisequivalenttocategoryitself}
+  As we saw in \hyperref[eg:tensorunitisinternalmonoid]{Example \ref*{eg:tensorunitisinternalmonoid}}, we can view the tensor unit $1 \in \Obj(\mathscr{A})$ as a monoid internal to $\mathscr{A}$. Then for every object $C \in \Obj(\mathscr{A})$, the left unitor $\lambda_{C}\colon 1 \otimes C \to C$ makes $C$ into a a left module.
+
+  This holds for any $C \in \Obj(\mathscr{A})$, and in fact gives an equivalence of categories
+  \begin{equation*}
+    \mathscr{A} \simeq 1\mhyp\mathsf{Mod}(\mathscr{A}).
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  \label{eg:anyringisamoduleoveritself}
+  Any monoid $(A, \mu, e)$ is a left-module over itself with $\rho = \mu$.
+\end{example}
+
+\begin{example}
+  \label{eg:freemodule}
+  Let $C \in \Obj(\mathscr{A})$ and $(A, \mu, e)$ a monoid internal to $\mathscr{A}$. Then $A \otimes C$ has a natural left-module structure with
+  \begin{equation*}
+    \rho\colon A \otimes (A \otimes C) \to A \otimes C
+  \end{equation*}
+  given by the composition.
+  \begin{equation*}
+    \begin{tikzcd}
+      A \otimes (A \otimes C)
+      \arrow[r, "{\alpha_{A, A ,C}^{-1}}"]
+      & (A \otimes A) \otimes C
+      \arrow[r, "\rho \otimes 1_{C}"]
+      & A \otimes C
+    \end{tikzcd}.
+  \end{equation*}
+
+  Modules of this form are called \defn{free modules} because the the functor 
+  \begin{equation*}
+    \mathcal{F}_{A}\colon \mathscr{A} \to A\mhyp\mathsf{Mod}(\mathscr{A});\qquad C \mapsto (C \otimes A, \rho)
+  \end{equation*}
+  which sends an object to its free $A$-module is left-adjoint to the functor 
+  \begin{equation*}
+    \mathcal{U}\colon A\mhyp\mathsf{Mod}(\mathscr{A}) \to \mathscr{A};\qquad (N, \rho) \mapsto N.
+  \end{equation*}
+
+  To see this,
+\end{example}
+
+\begin{definition}[tensor product of module objects]
+  \label{def:tensorproductofmoduleobjects}
+  For any commutative monoid $(A, \mu, e)$ and two left $A$-module objects $(N_{1}, \rho_{1})$ and $(N_{2}, \rho_{2})$, the \defn{tensor product of module objects}, denoted $N_{1} \otimes_{A} N_{2}$, is the coequalizer
+  \begin{equation*}
+    \begin{tikzcd}[column sep=huge]
+      N_{1} \otimes A \otimes N_{2}
+      \arrow[r, shift left=1.5, "1_{N_{1}} \otimes \rho_{2}"]
+      \arrow[r, shift right=1.5, swap, "{\rho_{1} \circ (\gamma_{N_{1}, A} \otimes N_{2})}"]
+      & N_{1} \otimes N_{2}
+      \arrow[r, "\mathrm{coeq}"]
+      & N_{1} \otimes_{A} N_{2}
+    \end{tikzcd}
+  \end{equation*}
+
+  That is to say, roughly speaking, it is the quotient of $N_{1} \otimes A \otimes N_{2}$ by the smallest equivalence relation so that left-multiplication agrees with right-multiplication.
+\end{definition}
+
+\begin{definition}[function module]
+  \label{def:functionmodule}
+  For $(N_{1}, \rho_{1})$ and $(N_{2}, \rho_{2})$ two $A$-modules internal to a closed symmetric $\mathscr{A}$, the \defn{function module} $\hom_{A}(N_{1}, N_{1})$ is, as an object, the equalizer 
+  \begin{equation*}
+    \begin{tikzcd}
+      \hom_{A}(N_{1}, N_{2})
+      \arrow[rr, "\mathrm{equ}"]
+      & & {[N_{1}, N_{2}]_{\mathscr{A}}}
+      \arrow[rr, "{[\rho_{1}, 1_{N_{2}}]_{\mathscr{A}}}"]
+      \arrow[dr, swap, "A \otimes (-)"]
+      & & {[A \otimes N_{1}, N_{2}]_{\mathscr{A}}}
+      \\
+      & & & {[A \otimes N_{1}, A \otimes N_{2}]_{\mathscr{A}}}
+      \arrow[ur, swap, "{[1_{A \otimes N_{1}}, \rho_2]_{\mathscr{A}}}"]
+    \end{tikzcd},
+  \end{equation*}
+  where $[-,-]_{\mathscr{A}}$ denotes the hom functor internal to $\mathscr{A}$, and $A \otimes (-)$ is the natural transformation from \hyperref[lemma:cantensorbothsidesofinternalhom]{Lemma \ref*{lemma:cantensorbothsidesofinternalhom}}.
+
+  The left action $A \otimes \hom_{A}(N_{1}, N_{2}) \to \hom_{A}(N_{1}, N_{2})$ is given by 
+\end{definition}
+
+\begin{theorem}
+  Let $(A, \mu, e)$ be a commutative monoid internal to $\mathscr{A}$. Then if $\mathscr{A}$ has all coequalizers, the category $A\mhyp\mathsf{Mod}(\mathscr{A})$ of $A$-modules internal to $\mathscr{A}$ becomes a symmetric monoidal category with
+  \begin{itemize}
+    \item The tensor product $\otimes$ given by $\otimes_{A}$ (see \hyperref[def:tensorproductofmoduleobjects]{Definition \ref*{def:tensorproductofmoduleobjects}}).
+
+    \item The tensor unit 1 given by $A$, with the $A$-module structure as in \hyperref[eg:anyringisamoduleoveritself]{Example \ref*{eg:anyringisamoduleoveritself}}.
+  \end{itemize}
+
+  Additionally, if all equalizers exist the $\mathscr{A}$ is a closed monoidal category, with the function module $\hom_{A}$ from \hyperref[def:functionmodule]{Definition \ref*{def:functionmodule}} acting as the internal hom.
+\end{theorem}
+\begin{proof}
+  See \cite{nlab-deligne-theorem}, Proposition 3.65.
+\end{proof}
+
+%\begin{definition}[internal algebra]
+%  \label{def:internalalgebra}
+%  Let $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ be the symmetric monoidal category of $A$-modules internal to $\mathsf{C}$. A monoid internal to $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ is called an \defn{$A$-algebra}; a commutative monoid internal to $(A\mhyp\mathsf{Mod}(\mathsf{C}), \otimes_{A}, A)$ is called a \defn{commutative $A$-algebra}.
+%\end{definition}
+%
+%\begin{theorem}
+%  \label{thm:modulesandmonoidsequivalenceofcategories}
+%  Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category, and let $A$ be a commutative monoid internal to $\mathsf{C}$. Recall that
+%  \begin{itemize}
+%    \item $(A\mhyp\mathsf{Mod}, \otimes_{A}, A)$ is the category of $A$-modules internal to $\mathsf{C}$, and $\mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C}))$ is the category of commutative $A$-algebras internal to $\mathsf{C}$.
+%
+%    \item $(A \downarrow\mathsf{CMon}(\mathsf{C}))$ is the coslice category (\hyperref[def:coslicecategory]{Definition \ref*{def:coslicecategory}}) whose objects are morphisms $A \to E$, with $E$ a commutative monoid in $\mathsf{C}$.
+%  \end{itemize}
+%
+%  Then there is an equivalence of categories
+%  \begin{equation*}
+%    \mathsf{CMon}(A\mhyp\mathsf{Mod}(\mathsf{C})) \simeq (A \downarrow\mathsf{CMon}(\mathsf{C})).
+%  \end{equation*}
+%\end{theorem}
+%\begin{proof}
+%  See \cite{nlab-deligne-theorem}, Proposition 3.68.
+%\end{proof}
+%
+%\begin{theorem}
+%  \label{thm:tensorproductofcommutativemonoidsispushout}
+%  Let $\mathsf{C}$ be a tensor category, and let $f\colon A \to B$ and $g\colon A \to C$ be two morphisms in the category $\mathsf{CMon}(\mathsf{C})$ (that is, objects in the category $(A \downarrow\mathsf{CMon}(\mathsf{C}))$). Then the $\mathsf{C}$-object underlying the pushout in $\mathsf{CMon}(\mathsf{C})$ (that is, the coproduct in $(A \downarrow\mathsf{CMon}(\mathsf{C}))$) coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$. That is, 
+%  \begin{equation*}
+%    \mathcal{U}\left( B \amalg_{A} C \right) \simeq B \otimes_{A} C,
+%  \end{equation*}
+%  where $B \amalg_{A} C$ is given by the pushout square 
+%  \begin{equation*}
+%    \begin{tikzcd}
+%      A 
+%      \arrow[r, "f"]
+%      \arrow[d, swap, "g"]
+%      & B
+%      \arrow[d]
+%      \\
+%      C
+%      \arrow[r]
+%      & B \amalg_{A} C
+%    \end{tikzcd}
+%  \end{equation*}
+%  and $\mathcal{U}$ is the forgetful functor $\mathsf{CMon}(\mathsf{C}) \to \mathsf{C}$ which sends commutative monoids to their underlying objects.
+%\end{theorem}
+%
+%The upshot of the past few theorems is the following.
+%\begin{theorem}
+%  \label{thm:quasiffinevarietieshaveproducts}
+%  Let $\mathscr{A}$ be a tensor category. Let $A \in \Obj(\mathsf{CMon}(\mathscr{A}))$ be a commutative monoid in $\mathscr{A}$.
+%
+%  Let $A_{1}$ and $A_{2}$ be two $A$-algebras in the sense of \hyperref[def:internalalgebra]{Definition \ref*{def:internalalgebra}}. By \hyperref[def:affinesuperscheme]{Definition \ref*{def:affinesuperscheme}}, we can regard $A_{1}$ and $A_{2}$ as affine schemes, i.e. as objects $\Spec(A_{1})$, $\Spec(A_{2}) \in \mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathscr{A}))$.
+%
+%  Then the category $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathscr{A}))$ has products. Further, these are dual the product $A_{1} \otimes_{A} A_{2}$, in the sense that there exists a natural isomorphism
+%  \begin{equation*}
+%    \Spec(A_{1}) \times \Spec(A_{2}) \simeq \Spec(A_{1} \otimes_{A} A_{2}).
+%  \end{equation*}
+%\end{theorem} 
+%
+%\begin{note}
+%  Be careful! It may appear at first glance that in \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}} we should be talking about the \emph{fiber product} rather than the cartesian product. This is not the case! 
+%
+%  To be more specific: \hyperref[thm:tensorproductofcommutativemonoidsispushout]{Theorem \ref*{thm:tensorproductofcommutativemonoidsispushout}} tells us that the pushout of the diagram 
+%  \begin{equation*}
+%    \begin{tikzcd}
+%      A
+%      \arrow[r, "f"]
+%      \arrow[d, swap, "g"]
+%      & B
+%      \\
+%      C
+%    \end{tikzcd}
+%  \end{equation*}
+%  in $\mathsf{CMon}(\mathsf{C})$ coincides with the tensor product $A \otimes_{C} B$ in $A\mhyp\mathsf{Mod}(\mathsf{C})$. Equivalently, it tells us that the \emph{coproduct} in $(A \downarrow\mathsf{CMon}(\mathsf{C}))$ coincides with the tensor product in $A\mhyp\mathsf{Mod}(\mathsf{C})$, which by \hyperref[thm:modulesandmonoidsequivalenceofcategories]{Theorem \ref*{thm:modulesandmonoidsequivalenceofcategories}} is categorically equivalent to $\mathsf{Aff}(A\mhyp\mathsf{Mod}(\mathscr{A}))^{\mathrm{op}}$. Dualizing \emph{this} is what gives us the statement of \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}.
+%\end{note}
+%
+%\begin{definition}[restriction of scalars, extension of scalars]
+%  \label{def:extensionrestrictionofscalars}
+%  Let $(\mathsf{C}, \otimes, 1)$ be a symmetric monoidal category, $A_{1}$ and $A_{2}$ be two commutative monoids in $\mathsf{C}$, and let $\varphi\colon A_{1} \to A_{2}$ be a homomorphism.
+%  \begin{itemize}
+%    \item \defn{Restriction of scalars} is the functor which sends an $A_{2}$-module $(N, \rho)$ to the $A_{1}$-module $(N, \rho')$ whose action is defined by pre-composition with $\varphi$:
+%      \begin{equation*}
+%        \rho' \colon 
+%        \begin{tikzcd}
+%          A_{1} \otimes N
+%          \arrow[r, "\varphi \otimes 1_{N}"]
+%          & A_{2} \otimes N
+%          \arrow[r, "\rho"]
+%          & N
+%        \end{tikzcd}.
+%      \end{equation*}
+%
+%      Restriction of scalars is denoted by $\varphi^{*}\colon A_{2}\mhyp\mathsf{Mod}(\mathsf{C}) \to A_{1}\mhyp\mathsf{Mod}(\mathsf{C})$.
+%
+%    \item Extension of scalars, which sends an $A_{1}$-module to the free $A_{2}$-module (\hyperref[eg:freemodule]{Example \ref*{eg:freemodule}}).
+%      \begin{equation*}
+%        A_{2} \otimes_{A_{1}} N.
+%      \end{equation*}
+%
+%      Restriction of scalars is denoted $\varphi_{*}\colon A_{1}\mhyp\mathsf{Mod}(\mathsf{C}) \to A_{2}\mhyp\mathsf{Mod}(\mathsf{C})$
+%  \end{itemize}
+%\end{definition}
+%
+%\begin{lemma}
+%  The restriction and extension of scalars form an adjunction
+%  \begin{equation*}
+%    \varphi_{*} \dashv \varphi^{*}.
+%  \end{equation*}
+%\end{lemma}
+
+%\begin{note}
+%  Again a recapitulation is in order. For $M$ a $C^{\infty}$ manifold one has the correspondence
+%  \begin{equation*}
+%    \left\{ \text{Vector bundles on $M$} \right\} \longleftrightarrow \left\{ \text{Finitely-generated projective $C^{\infty}(M)$-modules} \right\}.
+%  \end{equation*}
+%
+%  So far, our business has been to replace $C^{\infty}$ geometry with supergeometry. In doing so, we generalized the idea of a $C^{\infty}$ manifold, arriving at the definition of a so-called \emph{affine super-scheme} $\Spec(A)$ which is given by the dual of a supercommutative, associative $k$-superalgebra $A$.
+%
+%  In this chapter, we saw that vector bundles over a manifold $M$ were dual to finitely-generated, projective $C^{\infty}(M)$ modules. This led to a more general notion of vector bundle, a so-called \emph{quasi-coherent sheaf} over an affine super scheme $\Spec(A)$, defined via the correspondence
+%  \begin{equation*}
+%    \left\{ \text{Quasi-coherent sheaves over an affine super scheme $\Spec(A)$} \right\} \longleftrightarrow \left\{ \text{$A$-modules internal to $\mathsf{SVect}_{k}$} \right\}.
+%  \end{equation*}
+%\end{note}
+
+\subsection{Comodules}
 \begin{definition}[comodule object]
   \label{def:comoduleobject}
-  Let $\mathscr{A}$ be a $k$-tensor category, let $A$ be a commutative Hopf algebra over $k$ modelled on $\mathscr{A}$ (\hyperref[def:commutativehopfalgebraoverafieldmodelledonatensorcategory]{Definition \ref*{def:commutativehopfalgebraoverafieldmodelledonatensorcategory}}). 
+  Let $(A, m, e)$ be an $\mathscr{A}$-coalgebra.
 
   An \defn{$A$-comodule} is a pair $(V, \rho)$, where $V \in \Obj(\mathscr{A})$ and
   \begin{equation*}
@@ -9042,7 +9146,7 @@ The algebraic group $\SL_{n}$ is easier than $\GL_{n}$ because its defining equa
 
 \begin{definition}[tensor product of comodules]
   \label{def:tensorproductofcomodules}
-  Let $A$ be a commutative Hopf algebra (\hyperref[def:commutativehopfalgebra]{Definition \ref*{def:commutativehopfalgebra}}) over $k$, and let $V$ and $V'$ be $A$-comodules (\hyperref[def:comoduleobject]{Definition \ref*{def:comoduleobject}}).
+  Let $A$ be a commutative Hopf algebra (\hyperref[def:superornotcommutativehopfalgebra]{Definition \ref*{def:superornotcommutativehopfalgebra}}) over $k$, and let $V$ and $V'$ be $A$-comodules (\hyperref[def:comoduleobject]{Definition \ref*{def:comoduleobject}}).
 
   The \defn{comodule tensor product} is the object $V \otimes V'$ together with the coaction $V \otimes V' \to A \otimes V \otimes V'$ given by the composition
   \begin{equation*}
@@ -9057,14 +9161,20 @@ The algebraic group $\SL_{n}$ is easier than $\GL_{n}$ because its defining equa
     \end{tikzcd}.
   \end{equation*}
 \end{definition}
-\subsection{Representations}
-Let $G$ be an affine group over 
 
-\begin{definition}[linear representation of a group]
-  \label{def:linearrepresentationofgroup}
-  Let $G$ be an algebraic group, and let $H = \mathscr{O}(G)$ be its commutative Hopf algebra modelled on a $k$-tensor category $\mathsf{FinVect}_{k}$. A \defn{linear representation} of $G$ on $V \in \Obj(\mathsf{FinVect}_{k})$ is a natural transformation $r\colon G \to \mathrm{Aut}_{(-)\mhyp\mathsf{Mod}}(V \otimes -)$, where for any $k$-algebra $R$, $V \otimes R$ has the module structure from \hyperref[eg:freemodule]{Example \ref*{eg:freemodule}}.
+\section{Linear representations as Comodules}
+\begin{definition}[representation of a group]
+  \label{def:representationofgroup}
+  Let $G$ be an algebraic group, and let $H = \mathscr{O}(G)$ be its commutative Hopf algebra. A \defn{representation} of $G$ on $V \in \Obj(\mathsf{Vect}_{k})$ is a natural transformation $r\colon G \to \mathrm{Aut}_{(-)\mhyp\mathsf{Mod}}(V \otimes -)$, where for any $k$-algebra $R$, $V \otimes R$ has the module structure from \hyperref[eg:freemodule]{Example \ref*{eg:freemodule}}.
+
+  A representation is called \defn{finite dimensional} if $V$ is finite-dimensional.
 
   That is, for every commutative $k$-algebra $R$, it is a group homomorphism $G(R) \to \mathrm{Aut}_{R\mhyp\mathsf{Mod}}(V \otimes R)$ which makes the naturality square commute.
+\end{definition}
+
+\begin{definition}[homomorphism of representations]
+  \label{def:homomorphismmofrepresentations}
+  Let $(V, r)$ and $(V', r')$ be representations of $G$ on 
 \end{definition}
 
 \begin{theorem}
@@ -9072,7 +9182,7 @@ Let $G$ be an affine group over
   \begin{itemize}
     \item The set of of representations of $G$, i.e. the set of natural transformations
       \begin{equation*}
-        G \Rightarrow \mathrm{Aut}_{(-)\mhyp\mathsf{Mod}}(V \otimes -)
+        G \to \mathrm{Aut}_{(-)\mhyp\mathsf{Mod}}(V \otimes -)
       \end{equation*}
 
     \item The set of $\mathscr{O}(G)$-comodules 
@@ -9086,17 +9196,12 @@ Let $G$ be an affine group over
   \end{equation*}
   with the Hopf algebra structure investigated in \hyperref[eg:slnisahopfalgebra]{Example \ref*{eg:slnisahopfalgebra}}.
 
-  According to \hyperref[def:linearrepresentationofgroup]{Definition \ref*{def:linearrepresentationofgroup}}, a \defn{linear representation} of $\SL_{n}$ is a natural transformation $r\colon \SL_{n} \to \mathrm{Aut}_{(-)\mhyp\mathsf{Mod}}(V \otimes -)$. That is, it is for each commutative $k$-algebra $R$ a group homomorphism 
+  According to \hyperref[def:representationofgroup]{Definition \ref*{def:representationofgroup}}, a \defn{representation} of $\SL_{n}$ is a natural transformation $r\colon \SL_{n} \to \mathrm{Aut}_{(-)\mhyp\mathsf{Mod}}(V \otimes -)$. That is, it is for each commutative $k$-algebra $R$ a group homomorphism 
   \begin{equation*}
     r_{R}\colon \SL(R) \to \Aut_{R\mhyp\mathsf{Mod}_{k}}(V \otimes R)
   \end{equation*}
   which makes the naturality square commute.
 \end{example}
-
-\begin{definition}[linear representation of a supergroup]
-  \label{def:linearrepresentationofsupergroup}
-  Let $G$ be a supergroup, and let $H = \mathscr{O}(G)$ be its defining supercommutative Hopf algebra modelled on a $k$-tensor category $\mathsf{FinSVect}_{k}$. A \defn{linear representation} of $G$ is an $H$-comodule modelled on $\mathsf{FinSVect}_{k}$.
-\end{definition}
 
 \section{Super fiber functors and their automorphism groups}
 We would like to view tensor categories $\mathscr{A}$ as categories of representations. Thus, we would like to be able to view the objects of $\mathscr{A}$ as being the objects of some other category $\mathscr{V}$, plus some extra structure. The extra structure should be extra in the sense that it is forgettable, so there should be a forgetful functor
@@ -9220,6 +9325,175 @@ Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheo
 \end{enumerate}
 
 \chapter{Relevance to physics}
+\section{Symmetries in quantum mechanics}
+
+%, but a summary of the aspects which will be essential in what follows is given for completeness.
+
+%In this set-up of quantum mechanics, the space of states of a physical system are represented mathematically as normalized vectors $\psi$ belonging to some complex separable Hilbert space $\mathscr{H}$. Observable quantities (such as angular momentum) correspond to self-adjoint operators whose eigenvalues correspond to the possible values of a measurement of the corresponding observable. There is a distinguished operator $H$, the so-called \emph{Hamiltonian} operator, whose corresponding observable quantity is energy. The Hamiltonian defines how the state $\psi$ system evolves through time via the time-dependent Schr\"{o}dinger equation
+%\begin{equation*}
+%  i\tder{\psi}{t} = H\psi.
+%\end{equation*}
+
+Quantum mechanics is usually introduced 
+\begin{itemize}
+  \item in the non-relativistic arena, and
+
+  \item in the Schr\"{o}dinger picture.
+\end{itemize}
+This can obscure the vital importance that symmetries play in quantum mechanics. In the next section, we give an example of the standard treatment of symmetry. 
+\subsection{Symmetries in the Schr\"{o}dinger picture}
+
+\begin{note}
+  This section isn't really written in the right tone. I'll go back and remove some of the more opinionated sentences.
+\end{note}
+
+Consider the non-relativistic free particle in one dimension. For simplicity we set $\hbar = 1$ and consider our particle to have mass $1$. Our Hilbert space is $\mathscr{H} = L^{2}(\R)$, and the Hamiltonian is
+\begin{equation*}
+  H = -\frac{1}{2} \tder{^{2}}{x^{2}}.
+\end{equation*}
+
+According to the standard treatment, a symmetry is given by an operator on $L^{2}(\R)$ which commutes with the Hamiltonian. Taking this definition, the free particle propagating in one-dimensional has two important classes of symmetries.
+\begin{enumerate}
+  \item Translation symmetry, i.e. for each $a \in \R$ an operator 
+    \begin{equation*}
+      M_{a}\colon \psi(x) \mapsto \psi(x + a).
+    \end{equation*}
+
+  \item Parity symmetry, i.e. an operator 
+    \begin{equation*}
+      P\colon \psi(x) \mapsto \psi(-x).
+    \end{equation*}
+\end{enumerate}
+
+These symmetries are both derived from the symmetries of the underlying space $\R$: the isometry group of $\R$ is generated by translations and parity transformations.
+
+However, in a sense we are missing some symmetries. We are describing a non-relativistic quantum particle. Recall that even in non-relativistic mechanics one can introduce spacetime, and the symmetries of our theory should include those of the underlying spacetime. The symmetries of the non-relativistic $(1+1)$-dimensional spacetime underlying our example are given by the $(1+1)$-dimensional Galilean group. These include the translation and parity symmetries that we have seen, but also three more classes of symmetries:
+\begin{enumerate}
+  \item Galilean boosts, i.e. for each $v \in \R$ an operator
+    \begin{equation*}
+      B_{v}\colon \psi(x, t) \mapsto \psi(x + vt, t);
+    \end{equation*}
+
+  \item Time inversion, i.e. an operator
+    \begin{equation*}
+      T\colon \psi(x, t) \mapsto \psi(x, -t);
+    \end{equation*}
+
+  \item Time translation, i.e. for each $s \in \R$ an operator 
+    \begin{equation*}
+      U_{s}\colon \psi(x, t) \mapsto \psi(x, t + s).
+    \end{equation*}
+\end{enumerate}
+
+Note that the first two of these are not symmetries in the traditional sense; Galilean boosts and time inversion do not commute with the Hamiltonian. However, these are certainly \emph{are} symmetries of non-relativistic mechanics, so they should be symmetries of non-relativistic quantum mechanics. The third is a symmetry in the traditional sense, but is not just any old symmetry; it is exactly the evolution defined by the Schr\"{o}dinger equation.
+
+The lack of these symmetries stems from a conceptually ugliness in the Schr\"{o}dinger picture: one is implicitly forced to choose a preferred frame of reference. This is convenient for calculations, but in general masks symmetries of the underlying theory which do not leave the frame fixed.
+
+By considering the symmetries of spacetime to be fundamental, one avoids the conceptually rather ugly step of choosing a reference frame. Moreover, with the above expanded notion of symmetry we do not need to take the Schr\"{o}dinger equation as an axiom: the existence of time evolution is taken care of by the time translation operators guaranteed us by postulating Galilean symmetry. We will see how this works in more detail in the next section.
+
+\subsection{Quantum mechanics and symmetries}
+As we saw in the last section, the postulate that the state vector $\psi$ evolves via the Schr\"{o}dinger equation is superfluous if we use the correct notion of symmetry. This suggests that we can do away with the postulate that our system evolves in time via the Schr\"{o}dinger equation if we think about a quantum theory as being defined by its symmetries.
+
+Thus, we should think of a quantum system as consisting of the following.
+\begin{enumerate}
+  \item A separable complex Hilbert space $\mathscr{H}$ in which our state vectors live.
+
+  \item A collection of operators which implement symmetry transformations.
+
+\end{enumerate}
+
+Note that standard quantum mechanics, the Hilbert space is infinite-dimensional. In this case we do not even really have to think of the Hilbert space as included in the data, since there is only one infinite-dimensional separable Hilbert space up to isomorphism.
+
+We are being intentionally vague about what sort of operators are allowed, and what sort of symmetry transformations we want to include. This is a complicated question to which we hope to present a partial answer. However, we will mention the most common way of specifying such a collection of symmetry transformations.
+
+\begin{example}
+  Suppose we decide that we want to study a quantum mechanical system which is invariant under some group $G$ of symmetries. Fix some state $\psi$. Each element $g \in G$ will map $\psi$ to some other state $\psi' = \hat{g}\psi$; in our example, the time translation $U_{s}$ maps $\psi(t)$ to $\psi(t + s)$. Furthermore, we want the states $\hat{g}\psi$ to obey the reasonable condition that 
+  \begin{equation*}
+    h(g\psi) = (hg)\psi.
+  \end{equation*}
+  This means that the action of $G$ on $\mathscr{H}$ is given by a representation 
+  \begin{equation*}
+    \rho\colon G \to \mathrm{Aut}(\mathscr{H});\qquad g \mapsto \hat{g}.
+  \end{equation*}
+  If one further assumes
+  \begin{enumerate}
+    \item that $G$ is a simply connected Lie group; and
+
+    \item that the representation of $G$ is unitary (which is sensible because then its action will preserve probability) and strongly continuous (i.e. that $\lim_{g \to g_{0}}\hat{g} = \hat{g_{0}}$)
+  \end{enumerate}
+  then we can choose a representation of the Lie algebra $\mathfrak{g}$ of $G$ and express any $\hat{g}$ as the exponential of a Lie algebra element
+  \begin{equation*}
+    \hat{g} = e^{i X}
+  \end{equation*}
+  where $X$ is self-adjoint. 
+
+  In particular, we can parametrize the operators representing any one-dimensional subgroup $\left\{ g(t) \right\}_{t \in \R}$ as
+  \begin{equation*}
+    \hat{g}(t) = e^{-iXt}.
+  \end{equation*}
+  In our example, $\hat{g}(t) = U(t)$, and we can write
+  \begin{equation*}
+    U(t) = e^{-i H t}
+  \end{equation*}
+  for some self-adjoint operator $H$. Letting this operator act on a state $\psi$ and differentiating with respect to $t$, we find
+  \begin{equation*}
+    i \tder{}{t} \psi = H \psi,
+  \end{equation*}
+  which is precisely the Schrodinger equation.
+\end{example}
+
+However, we have have exchanged one conceptual difficulty for a far greater one: we no longer have any idea what it means for an operator to be a symmetry. Before we had a concrete definition, if a defective one: a symmetry was an operator which commuted with the Hamiltonian. Now that we have demoted the Hamiltonian, we will need some way of distinguishing bona fide symmetries from other operators.
+
+We propose the following radical definition: the operators which represent symmetries are those which commute with all the other operators. Or rather, the only other operators one is allowed to consider are those that commute with the symmetry operators. Note that this is a restriction not of the symmetry operators themselves, but the other operators in the theory.
+
+This is a rather draconian definition, but it has a nice interpretation: we wish to consider only quantum systems which are \emph{defined} by their symmetries. That is, we view our quantum system as completely determined by the symmetry transformations, and the only other operators we allow are those which do not interfere with them in precisely the sense that they commute. 
+
+This excludes a great deal of physically interesting quantum mechanical systems from the discussion: for example, the only symmetries of the simple harmonic oscillator in one dimension are time translation and parity, so one would not be justified in talking about the position operator. In practice, when dealing with the harmonic oscillator, we borrow operators from the free theory which has full Galilean invariance. This is all very well, but if we view symmetries as fundamental we should have no qualms about excluding such systems.
+
+We can formalize this in a definition.
+
+\begin{definition}[symmetric quantum system]
+  \label{def:symmetricquantumsystem}
+  A symmetric quantum system consists of
+  \begin{itemize}
+    \item A separable Hilbert space $\mathscr{H}$.
+
+    \item A set $\mathcal{S}$ of operators on $\mathscr{H}$ which one views as implementing symmetries.
+
+    \item The set $\mathcal{O}$ of operators on $\mathscr{H}$ which commute with the 
+  \end{itemize}
+
+  The only other operators one is allowed to talk about are those which commute with every operator in $\mathcal{S}$.
+\end{definition}
+
+So far we have made no mention of the form that the symmetry operators take: they are just some operators. Now we need to make some assumptions. 
+
+\begin{itemize}
+  \item First, we make a \emph{huge} simplifying assumption: we restrict our attention to finite-dimensional quantum systems, i.e. quantum systems whose underlying Hilbert space is finite-dimensional. 
+
+  \item Next, we demand that there should be some notion of two systems having the `same' underlying symmetry. The trivial quantum system with underlying Hilbert space $\mathscr{H} = \C$ and only the identity as a symmetry operator should be viewed as trivially possessing every symmetry.
+
+    Another way of saying this is that we want to be able to consider all quantum systems with a given symmetry. We make the technical assumption that these fit in a set.
+
+  \item We demand that given two quantum systems with a given symmetry, we can create the composite system, and that the composite system will share the symmetry of its component systems. 
+    \begin{itemize}
+      \item As with regular old quantum mechanics, the Hilbert space underlying the composite system is given by the tensor product of the Hilbert spaces of the component systems. 
+
+      \item We further require that each symmetry operator of the composite system be expressible as the tensor product of a symmetry operator from each system.
+    \end{itemize}
+
+  \item We can swap the order in which we consider taking the composite system. Note that we do \emph{not} assume that this is given by the standard braiding of the tensor product which sends $v \otimes w \mapsto w \otimes v$; we allow for more general notions of swapping.
+
+  \item However, we demand that if we swap our systems twice, we get back the system we started with. \footnote{It is not entirely clear that this assumption is justified; 2-$d$ QFTs can exhibit braid group symmetry.}
+
+  \item Lastly, we demand that for any symmetric quantum system $\mathscr{H}$ with symmetry operators $\left\{ O_{i} \right\}$, the dual space $\mathscr{H}^{*}$ with symmetry operators $\left\{ O_{i}^{*} \right\}$ is also a symmetric quantum space.
+\end{itemize}
+
+Now let us consider a fixed type of symmetry and consider the collection of all finite-dimensional quantum systems carrying this symmetry. We can consider maps between these quantum systems 
+
+Under these conditions, we have constructed a category whose objects are symmetric quantum spaces and whose morphisms are intertwiners. Deligne's theorem tells us that this category is equivalent to the category $\mathsf{Rep}(G)$ for some affine algebraic super group $G$. That is, the symmetry operators have to form a representation of some affine algebraic super group.
+
+
 \section{Practicalities of supergeometry}
 \subsection{The super Lie algebra of an algebraic super-group}
 
@@ -9758,10 +10032,9 @@ These, plus several other technical requirements ()
 
 \chapter{Questions}
 \begin{enumerate}
-  \item Any new information on vacuum orbits? 
+  \item Is the tensor product in SUSY treated as graded?
 
-  \item Could I cite \emph{this} in my project? E.g. \emph{for proof, see therorem so-and-so}
-
+  \item Is the coordinate ring $\mathscr{O}(G)$ the same as the group algebra $k[G]$?
 \end{enumerate}
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
@@ -9936,5 +10209,9 @@ These, plus several other technical requirements ()
   \bibitem{manin-gauge-fields} U. Manin.
     \emph{Gauge Fields and Complex Geometry},
     Springer-Verlag Berlin Heidelberg New York, 1988.
+
+  \bibitem{dissipation-in-lagrangian-mechanics} Valter Moretti (\url{https://physics.stackexchange.com/users/35354/valter-moretti}).
+    \emph{Euler-Lagrange equations and friction forces}, 
+    URL (version: 2014-02-02): \url{https://physics.stackexchange.com/q/96470}
 \end{thebibliography}
 \end{document}
