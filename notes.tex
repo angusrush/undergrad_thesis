@@ -6505,6 +6505,40 @@ One of the things category theory is best for is generalization. One of the most
   \end{equation*}
 \end{definition} 
 
+\begin{definition}[homomorphism of internal groups]
+  \label{def:homomorphismofinernalgroups}
+  Let $(G, e, i, m)$ and $(G', e', i', m')$ be groups internal to some category $\mathsf{C}$. A \defn{homomorphism} $G \to G'$ is a morphism $f\colon G \to G'$ such that the following diagrams commute.
+  \begin{itemize}
+    \item ($f$ respects multiplication)
+      \begin{equation*}
+        \begin{tikzcd}
+          G \times G
+          \arrow[r, "f \times f"]
+          \arrow[d, swap, "m"]
+          & G' \times G'
+          \arrow[d, "m'"]
+          \\
+          G
+          \arrow[r, "f"]
+          & G'
+        \end{tikzcd}
+      \end{equation*}
+
+    \item 
+      \begin{equation*}
+        \begin{tikzcd}
+          * 
+          \arrow[r, "e"]
+          \arrow[rd, swap, "e'"]
+          & G
+          \arrow[d, "f"]
+          \\
+          & G'
+        \end{tikzcd}
+      \end{equation*}
+  \end{itemize}
+\end{definition}
+
 \begin{note}
   The sloppiness in notation (e.g. notationally supressing associators) is completely standard.
 \end{note}
@@ -7891,12 +7925,12 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
   It remains to check that for any commutative monoid $R$ and monoid homomorphisms $f_{i}\colon E_{i} \to R$, there exists a unique map $f\colon E_{1} \otimes E_{2} \to R$ making the following diagram commute.
   \begin{equation*}
     \begin{tikzcd}[row sep=large, column sep=large]
-      A_{1}
+      E_{1}
       \arrow[r, "e_{2} \circ \rho_{E_{1}}^{-1}"]
       \arrow[rd, swap, "f_{1}"]
-      & A_{1} \otimes A_{2}
+      & E_{1} \otimes E_{2}
       \arrow[d, "\exists!f"]
-      & A_{2}
+      & E_{2}
       \arrow[l, swap, "\lambda_{E_{2}}^{-1} \circ e_{1}"]
       \arrow[ld, "f_{2}"]
       \\
@@ -7904,7 +7938,10 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
     \end{tikzcd}
   \end{equation*}
 
-  The map $f$ is given by the composition $m_{R} \circ f_{1} \otimes f_{2}$.
+  The map $f$ is given by the composition $m_{R} \circ (f_{1} \otimes f_{2})$. To see that this indeed makes the diagram commute, consider the composition
+  \begin{equation*}
+    m_{R} \circ (f_{1} \otimes f_{2}) \circ e_{2} \circ \rho_{E_{1}}^{-1} = m_{R} \circ (f_{1} \otimes f_{2})(f \otimes 1_{C})
+  \end{equation*}
 \end{proof}
 
 \begin{corollary}
@@ -7931,6 +7968,18 @@ Of course, this doesn't explain why we should care about $\Z_{2}$-graded vector 
       A \otimes A
       \arrow[r, "\nabla"]
       & A
+    \end{tikzcd}
+  \end{equation*}
+  \begin{equation*}
+    \begin{tikzcd}
+      A 
+      \arrow[rr, bend left, "A"]
+      \arrow[dr, shift left, "\eta \otimes A"]
+      \arrow[dr, shift right, swap, "A \otimes \eta"]
+      & & A
+      \\
+      & A \otimes A
+      \arrow[ur, swap, "\nabla"]
     \end{tikzcd}
   \end{equation*}
 \end{definition}
@@ -8059,7 +8108,7 @@ The above example is a reflection of the following.
 
 This section expands on ideas taken from \cite{milne-affine-group-schemes}.
 
-The objects central to our interests will be so-called \emph{algebraic super-groups}. These are a generalization of the notion of an \emph{algebraic group}, which is, roughly speaking, a group object in the category of algebraic varieties.
+The objects central to our interests will be so-called \emph{affine super-groups}. These are a generalization of the notion of an \emph{affine algebraic group}, which is, roughly speaking, a group object in the category of affine algebraic varieties.
 
 First, we must generalize the notion of an algebraic variety. Recall \hyperref[def:algebraicvariety]{Definition \ref*{def:algebraicvariety}}: an algebraic variety is a surface cut out as the zero set of a set of polynomials. 
 
@@ -8248,10 +8297,10 @@ The generality introduced in the last section allows us to give a slick definiti
   Since we will be dealing only with affine supervarieties, we will often refer to them as simply supervarieties.
 \end{definition}
 
-Note that we do not give any definition of an affine algebraic supervariety. The reason for this is that the motivation for the definition of an affine algebraic variety is purely geometrical, and imagining supervarieties as embedded in $\mathbb{A}_{A}^{n}$ for $A$ a supercommutative algebra turns out not to be the correct approach. For the correct geometric interpretation of supervarieties, one needs to the theory of super schemes, which are beyond the scope of these notes. For us, it will suffice to consider supervarieties purely algebraically.
+Note that we do not give any definition of an affine \emph{algebraic} supervariety. The reason for this is that the motivation for the definition of an affine algebraic variety is purely geometrical, and imagining supervarieties as embedded in $\mathbb{A}_{A}^{n}$ for $A$ a supercommutative algebra turns out not to be the correct approach. For the correct geometric interpretation of supervarieties, one needs to the theory of super schemes, which are beyond the scope of these notes. For us, it will suffice to consider supervarieties purely algebraically.
 
 \section{Supergroups as supercommutative Hopf algebras}
-We have seen that a (super)variety $A$ can be viewed as the formal dual of (super)commutative algebra $\mathscr{O}(A)$. We will soon define affine (super)groups to be (super)varieties which are also groups, i.e. group objects $(A, m, e)$ in the category of affine (super)varieties. This extra structure on $A$ will correspond to extra structure on the algebra $\mathscr{O}(A)$ to which it is formally dual, giving it the structure of a \emph{Hopf algebra}.
+We have seen that a variety $A$ can be viewed as the formal dual of commutative algebra $\mathscr{O}(A)$, and that a supervariety $S$ as the formal dual of a supercommutative superalgebra $\mathscr{O}(S)$. We will soon define affine (super)groups to be (super)varieties which are also groups, i.e. group objects $(A, m, e)$ in the category of affine (super)varieties. This extra structure on $A$ will correspond to extra structure on the algebra $\mathscr{O}(A)$ to which it is formally dual, giving it the structure of a \emph{Hopf algebra}.
 
 \subsection{Coalgebras}
 Coalgebras are dual to algebras. In other words, to get the definition of a coalgebra, we take the definition of an algebra and turn the arrows around. More formally, we have the following.
@@ -8314,160 +8363,18 @@ Coalgebras are dual to algebras. In other words, to get the definition of a coal
   \end{equation*}
 \end{definition}
 
-\subsection{Bialgebras}
+\subsection{Bialgebras and Hopf algebras}
 \begin{definition}[bialgebra]
   \label{def:bialgebra}
-  A $\mathscr{A}$-bialgebra is a monoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$. 
+  A $\mathscr{A}$-bialgebra is the formal dual of a monoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$. 
 \end{definition}
 
-\begin{lemma}
-  Equivalently, it is a quintuple $(A, \nabla, \eta, \Delta, \varepsilon)$, where $(A, \nabla, \eta)$ is an algebra and $(A, \Delta, \varepsilon)$ is a coalgebra.
-\end{lemma}
+What exactly is the dual to a monoid in $\mathsf{CMon}(\mathscr{A})^{\text{op}}$? First, let's answer the question: what is a monoid in $\mathsf{CMon}(\mathscr{A})^{\text{op}}$. Then we can turn the arrows around.
 
-\subsection{(Super)commutative Hopf algebras}
-
-%The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ defined in \hyperref[def:functorcinfinity]{Definition \ref*{def:functorcinfinity}} was fully faithful, but not essentially surjective. Thus, we can decrese the codomain of the functor $C^{\infty}$ to include only smooth algebras:
-%\begin{equation*}
-%  C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \hookrightarrow \mathsf{SmoothAlg}_{\R}.
-%\end{equation*}
-%
-%In this case, $C^{\infty}$ preserves coproducts, in the sense that
-%\begin{equation*}
-%  C^{\infty}(M \times N) \simeq C^{\infty}(M) \otimes^{c} C^{\infty}(N),
-%\end{equation*}
-%where $\times$ is the product in $\mathsf{SmoothMfd}$, i.e. the product manifold, and $\otimes^{c}$ is the coproduct in $\mathsf{SmoothAlg}_{\R}$, i.e. the so-called \emph{completed tensor product}.
-%
-%Now suppose we are interested in a Lie group $G$, i.e. a group object in the category $\mathsf{SmoothMfd}$. Then we have a group operation 
-%\begin{equation*}
-%  m\colon G \times G \to G
-%\end{equation*}
-%which induces on $\mathsf{SmoothAlg}_{\R}$ a `dual product' 
-%\begin{equation*}
-%  C^{\infty}(G) \to C^{\infty} (G) \otimes^{c} C^{\infty}(G).
-%\end{equation*}
-%Moreover, applying $C^{\infty}$ to the coherence diagrams for the group structure on $G$ yields dual coherence diagrams enforcing `co-associativity,' etc. This gives $C^{\infty}(G)$ the structure of a \emph{Hopf algebra}.
-
-%The next step in the story is to define affine algebraic super-groups as affine super-schemes over \emph{supercommutative Hopf algebras}. To do this, we need to understand the category theory of Hopf (super)algebras. However, in the name of full generality, the nLab article \cite{nlab-deligne-theorem} does everything with \emph{Hopf algebroids}, and so will I---in for a penny, in for a pound, after all. If you're not interested in full generality, it won't hurt to skip to \hyperref[def:supercommutativehopfalgebra]{Definition \ref*{def:supercommutativehopfalgebra}}.
-
-%\begin{definition}[commutative Hopf algebroid]
-%  \label{def:commutativehopfalgebroid}
-%  Let $(\mathscr{A}, \otimes, 1)$ be a tensor category. Consider the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ of commutative monoids internal to $\mathscr{A}$. \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}} tells us that the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ is a monoidal category whose bifunctor is given by the categorical product.
-%
-%  A commutative Hopf algebroid is a groupoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ (see \hyperref[def:internalgroupoid]{Definition \ref*{def:internalgroupoid}}), i.e. a septuple $(\Spec(\Gamma), \Spec(A), s, t, e, c, i)$
-%  \begin{itemize}
-%    \item $\Spec(\Gamma) \in \Obj(\mathsf{CMon}(\mathscr{A})^{\mathrm{op}})$ is the \emph{object of objects}, 
-%    \item $\Spec(A) \in \Obj(\mathsf{CMon}(\mathscr{A})^{\mathrm{op}})$ is the \emph{object of morphisms},
-%    \item $s$, $t\colon \Spec(\Gamma) \to \Spec(A)$ are morphisms called the \emph{source} and \emph{target morphisms}.
-%    \item $e\colon \Spec(A) \to \Spec(\Gamma)$ is the \emph{identity-assigning morphism}
-%    \item $c\colon \Spec(\Gamma) \times_{\Spec(A)} \Spec(\Gamma) \to \Spec(\Gamma)$ is the \emph{composition morphism},
-%    \item $i\colon \Spec(\Gamma) \to \Spec(\Gamma)$ is the \emph{inverse-assigning morphism}.
-%  \end{itemize}
-%
-%  We can summarize this information in the following diagram.
-%  \begin{equation*}
-%    \begin{tikzcd}
-%      \Spec(\Gamma) \times_{\Spec_{A}} \Spec(\Gamma)
-%      \arrow[d, "c"]
-%      \\
-%      \Spec(\Gamma)
-%      \arrow[d, shift left, bend left, "t"]
-%      \arrow[d, shift right, bend right, swap, "s"]
-%      \arrow[loop right, "i"]
-%      \\
-%      \Spec(A)
-%      \arrow[u, swap, "e"]
-%    \end{tikzcd}
-%  \end{equation*}
-%
-%  By \hyperref[thm:quasiffinevarietieshaveproducts]{Theorem \ref*{thm:quasiffinevarietieshaveproducts}}, there is a natural isomorphism
-%  \begin{equation*}
-%    \Spec(\Gamma) \times_{\Spec(A)} \Spec(\Gamma) \simeq \Spec(\Gamma \otimes_{A} \Gamma).
-%  \end{equation*}
-%
-%  Therefore, we can rewrite the above diagram as follows.
-%  \begin{equation*}
-%    \begin{tikzcd}
-%      \Spec(\Gamma \otimes_{A} \Gamma)
-%      \arrow[d, "c"]
-%      \\
-%      \Spec(\Gamma)
-%      \arrow[d, shift left, bend left, "t"]
-%      \arrow[d, shift right, bend right, swap, "s"]
-%      \arrow[loop right, "i"]
-%      \\
-%      \Spec(A)
-%      \arrow[u, swap, "e"]
-%    \end{tikzcd}
-%  \end{equation*}
-%  The above diagram is in $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$. Dualizing and renaming a few things, we obtain the following diagram in $\mathsf{CMon}(\mathscr{A})$.
-%  \begin{equation*}
-%    \begin{tikzcd}
-%      \Gamma \otimes_{A} \Gamma
-%      \\
-%      \Gamma
-%      \arrow[u, swap, "\Psi"]
-%      \arrow[d, "\varepsilon"]
-%      \arrow[loop right, "c"]
-%      \\
-%      A
-%      \arrow[u, shift left, bend left, "\eta_{L}"]
-%      \arrow[u, shift right, bend right, swap, "\eta_{R}"]
-%    \end{tikzcd}
-%  \end{equation*}
-%
-%  Thus, a \defn{commutative Hopf algebroid} is a septuple $(\Gamma, A, \eta_{L}, \eta_{R}, \varepsilon, \Psi, c)$ consisting of the following.
-%  \begin{itemize}
-%    \item Commutative $\mathscr{A}$-algebras $\Gamma$ and $A$;
-%
-%    \item Algebra homomorphisms
-%      \begin{itemize}
-%        \item $\eta_{L},\eta_{R}\colon A \to \Gamma$ called the \emph{left} and \emph{right unit};
-%
-%        \item $\Psi\colon \Gamma \to \Gamma \otimes_{A} \Gamma$ called \emph{comultiplication};
-%
-%        \item $\varepsilon\colon \Gamma \to A$ called the \emph{counit};
-%
-%        \item $c\colon \Gamma \to \Gamma$ called \emph{conjugation}.
-%      \end{itemize}
-%  \end{itemize}
-%
-%  These satisfy the following axioms, which are really just the diagrams in \hyperref[def:internalcategory]{Definition \ref*{def:internalcategory}} and \hyperref[def:internalgroupoid]{Definition \ref*{def:internalgroupoid}}.
-%  \begin{enumerate}
-%    \item The units operate in the correct way:
-%      \begin{itemize}
-%        \item Identity morphisms $\varepsilon \circ \eta_{L} = \varepsilon \circ \eta_{R} = \mathrm{id}_{A}$;
-%      \end{itemize}
-%  \end{enumerate}
-%  And more\dots
-%\end{definition}
-%
-%\begin{definition}[commutative Hopf algebra over a monoid modelled on a tensor category]
-%  \label{def:commutativehopfalgebraoveramonoidmodelledonatensorcategory}
-%  Let $\mathscr{A}$ be a tensor category and $\Gamma$ and $A$ be commutative monoids internal to $\mathscr{A}$. A \defn{commutative Hopf algebra $\Gamma$ over $A$ modelled on $\mathscr{A}$} is a commutative Hopf algebroid $(\Gamma, A, \eta_{L}, \eta_{R}, \varepsilon, \Psi, c)$ for which the left and right unit $\eta_{L}$ and $\eta_{R}$ coincide.
-%\end{definition}
-%
-%This is a really confusing definition which looks seductively similar to, but does not at first glance agree with, the traditional definition of a commutative Hopf algebra over a field $k$. Here's how it unfolds.
-%
-%The standard definition of a Hopf algebra (taken from, for example, \cite{milne-affine-group-schemes}) is as follows.
-
-\begin{definition}[(super)commutative Hopf algebra]
-  \label{def:superornotcommutativehopfalgebra}
-  Let $\mathscr{A} = \mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$. A \defn{commutative $\mathscr{A}$-Hopf algebra} is the formal dual to a group object in the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$.
-
-  If $\mathscr{A} = \mathsf{Vect}_{k}$, then we call the objects of $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ \defn{commutative Hopf algebras}. If $\mathscr{A} = \mathsf{SVect}_{k}$, we call them \defn{supercommutative Hopf algebras}.
-\end{definition}
-
-\begin{note}
-  By \hyperref[cor:cmonophasproducts]{Corollary \ref*{cor:cmonophasproducts}}, the product $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ always has products, and by \hyperref[lemma:unitobjectisinitialincmon]{Lemma \ref*{lemma:unitobjectisinitialincmon}} it has terminal objects. This means that it makes sense to talk about group objects.
-\end{note}
-
-What exactly is the dual to a group object in $\mathsf{CMon}(\mathscr{A})^{\text{op}}$? First, let's answer the question: what is a group object in $\mathsf{CMon}(\mathscr{A})^{\text{op}}$. Then we can dualize.
-
-A group object in the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ consists of object $\spec(H) \in \Obj(\mathsf{CMon}(\mathscr{A})^{\text{op}})$, together with the following.
+A monoid in the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ consists of object $\spec(H) \in \Obj(\mathsf{CMon}(\mathscr{A})^{\text{op}})$, together with the following.
 \begin{itemize}
   \item A \emph{multiplication} map $\mu\colon \spec(H) \times \spec(H) \to \spec(H)$;
   \item An \emph{identity} map $\iota\colon \spec(*) \to \spec(H)$, where $*$ is the terminal object in $\mathsf{CMon}(\mathscr{A})$;
-  \item An \emph{inverse} map $i\colon \spec(H) \to \spec(H)$.
 \end{itemize}
 We can organize this information like so.
 \begin{equation*}
@@ -8476,7 +8383,6 @@ We can organize this information like so.
     \arrow[d, "\mu"]
     \\
     \spec(H) 
-    \arrow[loop right, "i"]
     \\
     \spec(*)
     \arrow[u, swap, "\iota"]
@@ -8505,7 +8411,6 @@ We can take the information from the first diagram and put it on the second as l
     \arrow[d, bend left, "\nabla"]
     \\
     H
-    \arrow[loop right, "S"]
     \arrow[u, bend left, "\Delta"]
     \arrow[d, swap, bend right, "\varepsilon"]
     \\
@@ -8514,21 +8419,182 @@ We can take the information from the first diagram and put it on the second as l
   \end{tikzcd}
 \end{equation*}
 
+Thus we will often say that a bialgebra is a quintuple $(A, \nabla, \eta, \Delta, \varepsilon)$.
+
+The maps $\Delta$ and $\varepsilon$ are both algebra homomorphisms and coalgebra homomorphisms by definiton. The maps $\nabla$ and $\eta$ are algebra homomorphisms, but not a priori coalgebra homomorphisms. 
+
+\begin{lemma}
+  Let $(a, \nabla, \eta, \Delta, \varepsilon)$ be a bialgebra. Then $\nabla$ and $\eta$ are coalgebra homomorphisms.
+\end{lemma}
+
+\begin{proof}
+  In order for $\Delta$ to be an algebra homomorphism it needs to make the following diagrams commute.
+  \begin{equation*}
+    \begin{tikzcd}[row sep=large, column sep=large]
+      A \otimes A
+      \arrow[r, "\Delta \otimes \Delta"]
+      \arrow[d, swap, "\nabla"]
+      & A \otimes A \otimes A \otimes A
+      \arrow[d, "\nabla \otimes \nabla"]
+      \\
+      A
+      \arrow[r, "\Delta"]
+      & A \otimes A
+    \end{tikzcd}
+  \end{equation*}
+  \begin{equation*}
+    \begin{tikzcd}
+      *
+      \arrow[r, "\eta"]
+      \arrow[rd, swap, "\eta \otimes \eta"]
+      & A
+      \arrow[d, "\Delta"]
+      \\
+      & A \otimes A
+    \end{tikzcd}
+  \end{equation*}
+
+  The first diagram is the condition for $\Delta$ to be a coalgebra homomorphism, which it is by definition. Since $\Delta\colon * \to * \otimes *$ is an isomorphism, we can modify the second slightly.
+  \begin{equation*}
+    \begin{tikzcd}
+      *
+      \arrow[r, "\eta"]
+      \arrow[d, swap, "\Delta"]
+      & A
+      \arrow[d, "\Delta"]
+      \\
+      * \otimes *
+      \arrow[r, swap, "\eta \otimes \eta"]
+      & A \otimes A
+    \end{tikzcd}
+  \end{equation*}
+
+  In this form it is clear that it is the condition for $\Delta$ to be a 
+\end{proof}
+
+\begin{definition}[bialgebra homomorphism]
+  \label{def:bialgebrahomomorphism}
+  Let $(A, \nabla, \eta, \Delta, \varepsilon)$ and $(A', \nabla', \eta', \Delta', \varepsilon')$ be bialgebras. A \defn{bialgebra homomorphism} is a morphism $A \to A'$ which is both an algebra homomorphism and a coalgebra homomorphism.
+\end{definition}
+
+\begin{lemma}
+  Let $\spec(H)$ be a monoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$. Then the diagonal map $\delta\colon \spec(H) \to \spec(H) \times \spec(H)$ is dual to the multiplication $\nabla\colon H \otimes H \to H$.
+\end{lemma}
+\begin{proof}
+  The diagonal morphism is defined via the universal property of the product: it is the unique map which makes the following diagram commute.
+  \begin{equation*}
+    \begin{tikzcd}
+      & \spec(H)
+      \arrow[dl, swap, "\mathrm{id}"]
+      \arrow[dr, "\mathrm{id}"]
+      \arrow[d, "\delta"]
+      \\
+      \spec(H)
+      & \spec(H) \times \spec(H)
+      \arrow[l, "\pi_{1}"]
+      \arrow[r, swap, "\pi_{2}"]
+      & \spec(H)
+    \end{tikzcd}
+  \end{equation*}
+
+  Dualizing, we find that equivalently, the morphism dual to $\delta$ is defined uniquely by making the following diagram commute.
+  \begin{equation*}
+    \begin{tikzcd}
+      H
+      \arrow[r, "e \circ \rho_{H}^{-1}"]
+      \arrow[rd, swap, "H"]
+      & H \otimes H
+      \arrow[d, "\tilde{\delta}"]
+      & H
+      \arrow[ld, "H"]
+      \arrow[l, swap, "\lambda_{H}^{-1} \circ e"]
+      \\
+      & H
+    \end{tikzcd}
+  \end{equation*}
+
+  But the multiplication $\nabla$ makes the diagram commute, so we are done.
+\end{proof}
+
+\begin{definition}[(super)commutative Hopf algebra]
+  \label{def:superornotcommutativehopfalgebra}
+  Let $\mathscr{A} = \mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$. A \defn{commutative $\mathscr{A}$-Hopf algebra} is the formal dual to a group internal to the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$.
+
+  If $\mathscr{A} = \mathsf{Vect}_{k}$, then we call the objects of $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ \defn{commutative Hopf algebras}. If $\mathscr{A} = \mathsf{SVect}_{k}$, we call them \defn{supercommutative Hopf algebras}.
+\end{definition}
+
+\begin{note}
+  By \hyperref[cor:cmonophasproducts]{Corollary \ref*{cor:cmonophasproducts}}, the product $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ always has products, and by \hyperref[lemma:unitobjectisinitialincmon]{Lemma \ref*{lemma:unitobjectisinitialincmon}} it has terminal objects. This means that it makes sense to talk about group objects.
+\end{note}
+
+Since a group is just a monoid with inverses, a Hopf algebra is just a special case of the notion of a bialgebra. In particular, a group object in $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ is a monoid $(\spec(H), m, e)$ together with an extra morphism $i\colon \spec(H) \to \spec(H)$ as shown below.
+\begin{equation*}
+  \begin{tikzcd}
+    \spec(H) \times \spec(H)
+    \arrow[d, "\mu"]
+    \\
+    \spec(H) 
+    \arrow[loop right, "i"]
+    \\
+    \spec(*)
+    \arrow[u, swap, "\iota"]
+  \end{tikzcd}
+\end{equation*}
+
+The morphism $i$ must make the following diagram commute.
+
+We can dualize this to get a map $S\colon H \to H$ and add it to our diagram summarizing the morphisms for a bialgebra.
+\begin{equation*}
+  \begin{tikzcd}
+    H \otimes H
+    \arrow[d, bend left, "\nabla"]
+    \\
+    H
+    \arrow[u, bend left, "\Delta"]
+    \arrow[d, swap, bend right, "\varepsilon"]
+    \arrow[loop right, "S"]
+    \\
+    *
+    \arrow[u, swap, bend right, "\eta"]
+  \end{tikzcd}
+\end{equation*}
+
+From \hyperref[def:groupobject]{Definition \ref*{def:groupobject}} we can see that the map $S$ is required to make the following diagram commute.
+\begin{equation*}
+  \begin{tikzcd}[row sep=3.6em,column sep=1em]
+    & G\times G 
+    \arrow[rr,"i\times\id"] 
+    & & G\times G 
+    \arrow[dr,"m"] 
+    \\
+    G 
+    \arrow[ur,"\delta"] 
+    \arrow[rr,"\exists!"] 
+    \arrow[dr,"\delta"'] 
+    & & * 
+    \arrow[rr,"e"] 
+    & & G 
+    \\
+    & G\times G 
+    \arrow[rr,"\id\times i"] 
+    & & G\times G 
+    \arrow[ur,"m"']
+  \end{tikzcd}
+\end{equation*}
+By
+
+\begin{definition}[Hopf algebra homomorphism]
+  \label{def:hopfalgebrahomomorphism}
+  Let 
+\end{definition}
+
 \subsection{What does this have to do with algebraic super groups?}
 \begin{definition}[affine (super)group]
   \label{def:affinesuperornotgroup}
-  An \defn{affine $\mathscr{A}$-group} is an affine (super)variety that is also a group, i.e. a group object in the category of representable functors $\mathsf{CMon}(\mathscr{A}) \to \mathsf{Set}$.
+  An \defn{affine $\mathscr{A}$-group} is an affine $\mathscr{A}$-variety that is also a group, i.e. a group object in the category of representable functors $\mathsf{CMon}(\mathscr{A}) \to \mathsf{Set}$.
 \end{definition}
 
-By the Yoneda lemma, we could equivalently say that an affine super group $G$ is a group internal to the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$. In particular it is a monoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$ if we forget about the inverse-assigning morphism $S$, and hence a dual to a coalgbra. 
-
-This means that $\mathscr{O}(G)$ is both an algebra $(\mathscr{O}(G), \nabla, \eta)$ and a bialgebra $(\mathscr{O}(G), \Delta, \varepsilon)$. But we can say more.
-
-\begin{note}
-  We could equivalently define an affine (super)group as the formal dual of a (super)commutative Hopf algebra.
-
-  If we are given an affine (super)group in the form of a functor $G$, we write $\mathscr{O}(G)$ for the corresponding Hopf algebra. If we are given a Hopf algebra $H$, write $\spec(H)$ for the corresponding functor.
-\end{note}
+By the Yoneda lemma, we could equivalently say that an affine (super)group $G$ is a group internal to the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$, and this means that it is formally dual to a (super)commutative Hopf algebra. Or to put it another way, there is a contravariant equivalence of categories between the category of affine (super)groups and the category of (super)commutative Hopf algebras.
 
 \begin{example}
   \label{eg:slnisahopfalgebra}
@@ -9162,32 +9228,37 @@ Due to time constraints, most of the proofs in this section are omitted. Hopeful
   \end{equation*}
 \end{definition}
 
-\section{Linear representations as Comodules}
+\section{Representations as comodules}
+Let $\mathscr{A} = \mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$.
 \begin{definition}[representation of a group]
   \label{def:representationofgroup}
-  Let $G$ be an algebraic group, and let $H = \mathscr{O}(G)$ be its commutative Hopf algebra. A \defn{representation} of $G$ on $V \in \Obj(\mathsf{Vect}_{k})$ is a natural transformation $r\colon G \to \mathrm{Aut}_{(-)\mhyp\mathsf{Mod}}(V \otimes -)$, where for any $k$-algebra $R$, $V \otimes R$ has the module structure from \hyperref[eg:freemodule]{Example \ref*{eg:freemodule}}.
+  Let $G$ be an affine $\mathscr{A}$-group, and let $H = \mathscr{O}(G)$ be its dual $\mathscr{A}$-Hopf algebra. A \defn{representation} of $G$ on $V \in \Obj(\mathscr{A})$ is a natural transformation $r\colon G \to \mathrm{Aut}_{(-)\mhyp\mathsf{Mod}}(V \otimes -)$, where for any commutative $\mathscr{A}$-algebra $R$, $V \otimes R$ has the module structure from \hyperref[eg:freemodule]{Example \ref*{eg:freemodule}}.
+
+  That is, for every commutative $\mathscr{A}$-algebra $R$, it is a group homomorphism $G(R) \to \mathrm{Aut}_{R\mhyp\mathsf{Mod}}(V \otimes R)$ which makes the naturality square commute.
 
   A representation is called \defn{finite dimensional} if $V$ is finite-dimensional.
-
-  That is, for every commutative $k$-algebra $R$, it is a group homomorphism $G(R) \to \mathrm{Aut}_{R\mhyp\mathsf{Mod}}(V \otimes R)$ which makes the naturality square commute.
-\end{definition}
-
-\begin{definition}[homomorphism of representations]
-  \label{def:homomorphismmofrepresentations}
-  Let $(V, r)$ and $(V', r')$ be representations of $G$ on 
 \end{definition}
 
 \begin{theorem}
-  Let $G$ be an affine algebraic group. There is a bijection between
+  Let $G$ be an affine $\mathscr{A}$-group. There is a bijection between
   \begin{itemize}
     \item The set of of representations of $G$, i.e. the set of natural transformations
       \begin{equation*}
-        G \to \mathrm{Aut}_{(-)\mhyp\mathsf{Mod}}(V \otimes -)
+        \eta\colon G \to \mathrm{Aut}_{(-)\mhyp\mathsf{Mod}}(V \otimes -)
       \end{equation*}
 
-    \item The set of $\mathscr{O}(G)$-comodules 
+    \item The set of $\mathscr{O}(G)$-comodules.
   \end{itemize}
 \end{theorem}
+\begin{proof}
+  Let $A = \mathscr{O}(G)$.
+
+  Pick some $V \in \Obj(\mathscr{A})$. Then the natural transformation $\eta$ has a component 
+  \begin{equation*}
+    \eta_{A}\colon G(A) = \Hom_{\mathsf{CMon}(\mathscr{A})}(A, A) \to \Hom_{A\mhyp \mathsf{Mod}}(V \otimes A, V \otimes A). 
+  \end{equation*}
+  The image of the element $\mathrm{id}_{A} \in \Hom$
+\end{proof}
 
 \begin{example}
   Let $G = \SL_{n}$. Then its associated Hopf algebra is
@@ -9387,22 +9458,20 @@ However, in a sense we are missing some symmetries. We are describing a non-rela
 
 Note that the first two of these are not symmetries in the traditional sense; Galilean boosts and time inversion do not commute with the Hamiltonian. However, these are certainly \emph{are} symmetries of non-relativistic mechanics, so they should be symmetries of non-relativistic quantum mechanics. The third is a symmetry in the traditional sense, but is not just any old symmetry; it is exactly the evolution defined by the Schr\"{o}dinger equation.
 
-The lack of these symmetries stems from a conceptually ugliness in the Schr\"{o}dinger picture: one is implicitly forced to choose a preferred frame of reference. This is convenient for calculations, but in general masks symmetries of the underlying theory which do not leave the frame fixed.
+The fact that these symmetries do not manifest themselves in the traditional approach stems from a conceptually ugliness in the Schr\"{o}dinger picture: one is implicitly forced to choose a preferred frame of reference. This is convenient for calculations, but in general masks symmetries of the underlying theory which do not leave the frame fixed.
 
-By considering the symmetries of spacetime to be fundamental, one avoids the conceptually rather ugly step of choosing a reference frame. Moreover, with the above expanded notion of symmetry we do not need to take the Schr\"{o}dinger equation as an axiom: the existence of time evolution is taken care of by the time translation operators guaranteed us by postulating Galilean symmetry. We will see how this works in more detail in the next section.
+By considering the symmetries of spacetime to be fundamental, one avoids the conceptually displeasing step of choosing a reference frame. Moreover, with the above expanded notion of symmetry we do not need to take the Schr\"{o}dinger equation as an axiom: the existence of time evolution is taken care of by the time translation operators guaranteed us by postulating Galilean symmetry. We will see how this works in more detail in the next section.
 
-\subsection{Quantum mechanics and symmetries}
+\subsection{Symmetrical quantum mechanics}
 As we saw in the last section, the postulate that the state vector $\psi$ evolves via the Schr\"{o}dinger equation is superfluous if we use the correct notion of symmetry. This suggests that we can do away with the postulate that our system evolves in time via the Schr\"{o}dinger equation if we think about a quantum theory as being defined by its symmetries.
 
 Thus, we should think of a quantum system as consisting of the following.
 \begin{enumerate}
-  \item A separable complex Hilbert space $\mathscr{H}$ in which our state vectors live.
+  \item A separable complex Hilbert space $\mathscr{H}$ in which our state vectors live.\footnote{Note that standard quantum mechanics, the Hilbert space is infinite-dimensional. In this case we do not even really have to think of the Hilbert space as included in the data, since there is only one infinite-dimensional separable Hilbert space up to isomorphism.}
 
   \item A collection of operators which implement symmetry transformations.
 
 \end{enumerate}
-
-Note that standard quantum mechanics, the Hilbert space is infinite-dimensional. In this case we do not even really have to think of the Hilbert space as included in the data, since there is only one infinite-dimensional separable Hilbert space up to isomorphism.
 
 We are being intentionally vague about what sort of operators are allowed, and what sort of symmetry transformations we want to include. This is a complicated question to which we hope to present a partial answer. However, we will mention the most common way of specifying such a collection of symmetry transformations.
 
@@ -9442,7 +9511,7 @@ We are being intentionally vague about what sort of operators are allowed, and w
   which is precisely the Schrodinger equation.
 \end{example}
 
-However, we have have exchanged one conceptual difficulty for a far greater one: we no longer have any idea what it means for an operator to be a symmetry. Before we had a concrete definition, if a defective one: a symmetry was an operator which commuted with the Hamiltonian. Now that we have demoted the Hamiltonian, we will need some way of distinguishing bona fide symmetries from other operators.
+Recall: we have expanded our definition of symmetry to allow not only operators which commute with the Hamiltonian. This allowed us to uncover hidden symmetries which did not leave our frame of reference fixed. However, we have have exchanged one conceptual difficulty for a far greater one: we no longer have any idea what it means for an operator to be a symmetry. Before we had a concrete definition, if a defective one; now that we have demoted the Hamiltonian, we will need some way of deciding which operators we want to call symmetries.
 
 We propose the following radical definition: the operators which represent symmetries are those which commute with all the other operators. Or rather, the only other operators one is allowed to consider are those that commute with the symmetry operators. Note that this is a restriction not of the symmetry operators themselves, but the other operators in the theory.
 
@@ -9454,16 +9523,14 @@ We can formalize this in a definition.
 
 \begin{definition}[symmetric quantum system]
   \label{def:symmetricquantumsystem}
-  A symmetric quantum system consists of
+  A symmetric quantum system is a triple $(\mathscr{H}, \mathcal{S}, \mathcal{O})$, where
   \begin{itemize}
-    \item A separable Hilbert space $\mathscr{H}$.
+    \item $\mathscr{H}$ is a separable Hilbert space 
 
-    \item A set $\mathcal{S}$ of operators on $\mathscr{H}$ which one views as implementing symmetries.
+    \item $\mathcal{S}$ is a set of linear operators $\mathscr{H} \to \mathscr{H}$ which we view as implementing symmetries.
 
-    \item The set $\mathcal{O}$ of operators on $\mathscr{H}$ which commute with the 
+    \item $\mathcal{O}$ is the set of operators $\mathscr{H} \to \mathscr{H}$ which commute with all the operators in $\mathcal{S}$.
   \end{itemize}
-
-  The only other operators one is allowed to talk about are those which commute with every operator in $\mathcal{S}$.
 \end{definition}
 
 So far we have made no mention of the form that the symmetry operators take: they are just some operators. Now we need to make some assumptions. 
@@ -9473,7 +9540,7 @@ So far we have made no mention of the form that the symmetry operators take: the
 
   \item Next, we demand that there should be some notion of two systems having the `same' underlying symmetry. The trivial quantum system with underlying Hilbert space $\mathscr{H} = \C$ and only the identity as a symmetry operator should be viewed as trivially possessing every symmetry.
 
-    Another way of saying this is that we want to be able to consider all quantum systems with a given symmetry. We make the technical assumption that these fit in a set.
+    Another way of saying this is that we want to be able to consider all quantum systems with a given symmetry. 
 
   \item We demand that given two quantum systems with a given symmetry, we can create the composite system, and that the composite system will share the symmetry of its component systems. 
     \begin{itemize}
@@ -9484,12 +9551,20 @@ So far we have made no mention of the form that the symmetry operators take: the
 
   \item We can swap the order in which we consider taking the composite system. Note that we do \emph{not} assume that this is given by the standard braiding of the tensor product which sends $v \otimes w \mapsto w \otimes v$; we allow for more general notions of swapping.
 
-  \item However, we demand that if we swap our systems twice, we get back the system we started with. \footnote{It is not entirely clear that this assumption is justified; 2-$d$ QFTs can exhibit braid group symmetry.}
+  \item However, we demand that if we swap our systems twice, we get back the system we started with.\footnote{It is not entirely clear that this assumption is justified; 2-$d$ QFTs can exhibit braid group symmetry.}
 
-  \item Lastly, we demand that for any symmetric quantum system $\mathscr{H}$ with symmetry operators $\left\{ O_{i} \right\}$, the dual space $\mathscr{H}^{*}$ with symmetry operators $\left\{ O_{i}^{*} \right\}$ is also a symmetric quantum space.
+  \item Lastly, we demand that for any symmetric quantum system $\mathscr{H}$ with symmetry operators $\mathcal{S} = \left\{ S_{i} \right\}$, the dual space $\mathscr{H}^{*}$ with symmetry operators $\left\{ S_{i}^{*} \right\}$ is also a symmetric quantum space.
 \end{itemize}
 
-Now let us consider a fixed type of symmetry and consider the collection of all finite-dimensional quantum systems carrying this symmetry. We can consider maps between these quantum systems 
+Now let us consider a fixed type of symmetry and consider the collection of all finite-dimensional quantum systems carrying this symmetry. We can consider maps between symmetric quantum systems $(\mathscr{H}_{1}, \mathcal{S}_{1}, \mathcal{O}_{1})$ and $(\mathscr{H}_{2}, \mathcal{S}_{2}, \mathcal{O}_{2})$ given again by operators $A\colon \mathscr{H}_{1} \to \mathscr{H}_{2}$ which commute with all the symmetry operators in the sense that for any $S \in \mathcal{S}_{1}$ and $T \in \mathcal{S}_{2}$,
+\begin{equation*}
+  AS = TA.
+\end{equation*}
+
+There are two examples 
+\begin{itemize}
+  \item For any 
+\end{itemize}
 
 Under these conditions, we have constructed a category whose objects are symmetric quantum spaces and whose morphisms are intertwiners. Deligne's theorem tells us that this category is equivalent to the category $\mathsf{Rep}(G)$ for some affine algebraic super group $G$. That is, the symmetry operators have to form a representation of some affine algebraic super group.
 
