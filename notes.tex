@@ -141,45 +141,41 @@
 %The fact that it's just a collection of notes means that it assumes as background more or less exactly what I knew before I started (although I have made some effort to keep it self-contained). 
 
 \subsection{History of superalgebra and supergeometry}
-\subsubsection{Supermanifolds and the path integral}
-Superalgebra as a mathematical structure came into being out of necessity, as an attempt to extend the path integral approach to quantum field theory to allow the treatment of fermionic fields.
+\subsubsection{Supergeometry and the path integral}
+Supergeometry as a mathematical structure came into being out of necessity, as an attempt to extend the path integral approach to quantum field theory to allow the treatment of fermionic fields.
 
-In 1948, Richard Feynman published his so-called \emph{path-integral} approach to quantum mechanics (\cite{feynmanpathintegral}). Originally it was applied only to non-relativistic quantum mechanics, but it was quickly realized how to extend it to bosonic quantum field theory. However, it took quite some time for it to be applied to fermionic quantum fields. The first textbook account, \cite{berezinsecondquantization}, was published by Felix Berezin in 1965.
+In 1948, Richard Feynman published his so-called \emph{path-integral} approach to quantum mechanics (\cite{feynmanpathintegral}). It was quickly extended to bosonic quantum field theory. However, it took quite some time for it to be applied to fermionic quantum fields. The first textbook account, \cite{berezinsecondquantization}, was published by Felix Berezin in 1965.
 
-The reason for the slow uptake was conceptual. In the path integral approach to quantum field theory, one treats a quantum field as a superposition of classical field states. This means that calculations with quantum fields involve corresponding classical fields. For bosonic fields (fields describing particles with integer spin), this is no problem: bosonic quantum fields have natural classical analogs since in the high particle number limit, the quantum dynamics reduce to the classical field equations. However, since fermions (particles with half-integer spin) cannot be in the same state due to the Pauli exclusion principle they do not have a high particle humber limit, so they have no obvious classical analog.
+The reason for the slow uptake was to some extent conceptual difficulty. In the path integral approach to quantum field theory, one treats a quantum field in terms of classical field states. This means that calculations with quantum fields involve corresponding classical fields. For bosonic fields (fields describing particles with integer spin), it is clear how to do this: bosonic quantum fields have natural classical analogs since in the high particle number limit, the quantum dynamics reduce, roughly, to the classical field equations. However, since fermions (particles with half-integer spin) cannot be in the same state due to the Pauli exclusion principle, fermionic fields do not have a high particle humber limit, so they have no obvious classical analog.
 
-It turns out that the way to treat fermionic quantum fields in the path integral formalism is to allow fermions to correspond to classical fields which anticommute. That is, classical fields $\psi$ which satisfy the relation 
+It turns out that the way to treat fermionic quantum fields in the path integral formalism is to allow the classical fields which correspond to fermions to anticommute, i.e. to satisfy the relation 
 \begin{equation*}
   \psi(x) \psi(y) = -\psi(y) \psi(x).
 \end{equation*}
+This is puzzling since we do not know how to interpret the order of classical fields. In classical field theory, field histories are given by sections of a bundle over spacetime, and the value of a field at a point can be thought of as given by a collection of numbers of which represent, for example, the components of a vector located at that point. These numbers by definition commute with each other. The anticommutativity of fermionic classical fields means that they cannot be na\"{i}vely interpreted as classical fields in the standard sense.
 
-This is puzzling since we do not know how to interpret the order of classical fields. In classical field theory, fields are sections of a bundle over spacetime, and the value of a field at a point can be thought of as given by a collection of numbers of which represent, for example, the components of a vector at that point. These numbers by definition commute with each other. The anticommutativity of fermionic classical fields means that they cannot be na\"{i}vely interpreted as classical fields in the standard sense.
+The correct interpretation of classical fields turned out to be the following: if one augments the charts on a manifold by adding additional coordinates which anticommute instead of commute, then fields, considered locally as a sort of formal power series in all the variables (commuting and anticommuting) can behave non-trivially under comutation.
 
-A hint as to the correct interpretation of this problem came from supergeometry: if one augmented the charts on a manifold by adding additional coordinates which anticommuted instead of commuted, then the appropriate sort of field, considered locally as a sort of formal power series in \emph{all} the variables (commuting and anticommuting) could behave non-trivially under comutation.
+The mathematical formulation of such an `augmented manifold' is given by what is known as a supermanifold: one takes the standard description of a $C^{\infty}$ manifold as a locally ringed space and allows the sections to be so-called \emph{supercommutative} rings, which contain both commuting and anticommuting elements.
 
-The mathematically rigorous formulation of such an `augmented manifold' is given by what is known as a supermanifold: one takes the standard description of a $C^{\infty}$ manifold as a locally ringed space and allows the sections to be so-called \emph{supercommutative} rings, which have both commuting and anticommuting elements. 
-
-Supermanifolds have a rich mathematical theory, explored in e.g. \cite{susy-for-mathematicians}. For instance, one can study a category whose objects are supermanifolds; the group objects in this category are known as Lie super-groups. The tangent space at the identity of a Lie super-group is known as a Lie super-algebra, an algebra with a bracket which is sometimes symmetric and sometimes antisymmetric.
+Supermanifolds have a rich mathematical theory, explored in e.g. \cite{susy-for-mathematicians}. In many ways, it runs parallel to the classical theory of $C^{\infty}$ manifolds. For instance, one can study a category whose objects are supermanifolds; the group objects in this category are known as Lie super-groups. The tangent space at the identity of a Lie super-group is known as a Lie super-algebra, an algebra with a bracket which is sometimes symmetric and sometimes antisymmetric.
 
 \subsubsection{Lie superalgebras and the Haag-{\L}opusza{\'n}ski-Sohnius theorem}
 
-\begin{itemize}
-  \item What is a supermanifold
-    \begin{itemize}
-      \item Add grading to structure sheaf; commutative $\rightarrow$ supercommutative
-    \end{itemize}
+In 1967, Sidney Coleman and Jeffrey Mandula published a paper (\cite{coleman-mandula}) in which they analyzed a quantum field theory which was invariant under a connected Lie group $G$ of symmetries. They showed that, under certain physically reasonable assumptions, if this group contained the Poincar\'{e} group as a subgroup, then it had to split into a direct product of the Poincare\'{e} group and some internal symmetry group; there could be no mixing.
 
-  \item This is reflected in other structure
-    \begin{itemize}
-      \item symmetries are given by Lie super-groups
+They accomplished this by studying a representation of the Lie algebra $\mathfrak{g}$ of $G$, and showing that the operators generating spacetime and internal translations could not obey non-trivial commutation relations. The Lie algebra had to be decomposable as a direct sum
+\begin{equation*}
+  \mathfrak{g} = \mathfrak{g}_{\,\text{Poincar\'{e}}} \oplus \mathfrak{g}_{\,\text{internal}}.
+\end{equation*}
 
-      \item Lie super-algebra:
+This was seen as a blow for fundamental physics. Symmetry was viewed as a unifying force in fundamental pysics, and there was a hope that spacetime and internal symmetries could be unified. The so-called Coleman-Mandula theorem showed that this was not possible. 
 
-      \item $\displaystyle [a, b] = (-1)^{\tilde{a}\cdot\tilde{b}} [b, a]$.
-    \end{itemize}
-\end{itemize}
+However, in 1975 Rudolph Haag, Jan {\L}opusza{\'n}ski, and Martin Sohnius showed that the operators representing Lie algebras of the spacetime and internal symmetry groups could mix in a non-trivial way as long as some of they were allowed to obey anti-commutation relations. Mathematically, this meant that the generators really formed a representation of a Lie super-algebra. Thus, Haag, {\L}opusza{\'n}ski, and Sohnius showed that it was possible to unify spacetime and internal symmetries of a relativistic quantum field theory if one assumed that the symmetries were given by a super-group.
 
+This so-called Haag-{\L}opusza{\'n}ski-Sohnius theorem was, and to some extent is, taken as a justification for the belief that spacetime fundamentally has the structure of a supermanifold.
 
+\subsection{Supercommutative algebra}
 
 %\chapter{The Mackey machine}
 %The \emph{Mackey machine} is another name for the so-called \emph{method of induced representations} developed by George Mackey in \cite{mackey-induced-representations}. 
@@ -2153,9 +2149,12 @@ In this section, we will study the mathematical structure of $\mathcal{S}$-symme
       It is symmetric by assumption.
 
       \setcounter{enumi}{5}
-    \item The linearity of the tensor product follows from that on $\mathsf{FinVect}_{k}$.
+    \item 
+      \begin{enumerate}
+        \item The linearity of the tensor product follows from that on $\mathsf{FinVect}_{k}$.
 
-    \item The exactness of the tensor product follows from that on $\mathsf{FinVect}_{k}$.
+        \item The exactness of the tensor product follows from that on $\mathsf{FinVect}_{k}$.
+      \end{enumerate}
 
     \item Since the tensor unit $1$ is the $\mathcal{S}$-symmetric space $(\C, s \mapsto \mathrm{id}_{\C})$, $\End_{\mathsf{QSys}(\mathcal{S})}(1) = \End_{\mathsf{FinVect}_{\C}}(\C) \simeq \C$.
   \end{enumerate}
@@ -2168,7 +2167,7 @@ Under these conditions, we have constructed a category whose objects are symmetr
 
 But what does this mean? It means we have a fully faithful, essentially surjective functor 
 \begin{equation*}
-  \mathcal{J}\colon \mathsf{Rep}(G) \to \mathsf{QSys}(\mathscr{S}).
+  \mathcal{J}\colon \mathsf{Rep}(G) \to \mathsf{QSys}(\mathcal{S}).
 \end{equation*}
 
 
@@ -9007,10 +9006,6 @@ One of the things category theory is best for is generalization. One of the most
   \end{equation*}
 \end{definition} 
 
-\begin{note}
-  The sloppiness in notation (e.g. notationally supressing associators) is completely standard.
-\end{note}
-
 %\subsection{Internal categories}
 %\begin{definition}[internal category]
 %  \label{def:internalcategory}
@@ -9674,11 +9669,11 @@ Most of the material in this chapter is from \cite{manin-gauge-fields}.
 \end{definition}
 
 \begin{note}
-  Of course, not all elements $c \in A$ are in $A_{0}$ or $A_{1}$; formulae which talk about the grading must be understood to be extended via additivity. If $a = a_{0} + a_{1}$ and $b = b_{0} + b_{1}$, then
+  Of course, not all elements $c \in A$ are in $A_{0}$ or $A_{1}$; formulae which talk about the grading must be understood to be extended via additivity. If $a = a_{0} + a_{1}$ and $b = b_{0} + b_{1}$ so
   \begin{equation*}
     ab = a_{0} b_{0} + a_{1} b_{0} + a_{0} b_{1} + a_{1} b_{1},
   \end{equation*}
-  and the axiom concerning the multiplicative grading can be taken to say that the grading applies to each monomial.
+  the axiom concerning the multiplicative grading should be taken to say that the grading applies to each monomial.
 \end{note}
 
 \begin{example}[exterior algebra]
@@ -9827,9 +9822,7 @@ In the theory of commutative algebra, we have \hyperref[def:algebraoveraring]{De
   Let $R$ be a supercommutative super ring, $r \in R_{1}$. Then $r$ is nilpotent (\hyperref[def:nilpotent]{Definition \ref*{def:nilpotent}}).
 \end{theorem}
 \begin{proof}
-  \begin{equation*}
-    r^2 = \frac{1}{2}[r,r] = 0.
-  \end{equation*}
+  $\displaystyle r^2 = \frac{1}{2}[r,r] = 0$.
 \end{proof}
 
 We have the following analog to \hyperref[thm:propertiesofcommutator]{Theorem \ref*{thm:propertiesofcommutator}}.
@@ -9848,13 +9841,12 @@ We have the following analog to \hyperref[thm:propertiesofcommutator]{Theorem \r
   $\,$
   \begin{itemize}
     \item $[a,b] = ab-(-1)^{\tilde{a}\cdot \tilde{b}} ba = ba(-1)^{\tilde{a}\cdot \tilde{b}} - \left( (-1)^{\tilde{a}\cdot \tilde{b}} \right)^{2} ab = (-1)^{\tilde{a}\cdot \tilde{b}}\left( ba - (-1)^{\tilde{a}\cdot \tilde{b}}ab \right) = (-1)^{\tilde{a}\cdot \tilde{b}}[b,a] $
-    \item Nightmarish.
+    \item 
       \begin{align*}
         [a,[b,c]] &= a(bc-(-1)^{\tilde{b}\cdot \tilde{c}}cb) - (-1)^{\tilde{a}(\tilde{b} + \tilde{c})}(bc-(-1)^{\tilde{b}\cdot \tilde{c}}cb)a \\
         [b,[c,a]] &= b(ca-(-1)^{\tilde{c}\cdot \tilde{a}}ac) - (-1)^{\tilde{b}(\tilde{c} + \tilde{a})}(ca-(-1)^{\tilde{c}\cdot \tilde{a}}ac)b \\
         [c,[a,b]] &= c(ab-(-1)^{\tilde{a}\cdot \tilde{b}}ba) - (-1)^{\tilde{c}(\tilde{a} + \tilde{b})}(ab-(-1)^{\tilde{a}\cdot \tilde{b}}ba)c 
       \end{align*}
-      Truly nightmarish.
 
     \item My apologies for the formatting.
       \begin{enumerate}[label= Equality \arabic*:]
@@ -10004,208 +9996,210 @@ As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd
   \end{equation*}
 \end{definition}
 
-\chapter{Questions}
-\begin{enumerate}
-  \item Is the tensor product in SUSY treated as graded?
-
-  \item Is the coordinate ring $\mathscr{O}(G)$ the same as the group algebra $k[G]$?
-\end{enumerate}
 \begin{thebibliography}{9}
-    \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
+  \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
     \textit{Spin Geometry}.
     Princeton University Press, Princeton, NJ, 1989.
 
-    \bibitem{vakil-rising-sea} R. Vakil,
+  \bibitem{vakil-rising-sea} R. Vakil,
     \textit{The Rising Sea}.
     \url{http://www.math216.wordpress.com/}
 
-    \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
+  \bibitem{sontz-principal-bundles-classical} S. B. Sontz.
     \textit{Principal Bundles: The Classical Case}.
     Springer International Publishing, Switzerland, 2015.
 
-    \bibitem{hungerford-algebra} T. Hungerford.
+  \bibitem{hungerford-algebra} T. Hungerford.
     \textit{Algebra}.
     Springer-Verlag New York, NY, 1974.
 
-    \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
+  \bibitem{o'farril-spin-geometry} J. Figuroa-O'Farril. 
     \textit{PG Course on Spin Geometry}.
     \url{https://empg.maths.ed.ac.uk/Activities/Spin/}
 
-    \bibitem{quantum-fields-and-strings} P. Deligne et al.
+  \bibitem{quantum-fields-and-strings} P. Deligne et al.
     \textit{Quantum Fields and Strings: a Course for Mathematicians}.
     American Mathematical Society, 1999.
 
-    \bibitem{susy-for-mathematicians} V. S. Varadarajan.
+  \bibitem{susy-for-mathematicians} V. S. Varadarajan.
     \textit{Supersymmetry for Mathematicans: An Introduction}.
     American Mathematical Society, 2004.
 
-    \bibitem{catsters} The Catsters.
+  \bibitem{catsters} The Catsters.
     \url{https://www.youtube.com/channel/UC5Y9H2KDRHZZTWZJtlH4VbA}
 
-    \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
+  \bibitem{connes-marcolli-ncg} A. Connes and M. Marcolli.
     \textit{Noncommutative Geometry, Quantum Fields and Motives}.
     \url{http://www.alainconnes.org/docs/bookwebfinal.pdf}
 
-    \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
+  \bibitem{aluffi-algebra-chapter-0} P. Aluffi.
     \textit{Algebra: Chapter 0}.
     American Mathematical Society, 2009.
 
-    \bibitem{nlab-deligne-theorem} 
+  \bibitem{nlab-deligne-theorem} 
     \textit{Nlab---Deligne's Theorem on Tensor Categories}.
     \url{https://ncatlab.org/nlab/show/Deligne's+theorem+on+tensor+categories}
 
-    \bibitem{baez-this-weeks-finds-137} J. Baez.
+  \bibitem{baez-this-weeks-finds-137} J. Baez.
     \textit{This Week's Finds in Mathematical Physics (Week 137)}.
     \url{http://math.ucr.edu/home/baez/week137.html}
 
-    \bibitem{baez-definitions-everyone-should-know} J. Baez.
+  \bibitem{baez-definitions-everyone-should-know} J. Baez.
     \textit{Some Definitions Everyone Should Know}.
     \url{http://math.ucr.edu/home/baez/qg-fall2004/definitions.pdf}
 
-    \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
+  \bibitem{unapolagetic-mathematician-mac-lanes-theorem} 
     \textit{The Unapologetic Mathematician: Mac Lane's Coherence Theorem}.
     \url{https://unapologetic.wordpress.com/2007/06/29/mac-lanes-coherence-theorem/}
 
-    \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
+  \bibitem{gleason-montgomery-zippin} D. Montgomery and L. Zippin. 
     \textit{Topological Transformation Groups}.
     University of Chicago Press, Chicago, 1955.
 
-    \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
+  \bibitem{DMOS} P. Deligne, J.S. Milne, A. Ogus, and K. Shih.
     \textit{Hodge Cycles, Motives, and Shimura Varieties}.
     Springer Verlag, 1982
 
-    \bibitem{maclane-categories} S. Mac Lane.
+  \bibitem{maclane-categories} S. Mac Lane.
     \textit{Categories for the Working Mathematician}.
     Springer-Verlag New York, New York, 1998.
 
-    \bibitem{baez-higher-categories} J. Baez. 
+  \bibitem{baez-higher-categories} J. Baez. 
     \textit{An introduction to $n$-Categories}.
     \url{https://arxiv.org/pdf/q-alg/9705009.pdf}
 
-    \bibitem{baez-categories-usenet} 
+  \bibitem{baez-categories-usenet} 
     \url{https://groups.google.com/forum/#!topic/sci.math/7LqPFfmWGOA}
 
-    \bibitem{nlab} 
+  \bibitem{nlab} 
     \url{https://www.ncatlab.org/}
 
-    \bibitem{wikipedia-product} 
+  \bibitem{wikipedia-product} 
     \textit{Wikipedia - Product (Category Theory)}.
     \url{https://en.wikipedia.org/wiki/Product\_(category\_theory)}
 
-    \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
+  \bibitem{EGNO-tensor-categories} P. Etingof, S. Gelaki, D. Nikshych, and V. Ostrik.
     \textit{Tensor Categories}.
     American Mathematical Society, 2015.
 
-    \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
+  \bibitem{awodey-intro-to-categories} S. Awodey and A. Bauer.
     \textit{Lecture Notes: Introduction to Categorical Logic}
 
-    \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
+  \bibitem{awodey-category-theory-foundations-videos} S. Awodey.
     \textit{Category Theory Foundations}.
     \url{https://www.youtube.com/watch?v=BF6kHD1DAeU&index=1&list=PLGCr8P\_YncjVjwAxrifKgcQYtbZ3zuPlb}
 
-    \bibitem{awodey-category-theory} S. Awodey.
+  \bibitem{awodey-category-theory} S. Awodey.
     \textit{Category Theory}.
     Oxford University Press, 2006.
 
-    \bibitem{haag-local-quantum-physics} R. Haag.
+  \bibitem{haag-local-quantum-physics} R. Haag.
     \textit{Local Quantum Physics: Fields, Particles, Algebras}.
     Springer-Verlag Berlin Heidelberg New York, 1996
 
-    \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
+  \bibitem{sexl-urbantke-relativity-groups-particles} R. Sexl and H. Urbantke.
     \textit{Relativity, Groups, Particles: Special Relativity and Relativistic Symmetry in Field and Particle Physics}.
     Springer-Verlag Wein, 1992
 
-    \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
+  \bibitem{wess-bagger-susy-sugra} J. Wess and J. Bagger.
     \textit{Supersymmetry and Supergravity}.
     Princeton University Press, Princeton NJ, 1992
 
-    \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
+  \bibitem{muller-kirsen-wiedmann-intro-susy} H J W M{\"u}ller-Kirsen and Armin Wiedemann
     \textit{Introduction to Supersymmetry (Second edition)}.
     World Scientific, 2010.
 
-    \bibitem{deligne-categories-tensorielle} Pierre Deligne.
+  \bibitem{deligne-categories-tensorielle} Pierre Deligne.
     \textit{Cat{\'e}gories Tensorielle},
     Moscow Math. Journal 2 (2002) no. 2, 227-228
     \url{https://www.math.ias.edu/files/deligne/Tensorielles.pdf}
 
-    \bibitem{KMS-natural-operations-differential-geometry} I. Kol\'{a}\v{r}, P. Michor, and J. Slov\'{a}k.
+  \bibitem{KMS-natural-operations-differential-geometry} I. Kol\'{a}\v{r}, P. Michor, and J. Slov\'{a}k.
     \textit{Natural Operations in Differential Geometry}.
     Springer-Verlag, Berlin Heidelberg, 1993.
 
-    \bibitem{hartshorne-algebraic-geometry} R. Hartshorne.
+  \bibitem{hartshorne-algebraic-geometry} R. Hartshorne.
     \textit{Algebraic Geometry}.
     Springer-Verlag, New York, 1977.
 
-    \bibitem{annoying-precision-meditation} Q. Yuan.
+  \bibitem{annoying-precision-meditation} Q. Yuan.
     \textit{Annoying Precision: A neditation on semiadditive categories}.
     \url{https://qchu.wordpress.com/2012/09/14/a-meditation-on-semiadditive-categories/}
 
-    \bibitem{nestruev-smooth-manifolds-observables} J. Nestruev.
+  \bibitem{nestruev-smooth-manifolds-observables} J. Nestruev.
     \textit{Smooth Monifolds and Observables}.
     Springer-Verlag, New York, 2002.
 
-    \bibitem{baez-lauda-prehistory} J. Baez and A. Lauda. 
+  \bibitem{baez-lauda-prehistory} J. Baez and A. Lauda. 
     \textit{A prehistory of $n$-categorical physics}.
     \url{https://arxiv.org/pdf/0908.2469.pdf}
 
-    \bibitem{neumaier} A. Neumaier.
+  \bibitem{neumaier} A. Neumaier.
     \textit{Elementary particles as irreducible representations}.
     \url{https://www.physicsoverflow.org/21960}.
 
-    \bibitem{physicsforums-why-deligne} U. Schreiber.
+  \bibitem{physicsforums-why-deligne} U. Schreiber.
     \textit{Why Supersymmetry? Because of Deligne's theorem}
     \url{https://www.physicsforums.com/insights/supersymmetry-delignes-theorem/}
 
-    \bibitem{mackey-induced-representations} G. W. Mackey.
+  \bibitem{mackey-induced-representations} G. W. Mackey.
     \textit{Induced representations}.
     W.A. Benjamin, Inc., and Editore Boringhieri, New York, 1968.
 
-    \bibitem{nlab-additive-category} nLab: Additive category.
+  \bibitem{nlab-additive-category} nLab: Additive category.
     \url{https://ncatlab.org/nlab/show/additive+category#ProductsAreBiproducts}
 
-    \bibitem{freyd-abelian-categories} P. Freyd.
+  \bibitem{freyd-abelian-categories} P. Freyd.
     \textit{Abelian Categories}
     Harper and Row, New York, 1964.
 
-    \bibitem{milne-affine-group-schemes} J. Milne,
+  \bibitem{milne-affine-group-schemes} J. Milne,
     \textit{Basic Theory of Affine Group Schemes},
     2012. 
     Available at \url{www.jmilne.org/math/}
 
-    \bibitem{wigner-little-group} E. Wigner.
+  \bibitem{wigner-little-group} E. Wigner.
     \textit{On Unitary Representations of the Inhomogeneous Lorentz Group.}
     Annals of Mathematics. Second Series, Vol. 40, No. 1 (Jan., 1939), pp. 149-204
 
-    \bibitem{jpmds-representation-theory-symmetric-groups} J. P. M. dos Santos.
+  \bibitem{jpmds-representation-theory-symmetric-groups} J. P. M. dos Santos.
     \textit{Representation theory of symmetric groups.}
     \url{https://www.math.tecnico.ulisboa.pt/~ggranja/joaopedro.pdf}
 
-    \bibitem{manin-gauge-fields} U. Manin.
+  \bibitem{manin-gauge-fields} U. Manin.
     \textit{Gauge Fields and Complex Geometry},
     Springer-Verlag Berlin Heidelberg New York, 1988.
 
-    \bibitem{dissipation-in-lagrangian-mechanics} Valter Moretti (\url{https://physics.stackexchange.com/users/35354/valter-moretti}).
+  \bibitem{dissipation-in-lagrangian-mechanics} Valter Moretti (\url{https://physics.stackexchange.com/users/35354/valter-moretti}).
     \textit{Euler-Lagrange equations and friction forces}, 
     URL (version: 2014-02-02): \url{https://physics.stackexchange.com/q/96470}
 
-    \bibitem{milneliealgebrasalgebraicgroupsliegroups} J.S. Milne.
+  \bibitem{milneliealgebrasalgebraicgroupsliegroups} J.S. Milne.
     \textit{Lie Algebras, Algebraic Groups, and Lie Groups.}
     Available at \url{www.jmilne.org/math/}
 
-    \bibitem{braidstatisticsinlocalqft} J. Fr\"{o}hlich and F. Gabbiani. 
+  \bibitem{braidstatisticsinlocalqft} J. Fr\"{o}hlich and F. Gabbiani. 
     \textit{Braid statistics in Local Quantum Theory}.
     Rev. Math. Phys. 02, 251 (1990). 
 
-    \bibitem{binneyphysicsofqm} J. Binney and D. Skinner.
+  \bibitem{binneyphysicsofqm} J. Binney and D. Skinner.
     \textit{The Physics of Quantum Mechanics.}
     Available at \url{https://www-thphys.physics.ox.ac.uk/people/JamesBinney/qb.pdf}
 
-    \bibitem{feynmanpathintegral} R. Feynman.
+  \bibitem{feynmanpathintegral} R. Feynman.
     \textit{Spacetime Approach to Non-Relativistic Quantum Mechanics.}
     Rev. Mod. Phys. 20, 367 – Published 1 April 1948
 
-    \bibitem{berezinsecondquantization} F. A. Berezin. 
+  \bibitem{berezinsecondquantization} F. A. Berezin. 
     \textit{The Method of Second Quantization.}
     Nauka, Moscow, 1965. Tranlation: Academic Press, New York, 1966. (Second edition, expanded: M. K. Polivanov, ed., Nauka, Moscow, 1986.)
+
+  \bibitem{coleman-mandula} S. Coleman and J. Mandula. 
+    \textit{All Possible Symmetries of the S Matrix}. 
+    Physical Review, 159(5), 1967, pp. 1251–1256.
+
+  \bibitem{haag-lopuszanski-sohnius} R. Haag, M. Sohnius, and J. T. {\L}opusza\'{n}ski.
+    \textit{All possible generators of supersymmetries of the S-matrix}. 
+    Nuclear Physics B, 88: 257–274 (1975)
 \end{thebibliography}
 \end{document}
