@@ -146,7 +146,7 @@ Supergeometry as a mathematical structure came into being out of necessity, as a
 
 In 1948, Richard Feynman published his so-called \emph{path-integral} approach to quantum mechanics (\cite{feynmanpathintegral}). It was quickly extended to bosonic quantum field theory. However, it took quite some time for it to be applied to fermionic quantum fields. The first textbook account, \cite{berezinsecondquantization}, was published by Felix Berezin in 1965.
 
-The reason for the slow uptake was to some extent conceptual difficulty. In the path integral approach to quantum field theory, one treats a quantum field in terms of classical field states. This means that calculations with quantum fields involve corresponding classical fields. For bosonic fields (fields describing particles with integer spin), it is clear how to do this: bosonic quantum fields have natural classical analogs since in the high particle number limit, the quantum dynamics reduce, roughly, to the classical field equations. However, since fermions (particles with half-integer spin) cannot be in the same state due to the Pauli exclusion principle, fermionic fields do not have a high particle humber limit, so they have no obvious classical analog.
+This slow uptake was due to some extent to a conceptual difficulty. In the path integral approach to quantum field theory, one treats a quantum field in terms of classical field states. This means that calculations with quantum fields involve corresponding classical fields. For bosonic fields (fields describing particles with integer spin), it is clear how to do this: bosonic quantum fields have natural classical analogs since in the high particle number limit, the quantum dynamics reduce, roughly, to the classical field equations. However, since fermions (particles with half-integer spin) cannot be in the same state due to the Pauli exclusion principle, fermionic fields do not have a high particle humber limit, so they have no obvious classical analog.
 
 It turns out that the way to treat fermionic quantum fields in the path integral formalism is to allow the classical fields which correspond to fermions to anticommute, i.e. to satisfy the relation 
 \begin{equation*}
@@ -154,7 +154,7 @@ It turns out that the way to treat fermionic quantum fields in the path integral
 \end{equation*}
 This is puzzling since we do not know how to interpret the order of classical fields. In classical field theory, field histories are given by sections of a bundle over spacetime, and the value of a field at a point can be thought of as given by a collection of numbers of which represent, for example, the components of a vector located at that point. These numbers by definition commute with each other. The anticommutativity of fermionic classical fields means that they cannot be na\"{i}vely interpreted as classical fields in the standard sense.
 
-The correct interpretation of classical fields turned out to be the following: if one augments the charts on a manifold by adding additional coordinates which anticommute instead of commute, then fields, considered locally as a sort of formal power series in all the variables (commuting and anticommuting) can behave non-trivially under comutation.
+The correct implementation of anticommuting classical fields turned out to be the following: if one augments the charts on a manifold by adding additional coordinates which anticommute instead of commute, then fields, considered locally as a sort of formal power series in \emph{all} the variables (commuting and anticommuting) can behave non-trivially under comutation.
 
 The mathematical formulation of such an `augmented manifold' is given by what is known as a supermanifold: one takes the standard description of a $C^{\infty}$ manifold as a locally ringed space and allows the sections to be so-called \emph{supercommutative} rings, which contain both commuting and anticommuting elements.
 
@@ -162,9 +162,9 @@ Supermanifolds have a rich mathematical theory, explored in e.g. \cite{susy-for-
 
 \subsubsection{Lie superalgebras and the Haag-{\L}opusza{\'n}ski-Sohnius theorem}
 
-In 1967, Sidney Coleman and Jeffrey Mandula published a paper (\cite{coleman-mandula}) in which they analyzed a quantum field theory which was invariant under a connected Lie group $G$ of symmetries. They showed that, under certain physically reasonable assumptions, if this group contained the Poincar\'{e} group as a subgroup, then it had to split into a direct product of the Poincare\'{e} group and some internal symmetry group; there could be no mixing.
+In 1967, Sidney Coleman and Jeffrey Mandula published a paper (\cite{coleman-mandula}) in which they analyzed a quantum field theory which was invariant under a connected Lie group $G$ of symmetries. They showed that, under certain physically reasonable assumptions, if $G$ contained the Poincar\'{e} group as a subgroup, then it had to split into a direct product of the Poincare\'{e} group and some internal symmetry group; there could be no mixing.
 
-They accomplished this by studying a representation of the Lie algebra $\mathfrak{g}$ of $G$, and showing that the operators generating spacetime and internal translations could not obey non-trivial commutation relations. The Lie algebra had to be decomposable as a direct sum
+They accomplished this by studying a representation of the Lie algebra $\mathfrak{g}$ of $G$, and showing that the operators generating spacetime and internal translations could not obey non-trivial commutation relations. That is, $\mathfrak{g}$ had to be decomposable as a direct sum
 \begin{equation*}
   \mathfrak{g} = \mathfrak{g}_{\,\text{Poincar\'{e}}} \oplus \mathfrak{g}_{\,\text{internal}}.
 \end{equation*}
@@ -175,7 +175,7 @@ However, in 1975 Rudolph Haag, Jan {\L}opusza{\'n}ski, and Martin Sohnius showed
 
 This so-called Haag-{\L}opusza{\'n}ski-Sohnius theorem was, and to some extent is, taken as a justification for the belief that spacetime fundamentally has the structure of a supermanifold.
 
-\subsection{Supercommutative algebra}
+\subsection{The study of superalgebra has proven to be fruitful }
 
 %\chapter{The Mackey machine}
 %The \emph{Mackey machine} is another name for the so-called \emph{method of induced representations} developed by George Mackey in \cite{mackey-induced-representations}. 
@@ -1734,88 +1734,88 @@ Let $\mathscr{A} = \mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$.
 \end{definition}
 
 
-\section{Super fiber functors and their automorphism groups}
-We would like to view tensor categories $\mathscr{A}$ as categories of representations. Thus, we would like to be able to view the objects of $\mathscr{A}$ as being the objects of some other category $\mathscr{V}$, plus some extra structure. The extra structure should be extra in the sense that it is forgettable, so there should be a forgetful functor
-\begin{equation*}
-  \omega\colon \mathscr{A} \rightarrow \mathscr{V}.
-\end{equation*}
-For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \mathsf{FinVect}_{k})$ of finite-dimensional $k$-linear representations of $G$ has as its objects pairs $(\rho, V)$, where $V$ is a vector space and $\rho$ is a homomorphism $G \to \mathrm{Aut}(V)$. There is an obvious forgetful functor $\mathsf{FinRep}_{k}(G) \to \mathsf{FinVect}_{k}$ which sends $(\rho, V) \to V$. Note that this functor is not `maximally forgetful' in the sense that it retains some of its structure. Thus it is wise to demand that such a functor $\omega$ retain a reasonable amount of structure. In our case, it should be a tensor functor (\hyperref[def:tensorfunctor]{Definition \ref*{def:tensorfunctor}}).
-
-\begin{definition}[fiber functor]
-  \label{def:fiberfunctor}
-  Let $\mathscr{A}$ and $\mathscr{T}$ be two $k$-tensor categories. Suppose that both $\mathscr{A}$ and $\mathscr{T}$ satisfy the following criteria.
-  \begin{enumerate}
-    \item All objects are of finite length.
-
-    \item All of the hom-spaces are finite-dimensional as $k$-vector spaces.
-  \end{enumerate}
-
-  Let $R \in \mathsf{CMon}(\mathsf{Ind}(\mathscr{T}))$, where $\mathsf{Ind}(\mathscr{T})$ is the \emph{category of inductive objects over $\mathscr{T}$}, see \hyperref[def:categoryofindobjects]{Definition \ref*{def:categoryofindobjects}}.
-
-  A tensor functor (\hyperref[def:tensorfunctor]{Definition \ref*{def:tensorfunctor}})
-  \begin{equation*}
-    \omega\colon \mathscr{A} \to R\mhyp\mathsf{Mod}(\mathsf{Ind}(\mathscr{T}))
-  \end{equation*}
-  is called a \defn{fiber functor} on $\mathscr{A}$ over $R$.
-\end{definition}
-
-\begin{definition}[super fiber functor, neutral super tannakian category]
-  \label{def:suberfiberfunctorneutralsupertannakiancategory}
-  A fiber functor over $\mathscr{T} = \mathsf{FinSVect}$ is called a \defn{super fiber functor}. A tensor category $\mathscr{A}$ which admits a super fiber functor is called a \defn{neutral super tannakian category}.
-
-  Note that in this case a fiber functor over $\mathsf{FinSVect}_{k}$ is a fiber functor to
-  \begin{equation*}
-    \mathsf{CMon}(\mathsf{Ind}(\mathsf{FinSVect}_{k})) = \mathsf{CMon}(\mathsf{SVect}_{k}).
-  \end{equation*}
-\end{definition}
-
-\section{Super-exterior powers and Schur functors}
-One of the core ideas of category theory is that the intrinsic structure of an object can often be best understood by studying its relationships to other objects. For $V$ a vector space, one defines its dimension $\dim(V)$ as the cardinality of any linearly independent spanning subset of $V$. When moving to the category $\mathsf{Vect}_{k}$, one does not have the option of defining things in terms of elements. However, there is an alternate way of defining $\dim(V)$ which does not reference the elements: it is the smallest natural number $n$ such 
-\begin{equation*}
-  \bigwedge^{n} V = 0.
-\end{equation*}
-
-This definition is very appealing because the notion of an exterior product makes sense in any tensor category. 
-
-\begin{definition}[exterior power]
-  \label{def:exteriorpowerintensorcategory}
-  Let $(\mathscr{A}, \otimes, 1)$ be a $k$-tensor category with braiding $\gamma$. Let $X \in \Obj(\mathscr{A})$. For any $n \in \N$, we can use $\gamma$ to build an action of $S_{n}$ on $X^{\otimes n}$ (by Mac Lane's coherence theorem, the specifics of how we do this don't matter).
-
-  We define an \defn{antisymmetrization map} $A\colon X^{\otimes n} \to X^{\otimes n}$ by
-  \begin{equation*}
-    A_{n} = \frac{1}{n!}\sum_{\sigma \in S_{n}} \mathrm{sgn}(\sigma) \sigma.
-  \end{equation*}
-
-  The \defn{$n$th exterior power} of $X$, denoted $\bigwedge^{n}X$, is then defined to be the cokernel (\hyperref[def:cokernalofmorphism]{Definition \ref*{def:cokernalofmorphism}}) of $A_{n}$.
-\end{definition}
-
-However, this notion is not general enough to completely capture the dimension in a tensor category. Suppose that $\mathscr{A} = \mathsf{SFinVect}_{k}$, and $X$ is a super vector space concentrated in odd degree. Then the action of $\sigma$ on $X$ comes alrcady with a factor of $\mathrm{sgn}(\sigma)$ from the super braiding, and $A_{n}$ reduces to the symmetrization of $X^{\otimes n}$, which never vanishes. What is needed is an operation which is general enough to include both symmetrization and antisymmetrization.
-
-The correct generalization turns out to be that of a \emph{Schur functor}. But before we define Schur functors, we need to recall some representation theory.
-
-\subsection{Interlude: representations of the symmetric group}
-Much of this section is from \cite{jpmds-representation-theory-symmetric-groups}.
-
-Let $G$ be a group. We say that two elements $g$ and $g'$ are \emph{conjugate} if there exists $h \in G$ such that $g' = hgh^{-1}$. Conjugacy is an equivalence relation, and partitions a group into \emph{conjugacy classes}.
-
-The conjugacy classes of $S_{n}$ are in one-to-one correspondence with partitions of $n$, notated by so-called \emph{Young tableaux}. 
-
-\begin{definition}[partition]
-  \label{def:partition}
-  Denote by $\lambda$ is a sequence of integers $\lambda_{1} \geq \lambda_{2} \geq \cdots \geq \lambda_{s} > 0$. For simplicity, we will define $\lambda_{r} = 0$ for $r > s$. We denote
-  \begin{equation*}
-    \left|\lambda\right| = \sum_{i = 1}^{r} \lambda_{r},
-  \end{equation*}
-  and say that $\lambda$ is a \defn{partition of $\left|\lambda\right|$}.
-\end{definition}
-
-The importance of the conjugacy classes is that they correspond precisely to irreducible representations of $S_{n}$. Thus for any partition $\lambda$ of $n$ we have an irreducible representation $\rho_{\lambda}$ of $S_{n}$ on a vector space $V_{\lambda}$.
-
-\begin{definition}[Schur functor]
-  \label{def:schurfunctor}
-  Any
-\end{definition}
-
+%\section{Super fiber functors and their automorphism groups}
+%We would like to view tensor categories $\mathscr{A}$ as categories of representations. Thus, we would like to be able to view the objects of $\mathscr{A}$ as being the objects of some other category $\mathscr{V}$, plus some extra structure. The extra structure should be extra in the sense that it is forgettable, so there should be a forgetful functor
+%\begin{equation*}
+%  \omega\colon \mathscr{A} \rightarrow \mathscr{V}.
+%\end{equation*}
+%For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \mathsf{FinVect}_{k})$ of finite-dimensional $k$-linear representations of $G$ has as its objects pairs $(\rho, V)$, where $V$ is a vector space and $\rho$ is a homomorphism $G \to \mathrm{Aut}(V)$. There is an obvious forgetful functor $\mathsf{FinRep}_{k}(G) \to \mathsf{FinVect}_{k}$ which sends $(\rho, V) \to V$. Note that this functor is not `maximally forgetful' in the sense that it retains some of its structure. Thus it is wise to demand that such a functor $\omega$ retain a reasonable amount of structure. In our case, it should be a tensor functor (\hyperref[def:tensorfunctor]{Definition \ref*{def:tensorfunctor}}).
+%
+%\begin{definition}[fiber functor]
+%  \label{def:fiberfunctor}
+%  Let $\mathscr{A}$ and $\mathscr{T}$ be two $k$-tensor categories. Suppose that both $\mathscr{A}$ and $\mathscr{T}$ satisfy the following criteria.
+%  \begin{enumerate}
+%    \item All objects are of finite length.
+%
+%    \item All of the hom-spaces are finite-dimensional as $k$-vector spaces.
+%  \end{enumerate}
+%
+%  Let $R \in \mathsf{CMon}(\mathsf{Ind}(\mathscr{T}))$, where $\mathsf{Ind}(\mathscr{T})$ is the \emph{category of inductive objects over $\mathscr{T}$}, see \hyperref[def:categoryofindobjects]{Definition \ref*{def:categoryofindobjects}}.
+%
+%  A tensor functor (\hyperref[def:tensorfunctor]{Definition \ref*{def:tensorfunctor}})
+%  \begin{equation*}
+%    \omega\colon \mathscr{A} \to R\mhyp\mathsf{Mod}(\mathsf{Ind}(\mathscr{T}))
+%  \end{equation*}
+%  is called a \defn{fiber functor} on $\mathscr{A}$ over $R$.
+%\end{definition}
+%
+%\begin{definition}[super fiber functor, neutral super tannakian category]
+%  \label{def:suberfiberfunctorneutralsupertannakiancategory}
+%  A fiber functor over $\mathscr{T} = \mathsf{FinSVect}$ is called a \defn{super fiber functor}. A tensor category $\mathscr{A}$ which admits a super fiber functor is called a \defn{neutral super tannakian category}.
+%
+%  Note that in this case a fiber functor over $\mathsf{FinSVect}_{k}$ is a fiber functor to
+%  \begin{equation*}
+%    \mathsf{CMon}(\mathsf{Ind}(\mathsf{FinSVect}_{k})) = \mathsf{CMon}(\mathsf{SVect}_{k}).
+%  \end{equation*}
+%\end{definition}
+%
+%\section{Super-exterior powers and Schur functors}
+%One of the core ideas of category theory is that the intrinsic structure of an object can often be best understood by studying its relationships to other objects. For $V$ a vector space, one defines its dimension $\dim(V)$ as the cardinality of any linearly independent spanning subset of $V$. When moving to the category $\mathsf{Vect}_{k}$, one does not have the option of defining things in terms of elements. However, there is an alternate way of defining $\dim(V)$ which does not reference the elements: it is the smallest natural number $n$ such 
+%\begin{equation*}
+%  \bigwedge^{n} V = 0.
+%\end{equation*}
+%
+%This definition is very appealing because the notion of an exterior product makes sense in any tensor category. 
+%
+%\begin{definition}[exterior power]
+%  \label{def:exteriorpowerintensorcategory}
+%  Let $(\mathscr{A}, \otimes, 1)$ be a $k$-tensor category with braiding $\gamma$. Let $X \in \Obj(\mathscr{A})$. For any $n \in \N$, we can use $\gamma$ to build an action of $S_{n}$ on $X^{\otimes n}$ (by Mac Lane's coherence theorem, the specifics of how we do this don't matter).
+%
+%  We define an \defn{antisymmetrization map} $A\colon X^{\otimes n} \to X^{\otimes n}$ by
+%  \begin{equation*}
+%    A_{n} = \frac{1}{n!}\sum_{\sigma \in S_{n}} \mathrm{sgn}(\sigma) \sigma.
+%  \end{equation*}
+%
+%  The \defn{$n$th exterior power} of $X$, denoted $\bigwedge^{n}X$, is then defined to be the cokernel (\hyperref[def:cokernalofmorphism]{Definition \ref*{def:cokernalofmorphism}}) of $A_{n}$.
+%\end{definition}
+%
+%However, this notion is not general enough to completely capture the dimension in a tensor category. Suppose that $\mathscr{A} = \mathsf{SFinVect}_{k}$, and $X$ is a super vector space concentrated in odd degree. Then the action of $\sigma$ on $X$ comes alrcady with a factor of $\mathrm{sgn}(\sigma)$ from the super braiding, and $A_{n}$ reduces to the symmetrization of $X^{\otimes n}$, which never vanishes. What is needed is an operation which is general enough to include both symmetrization and antisymmetrization.
+%
+%The correct generalization turns out to be that of a \emph{Schur functor}. But before we define Schur functors, we need to recall some representation theory.
+%
+%\subsection{Interlude: representations of the symmetric group}
+%Much of this section is from \cite{jpmds-representation-theory-symmetric-groups}.
+%
+%Let $G$ be a group. We say that two elements $g$ and $g'$ are \emph{conjugate} if there exists $h \in G$ such that $g' = hgh^{-1}$. Conjugacy is an equivalence relation, and partitions a group into \emph{conjugacy classes}.
+%
+%The conjugacy classes of $S_{n}$ are in one-to-one correspondence with partitions of $n$, notated by so-called \emph{Young tableaux}. 
+%
+%\begin{definition}[partition]
+%  \label{def:partition}
+%  Denote by $\lambda$ is a sequence of integers $\lambda_{1} \geq \lambda_{2} \geq \cdots \geq \lambda_{s} > 0$. For simplicity, we will define $\lambda_{r} = 0$ for $r > s$. We denote
+%  \begin{equation*}
+%    \left|\lambda\right| = \sum_{i = 1}^{r} \lambda_{r},
+%  \end{equation*}
+%  and say that $\lambda$ is a \defn{partition of $\left|\lambda\right|$}.
+%\end{definition}
+%
+%The importance of the conjugacy classes is that they correspond precisely to irreducible representations of $S_{n}$. Thus for any partition $\lambda$ of $n$ we have an irreducible representation $\rho_{\lambda}$ of $S_{n}$ on a vector space $V_{\lambda}$.
+%
+%\begin{definition}[Schur functor]
+%  \label{def:schurfunctor}
+%  Any
+%\end{definition}
+%
 \chapter{Deligne's theorem on tensor categories}
 \section{Statement}
 Deligne's theorem tells us that every $k$-tensor category, for $k$ an algebraically closed field of characteristic zero, is the category of representations of some algebraic super group.
