@@ -1590,7 +1590,7 @@ For the remainder of this section, $\mathscr{A}$ will stand for either $\mathsf{
 \subsection{Comodules}
 \begin{definition}[comodule object]
   \label{def:comoduleobject}
-  Let $(A, \Delta, \varepsilon)$ be an $\mathscr{A}$-coalgebra.
+  Let $(A, \Delta, \varepsilon)$ be an $\mathscr{A}$-coalgebra (\hyperref[def:coalgebra]{Definition \ref*{def:coalgebra}}).
 
   An \defn{$A$-comodule} is a pair $(V, \rho)$, where $V \in \Obj(\mathscr{A})$ and
   \begin{equation*}
@@ -1618,6 +1618,46 @@ For the remainder of this section, $\mathscr{A}$ will stand for either $\mathsf{
     \end{tikzcd}
   \end{equation*}
 \end{definition}
+
+\begin{example}
+  \label{eg:comoduleincoordinates}
+  Let $V$ be a $k$-vector space and $C$ a $k$-coalgebra. Let $\hat{e}_{i}$ be a basis for $V$. A linear map $\rho\colon V \to V\otimes C$ is given in coordinates as 
+  \begin{equation*}
+    \rho(\hat{e}_{i}) = \sum_{j} \hat{e}_{j} \otimes c_{ji},
+  \end{equation*}
+  where the $C_{ji}$ are in $C$.
+
+  In order for $\rho$ to define a comodule structure, we need 
+  \begin{equation*}
+    (\rho \otimes V) \circ \rho = (V \otimes \Delta) \circ \rho.
+  \end{equation*}
+  For any $\hat{e}_{i}$, we have 
+  \begin{equation*}
+    [(\rho \otimes V) \circ \rho] (\hat{e}_{i}) = [\rho \otimes V]\left( \sum_{k} \hat{e}_{k} \otimes c_{ki} \right) = \sum_{kj} \hat{e}_{j} \otimes c_{jk} \otimes c_{ki}
+  \end{equation*}
+  and
+  \begin{equation*}
+    [(V \otimes \Delta) \circ \rho](\hat{e_{i}}) = [V \otimes \Delta]\left( \sum_{j} \hat{e}_{j} \otimes c_{ji} \right) = \sum_{j} \hat{e}_{j} \otimes \Delta(c_{ji}).
+  \end{equation*}
+
+  Thus, we need 
+  \begin{equation*}
+    \Delta(c_{ji}) = \sum_{k} c_{jk} \otimes c_{ki}.
+  \end{equation*}
+
+  Similarly, we need 
+  \begin{equation*}
+    (V \otimes \varepsilon) \circ \rho = V.
+  \end{equation*}
+  Since,
+  \begin{equation*}
+    [(V \otimes \varepsilon) \circ \rho](\hat{e}_{i}) = [V \otimes \varepsilon] \left( \sum_{j} \hat{e}_{j} \otimes c_{ji} \right) = \sum_{j} \hat{e}_{j} \otimes \varepsilon(c_{ji}) \overset{!}{=} \hat{e}_{i},
+  \end{equation*}
+  we need
+  \begin{equation*}
+    \varepsilon(c_{ji}) = \delta_{ji}.
+  \end{equation*}
+\end{example}
 
 \begin{definition}[comodule homomorphism]
   \label{def:comodulehomomorphism}
@@ -1689,8 +1729,9 @@ Let $\mathscr{A} = \mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$.
   \begin{itemize}
     \item The set of of representations of $G$, i.e. the set of natural transformations
       \begin{equation*}
-        \eta\colon G \to \mathrm{Aut}_{(-)\mhyp\mathsf{Mod}}(V \otimes -)
+        \eta\colon G \to \mathrm{Aut}_{(-)\mhyp\mathsf{Mod}}(V \otimes -);
       \end{equation*}
+      and
 
     \item The set of $\mathscr{O}(G)$-comodules.
   \end{itemize}
@@ -1710,19 +1751,23 @@ Let $\mathscr{A} = \mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$.
 \begin{example}
   Consider an affine algebraic group $G$ with Hopf algebra $\mathscr{O}(G) = A$.
 
-  Consider the simple case $V = k^{n}$. Let $\hat{e}_{i}$ be the canonical basis for $V$. A representation of $G$ on $V$ is a natural transformation $r\colon G \to \Aut_{(-)\mhyp\mathsf{Mod}}$ whose components are group homomorphisms $r_{R}\colon G(R) \to \Aut_{R\mhyp\mathsf{Mod}}(V \otimes R)$. Any such group homomorphism maps each element $g \in G(R)$ to an automorphism of $V \otimes R$, which is given by an $n \times n$ matrix $r_{ij}$ with coefficients in $R$. This acts on elements of $V \otimes R$ via 
+  Consider the simple case $V = k^{n}$. Let $\hat{e}_{i}$ be the canonical basis for $V$. A representation of $G$ on $V$ is a natural transformation $r\colon G \to \Aut_{(-)\mhyp\mathsf{Mod}}$ whose components are group homomorphisms $r_{R}\colon G(R) \to \Aut_{R\mhyp\mathsf{Mod}}(V \otimes R)$. Any such group homomorphism maps each element $g \in G(R)$ to an automorphism of $V \otimes R$, which is given by an $n \times n$ matrix $r_{ij}(g)$ with coefficients in $R$. This acts on elements of $V \otimes R$ via 
   \begin{equation*}
-    \sum_{i} \hat{e}_{i} \otimes r_{i} \mapsto \sum_{ij} \hat{e}_{j} \otimes (r_{j}\cdot r_{ji}).
+    \sum_{i} \hat{e}_{i} \otimes r_{i} \mapsto \sum_{ij} \hat{e}_{j} \otimes (r_{j}\cdot r_{ji}(g)).
   \end{equation*}
 
   It also restricts to a map $V \to V \otimes R$ which acts on basis vectors via
   \begin{equation*}
-    \hat{e}_{i} \mapsto \sum_{j = 1}^{n} \hat{e}_{j} \otimes r_{ji}.
+    \hat{e}_{i} \mapsto \sum_{j} \hat{e}_{j} \otimes r_{ji}(g).
   \end{equation*}
 
-  The fact that the assignment of $g$ to $r_{ij}(g)$ is a group homomorphism implies that $gg'$ will be assigned to 
+  The fact that the assignment of $g$ to $r_{ji}(g)$ is a group homomorphism implies that $gg'$ will be assigned to 
   \begin{equation*}
-    \sum_{k = 1}^{n} r_{jk}(g) \cdot r_{ki}(g').
+    r_{ji}(gg') = \sum_{k} r_{jk}(g) \cdot r_{ki}(g'),
+  \end{equation*}
+  and 
+  \begin{equation*}
+    r_{ji}(e) = \delta_{ji}.
   \end{equation*}
 
   But how does one ensure that the components $r_{R}$ taken together are indeed natural? Since $A$ is an $\mathscr{A}$-algebra, the representation $r$ must have a component $r_{A}\colon G(A) \to \mathrm{Aut}_{A\mhyp\mathsf{Mod}}(V \otimes A)$. Since $G(A) = \Hom_{\mathscr{A}\mhyp\mathsf{Alg}}(A, A)$, it contains a distinguished element $\mathrm{id}_{A}$. For any other $\mathscr{A}$-algebra $S$, consider the commuting square
@@ -2123,7 +2168,7 @@ In this section, we will study the mathematical structure of $\mathcal{S}$-symme
 
           The zero object is $(0, \varphi)$, where $0$ is the zero $\C$-vector space.
 
-        \item The kernel of a map $L\colon (\mathscr{H}_{1}, \varphi_{1}) \to (\mathscr{H}_{2}, \varphi_{2})$ is a subspace $\ker(L) \subset\mathscr{H}_{1}$. Each $\varphi(s)$ fixes the kernel since for any $v \in \ker(L)$
+        \item The kernel of a map $L\colon (\mathscr{H}_{1}, \varphi_{1}) \to (\mathscr{H}_{2}, \varphi_{2})$ is, as a vector space, the subspace $\ker(L) \subset\mathscr{H}_{1}$. Each $\varphi(s)$ fixes the kernel since for any $v \in \ker(L)$
           \begin{equation*}
             L \varphi_{1}(s) v = \varphi_{2}(s) L v = 0,
           \end{equation*}
