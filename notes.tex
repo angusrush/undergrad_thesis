@@ -43,6 +43,7 @@
 
 % Load tikz-cd
 \usetikzlibrary{cd}
+\usetikzlibrary{external}
 
 % Declares the font calligra
 \usepackage{calligra} 
@@ -130,6 +131,7 @@
 \begin{document} 
 \maketitle
 \tableofcontents 
+%\tikzexternalize[prefix=figures/]
 
 \chapter{Introduction}
 %\epigraph{Algebra is the offer made by the devil to the mathematician. The devil says: I will give you this powerful machine, it will answer any questions you like. All you need to do is give me your soul: give up geometry and you will have this marvelous machine.}{M. Atiyah, 2002}
@@ -140,13 +142,13 @@
 %
 %The fact that it's just a collection of notes means that it assumes as background more or less exactly what I knew before I started (although I have made some effort to keep it self-contained). 
 
-\subsection{History of superalgebra and supergeometry}
+\section{History of superalgebra and supergeometry}
 \subsubsection{Supergeometry and the path integral}
 Supergeometry as a mathematical structure came into being out of necessity, as an attempt to extend the path integral approach to quantum field theory to allow the treatment of fermionic fields.
 
 In 1948, Richard Feynman published his so-called \emph{path-integral} approach to quantum mechanics (\cite{feynmanpathintegral}). It was quickly extended to bosonic quantum field theory. However, it took quite some time for it to be applied to fermionic quantum fields. The first textbook account, \cite{berezinsecondquantization}, was published by Felix Berezin in 1965.
 
-This slow uptake was due to some extent to a conceptual difficulty. In the path integral approach to quantum field theory, one treats a quantum field in terms of classical field states. This means that calculations with quantum fields involve corresponding classical fields. For bosonic fields (fields describing particles with integer spin), it is clear how to do this: bosonic quantum fields have natural classical analogs since in the high particle number limit, the quantum dynamics reduce, roughly, to the classical field equations. However, since fermions (particles with half-integer spin) cannot be in the same state due to the Pauli exclusion principle, fermionic fields do not have a high particle humber limit, so they have no obvious classical analog.
+This slow uptake was due to some extent to a conceptual difficulty. In the path integral approach to quantum field theory, one (roughly speaking) treats a quantum field in terms of classical field states. This means that calculations with quantum fields involve corresponding classical fields. For bosonic fields (fields describing particles with integer spin), it is clear how to do this: bosonic quantum fields have natural classical analogs since in the high particle number limit, the quantum dynamics reduce, roughly, to the classical field equations. However, since fermions (particles with half-integer spin) cannot be in the same state due to the Pauli exclusion principle, fermionic fields do not have a high particle humber limit, so they have no obvious classical analog.
 
 It turns out that the way to treat fermionic quantum fields in the path integral formalism is to allow the classical fields which correspond to fermions to anticommute, i.e. to satisfy the relation 
 \begin{equation*}
@@ -175,7 +177,62 @@ However, in 1975 Rudolph Haag, Jan {\L}opusza{\'n}ski, and Martin Sohnius showed
 
 This so-called Haag-{\L}opusza{\'n}ski-Sohnius theorem was, and to some extent is, taken as a justification for the belief that spacetime fundamentally has the structure of a supermanifold.
 
-\subsection{The study of superalgebra has proven to be fruitful }
+\section{A lightning introduction to superalgebra}
+Superalgebra arose as a way of generalizing commutative algebra to allow the sometimes commutative, sometimes anticommutative behavior of certain physical quantities. In this section, we give a brief introduction to superalgebra. For a more complete introduction, see \hyperref[ch:superalgebra]{Appendix \ref*{ch:superalgebra}}. 
+
+A commutative algebra is a vector space $V$ together with a bilinear, commutative multiplication\footnote{One often demands that the multiplication is unital and associative, but this is not essential to the discussion at hand.} 
+\begin{equation*}
+  \cdot\colon V \times V \to V. 
+\end{equation*}
+A superalgebra is in some sense the simplest possible generalization which allows anticommutativity: we decompose $V$ into two subspaces
+\begin{equation*}
+  V = V_{0} \oplus V_{1}.
+\end{equation*}
+
+We call the elements of $V_{0}$ \emph{even} and the elements of $V_{1}$ \emph{odd}. Now, we let the elements of $V_{0}$ commute and the elements of $V_{1}$ anticommute:
+\begin{equation*}
+  v\cdot w = 
+  \begin{cases}
+    w \cdot v, & v, w \in V_{0} \\
+    -w\cdot v, & v, w \in V_{1}.
+  \end{cases}
+\end{equation*}
+However, we have not specified how elements from $V_{0}$ interact with elements of $V_{1}$, and vice versa. For $v$ of \emph{pure degree}, i.e. $v \in V_{0}$ or $v \in V_{1}$, let
+\begin{equation*}
+  \tilde{v} = 
+  \begin{cases}
+    0, &v \in V_{0} \\
+    1, &v \in V_{1}.
+  \end{cases}
+\end{equation*}
+
+We then define multiplication on elements of pure degree by
+\begin{equation}
+  \label{eq:kosulsignrule}
+  v\cdot w = (-1)^{\tilde{v}\cdot\tilde{w}} w\cdot v,
+\end{equation}
+and extend to general elements of $V$ by linearity. \hyperref[eq:kosulsignrule]{Equation \ref*{eq:kosulsignrule}} is known as the \emph{Koszul sign rule}. A superalgebra which obeys the Koszul sign rule is known as \emph{supercommutative}.
+
+The thing that makes superalgebra so interesting is the following: the Koszul sign rule turns out to be natural in the sense that if one inserts it into the standard definitions from commutative algebra, it tends to turns up in the right places in the theorems. For example, if one defines the \emph{supercommutator} of two superalgebra elements of even degree as
+\begin{equation*}
+  [v, w] = v\cdot w - (-1)^{\tilde{v}\cdot\tilde{w}} w\cdot v
+\end{equation*}
+then one finds that the supercommutator satisfies the so-called \emph{super Jacobi identity}
+\begin{equation*}
+  [u,[v,w]] + (-1)^{\tilde{u}(\tilde{v} + \tilde{w})}[v,[w,u]] + (-1)^{\tilde{w}(\tilde{u}+\tilde{v})}[w,[u,v]] = 0.
+\end{equation*}
+Note that this is simply the Jacobi identity with a factor of $-1$ every time two elements of odd degree are permuted.
+
+\section{Road map}
+In the following chapter, we will see that the robustness of the Koszul sign rule is not a coincidence, but instead arises naturally from the fact that supercommutativity is just a different sort of commutativity: more precisely, supercommutativity is commutativity internalized to a different category, the category $\mathsf{SVect}_{k}$ of super vector spaces. We will explore this in \hyperref[sec:supercommutativity]{Section \ref*{sec:supercommutativity}}. 
+
+In \hyperref[sec:supervarieties]{Section \ref*{sec:supervarieties}}, we will leverage this understanding to generalize the notion of a variety, arriving at the notion of a \emph{supervariety}.\footnote{We follow the terminology in \cite{milne-affine-group-schemes} and \cite{nlab-deligne-theorem}. The objects we define are also commonly known as affine schemes} By studying supervarieties which are also groups (i.e. group objects in the category of supervarieties), we will come in \hyperref[sec:supergroupsandsupercommutativehopfalgebras]{Section \ref*{sec:supergroupsandsupercommutativehopfalgebras}} to a definition of an \emph{affine supergroup}.
+
+In \hyperref[sec:representationsascomodules]{Section \ref*{sec:representationsascomodules}}, we will define a representation of an affine supergroup, and show that the definition is equivalent to that of a certain comodule. This will allow us to make a slick definition of the category of representations of an affine supergroup by defining it as the appropriate category of comodules.
+
+In \hyperref[ch:delignestheorem]{Chapter \ref*{ch:delignestheorem}}, we will give the statement of Deligne's theorem on tensor categories (\cite{deligne-categories-tensorielle}) and a quick explanation of its meaning. 
+
+In \hyperref[ch:relevancetophysics]{Chapter \ref*{ch:relevancetophysics}}, we examine some of the implications of Deligne's theorem on tensor categories for quantum mechanics. We start in \hyperref[sec:symmetriesinqm]{Section \ref*{sec:symmetriesinqm}} with a recollection of the role of symmetry in quantum mechanics, and in \hyperref[sec:symmetriesinqm]{Section \ref*{sec:symmetriesinqm}}, arrive at a plausible definition of a quantum system with a given symmetry $\mathcal{S}$. In \hyperref[sec:categoryofsymmetricquantumsystems]{Section \ref*{sec:categoryofsymmetricquantumsystems}}, we extend this to a definition of a category $\mathsf{QSys}(\mathcal{S})$ of quantum systems with a given symmetry, and show that this is a tensor category of subexponential growth. In \hyperref[sec:implicationsofdelignestheorem]{Section \ref*{sec:implicationsofdelignestheorem}}, we investigate some of the implications of Deligne's theorem to the category $\mathsf{QSys}(\mathcal{S})$.
 
 %\chapter{The Mackey machine}
 %The \emph{Mackey machine} is another name for the so-called \emph{method of induced representations} developed by George Mackey in \cite{mackey-induced-representations}. 
@@ -222,7 +279,7 @@ This so-called Haag-{\L}opusza{\'n}ski-Sohnius theorem was, and to some extent i
 %  \end{enumerate}
 %\end{theorem}
 
-\chapter{Superalgebra and supergeometry in categories}
+\chapter{Superalgebra and supergeometry in categories} \label{ch:superalgebraandsupergeometryincategories}
 Historically, superalgebraic strucutures were defined haphazardly by imposing the Koszul sign rule by hand.\footnote{For a traditional approach to superalgebra, see \hyperref[ch:superalgebra]{Appendix \ref*{ch:superalgebra}}.} Seemingly miraculously, this worked in the sense that if one added the appropriate sign changes to the definitions, they would turn up in the right places in the theorems. In the first part of this chapter, we will see that the appearance of the Koszul sign rule is much more natural: it is a manifestation of the fact that the supercommutativity is really just a different sort of commutativity, one which shows up naturally in the study of $\Z_{2}$-graded vector spaces. We will do this by defining supercommutative structures simply as commutative structures internal to the category of super vector spaces. 
 
 In the second section, we will apply some of the machinery of algebraic geometry to our new understanding of supercommutative algebra, and arrive at a natural definition of a supervariety.
@@ -231,10 +288,11 @@ In the third section, we generalize the ideas of the second section, leading to 
 
 In what follows, we will us the language of category theory freely. The necessary definitions and theorems have been relegated to \hyperref[ch:categories]{Appendix \ref*{ch:categories}}.
 
-\section{Supercommutativity}
+\section{Supercommutativity} \label{sec:supercommutativity}
 The goal of this section is to explain the ubiquity of supercommutativity (i.e. the Koszul sign rule) in the study of $\Z_{2}$-graded spaces. Stated roughly, the reason is this: it is the only possible `commutative' multiplication law on a $\Z_{2}$-graded algebra which knows about the grading. That is to say, the only other possible commutative multiplication law (up to an appropriate sort of isomorphism) on a $\Z_{2}$-graded algebra is the trivial one, which is equivalent to treating the vector space as ungraded. 
 
 \subsection{The category $\mathsf{SVect}_{k}$}
+This section follows the presentation given in \cite{nlab-deligne-theorem}.
 
 \begin{definition}[category of $\Z_{2}$-graded vector spaces]
   \label{def:categoryofz2gradedvectorspaces}
@@ -582,7 +640,7 @@ The goal of this section is to explain the ubiquity of supercommutativity (i.e. 
           & 1 \otimes 1
           \arrow[r, "e_{1} \otimes e_{2}"]
           & E_{1} \otimes E_{2}
-        \end{tikzcd}
+        \end{tikzcd}.
       \end{equation*}
   \end{enumerate}
 
@@ -681,7 +739,7 @@ The goal of this section is to explain the ubiquity of supercommutativity (i.e. 
       & V
     \end{tikzcd};
     \qquad
-    (v, v') \mapsto v \cdot v' \mu(v \otimes v') \equiv v \cdot v'.
+    (v, v') \mapsto v \cdot v' \equiv \mu(v \otimes v').
   \end{equation*}
   It is associative since the associativity diagram says that
   \begin{equation*}
@@ -756,9 +814,7 @@ The above example is a reflection of the following.
   Any such morphism $f$ is direct sum $f_{0} \oplus f_{1}$, where $f_{0}\colon A_{0} \to B_{0}$ and $f_{1}\colon A_{1} \to B_{1}$. Every supercommutative superalgebra in the image of $\iota$ is of the form $A \oplus 0$, so $f_{0}\colon A \to B$ and $f_{1}\colon 0 \to 0$. Thus $f$ can be written $\iota(f_{0})$, where $f_{0}$ is clearly unique.
 \end{proof}
 
-
-
-\section{Supervarieties}
+\section{Supervarieties} \label{sec:supervarieties}
 %\begin{definition}
 %  \label{def:functorcinfinity}
 %  Let $M$ be a $C^{\infty}$ manifold (that is, recalling \hyperref[eg:moreexamplesofcategories]{Example \ref*{eg:moreexamplesofcategories}}, an object in the category $\mathsf{SmoothMfd}$.) The functor 
@@ -962,7 +1018,7 @@ The generality introduced in the last section allows us to give a slick definiti
 
 \begin{definition}[affine variety]
   \label{def:supervariety}
-  Let $\mathscr{A}$ be $\mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$. A \defn{affine $\mathscr{A}$-variety} is a group object in the category of representable functors $\mathscr{A} \to \mathsf{Set}$.
+  Let $\mathscr{A}$ be $\mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$. A \defn{affine $\mathscr{A}$-variety} is a representable functor $\mathscr{A} \to \mathsf{Set}$.
 
   If $\mathscr{A} = \mathsf{Vect}_{k}$, we call the affine $\mathscr{A}$-varieties \defn{affine varieties}. If $\mathscr{A} = \mathsf{SVect}_{k}$, we call them \defn{affine supervarieties}.
 \end{definition}
@@ -979,8 +1035,8 @@ Since we will be dealing only with affine supervarieties, we will often refer to
   We do not give any definition of an affine \emph{algebraic} supervariety as we did for affine algebraic varieties. The reason for this is that the motivation for the definition of an affine algebraic variety is purely geometrical, and imagining supervarieties as embedded in $\mathbb{A}_{A}^{n}$ for $A$ a supercommutative algebra turns out not to be the correct approach. For the correct geometric interpretation of supervarieties, one needs to the theory of super schemes, which are beyond the scope of these notes. For us, it will suffice to consider supervarieties purely algebraically.
 \end{note}
 
-\section{Supergroups as supercommutative Hopf algebras}
-We have seen that a variety $A$ can be viewed as the formal dual of commutative algebra $\mathscr{O}(A)$, and that a supervariety $S$ as the formal dual of a supercommutative superalgebra $\mathscr{O}(S)$. We will soon define affine (super)groups to be (super)varieties which are also groups, i.e. group objects $(A, m, e)$ in the category of affine (super)varieties. This extra structure on $A$ will correspond to extra structure on the algebra $\mathscr{O}(A)$ to which it is formally dual, giving it the structure of a \emph{Hopf algebra}. Roughly speaking, a Hopf algebra is both an algebra and a coalgebra, hence a \emph{bialgebra}, together with some extra structure. We have already seen the definition of an algebra (\hyperref[sec:algebras]{Subsection \ref*{sec:algebras}}); now we need some definitions leading up to that of a Hopf algebra.
+\section{Supergroups as supercommutative Hopf algebras} \label{sec:supergroupsandsupercommutativehopfalgebras}
+We have seen that a variety $A$ can be viewed as the formal dual of commutative algebra $\mathscr{O}(A)$, and that a supervariety $S$ as the formal dual of a supercommutative superalgebra $\mathscr{O}(S)$. We will soon define affine (super)groups to be (super)varieties which are also groups, i.e. group objects $(A, m, e)$ in the category of affine (super)varieties. This extra structure on $A$ will correspond to extra structure on the algebra $\mathscr{O}(A)$ to which it is formally dual, giving it the structure of a \emph{Hopf algebra}. Roughly speaking, a Hopf algebra is both an algebra and a coalgebra, hence a \emph{bialgebra}, together with some extra structure. We have already seen the definition of an algebra (\hyperref[sec:algebras]{Subsection \ref*{sec:algebras}}); now we need some definitions which lead us to that of a Hopf algebra.
 
 \subsection{Coalgebras}
 Coalgebras are dual to algebras. In other words, to get the definition of a coalgebra, we take the definition of an algebra and turn the arrows around. More formally, we have the following.
@@ -1700,7 +1756,7 @@ For the remainder of this section, $\mathscr{A}$ will stand for either $\mathsf{
   \end{equation*}
 \end{definition}
 
-\section{Representations as comodules}
+\section{Representations as comodules} \label{sec:representationsascomodules}
 Let $\mathscr{A} = \mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$.
 \begin{definition}[representation of a group]
   \label{def:representationofgroup}
@@ -1770,50 +1826,52 @@ Let $\mathscr{A} = \mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$.
     r_{ji}(e) = \delta_{ji}.
   \end{equation*}
 
-  But how does one ensure that the components $r_{R}$ taken together are indeed natural? Since $A$ is an $\mathscr{A}$-algebra, the representation $r$ must have a component $r_{A}\colon G(A) \to \mathrm{Aut}_{A\mhyp\mathsf{Mod}}(V \otimes A)$. Since $G(A) = \Hom_{\mathscr{A}\mhyp\mathsf{Alg}}(A, A)$, it contains a distinguished element $\mathrm{id}_{A}$. For any other $\mathscr{A}$-algebra $S$, consider the commuting square
+  But how does one ensure that the components $r_{R}$ taken together are indeed natural? Since $A$ is an $\mathscr{A}$-algebra, the representation $r$ must have a component $r_{A}\colon G(A) \to \mathrm{Aut}_{A\mhyp\mathsf{Mod}}(V \otimes A)$. Since $G(A) = \Hom_{\mathscr{A}\mhyp\mathsf{Alg}}(A, A)$, it contains a distinguished element $\mathrm{id}_{A}$. This distinguished element is mapped to
 \end{example}
 
 \begin{definition}[category of representations]
   \label{def:categoryofrepresentations}
-  Let $G$ be an affine $\mathscr{A}$-group. We \emph{define} the category $\mathscr{O}(G)\mhyp\mathsf{CoMod}$ of representations $\mathsf{Rep}(G)$ to be the category of $\mathscr{O}(G)$-comodules.
+  Let $G$ be an affine $\mathscr{A}$-group. We \emph{define} the category of representations $\mathsf{Rep}(G)$ to be the category $\mathscr{O}(G)\mhyp\mathsf{Comod}$ of $\mathscr{O}(G)$-comodules.
 \end{definition}
 
 
-%\section{Super fiber functors and their automorphism groups}
-%We would like to view tensor categories $\mathscr{A}$ as categories of representations. Thus, we would like to be able to view the objects of $\mathscr{A}$ as being the objects of some other category $\mathscr{V}$, plus some extra structure. The extra structure should be extra in the sense that it is forgettable, so there should be a forgetful functor
-%\begin{equation*}
-%  \omega\colon \mathscr{A} \rightarrow \mathscr{V}.
-%\end{equation*}
-%For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \mathsf{FinVect}_{k})$ of finite-dimensional $k$-linear representations of $G$ has as its objects pairs $(\rho, V)$, where $V$ is a vector space and $\rho$ is a homomorphism $G \to \mathrm{Aut}(V)$. There is an obvious forgetful functor $\mathsf{FinRep}_{k}(G) \to \mathsf{FinVect}_{k}$ which sends $(\rho, V) \to V$. Note that this functor is not `maximally forgetful' in the sense that it retains some of its structure. Thus it is wise to demand that such a functor $\omega$ retain a reasonable amount of structure. In our case, it should be a tensor functor (\hyperref[def:tensorfunctor]{Definition \ref*{def:tensorfunctor}}).
-%
-%\begin{definition}[fiber functor]
-%  \label{def:fiberfunctor}
-%  Let $\mathscr{A}$ and $\mathscr{T}$ be two $k$-tensor categories. Suppose that both $\mathscr{A}$ and $\mathscr{T}$ satisfy the following criteria.
-%  \begin{enumerate}
-%    \item All objects are of finite length.
-%
-%    \item All of the hom-spaces are finite-dimensional as $k$-vector spaces.
-%  \end{enumerate}
-%
-%  Let $R \in \mathsf{CMon}(\mathsf{Ind}(\mathscr{T}))$, where $\mathsf{Ind}(\mathscr{T})$ is the \emph{category of inductive objects over $\mathscr{T}$}, see \hyperref[def:categoryofindobjects]{Definition \ref*{def:categoryofindobjects}}.
-%
-%  A tensor functor (\hyperref[def:tensorfunctor]{Definition \ref*{def:tensorfunctor}})
-%  \begin{equation*}
-%    \omega\colon \mathscr{A} \to R\mhyp\mathsf{Mod}(\mathsf{Ind}(\mathscr{T}))
-%  \end{equation*}
-%  is called a \defn{fiber functor} on $\mathscr{A}$ over $R$.
-%\end{definition}
-%
-%\begin{definition}[super fiber functor, neutral super tannakian category]
-%  \label{def:suberfiberfunctorneutralsupertannakiancategory}
-%  A fiber functor over $\mathscr{T} = \mathsf{FinSVect}$ is called a \defn{super fiber functor}. A tensor category $\mathscr{A}$ which admits a super fiber functor is called a \defn{neutral super tannakian category}.
-%
-%  Note that in this case a fiber functor over $\mathsf{FinSVect}_{k}$ is a fiber functor to
-%  \begin{equation*}
-%    \mathsf{CMon}(\mathsf{Ind}(\mathsf{FinSVect}_{k})) = \mathsf{CMon}(\mathsf{SVect}_{k}).
-%  \end{equation*}
-%\end{definition}
-%
+\section{Super fiber functors and their automorphism groups}
+This section follows \cite{nlab-deligne-theorem} closely, and is included mainly for completeness.
+
+We would like to view tensor categories $\mathscr{A}$ as categories of representations. Thus, we would like to be able to view the objects of $\mathscr{A}$ as being the objects of some other category $\mathscr{V}$, plus some extra structure. The extra structure should be extra in the sense that it is forgettable, so there should be a forgetful functor
+\begin{equation*}
+  \omega\colon \mathscr{A} \rightarrow \mathscr{V}.
+\end{equation*}
+For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \mathsf{FinVect}_{k})$ of finite-dimensional $k$-linear representations of $G$ has as its objects pairs $(\rho, V)$, where $V$ is a vector space and $\rho$ is a homomorphism $G \to \mathrm{Aut}(V)$. There is an obvious forgetful functor $\mathsf{FinRep}_{k}(G) \to \mathsf{FinVect}_{k}$ which sends $(\rho, V) \to V$. Note that this functor is not `maximally forgetful' in the sense that it retains some of its structure. Thus it is wise to demand that such a functor $\omega$ retain a reasonable amount of structure. In our case, it should be a tensor functor (\hyperref[def:tensorfunctor]{Definition \ref*{def:tensorfunctor}}).
+
+\begin{definition}[fiber functor]
+  \label{def:fiberfunctor}
+  Let $\mathscr{A}$ and $\mathscr{T}$ be two $k$-tensor categories. Suppose that both $\mathscr{A}$ and $\mathscr{T}$ satisfy the following criteria.
+  \begin{enumerate}
+    \item All objects are of finite length.
+
+    \item All of the hom-spaces are finite-dimensional as $k$-vector spaces.
+  \end{enumerate}
+
+  Let $R \in \mathsf{CMon}(\mathsf{Ind}(\mathscr{T}))$, where $\mathsf{Ind}(\mathscr{T})$ is the \emph{category of inductive objects over $\mathscr{T}$}, see \hyperref[def:categoryofindobjects]{Definition \ref*{def:categoryofindobjects}}.
+
+  A tensor functor (\hyperref[def:tensorfunctor]{Definition \ref*{def:tensorfunctor}})
+  \begin{equation*}
+    \omega\colon \mathscr{A} \to R\mhyp\mathsf{Mod}(\mathsf{Ind}(\mathscr{T}))
+  \end{equation*}
+  is called a \defn{fiber functor} on $\mathscr{A}$ over $R$.
+\end{definition}
+
+\begin{definition}[super fiber functor, neutral super tannakian category]
+  \label{def:suberfiberfunctorneutralsupertannakiancategory}
+  A fiber functor over $\mathscr{T} = \mathsf{FinSVect}$ is called a \defn{super fiber functor}. A tensor category $\mathscr{A}$ which admits a super fiber functor is called a \defn{neutral super tannakian category}.
+
+  Note that in this case a fiber functor over $\mathsf{FinSVect}_{k}$ is a fiber functor to
+  \begin{equation*}
+    \mathsf{CMon}(\mathsf{Ind}(\mathsf{FinSVect}_{k})) = \mathsf{CMon}(\mathsf{SVect}_{k}).
+  \end{equation*}
+\end{definition}
+
 %\section{Super-exterior powers and Schur functors}
 %One of the core ideas of category theory is that the intrinsic structure of an object can often be best understood by studying its relationships to other objects. For $V$ a vector space, one defines its dimension $\dim(V)$ as the cardinality of any linearly independent spanning subset of $V$. When moving to the category $\mathsf{Vect}_{k}$, one does not have the option of defining things in terms of elements. However, there is an alternate way of defining $\dim(V)$ which does not reference the elements: it is the smallest natural number $n$ such 
 %\begin{equation*}
@@ -1861,7 +1919,7 @@ Let $\mathscr{A} = \mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$.
 %  Any
 %\end{definition}
 %
-\chapter{Deligne's theorem on tensor categories}
+\chapter{Deligne's theorem on tensor categories} \label{ch:delignestheorem}
 \section{Statement}
 Deligne's theorem tells us that every $k$-tensor category, for $k$ an algebraically closed field of characteristic zero, is the category of representations of some algebraic super group.
 
@@ -1878,11 +1936,11 @@ The following statement of Deligne's theorem was taken, mutatis mutandis, from \
 
   Then $\mathscr{A}$ is a neutral super Tannakian category (REF), and there exists 
   \begin{enumerate}
-    \item an affine algebraic supergroup $G$ (REF) whose algebra of functions $\mathscr{O}(G)$ is a finitely-generated $k$-algebra, and 
+    \item an affine supergroup $G$ (\hyperref[def:affinesuperornotgroup]{Definition \ref*{def:affinesuperornotgroup}}) whose algebra of functions $\mathscr{O}(G)$ is a finitely-generated $k$-algebra, and 
 
     \item a tensor equivalence of categories
       \begin{equation*}
-        \mathscr{A} \simeq \mathsf{Rep}(G, \varepsilon)
+        \mathscr{A} \simeq \mathsf{Rep}(G)
       \end{equation*}
       between $\mathscr{A}$ and the category of representations of $G$ of finite-dimension, according to REF.
   \end{enumerate}
@@ -1902,10 +1960,10 @@ Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheo
 \end{enumerate}
 
 \section{What does it mean?}
-The meaning of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheorem}} is the following: given any tensor category $\mathscr{A}$ of subexponential growth, there exists an affine super group $G$ with some inner parity $\varepsilon$ such that $\mathscr{A}$ is categorically equivalent to $\mathsf{Rep}(G, \varepsilon)$, where the categorical equivalence is given by tensor functors (that is, braided monoidal functors).
+For us, the meaning of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheorem}} is the following: given any tensor category $\mathscr{A}$ of subexponential growth, there exists an affine super group $G$ such that $\mathscr{A}$ is categorically equivalent to $\mathsf{Rep}(G)$, where the categorical equivalence is given by tensor functors (that is, braided strong monoidal functors).
 
-\chapter{Relevance to physics}
-\section{Symmetries in quantum mechanics}
+\chapter{Relevance to physics} \label{ch:relevancetophysics}
+
 
 %, but a summary of the aspects which will be essential in what follows is given for completeness.
 
@@ -1921,7 +1979,7 @@ Quantum mechanics is usually introduced
   \item in the Schr\"{o}dinger picture.
 \end{itemize}
 This can obscure the vital importance that symmetries play in quantum mechanics. In the next section, we give an example of the standard treatment of symmetry. 
-\subsection{Symmetries in the Schr\"{o}dinger picture}
+\section{Symmetries in the Schr\"{o}dinger picture} \label{sec:symmetriesinqm}
 
 Consider the non-relativistic free particle in one dimension. For simplicity we set $\hbar = 1$ and consider our particle to have mass $1$. Our Hilbert space is $\mathscr{H} = L^{2}(\R)$, and the Hamiltonian is
 \begin{equation*}
@@ -1943,7 +2001,7 @@ According to the standard treatment (e.g. section 4.2 of \cite{binneyphysicsofqm
 
 These symmetries are both derived from the symmetries of the underlying space $\R$: the isometry group of $\R$ is generated by translations and parity transformations.
 
-However, in a sense we are missing some symmetries. We are describing a non-relativistic quantum particle. Recall that even in non-relativistic mechanics one can introduce spacetime, and the symmetries of our theory should include those of the underlying spacetime. The symmetries of the non-relativistic $(1+1)$-dimensional spacetime underlying our example are given by the $(1+1)$-dimensional Galilean group. These include the translation and parity symmetries that we have seen, but also three more classes of symmetries:
+However, in a sense we are missing some symmetries. We are describing a non-relativistic quantum particle; recall that even in non-relativistic mechanics one can introduce spacetime, and the symmetries of our theory should include those of the underlying spacetime. The symmetries of the non-relativistic $(1+1)$-dimensional spacetime underlying our example are given by the $(1+1)$-dimensional Galilean group. These include the translation and parity symmetries that we have seen, but also three more classes of symmetries:
 \begin{enumerate}
   \item Galilean boosts, i.e. for each $v \in \R$ an operator
     \begin{equation*}
@@ -1967,7 +2025,7 @@ The fact that these symmetries do not manifest themselves in the traditional app
 
 By considering the symmetries of spacetime to be fundamental, one avoids the conceptually displeasing step of choosing a reference frame. Moreover, with the above expanded notion of symmetry we do not need to take the Schr\"{o}dinger equation as an axiom: the existence of time evolution is taken care of by the time translation operators guaranteed us by postulating Galilean symmetry. We will see how this works in more detail in the next section.
 
-\subsection{Symmetric quantum mechanics}
+\section{Symmetric quantum mechanics} \label{sec:symmetricqm}
 As we saw in the last section, the postulate that the state vector $\psi$ evolves via the Schr\"{o}dinger equation is superfluous if we use the correct notion of symmetry. This suggests that we can do away with the postulate that our system evolves in time via the Schr\"{o}dinger equation if we think about a quantum theory as being defined by its symmetries.
 
 Thus, we should think of a quantum system as consisting of the following.
@@ -1978,7 +2036,7 @@ Thus, we should think of a quantum system as consisting of the following.
 
 \end{enumerate}
 
-We are being intentionally vague about what sort of operators are allowed, and what sort of symmetry transformations we want to include. This is a complicated question to which we hope to present a partial answer. However, the following example gives the most common way of specifying such a collection of symmetry transformations.
+We are being intentionally vague about what sort of operators are allowed, and what sort of symmetry transformations we want to include. This is a complicated question to which we hope to present a partial answer. However, we give the following example which illustrates the most common way of specifying such a collection of symmetry transformations.
 
 \begin{example}
   Suppose we decide that we want to study a quantum mechanical system which is invariant under some group $G$ of symmetries. Fix some state $\psi$. Each element $g \in G$ will map $\psi$ to some other state $\psi' = \hat{g}\psi$; in our example, the time translation $U_{s}$ maps $\psi(t)$ to $\psi(t + s)$. Furthermore, we want the states $\hat{g}\psi$ to obey the reasonable condition that 
@@ -2016,17 +2074,17 @@ We are being intentionally vague about what sort of operators are allowed, and w
   which is precisely the Schr\"{o}dinger equation.
 \end{example}
 
-In the preceeding section, we showed that expanding our definition of symmetry to allow not only operators which commute with the Hamiltonian. This allowed us to uncover hidden symmetries which did not leave our frame of reference fixed. However, we have have exchanged one conceptual difficulty for another: we no longer have any definition of what it means for an operator to be a symmetry. Before we had a concrete definition, if a defective one; now that we have demoted the Hamiltonian, we will need some way of deciding which operators we want to call symmetries.
+In the preceeding section, we showed that expanding our definition of symmetry to allow not only operators which commute with the Hamiltonian. This allowed us to uncover hidden symmetries which did not leave our frame of reference fixed. However, we have have exchanged one conceptual difficulty for another: we no longer have any definition of what it means for an operator to be a symmetry. Before we had a concrete definition, if a defective one: an operator was a symmetry if it commuted with the Hamiltonian. Now that we have demoted the Hamiltonian, we will need some way of deciding which operators we want to call symmetries.
 
 We propose the following radical definition: the operators which represent symmetries are those which commute with all the other operators. Or rather, the only other operators one is allowed to consider are those that commute with the symmetry operators. Note that this is a restriction not of the symmetry operators themselves, but the other operators in the theory.
 
-This is a rather draconian definition, but it has a reasonable interpretation: we wish to consider only quantum systems which are \emph{defined} by their symmetries. That is, we view our quantum system as completely determined by the symmetry transformations, and the only other operators we allow are those which do not interfere with them in precisely the sense that they commute. 
+This is rather draconian, but it has an arguably reasonable interpretation: we wish to consider only quantum systems which are \emph{defined} by their symmetries. That is, we view our quantum system as completely determined by the symmetry transformations, and the only other operators we allow are those which do not interfere with them in precisely the sense that they commute. 
 
 This excludes a great deal of physically interesting quantum mechanical systems from the discussion: for example, the only symmetries of the simple harmonic oscillator in one dimension are time translation and parity, so one would not be justified in talking about the position operator. In practice, when dealing with the harmonic oscillator, we borrow operators from the free theory which has full Galilean invariance. 
 
-This provides another interpretation: we are investigating only the possible sorts of kinematics our quantum theories can exhibit, without restricting the kinetics. That is, we are looking at the possible symmetries that quantum spacetime can have without paying attention to interactions.
+This provides another interpretation: we are investigating only the possible sorts of kinematics our quantum theories can exhibit, without restricting the kinetics. That is, we are looking at the possible symmetries that quantum spacetime can have without paying attention to the details of the interactions which can take place.
 
-We can formalize this in a definition.
+We can formalize this notion of a symmetric quantum system in a definition.
 
 \begin{definition}
   \label{def:symmetricquantumsystem}
@@ -2084,16 +2142,15 @@ For two $\mathcal{S}$-symmetric quantum systems $(\mathscr{H}, \varphi)$ and $(\
 \begin{equation*}
   L \varphi(s) = \varphi'(s) L
 \end{equation*}
-for all $s \in \mathcal{S}$. These have the following interpretation.
 
-INTERTWINERS AS AN APPROXIMATION TO DYNAMICS.
+One reason for considering symmetric quantum systems in the generality of \hyperref[def:symmetricquantumsystem]{Definition \ref*{def:symmetricquantumsystem}} as opposed to, say, working with group representations from the beginning is that in practice, physicists do not always work with group representations. For example, one often works only with a representation of a Lie algebra, whose elements are interpreted as infinitesimal transformations. We would like our definition of a symmetric quantum space to be broad enough to include these more general notions of symmetry.
 
-\subsection{The category of $\mathcal{S}$-symmetric quantum systems}
+\section{The category of $\mathcal{S}$-symmetric quantum systems} \label{sec:categoryofsymmetricquantumsystems}
 In this section, we will study the mathematical structure of $\mathcal{S}$-symmetric quantum systems.
 
 \begin{definition}
   \label{def:categoryofsymmetricquantumsystems}
-  For any set $\mathcal{S}$, let $\mathsf{QSys}(\mathcal{S})$ be the category whose objects are finite-dimensional $\mathcal{S}$-symmetric quantum systems and whose morphisms are linear maps which commute with the symmetry operators in the sends that for two $\mathcal{S}$-symmetric quantum systems $(\mathscr{H}, \varphi)$ and $(\mathscr{H}', \varphi') \in \Obj(\mathsf{QSys}(\mathcal{S}))$, 
+  For any set $\mathcal{S}$, let $\mathsf{QSys}(\mathcal{S})$ be the category whose objects are finite-dimensional $\mathcal{S}$-symmetric quantum systems and whose morphisms are linear maps which commute with the symmetry operators in the sense that for two $\mathcal{S}$-symmetric quantum systems $(\mathscr{H}, \varphi)$ and $(\mathscr{H}', \varphi') \in \Obj(\mathsf{QSys}(\mathcal{S}))$, 
   \begin{equation*}
     \Hom_{\mathsf{QSys}(\mathcal{S})}(\mathscr{H}_{1}, \mathscr{H}_{2}) = \left\{ L\colon \mathscr{H}_{1} \to \mathscr{H}_{2}:\ L\varphi(s) = \varphi'(s)L\text{ for all }s \in \mathcal{S} \right\}.
   \end{equation*}
@@ -2143,7 +2200,15 @@ In this section, we will study the mathematical structure of $\mathcal{S}$-symme
 \begin{proof}
   We check each condition separately.
   \begin{enumerate}
-    \item 
+    \item Two $\mathcal{S}$-symmetric quantum systems $(V, \varphi)$ and $(V', \varphi')$ are isomorphic if there exist maps 
+      \begin{equation*}
+        L\colon V \to V' \qquad\text{and}\qquad L'\colon V' \to V
+      \end{equation*}
+      such that 
+      \begin{equation*}
+        L \circ \varphi(s) = \varphi'(s) \circ L'\qquad\text{for all }s \in \mathcal{S}.
+      \end{equation*}
+      That means that for each $n \in \N$ there are at most as many isomorphism classes as there are functions $\mathcal{S} \to k^{n}$. These certainly fit in a set, so $\mathsf{QSys}(\mathcal{S})$ is essentially small.
 
     \item 
       \begin{itemize}
@@ -2205,15 +2270,21 @@ In this section, we will study the mathematical structure of $\mathcal{S}$-symme
   \end{enumerate}
 \end{proof}
 
-Under these conditions, we have constructed a category whose objects are symmetric quantum spaces and whose morphisms are intertwiners, and shown that it is a tensor category. Deligne's theorem tells us that this category is equivalent to the category $\mathsf{Rep}(G)$ for some affine algebraic super group $G$. That is, 
+\section{Implications of Deligne's theorem} \label{sec:implicationsofdelignestheorem}
+Under the conditions of \hyperref[sec:categoryofsymmetricquantumsystems]{Section \ref*{sec:categoryofsymmetricquantumsystems}}, we have constructed a category $\mathsf{QSys}(\mathcal{S})$ whose objects are finite-dimensional symmetric quantum spaces and whose morphisms are intertwiners, and shown that it is a tensor category of subexponential growth. Deligne's theorem tells us that this category is tensor-equivalent to the category $\mathsf{Rep}(G)$ for some affine algebraic super group $G$. That is, 
 \begin{equation*}
   \mathsf{QSys}(\mathcal{S}) \simeq \mathsf{Rep}(G)\qquad\text{for some affine super group }G.
 \end{equation*}
 
-But what does this mean? It means we have a fully faithful, essentially surjective functor 
+But what does this mean? Spelled out fully, it means we have a fully faithful, essentially surjective, braided, strong monoidal functor 
 \begin{equation*}
   \mathcal{J}\colon \mathsf{Rep}(G) \to \mathsf{QSys}(\mathcal{S}).
 \end{equation*}
+
+\chapter{Conclusion}
+We have shown that the category $\mathsf{QSys}(\mathcal{S})$ of $\mathcal{S}$-symmetric quantum systems is a tensor category of subexponential growth, and hence by Deligne's theorem on tensor categories tensor-equivalent to the category $\mathsf{Rep}(G)$ for some affine super-group $G$. We investigated some implications of this fact.
+
+If one believes that the definition given in \hyperref[sec:categoryofsymmetricquantumsystems]{Section \ref*{sec:categoryofsymmetricquantumsystems}} of the category of quantum systems with a given symmetry is a good one, then Deligne's theorem gives a purely mathematical reason for supergeometry to manifest itself as the 
 
 
 %\section{Practicalities of supergeometry}
@@ -3197,10 +3268,360 @@ In this section we give a brief overview of the construction of the tensor produ
   Of course, one must show that this is well-defined by showing that it vanishes on the subspace by which one quotients in the definition of the tensor product. But this is trivial.
 \end{definition}
 
-\chapter{Categories} \label{ch:categories}
-In this chapter, I will do my best to stick to the conventions used at the nlab (\cite{nlab}).
 
-\section{Basic definitions} \label{sec:categoriesbasicdefinitions}
+\chapter{Some basic superalgebra} \label{ch:superalgebra}
+In this chapter we give some basic definitions of various super-* structures.
+
+Most of the material in this chapter is from \cite{manin-gauge-fields}.
+
+\section{Super rings}
+\begin{definition}[super ring]
+  \label{def:superring}
+  A \defn{super ring} (or \defn{$\Z/2\Z$ graded ring}) $A$ is, additively, an abelian group $A$ with a direct sum decomposition
+  \begin{equation*}
+    A = A_{0} \oplus A_{1}.
+  \end{equation*}
+  Elements $a\in A_{0}$ are said to be of degree zero, denoted $\tilde{a} = 0$; elements $b\in A_{1}$ are said to be of degree one, denoted $\tilde{b} = 1$.
+
+  Additionally, there is a multiplicative structure which is associative and distributive from the left and the right; the only change from the normal definition of a ring is that the multiplicative structure must obey the axiom
+  \begin{equation*}
+    \widetilde{ab} = \tilde{a} + \tilde{b},
+  \end{equation*}
+  where the addition is taken modulo 2.
+\end{definition}
+
+\begin{note}
+  Of course, not all elements $c \in A$ are in $A_{0}$ or $A_{1}$; formulae which talk about the grading must be understood to be extended via additivity. If $a = a_{0} + a_{1}$ and $b = b_{0} + b_{1}$ so
+  \begin{equation*}
+    ab = a_{0} b_{0} + a_{1} b_{0} + a_{0} b_{1} + a_{1} b_{1},
+  \end{equation*}
+  the axiom concerning the multiplicative grading should be taken to say that the grading applies to each monomial.
+\end{note}
+
+\begin{example}[exterior algebra]
+  \label{eg:exterioralgebra}
+  Consider the exterior algebra
+  \begin{equation*}
+    \bigwedge \R^{n} = \bigoplus_{i=0}^{n} \bigwedge\nolimits^{i} \R^{n}.
+  \end{equation*}
+  With multiplication given by the wedge product, $\bigwedge \R^{n}$ is a super ring with grading given by
+  \begin{equation*}
+    \left( \bigoplus_{i\text{ even}} \bigwedge\nolimits^{i}\R^{n} \right) \oplus \left( \bigoplus_{i\text{ odd}}\bigwedge\nolimits^{i}\R^{n} \right).
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  Let $V$ be a vector space over a field $k$ of characteristic not 2. The so-called \emph{parity transformation} on $V$ is the map
+  \begin{equation*}
+    P\colon V \to V;\qquad v \mapsto -v.
+  \end{equation*}
+  This preserves any quadratic form, and hence extends to an algebra homomorphism $\cliff(P) \equiv \alpha$ of any quadratic vector space $\cliff(V,q)$. Since 
+  \begin{equation*}
+    \alpha^2 = \cliff(P) \circ \cliff(P) = \cliff(P \circ P) = \cliff(\mathrm{id}_{(V,q)}) = \mathrm{id}_{\cliff(V,q)},
+  \end{equation*}
+  $\alpha$ is invertible, hence an isomorphism. Indeed, from the above equation we can say more. For the moment ignoring the multiplicative structure of $\cliff(V,q)$ and considering it only as a vector space, $\alpha$ can be thought of as a linear bijection whose square is the identity. This means $\alpha$ has two eigenvalues $+1$ and $-1$, and additively $\cliff(V,q)$ decomposes into a direct sum
+  \begin{equation*}
+    \cliff(V,q) = \cliff^{0}(V,q) \oplus \cliff^{1}(V,q),
+  \end{equation*}
+  where 
+  \begin{equation*}
+    \cliff^{0}(V,q) = \left\{ \varphi \in \cliff(V,q)\,\big|\, \alpha(\varphi) = \varphi \right\},\qquad\text{and} \qquad\cliff^{0}(V,q) = \left\{ \varphi \in \cliff(V,q)\,\big|\, \alpha(\varphi) = -\varphi \right\}.
+  \end{equation*}
+
+  For $\varphi_{1} \in \cliff^{i}(V,q)$ and $\varphi_{2} \in \cliff^{j}(V,q)$,
+  \begin{equation*}
+    \alpha(\varphi_{1}\varphi_{2}) = \alpha(\varphi_{1})\alpha(\varphi_{2});
+  \end{equation*}
+  this gives us the following multiplication table.
+  \begin{equation*}
+    \begin{tabular}[c]{c | c c}
+      $\times$ & $\cliff^{0}(V,q)$ & $\cliff^{1}(V,q)$ \\
+      \hline
+      $\cliff^{0}(V,q)$ & $\cliff^{0}(V,q)$ & $\cliff^{1}(V,q)$\\
+      $\cliff^{1}(V,q)$ & $\cliff^{1}(V,q)$ & $\cliff^{0}(V,q)$\\
+    \end{tabular}
+  \end{equation*}
+  Thus, $\cliff(V,q)$ is a superalgebra.
+
+\end{example}
+
+\begin{definition}[supercommutator]
+  \label{def:supercommutator}
+  Let $A$ be a commutative ring. The \defn{supercommutator} is the map
+  \begin{equation*}
+    [\cdot ,\cdot ]\colon A \times A \to A;\qquad (a,b) \to [a,b] = ab - (-1)^{\tilde{a}\cdot \tilde{b}} ba.
+  \end{equation*}
+\end{definition}
+
+\begin{definition}[supercommutation]
+  \label{def:supercommutes}
+  We will say that $a$ supercommutes with $b$ if $[a,b] = 0$; this means in particular that two even elements commute if $ab = ba$, and two odd elements supercommute if $ab = -ba$.
+\end{definition}
+\begin{note}
+  Supercommutativity should not be confused with regular commutativity. Here is an example of a super ring which is commutative but not supercommutative.
+\end{note}
+\begin{example}
+  Consider the ring $C^{0}(\R)$ of continuous functions $\R \to \R$. This is a super ring with the direct sum decomposition is given by
+  \begin{equation*}
+    C^{0}(\R) = \left\{ \text{even functions} \right\} \oplus \left\{ \text{odd functions} \right\};
+  \end{equation*}
+  this can be seen since any $f \in C^{0}(\R)$ can be written
+  \begin{equation*}
+    f(x) = \underbrace{\frac{f(x) + f(-x)}{2}}_{\text{even}} + \underbrace{\frac{f(x) - f(-x)}{2}}_{\text{odd}}.
+  \end{equation*}
+  The multiplication defined pointwise inherits its commutativity from the real numbers; but \emph{all} elements are commutative, even the odd elements. Hence $C^{0}(\R)$ is commutative but not supercommutative.
+\end{example}
+
+\begin{definition}[super ring homomorphism]
+  \label{def:superringhomomorphism}
+  Let $A$, $B$ be super rings. A \defn{super ring homomorphism} $f\colon A \to B$ is a ring homomorphism which preserve the grading.
+\end{definition}
+
+One might wonder if, in fact, \emph{all} ring homomorphisms between super rings are super ring homomorphisms. This is not the case.
+\begin{counterexample}[Not all super ring homomorphisms preserve the grading]  
+  Consider the set
+  \begin{equation*}
+    R = \left\{ f\colon \R \to \bigwedge \R^2 \right\}.
+  \end{equation*}
+  A general element $f \in R$ is of the form
+  \begin{equation*}
+    f(x) = f_{00}(x) + f_{10}(x)\bm{\hat{x}} + f_{01}(x)\bm{\hat{y}} + f_{11}(x)\bm{\hat{x}} \wedge \bm{\hat{y}},
+  \end{equation*}
+  where $\bm{\hat{x}}$ and $\bm{\hat{y}}$ are basis vectors for $\R^{2}$. Define multiplication pointwise:
+  \begin{align*}
+    (f\cdot g)(x) = f(x) g(x) =& f_{00}(x) g_{00}(x) \\
+    &+(f_{00}(x) g_{10}(x) + f_{10}(x)g_{00}(x)) \bm{\hat{x}} \\
+    &+(f_{00}(x)g_{01}(x) + f_{01}(x)g_{00}(x)) \bm{\hat{y}}\\
+    &+(f_{11}(x) g_{00}(x) + f_{00}(x) g_{11}(x) + f_{10}(x) g_{01}(x) - f_{01}(x) g_{10}(x))\bm{\hat{x}} \wedge \bm{\hat{y}}.
+  \end{align*}
+  Then $R$ becomes a ring. In fact it is more; it is easy (if tedious) to check from the above multiplication law that $R$ can be seen as a super ring with grading given by
+  \begin{equation*}
+    f(x) = \underbrace{\frac{f(x) + f(-x)}{2}}_{R_{0}} + \underbrace{\frac{f(x) - f(-x)}{2}}_{R_{1}}.
+  \end{equation*}
+
+  Now consider the evaluation homomorphism 
+  \begin{equation*}
+    \iota\colon R \to \bigwedge \R^{2};\qquad f \mapsto f(0).
+  \end{equation*}
+  This is a ring homomorphism which does not preserve grading. To see this, consider the constant function
+  \begin{equation*}
+    \varphi(x) = \bm{\hat{x}}\qquad\text{for all }x.
+  \end{equation*}
+  Non-zero constant functions such as $\varphi$ are even, but $\bm{\hat{x}}$ is odd in $\bigwedge \R^{2}$.
+\end{counterexample}
+\begin{definition}[supercenter]
+  \label{def:supercenter}
+  The \defn{supercenter} of $A$ is the set
+  \begin{equation*}
+    Z(A) = \left\{ a \in A\,\big|\, \text{for all } b \in A,\, [a,b]=0 \right\}.
+  \end{equation*}
+\end{definition}
+
+In the theory of commutative algebra, we have \hyperref[def:algebraoveraring]{Definition \ref*{def:algebraoveraring}} of an algebra over a ring. This definition generalizes naturally to the case where $A$ and $R$ are super rings:
+\begin{definition}[super algebra over a ring]
+  \label{def:superalgebraoveraring}
+  Let $R$ be a supercommutative super ring. An \defn{$R$-super-algebra} is a super ring $A$ which is also an $R$-module (with left multiplication $*\colon R \times A \to A$) such that the multiplication map $\cdot \colon A \times A \to A$ is $R$-bilinear, i.e.
+  \begin{equation*}
+    r*(a\cdot b) = (r*a)\cdot b = (-1)^{\tilde{a}\cdot \tilde{r}} a\cdot (r*b).
+  \end{equation*}
+\end{definition}
+\hyperref[thm:ringhomomorphisminducesalgebra]{Theorem \ref*{thm:ringhomomorphisminducesalgebra}} also generalizes nicely.
+\begin{theorem}
+  Let $A$, $R$ be unital super rings, $R$ supercommutative, and let $f\colon R \to A$ be a unital super ring homomorphism. Then $A$ naturally has the structure of an $R$-module. Furthermore, if the image $f(R)$ is in the supercenter of $A$, then $A$ naturally has the structure of an $R$-super algebra.
+\end{theorem}
+\begin{proof}
+  The module axioms (\hyperref[def:module]{Definition \ref*{def:module}}) don't involve commutivity, so their verification is trivial as before. We must only check that if $f(R)$ is in the supercenter of $A$ then $*$ is $R$-bilinear, i.e. that
+  \begin{equation*}
+    r*(a\cdot b) = f(r)\cdot a\cdot b = (f(r)\cdot a)\cdot b = (r*a)\cdot b,
+  \end{equation*}
+  and
+  \begin{equation*}
+    r*(a\cdot b) = f(r)\cdot a\cdot b = (-1)^{ \tilde{a}\cdot \widetilde{f(r)}}a\cdot f(r)\cdot b = (-1)^{\tilde{a}\cdot \tilde{r}}a\cdot f(r)\cdot b = (-1)^{\tilde{a}\cdot \tilde{r}}(r*b).
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}
+  Let $R$ be a supercommutative super ring, $r \in R_{1}$. Then $r$ is nilpotent (\hyperref[def:nilpotent]{Definition \ref*{def:nilpotent}}).
+\end{theorem}
+\begin{proof}
+  $\displaystyle r^2 = \frac{1}{2}[r,r] = 0$.
+\end{proof}
+
+We have the following analog to \hyperref[thm:propertiesofcommutator]{Theorem \ref*{thm:propertiesofcommutator}}.
+\begin{lemma}
+  Let $B$ be an associative superring. The supercommutator satisfies the following identities.
+  \begin{itemize}
+    \item $[a,b] = -(-1)^{\tilde{a}\cdot \tilde{b}}[b,a]$.
+    \item $[a,[b,c]] + (-1)^{\tilde{a}(\tilde{b} + \tilde{c})}[b,[c,a]] + (-1)^{\tilde{c}(\tilde{a}+\tilde{b})}[c,[a,b]] = 0$
+  \end{itemize}
+  Furthermore, if $B$ is an $A$-algebra, then the following holds for all $a \in A$, $b,c \in B$.
+  \begin{itemize}
+    \item $a[b,c] \overset{1}{=} [ab,c] \overset{2}{=} (-1)^{\tilde{a}\cdot \tilde{b}}[ba,c] \overset{3}{=} (-1)^{\tilde{a}(\tilde{b} + \tilde{c})}[b,ca] \overset{4}{=} (-1)^{\tilde{a}(\tilde{b} + \tilde{c})}[b,c]a$
+  \end{itemize}
+\end{lemma}
+\begin{proof}
+  $\,$
+  \begin{itemize}
+    \item $[a,b] = ab-(-1)^{\tilde{a}\cdot \tilde{b}} ba = ba(-1)^{\tilde{a}\cdot \tilde{b}} - \left( (-1)^{\tilde{a}\cdot \tilde{b}} \right)^{2} ab = (-1)^{\tilde{a}\cdot \tilde{b}}\left( ba - (-1)^{\tilde{a}\cdot \tilde{b}}ab \right) = (-1)^{\tilde{a}\cdot \tilde{b}}[b,a] $
+    \item 
+      \begin{align*}
+        [a,[b,c]] &= a(bc-(-1)^{\tilde{b}\cdot \tilde{c}}cb) - (-1)^{\tilde{a}(\tilde{b} + \tilde{c})}(bc-(-1)^{\tilde{b}\cdot \tilde{c}}cb)a \\
+        [b,[c,a]] &= b(ca-(-1)^{\tilde{c}\cdot \tilde{a}}ac) - (-1)^{\tilde{b}(\tilde{c} + \tilde{a})}(ca-(-1)^{\tilde{c}\cdot \tilde{a}}ac)b \\
+        [c,[a,b]] &= c(ab-(-1)^{\tilde{a}\cdot \tilde{b}}ba) - (-1)^{\tilde{c}(\tilde{a} + \tilde{b})}(ab-(-1)^{\tilde{a}\cdot \tilde{b}}ba)c 
+      \end{align*}
+
+    \item My apologies for the formatting.
+      \begin{enumerate}[label= Equality \arabic*:]
+        \item 
+          \begin{align*}
+            a[b,c] &= a(bc-(-1)^{\tilde{b}\cdot \tilde{c}}cb) \\
+            &= abc-(-1)^{\tilde{b}\cdot \tilde{c}}acb \\
+            &= abc-(-1)^{\tilde{b}\cdot \tilde{c}} (-1)^{\tilde{a}\cdot \tilde{c}}cab\\
+            &=(ab)c - (-1)^{\tilde{ab}\cdot \tilde{c}} c(ab) \\
+            &= [ab,c]
+          \end{align*}
+
+        \item 
+          \begin{align*}
+            [ab,c] &= (ab)c - (-1)^{\widetilde{ab}\cdot \tilde{c}} c(ab) \\
+            &= (-1)^{\tilde{a}\cdot \tilde{b}}\left((ba)c  -  (-1)^{\widetilde{ab}\cdot \tilde{c}}c(ba) \right)\\
+            &= (-1)^{\tilde{a}\cdot \tilde{b}}[ba,c] \\
+          \end{align*}
+        \item
+          \begin{align*}
+            (-1)^{\tilde{a}\cdot \tilde{b}}[ba,c] &= (-1)^{\tilde{a}\cdot \tilde{b}}\left((ba)c  -  (-1)^{\tilde{ab}\cdot \tilde{c}}c(ba) \right) \\
+            &= (-1)^{\tilde{a}\cdot \tilde{b}} \left( b(ac) - (-1)^{\tilde{c}(\tilde{a} + \tilde{b})} (-1)^{\tilde{a}\cdot \tilde{b}} (-1)^{\tilde{a}\cdot \tilde{c}} (ac)b\right) \\
+            &= (-1)^{\tilde{a}\cdot \tilde{b}}\left( b(ac) - (-1)^{\tilde{b}(\tilde{a}+\tilde{c})} (ac)b \right) \\
+            &= (-1)^{\tilde{a}\cdot \tilde{b}} [b,ac]
+          \end{align*}
+
+        \item Similar.
+      \end{enumerate}
+  \end{itemize}
+\end{proof}
+
+\section{Supermodules}
+The definition of a supermodule is very similar to that of a regular module (\hyperref[def:module]{Definition \ref*{def:module}}).
+\begin{definition}[supermodule]
+  \label{def:supermodule}
+  Let $A$ be an abelian group with a $\Z/2\Z$ grading, i.e.
+  \begin{equation*}
+    A = A_{0}\oplus A_{1}.
+  \end{equation*}
+
+  Further, let $R$ be a superring with identity. A \defn{(left) supermodule} is a triple $(A,R,* )$, with $A$ and $R$ as above and $*$ a function $R \times A \to A$ such that
+  \begin{enumerate}
+    \item if $r \in R_{i}$ and $a \in A_{j}$ then $r*a \in A_{i+j \mod{2}}$.
+    \item $*$ satisfies all the module axioms listed in \hyperref[def:module]{Definition \ref*{def:module}}.
+  \end{enumerate}
+\end{definition}
+
+If $R$ is supercommutative and $A$ is a left supermodule, we can make $A$ into a right supermodule or a super bimodule as in \hyperref[thm:leftmoduletransformstoothermodules]{Theorem \ref*{thm:leftmoduletransformstoothermodules}}.
+
+\begin{definition}[super bimodule]
+  \label{def:superbimodule}
+  An abelian group $A$ which is both a left and a right $R$ module is a \defn{super bimodule} if left and right multiplication obey the compatibility condition
+  \begin{equation*}
+    ra = (-1)^{\tilde{r}\cdot \tilde{a}} ar\qquad \text{for all }a\in A,\quad r \in R.
+  \end{equation*}
+\end{definition}
+
+%\begin{lemma}
+%  Let $R$ be a supercommutative superring, $A$ be a left $R$-module. Then $A$ can naturally be given the structure of a right $R$-module or a bimodule.
+%\end{lemma}
+%\begin{proof}
+%  Define a right action $ra \equiv (-1)^{\tilde{r}\cdot \tilde{a}} ar$. This makes $A$ into a right $R$-module, and 
+%\end{proof}
+
+%\begin{definition}[superlinear map]
+%  \label{def:superlinear}
+%  Let $R$ be a super ring, $A$ and $B$ be $R$-supermodules. A map $f\colon A \to B$ is called 
+%\end{definition}
+
+\section{Super vector spaces}
+\begin{definition}[$\Z_{2}$-graded vector space]
+  \label{def:z2gradedvectorspace}
+  A \defn{$\Z_{2}$-graded vector space} over a field $k$ (for simplicity of characteristic zero) is a $\Z_{2}$-graded vector space
+  \begin{equation*}
+    V = V_{0} \oplus V_{1}.
+  \end{equation*}
+\end{definition}
+As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd}, and elements of $V_{1} \cup V_{2} \setminus \{0\}$ are \emph{homogeneous}.
+
+\begin{definition}[dimension of a $\Z_{2}$-graded vector space]
+  \label{def:dimensionofaz2gradedvectorspace}
+  Let 
+  \begin{equation*}
+    V = V_{0} \oplus V_{1}.
+  \end{equation*}
+  be a $\Z_{2}$-graded vector space. The \defn{dimension} of $V$ is
+  \begin{equation*}
+    (\dim V_{0}| \dim V_{1}) \in (\N \cup \{\infty\})^{2}.
+  \end{equation*}
+\end{definition} 
+
+\begin{definition}[finite-dimensional $\Z_{2}$-graded vector space]
+  \label{def:finitedimensionalz2gradedvectorspace}
+  We say that a $\Z_{2}$-graded vector space $V$ is \defn{finite dimensional} if $V_{1}$ and $V_{2}$ are.
+\end{definition}
+
+\begin{definition}[$\Z_{2}$-graded vector space morphism]
+  \label{def:z2gradedvectorspacemorphism}
+  Let $V$ and $W$ be $\Z_{2}$-graded vector spaces. A \defn{morphism} from $V$ to $W$ (also called a \defn{$\Z_{2}$-graded linear map}) is a linear map $V \to W$ which preserves the grading, i.e. which maps $V_{0} \to W_{0}$ and $V_{1} \to W_{1}$.
+\end{definition}
+
+\begin{definition}[direct sum of $\Z_{2}$-graded vector spaces]
+  \label{def:directsumofz2gradedvectorspaces}
+  Let $V$ and $W$ be $\Z_{2}$-graded vector spaces. Their \defn{direct sum}, denoted $V \oplus W$, is the $\Z_{2}$-graded vector space with grading
+  \begin{equation*}
+    (V \oplus W)_{i} = V_{i} \oplus W_{i},\qquad i = 1, 2.
+  \end{equation*}
+\end{definition} 
+\begin{definition}[tensor product of $\Z_{2}$-graded vector spaces]
+  \label{def:tensorproduttofz2gradedvectorspaces}
+  Let $V$ and $W$ be $\Z_{2}$-graded vector spaces. Their \defn{tensor product} denoted $V \otimes W$, is the tensor product of the underlying ungraded vector spaces, with the grading
+  \begin{equation*}
+    (V \otimes W)_{0} = (V_{0} \otimes W_{0})\oplus(V_{1} \otimes V_{1}),\qquad (V \otimes W)_{1} = (V_{0} \otimes W_{1})\oplus(V_{1} \otimes V_{0}).
+  \end{equation*}
+\end{definition}
+
+\section{Superalgebras}
+
+\begin{definition}[superalgebra]
+  \label{def:superalgebra}
+  A superalgebra $A$ is a $\Z/2$-graded vector space $A = A_{0} \oplus A_{1}$ together with a bilinear map
+  \begin{equation*}
+    \cdot\colon A \times A \to A,
+  \end{equation*}
+  which respects the grading in the sense that $A_{i} \cdot A_{j} \subseteq A_{i+j\ \mathrm{mod}(2)}$.
+\end{definition}
+
+\begin{definition}[supercommutative superalgebra]
+  \label{def:supercommutativesuperalgebra}
+  A \defn{supercommutative superalgebra} is a superalgebra which obeys the Koszul sign rule, i.e.  $\widetilde{a \cdot b} = \tilde{a} \cdot \tilde{b}$ for elements $a$, $b$ of pure degree.
+\end{definition}
+
+\begin{definition}[superalgebra homomorphism]
+  \label{def:superalgebrahomomorphism}
+  Let $A$ and $B$ be superalgebras. A \defn{superalgebra homomorphism} $f\colon A \to B$ is a homomorphism of the underlying algebras which respects the grading. That is, 
+  \begin{equation*}
+    f = f_{0} \oplus f_{1},
+  \end{equation*}
+  where $f_{0}$ and $f_{1}$ are algebra homomorphisms.
+\end{definition}
+
+\begin{definition}[parity involution]
+  \label{def:parityinvolution}
+  Let $A = A_{0} \oplus A_{1}$ be a supercommutative superalgebra. Then there is an algebra automorphism $P\colon A\to A$ called the \defn{parity involution} which acts on elements of pure degree via
+  \begin{equation*}
+    P(a) = (-1)^{\tilde{a}}a.
+  \end{equation*}
+\end{definition}
+
+\chapter{Category theory} \label{ch:categories}
+In this chapter, I will do my best to stick to the conventions used at the nLab (\cite{nlab}).
+
+\section{Categories} \label{sec:categoriesbasicdefinitions}
 \begin{definition}[category] 
   \label{def:category} 
   A \defn{category} $\mathsf{C}$ consists of 
@@ -8952,7 +9373,7 @@ In Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignest
 %\end{notation}
 
 \section{Internalization}
-One of the things category theory is best for is generalization. One of the most powerful ways of doing this is known as \emph{internalization}.
+One of the reasons that category theory is so useful is that it makes generalizing concepts very easy. One of the most powerful ways of doing this is known as \emph{internalization}.
 
 \subsection{Internal groups}
 \begin{definition}[group object]
@@ -9691,356 +10112,6 @@ One of the things category theory is best for is generalization. One of the most
 %  The map $\spec$ extends to a contravariant functor $\mathsf{CRing} \to \mathsf{Top}$.
 %\end{corollary}
 %
-%
-\chapter{Some basic superalgebra} \label{ch:superalgebra}
-In this chapter we give some basic definitions of various super-* structures.
-
-Most of the material in this chapter is from \cite{manin-gauge-fields}.
-
-\section{Super rings}
-\begin{definition}[super ring]
-  \label{def:superring}
-  A \defn{super ring} (or \defn{$\Z/2\Z$ graded ring}) $A$ is, additively, an abelian group $A$ with a direct sum decomposition
-  \begin{equation*}
-    A = A_{0} \oplus A_{1}.
-  \end{equation*}
-  Elements $a\in A_{0}$ are said to be of degree zero, denoted $\tilde{a} = 0$; elements $b\in A_{1}$ are said to be of degree one, denoted $\tilde{b} = 1$.
-
-  Additionally, there is a multiplicative structure which is associative and distributive from the left and the right; the only change from the normal definition of a ring is that the multiplicative structure must obey the axiom
-  \begin{equation*}
-    \widetilde{ab} = \tilde{a} + \tilde{b},
-  \end{equation*}
-  where the addition is taken modulo 2.
-\end{definition}
-
-\begin{note}
-  Of course, not all elements $c \in A$ are in $A_{0}$ or $A_{1}$; formulae which talk about the grading must be understood to be extended via additivity. If $a = a_{0} + a_{1}$ and $b = b_{0} + b_{1}$ so
-  \begin{equation*}
-    ab = a_{0} b_{0} + a_{1} b_{0} + a_{0} b_{1} + a_{1} b_{1},
-  \end{equation*}
-  the axiom concerning the multiplicative grading should be taken to say that the grading applies to each monomial.
-\end{note}
-
-\begin{example}[exterior algebra]
-  \label{eg:exterioralgebra}
-  Consider the exterior algebra
-  \begin{equation*}
-    \bigwedge \R^{n} = \bigoplus_{i=0}^{n} \bigwedge\nolimits^{i} \R^{n}.
-  \end{equation*}
-  With multiplication given by the wedge product, $\bigwedge \R^{n}$ is a super ring with grading given by
-  \begin{equation*}
-    \left( \bigoplus_{i\text{ even}} \bigwedge\nolimits^{i}\R^{n} \right) \oplus \left( \bigoplus_{i\text{ odd}}\bigwedge\nolimits^{i}\R^{n} \right).
-  \end{equation*}
-\end{example}
-
-\begin{example}
-  Let $V$ be a vector space over a field $k$ of characteristic not 2. The so-called \emph{parity transformation} on $V$ is the map
-  \begin{equation*}
-    P\colon V \to V;\qquad v \mapsto -v.
-  \end{equation*}
-  This preserves any quadratic form, and hence extends to an algebra homomorphism $\cliff(P) \equiv \alpha$ of any quadratic vector space $\cliff(V,q)$. Since 
-  \begin{equation*}
-    \alpha^2 = \cliff(P) \circ \cliff(P) = \cliff(P \circ P) = \cliff(\mathrm{id}_{(V,q)}) = \mathrm{id}_{\cliff(V,q)},
-  \end{equation*}
-  $\alpha$ is invertible, hence an isomorphism. Indeed, from the above equation we can say more. For the moment ignoring the multiplicative structure of $\cliff(V,q)$ and considering it only as a vector space, $\alpha$ can be thought of as a linear bijection whose square is the identity. This means $\alpha$ has two eigenvalues $+1$ and $-1$, and additively $\cliff(V,q)$ decomposes into a direct sum
-  \begin{equation*}
-    \cliff(V,q) = \cliff^{0}(V,q) \oplus \cliff^{1}(V,q),
-  \end{equation*}
-  where 
-  \begin{equation*}
-    \cliff^{0}(V,q) = \left\{ \varphi \in \cliff(V,q)\,\big|\, \alpha(\varphi) = \varphi \right\},\qquad\text{and} \qquad\cliff^{0}(V,q) = \left\{ \varphi \in \cliff(V,q)\,\big|\, \alpha(\varphi) = -\varphi \right\}.
-  \end{equation*}
-
-  For $\varphi_{1} \in \cliff^{i}(V,q)$ and $\varphi_{2} \in \cliff^{j}(V,q)$,
-  \begin{equation*}
-    \alpha(\varphi_{1}\varphi_{2}) = \alpha(\varphi_{1})\alpha(\varphi_{2});
-  \end{equation*}
-  this gives us the following multiplication table.
-  \begin{equation*}
-    \begin{tabular}[c]{c | c c}
-      $\times$ & $\cliff^{0}(V,q)$ & $\cliff^{1}(V,q)$ \\
-      \hline
-      $\cliff^{0}(V,q)$ & $\cliff^{0}(V,q)$ & $\cliff^{1}(V,q)$\\
-      $\cliff^{1}(V,q)$ & $\cliff^{1}(V,q)$ & $\cliff^{0}(V,q)$\\
-    \end{tabular}
-  \end{equation*}
-  Thus, $\cliff(V,q)$ is a superalgebra.
-
-\end{example}
-
-\begin{definition}[supercommutator]
-  \label{def:supercommutator}
-  Let $A$ be a commutative ring. The \defn{supercommutator} is the map
-  \begin{equation*}
-    [\cdot ,\cdot ]\colon A \times A \to A;\qquad (a,b) \to [a,b] = ab - (-1)^{\tilde{a}\cdot \tilde{b}} ba.
-  \end{equation*}
-\end{definition}
-
-\begin{definition}[supercommutation]
-  \label{def:supercommutes}
-  We will say that $a$ supercommutes with $b$ if $[a,b] = 0$; this means in particular that two even elements commute if $ab = ba$, and two odd elements supercommute if $ab = -ba$.
-\end{definition}
-\begin{note}
-  Supercommutativity should not be confused with regular commutativity. Here is an example of a super ring which is commutative but not supercommutative.
-\end{note}
-\begin{example}
-  Consider the ring $C^{0}(\R)$ of continuous functions $\R \to \R$. This is a super ring with the direct sum decomposition is given by
-  \begin{equation*}
-    C^{0}(\R) = \left\{ \text{even functions} \right\} \oplus \left\{ \text{odd functions} \right\};
-  \end{equation*}
-  this can be seen since any $f \in C^{0}(\R)$ can be written
-  \begin{equation*}
-    f(x) = \underbrace{\frac{f(x) + f(-x)}{2}}_{\text{even}} + \underbrace{\frac{f(x) - f(-x)}{2}}_{\text{odd}}.
-  \end{equation*}
-  The multiplication defined pointwise inherits its commutativity from the real numbers; but \emph{all} elements are commutative, even the odd elements. Hence $C^{0}(\R)$ is commutative but not supercommutative.
-\end{example}
-
-\begin{definition}[super ring homomorphism]
-  \label{def:superringhomomorphism}
-  Let $A$, $B$ be super rings. A \defn{super ring homomorphism} $f\colon A \to B$ is a ring homomorphism which preserve the grading.
-\end{definition}
-
-One might wonder if, in fact, \emph{all} ring homomorphisms between super rings are super ring homomorphisms. This is not the case.
-\begin{counterexample}[Not all super ring homomorphisms preserve the grading]  
-  Consider the set
-  \begin{equation*}
-    R = \left\{ f\colon \R \to \bigwedge \R^2 \right\}.
-  \end{equation*}
-  A general element $f \in R$ is of the form
-  \begin{equation*}
-    f(x) = f_{00}(x) + f_{10}(x)\bm{\hat{x}} + f_{01}(x)\bm{\hat{y}} + f_{11}(x)\bm{\hat{x}} \wedge \bm{\hat{y}},
-  \end{equation*}
-  where $\bm{\hat{x}}$ and $\bm{\hat{y}}$ are basis vectors for $\R^{2}$. Define multiplication pointwise:
-  \begin{align*}
-    (f\cdot g)(x) = f(x) g(x) =& f_{00}(x) g_{00}(x) \\
-    &+(f_{00}(x) g_{10}(x) + f_{10}(x)g_{00}(x)) \bm{\hat{x}} \\
-    &+(f_{00}(x)g_{01}(x) + f_{01}(x)g_{00}(x)) \bm{\hat{y}}\\
-    &+(f_{11}(x) g_{00}(x) + f_{00}(x) g_{11}(x) + f_{10}(x) g_{01}(x) - f_{01}(x) g_{10}(x))\bm{\hat{x}} \wedge \bm{\hat{y}}.
-  \end{align*}
-  Then $R$ becomes a ring. In fact it is more; it is easy (if tedious) to check from the above multiplication law that $R$ can be seen as a super ring with grading given by
-  \begin{equation*}
-    f(x) = \underbrace{\frac{f(x) + f(-x)}{2}}_{R_{0}} + \underbrace{\frac{f(x) - f(-x)}{2}}_{R_{1}}.
-  \end{equation*}
-
-  Now consider the evaluation homomorphism 
-  \begin{equation*}
-    \iota\colon R \to \bigwedge \R^{2};\qquad f \mapsto f(0).
-  \end{equation*}
-  This is a ring homomorphism which does not preserve grading. To see this, consider the constant function
-  \begin{equation*}
-    \varphi(x) = \bm{\hat{x}}\qquad\text{for all }x.
-  \end{equation*}
-  Non-zero constant functions such as $\varphi$ are even, but $\bm{\hat{x}}$ is odd in $\bigwedge \R^{2}$.
-\end{counterexample}
-\begin{definition}[supercenter]
-  \label{def:supercenter}
-  The \defn{supercenter} of $A$ is the set
-  \begin{equation*}
-    Z(A) = \left\{ a \in A\,\big|\, \text{for all } b \in A,\, [a,b]=0 \right\}.
-  \end{equation*}
-\end{definition}
-
-In the theory of commutative algebra, we have \hyperref[def:algebraoveraring]{Definition \ref*{def:algebraoveraring}} of an algebra over a ring. This definition generalizes naturally to the case where $A$ and $R$ are super rings:
-\begin{definition}[super algebra over a ring]
-  \label{def:superalgebraoveraring}
-  Let $R$ be a supercommutative super ring. An \defn{$R$-super-algebra} is a super ring $A$ which is also an $R$-module (with left multiplication $*\colon R \times A \to A$) such that the multiplication map $\cdot \colon A \times A \to A$ is $R$-bilinear, i.e.
-  \begin{equation*}
-    r*(a\cdot b) = (r*a)\cdot b = (-1)^{\tilde{a}\cdot \tilde{r}} a\cdot (r*b).
-  \end{equation*}
-\end{definition}
-\hyperref[thm:ringhomomorphisminducesalgebra]{Theorem \ref*{thm:ringhomomorphisminducesalgebra}} also generalizes nicely.
-\begin{theorem}
-  Let $A$, $R$ be unital super rings, $R$ supercommutative, and let $f\colon R \to A$ be a unital super ring homomorphism. Then $A$ naturally has the structure of an $R$-module. Furthermore, if the image $f(R)$ is in the supercenter of $A$, then $A$ naturally has the structure of an $R$-super algebra.
-\end{theorem}
-\begin{proof}
-  The module axioms (\hyperref[def:module]{Definition \ref*{def:module}}) don't involve commutivity, so their verification is trivial as before. We must only check that if $f(R)$ is in the supercenter of $A$ then $*$ is $R$-bilinear, i.e. that
-  \begin{equation*}
-    r*(a\cdot b) = f(r)\cdot a\cdot b = (f(r)\cdot a)\cdot b = (r*a)\cdot b,
-  \end{equation*}
-  and
-  \begin{equation*}
-    r*(a\cdot b) = f(r)\cdot a\cdot b = (-1)^{ \tilde{a}\cdot \widetilde{f(r)}}a\cdot f(r)\cdot b = (-1)^{\tilde{a}\cdot \tilde{r}}a\cdot f(r)\cdot b = (-1)^{\tilde{a}\cdot \tilde{r}}(r*b).
-  \end{equation*}
-\end{proof}
-
-\begin{theorem}
-  Let $R$ be a supercommutative super ring, $r \in R_{1}$. Then $r$ is nilpotent (\hyperref[def:nilpotent]{Definition \ref*{def:nilpotent}}).
-\end{theorem}
-\begin{proof}
-  $\displaystyle r^2 = \frac{1}{2}[r,r] = 0$.
-\end{proof}
-
-We have the following analog to \hyperref[thm:propertiesofcommutator]{Theorem \ref*{thm:propertiesofcommutator}}.
-\begin{lemma}
-  Let $B$ be an associative superring. The supercommutator satisfies the following identities.
-  \begin{itemize}
-    \item $[a,b] = -(-1)^{\tilde{a}\cdot \tilde{b}}[b,a]$.
-    \item $[a,[b,c]] + (-1)^{\tilde{a}(\tilde{b} + \tilde{c})}[b,[c,a]] + (-1)^{\tilde{c}(\tilde{a}+\tilde{b})}[c,[a,b]] = 0$
-  \end{itemize}
-  Furthermore, if $B$ is an $A$-algebra, then the following holds for all $a \in A$, $b,c \in B$.
-  \begin{itemize}
-    \item $a[b,c] \overset{1}{=} [ab,c] \overset{2}{=} (-1)^{\tilde{a}\cdot \tilde{b}}[ba,c] \overset{3}{=} (-1)^{\tilde{a}(\tilde{b} + \tilde{c})}[b,ca] \overset{4}{=} (-1)^{\tilde{a}(\tilde{b} + \tilde{c})}[b,c]a$
-  \end{itemize}
-\end{lemma}
-\begin{proof}
-  $\,$
-  \begin{itemize}
-    \item $[a,b] = ab-(-1)^{\tilde{a}\cdot \tilde{b}} ba = ba(-1)^{\tilde{a}\cdot \tilde{b}} - \left( (-1)^{\tilde{a}\cdot \tilde{b}} \right)^{2} ab = (-1)^{\tilde{a}\cdot \tilde{b}}\left( ba - (-1)^{\tilde{a}\cdot \tilde{b}}ab \right) = (-1)^{\tilde{a}\cdot \tilde{b}}[b,a] $
-    \item 
-      \begin{align*}
-        [a,[b,c]] &= a(bc-(-1)^{\tilde{b}\cdot \tilde{c}}cb) - (-1)^{\tilde{a}(\tilde{b} + \tilde{c})}(bc-(-1)^{\tilde{b}\cdot \tilde{c}}cb)a \\
-        [b,[c,a]] &= b(ca-(-1)^{\tilde{c}\cdot \tilde{a}}ac) - (-1)^{\tilde{b}(\tilde{c} + \tilde{a})}(ca-(-1)^{\tilde{c}\cdot \tilde{a}}ac)b \\
-        [c,[a,b]] &= c(ab-(-1)^{\tilde{a}\cdot \tilde{b}}ba) - (-1)^{\tilde{c}(\tilde{a} + \tilde{b})}(ab-(-1)^{\tilde{a}\cdot \tilde{b}}ba)c 
-      \end{align*}
-
-    \item My apologies for the formatting.
-      \begin{enumerate}[label= Equality \arabic*:]
-        \item 
-          \begin{align*}
-            a[b,c] &= a(bc-(-1)^{\tilde{b}\cdot \tilde{c}}cb) \\
-            &= abc-(-1)^{\tilde{b}\cdot \tilde{c}}acb \\
-            &= abc-(-1)^{\tilde{b}\cdot \tilde{c}} (-1)^{\tilde{a}\cdot \tilde{c}}cab\\
-            &=(ab)c - (-1)^{\tilde{ab}\cdot \tilde{c}} c(ab) \\
-            &= [ab,c]
-          \end{align*}
-
-        \item 
-          \begin{align*}
-            [ab,c] &= (ab)c - (-1)^{\widetilde{ab}\cdot \tilde{c}} c(ab) \\
-            &= (-1)^{\tilde{a}\cdot \tilde{b}}\left((ba)c  -  (-1)^{\widetilde{ab}\cdot \tilde{c}}c(ba) \right)\\
-            &= (-1)^{\tilde{a}\cdot \tilde{b}}[ba,c] \\
-          \end{align*}
-        \item
-          \begin{align*}
-            (-1)^{\tilde{a}\cdot \tilde{b}}[ba,c] &= (-1)^{\tilde{a}\cdot \tilde{b}}\left((ba)c  -  (-1)^{\tilde{ab}\cdot \tilde{c}}c(ba) \right) \\
-            &= (-1)^{\tilde{a}\cdot \tilde{b}} \left( b(ac) - (-1)^{\tilde{c}(\tilde{a} + \tilde{b})} (-1)^{\tilde{a}\cdot \tilde{b}} (-1)^{\tilde{a}\cdot \tilde{c}} (ac)b\right) \\
-            &= (-1)^{\tilde{a}\cdot \tilde{b}}\left( b(ac) - (-1)^{\tilde{b}(\tilde{a}+\tilde{c})} (ac)b \right) \\
-            &= (-1)^{\tilde{a}\cdot \tilde{b}} [b,ac]
-          \end{align*}
-
-        \item Similar.
-      \end{enumerate}
-  \end{itemize}
-\end{proof}
-
-\section{Supermodules}
-The definition of a supermodule is very similar to that of a regular module (\hyperref[def:module]{Definition \ref*{def:module}}).
-\begin{definition}[supermodule]
-  \label{def:supermodule}
-  Let $A$ be an abelian group with a $\Z/2\Z$ grading, i.e.
-  \begin{equation*}
-    A = A_{0}\oplus A_{1}.
-  \end{equation*}
-
-  Further, let $R$ be a superring with identity. A \defn{(left) supermodule} is a triple $(A,R,* )$, with $A$ and $R$ as above and $*$ a function $R \times A \to A$ such that
-  \begin{enumerate}
-    \item if $r \in R_{i}$ and $a \in A_{j}$ then $r*a \in A_{i+j \mod{2}}$.
-    \item $*$ satisfies all the module axioms listed in \hyperref[def:module]{Definition \ref*{def:module}}.
-  \end{enumerate}
-\end{definition}
-
-If $R$ is supercommutative and $A$ is a left supermodule, we can make $A$ into a right supermodule or a super bimodule as in \hyperref[thm:leftmoduletransformstoothermodules]{Theorem \ref*{thm:leftmoduletransformstoothermodules}}.
-
-\begin{definition}[super bimodule]
-  \label{def:superbimodule}
-  An abelian group $A$ which is both a left and a right $R$ module is a \defn{super bimodule} if left and right multiplication obey the compatibility condition
-  \begin{equation*}
-    ra = (-1)^{\tilde{r}\cdot \tilde{a}} ar\qquad \text{for all }a\in A,\quad r \in R.
-  \end{equation*}
-\end{definition}
-
-\begin{lemma}
-  Let $R$ be a supercommutative superring, $A$ be a left $R$-module. Then $A$ can naturally be given the structure of a right $R$-module or a bimodule.
-\end{lemma}
-\begin{proof}
-  Define a right action $ra \equiv (-1)^{\tilde{r}\cdot \tilde{a}} ar$. This makes $A$ into a right $R$-module, and 
-\end{proof}
-
-\begin{definition}[superlinear map]
-  \label{def:superlinear}
-  Let $R$ be a super ring, $A$ and $B$ be $R$-supermodules. A map $f\colon A \to B$ is called 
-\end{definition}
-
-\section{Super vector spaces}
-\begin{definition}[$\Z_{2}$-graded vector space]
-  \label{def:z2gradedvectorspace}
-  A \defn{$\Z_{2}$-graded vector space} over a field $k$ (for simplicity of characteristic zero) is a $\Z_{2}$-graded vector space
-  \begin{equation*}
-    V = V_{0} \oplus V_{1}.
-  \end{equation*}
-\end{definition}
-As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd}, and elements of $V_{1} \cup V_{2} \setminus \{0\}$ are \emph{homogeneous}.
-
-\begin{definition}[dimension of a $\Z_{2}$-graded vector space]
-  \label{def:dimensionofaz2gradedvectorspace}
-  Let 
-  \begin{equation*}
-    V = V_{0} \oplus V_{1}.
-  \end{equation*}
-  be a $\Z_{2}$-graded vector space. The \defn{dimension} of $V$ is
-  \begin{equation*}
-    (\dim V_{0}| \dim V_{1}) \in (\N \cup \{\infty\})^{2}.
-  \end{equation*}
-\end{definition} 
-
-\begin{definition}[finite-dimensional $\Z_{2}$-graded vector space]
-  \label{def:finitedimensionalz2gradedvectorspace}
-  We say that a $\Z_{2}$-graded vector space $V$ is \defn{finite dimensional} if $V_{1}$ and $V_{2}$ are.
-\end{definition}
-
-\begin{definition}[$\Z_{2}$-graded vector space morphism]
-  \label{def:z2gradedvectorspacemorphism}
-  Let $V$ and $W$ be $\Z_{2}$-graded vector spaces. A \defn{morphism} from $V$ to $W$ (also called a \defn{$\Z_{2}$-graded linear map}) is a linear map $V \to W$ which preserves the grading, i.e. which maps $V_{0} \to W_{0}$ and $V_{1} \to W_{1}$.
-\end{definition}
-
-\begin{definition}[direct sum of $\Z_{2}$-graded vector spaces]
-  \label{def:directsumofz2gradedvectorspaces}
-  Let $V$ and $W$ be $\Z_{2}$-graded vector spaces. Their \defn{direct sum}, denoted $V \oplus W$, is the $\Z_{2}$-graded vector space with grading
-  \begin{equation*}
-    (V \oplus W)_{i} = V_{i} \oplus W_{i},\qquad i = 1, 2.
-  \end{equation*}
-\end{definition} 
-\begin{definition}[tensor product of $\Z_{2}$-graded vector spaces]
-  \label{def:tensorproduttofz2gradedvectorspaces}
-  Let $V$ and $W$ be $\Z_{2}$-graded vector spaces. Their \defn{tensor product} denoted $V \otimes W$, is the tensor product of the underlying ungraded vector spaces, with the grading
-  \begin{equation*}
-    (V \otimes W)_{0} = (V_{0} \otimes W_{0})\oplus(V_{1} \otimes V_{1}),\qquad (V \otimes W)_{1} = (V_{0} \otimes W_{1})\oplus(V_{1} \otimes V_{0}).
-  \end{equation*}
-\end{definition}
-
-\section{Superalgebras}
-
-\begin{definition}[superalgebra]
-  \label{def:superalgebra}
-  A superalgebra $A$ is a $\Z/2$-graded vector space $A = A_{0} \oplus A_{1}$ together with a bilinear map
-  \begin{equation*}
-    \cdot\colon A \times A \to A,
-  \end{equation*}
-  which respects the grading in the sense that $A_{i} \cdot A_{j} \subseteq A_{i+j\ \mathrm{mod}(2)}$.
-\end{definition}
-
-\begin{definition}[supercommutative superalgebra]
-  \label{def:supercommutativesuperalgebra}
-  A \defn{supercommutative superalgebra} is a superalgebra which obeys the Koszul sign rule, i.e.  $\widetilde{a \cdot b} = \tilde{a} \cdot \tilde{b}$ for elements $a$, $b$ of pure degree.
-\end{definition}
-
-\begin{definition}[superalgebra homomorphism]
-  \label{def:superalgebrahomomorphism}
-  Let $A$ and $B$ be superalgebras. A \defn{superalgebra homomorphism} $f\colon A \to B$ is a homomorphism of the underlying algebras which respects the grading. That is, 
-  \begin{equation*}
-    f = f_{0} \oplus f_{1},
-  \end{equation*}
-  where $f_{0}$ and $f_{1}$ are algebra homomorphisms.
-\end{definition}
-
-\begin{definition}[parity involution]
-  \label{def:parityinvolution}
-  Let $A = A_{0} \oplus A_{1}$ be a supercommutative superalgebra. Then there is an algebra automorphism $P\colon A\to A$ called the \defn{parity involution} which acts on elements of pure degree via
-  \begin{equation*}
-    P(a) = (-1)^{\tilde{a}}a.
-  \end{equation*}
-\end{definition}
-
 \begin{thebibliography}{9}
   \bibitem{michelson-lawson} M.-L. Michelson and H.B. Lawson.
     \textit{Spin Geometry}.
