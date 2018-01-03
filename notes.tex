@@ -129,7 +129,43 @@
 \author{Angus Rush}
 
 \begin{document} 
-\maketitle
+\begin{titlepage}
+  \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} 
+
+  \center 
+  \vspace*{\fill}
+
+  \textsc{\LARGE University of Liverpool}\\[1.5cm] % Name of your university/college
+
+  \HRule \\[0.4cm]
+  { \huge \bfseries Deligne's Theorem on Tensor Categories}\\[0.4cm] % Title of your document
+  { \Large \bfseries And its Implications for Quantum Mechanics}\\[0.4cm] % Subtitle of your document
+  \HRule \\[1.5cm]
+
+  \begin{minipage}{0.4\textwidth}
+    \begin{flushleft} \large
+      \emph{Author:}\\
+      Angus Rush \\
+      ID 201149990
+    \end{flushleft}
+  \end{minipage}
+  ~
+  \begin{minipage}{0.4\textwidth}
+    \begin{flushright} \large
+      \emph{Supervisor:} \\
+      Dr. Thomas Mohaupt
+    \end{flushright}
+  \end{minipage}\\[2cm]
+
+  {\large \today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+
+  \vspace{10em}
+
+  \includegraphics[width=0.5\textwidth]{University_of_Liverpool_logo_2007.png}\\[1cm] 
+
+  %\vspace*{2em}
+
+\end{titlepage}
 \tableofcontents 
 %\tikzexternalize[prefix=figures/]
 
@@ -148,7 +184,7 @@ Supergeometry as a mathematical structure came into being out of necessity, as a
 
 In 1948, Richard Feynman published his so-called \emph{path-integral} approach to quantum mechanics (\cite{feynmanpathintegral}). It was quickly extended to bosonic quantum field theory. However, it took quite some time for it to be applied to fermionic quantum fields. The first textbook account, \cite{berezinsecondquantization}, was published by Felix Berezin in 1965.
 
-This slow uptake was due to some extent to a conceptual difficulty. In the path integral approach to quantum field theory, one (roughly speaking) treats a quantum field in terms of classical field states. This means that calculations with quantum fields involve corresponding classical fields. For bosonic fields (fields describing particles with integer spin), it is clear how to do this: bosonic quantum fields have natural classical analogs since in the high particle number limit, the quantum dynamics reduce, roughly, to the classical field equations. However, since fermions (particles with half-integer spin) cannot be in the same state due to the Pauli exclusion principle, fermionic fields do not have a high particle humber limit, so they have no obvious classical analog.
+This slow uptake was due to some extent to a conceptual difficulty. In the path integral approach to quantum field theory, one (roughly speaking) treats a quantum field in terms of classical field states. This means that calculations with quantum fields involve corresponding classical fields. For bosonic fields (fields describing particles with integer spin), it is more or less clear how to do this: bosonic quantum fields have natural classical analogs since in the high particle number limit, the quantum dynamics reduce, roughly, to the classical field equations. However, since fermions (particles with half-integer spin) cannot be in the same state due to the Pauli exclusion principle, fermionic fields do not have a high particle humber limit, so they have no obvious classical analog.
 
 It turns out that the way to treat fermionic quantum fields in the path integral formalism is to allow the classical fields which correspond to fermions to anticommute, i.e. to satisfy the relation 
 \begin{equation*}
@@ -156,7 +192,7 @@ It turns out that the way to treat fermionic quantum fields in the path integral
 \end{equation*}
 This is puzzling since we do not know how to interpret the order of classical fields. In classical field theory, field histories are given by sections of a bundle over spacetime, and the value of a field at a point can be thought of as given by a collection of numbers of which represent, for example, the components of a vector located at that point. These numbers by definition commute with each other. The anticommutativity of fermionic classical fields means that they cannot be na\"{i}vely interpreted as classical fields in the standard sense.
 
-The correct implementation of anticommuting classical fields turned out to be the following: if one augments the charts on a manifold by adding additional coordinates which anticommute instead of commute, then fields, considered locally as a sort of formal power series in \emph{all} the variables (commuting and anticommuting) can behave non-trivially under comutation.
+The correct implementation of anticommuting classical fields turned out to come from a fundamental reimagining of spacetime. Classically, spacetime is a manifold; if one augments its charts by adding additional coordinates which anticommute instead of commute, then fields, considered locally as a sort of power series in \emph{all} the variables (commuting and anticommuting) can behave non-trivially under comutation.
 
 The mathematical formulation of such an `augmented manifold' is given by what is known as a supermanifold: one takes the standard description of a $C^{\infty}$ manifold as a locally ringed space and allows the sections to be so-called \emph{supercommutative} rings, which contain both commuting and anticommuting elements.
 
@@ -164,14 +200,14 @@ Supermanifolds have a rich mathematical theory, explored in e.g. \cite{susy-for-
 
 \subsubsection{Lie superalgebras and the Haag-{\L}opusza{\'n}ski-Sohnius theorem}
 
-In 1967, Sidney Coleman and Jeffrey Mandula published a paper (\cite{coleman-mandula}) in which they analyzed a quantum field theory which was invariant under a connected Lie group $G$ of symmetries. They showed that, under certain physically reasonable assumptions, if $G$ contained the Poincar\'{e} group as a subgroup, then it had to split into a direct product of the Poincare\'{e} group and some internal symmetry group; there could be no mixing.
+In 1967, Sidney Coleman and Jeffrey Mandula published a paper (\cite{coleman-mandula}) in which they analyzed a quantum field theory which was invariant under a connected Lie group $G$ of symmetries. They showed that, under certain physically reasonable assumptions, if $G$ contained the Poincar\'{e} group as a subgroup, then it had to split into a direct product of the Poincar\'{e} group and some internal symmetry group; there could be no mixing.
 
 They accomplished this by studying a representation of the Lie algebra $\mathfrak{g}$ of $G$, and showing that the operators generating spacetime and internal translations could not obey non-trivial commutation relations. That is, $\mathfrak{g}$ had to be decomposable as a direct sum
 \begin{equation*}
   \mathfrak{g} = \mathfrak{g}_{\,\text{Poincar\'{e}}} \oplus \mathfrak{g}_{\,\text{internal}}.
 \end{equation*}
 
-This was seen as a blow for fundamental physics. Symmetry was viewed as a unifying force in fundamental pysics, and there was a hope that spacetime and internal symmetries could be unified. The so-called Coleman-Mandula theorem showed that this was not possible. 
+This was seen as a blow for fundamental physics. Symmetry was viewed as a unifying force in fundamental physics, and there was a hope that spacetime and internal symmetries could be unified. The so-called Coleman-Mandula theorem showed that this was not possible. 
 
 However, in 1975 Rudolph Haag, Jan {\L}opusza{\'n}ski, and Martin Sohnius showed that the operators representing Lie algebras of the spacetime and internal symmetry groups could mix in a non-trivial way as long as some of they were allowed to obey anti-commutation relations. Mathematically, this meant that the generators really formed a representation of a Lie super-algebra. Thus, Haag, {\L}opusza{\'n}ski, and Sohnius showed that it was possible to unify spacetime and internal symmetries of a relativistic quantum field theory if one assumed that the symmetries were given by a super-group.
 
@@ -224,15 +260,15 @@ then one finds that the supercommutator satisfies the so-called \emph{super Jaco
 Note that this is simply the Jacobi identity with a factor of $-1$ every time two elements of odd degree are permuted.
 
 \section{Road map}
-In the following chapter, we will see that the robustness of the Koszul sign rule is not a coincidence, but instead arises naturally from the fact that supercommutativity is just a different sort of commutativity: more precisely, supercommutativity is commutativity internalized to a different category, the category $\mathsf{SVect}_{k}$ of super vector spaces. We will explore this in \hyperref[sec:supercommutativity]{Section \ref*{sec:supercommutativity}}. 
+In the following chapter, we see that the robustness of the Koszul sign rule is not a coincidence, but instead arises naturally from the fact that supercommutativity is just a different sort of commutativity: more precisely, supercommutativity is commutativity internalized to a different category, the category $\mathsf{SVect}_{k}$ of super vector spaces. We explore this in \hyperref[sec:supercommutativity]{Section \ref*{sec:supercommutativity}}. 
 
-In \hyperref[sec:supervarieties]{Section \ref*{sec:supervarieties}}, we will leverage this understanding to generalize the notion of a variety, arriving at the notion of a \emph{supervariety}.\footnote{We follow the terminology in \cite{milne-affine-group-schemes} and \cite{nlab-deligne-theorem}. The objects we define are also commonly known as affine schemes} By studying supervarieties which are also groups (i.e. group objects in the category of supervarieties), we will come in \hyperref[sec:supergroupsandsupercommutativehopfalgebras]{Section \ref*{sec:supergroupsandsupercommutativehopfalgebras}} to a definition of an \emph{affine supergroup}.
+In \hyperref[sec:supervarieties]{Section \ref*{sec:supervarieties}}, we leverage this understanding to generalize the notion of a variety, arriving at the notion of a \emph{supervariety}.\footnote{We follow the terminology in \cite{milne-affine-group-schemes} and \cite{nlab-deligne-theorem}. The objects we define are also commonly known as affine schemes} By studying supervarieties which are also groups (i.e. group objects in the category of supervarieties), we come in \hyperref[sec:supergroupsandsupercommutativehopfalgebras]{Section \ref*{sec:supergroupsandsupercommutativehopfalgebras}} to a definition of an \emph{affine supergroup}.
 
-In \hyperref[sec:representationsascomodules]{Section \ref*{sec:representationsascomodules}}, we will define a representation of an affine supergroup, and show that the definition is equivalent to that of a certain comodule. This will allow us to make a slick definition of the category of representations of an affine supergroup by defining it as the appropriate category of comodules.
+In \hyperref[sec:modulesandcomodules]{Section \ref*{sec:modulesandcomodules}}, we introduce a categorical formulation of modules and comodules. In \hyperref[sec:representationsascomodules]{Section \ref*{sec:representationsascomodules}}, we define a representation of an affine supergroup, and show that the definition is equivalent to that of a certain comodule. This allows us to make a slick definition of the category of representations of an affine supergroup by defining it as the appropriate category of comodules.
 
-In \hyperref[ch:delignestheorem]{Chapter \ref*{ch:delignestheorem}}, we will give the statement of Deligne's theorem on tensor categories (\cite{deligne-categories-tensorielle}) and a quick explanation of its meaning. 
+In \hyperref[ch:delignestheorem]{Chapter \ref*{ch:delignestheorem}}, we give the statement of \emph{Deligne's theorem on tensor categories} (\cite{deligne-categories-tensorielle}) and a quick explanation of its meaning. 
 
-In \hyperref[ch:relevancetophysics]{Chapter \ref*{ch:relevancetophysics}}, we examine some of the implications of Deligne's theorem on tensor categories for quantum mechanics. We start in \hyperref[sec:symmetriesinqm]{Section \ref*{sec:symmetriesinqm}} with a recollection of the role of symmetry in quantum mechanics, and in \hyperref[sec:symmetriesinqm]{Section \ref*{sec:symmetriesinqm}}, arrive at a plausible definition of a quantum system with a given symmetry $\mathcal{S}$. In \hyperref[sec:categoryofsymmetricquantumsystems]{Section \ref*{sec:categoryofsymmetricquantumsystems}}, we extend this to a definition of a category $\mathsf{QSys}(\mathcal{S})$ of quantum systems with a given symmetry, and show that this is a tensor category of subexponential growth. In \hyperref[sec:implicationsofdelignestheorem]{Section \ref*{sec:implicationsofdelignestheorem}}, we investigate some of the implications of Deligne's theorem to the category $\mathsf{QSys}(\mathcal{S})$.
+In \hyperref[ch:relevancetophysics]{Chapter \ref*{ch:relevancetophysics}}, we examine some of the implications of Deligne's theorem on tensor categories for quantum mechanics. We start in \hyperref[sec:symmetriesinqm]{Section \ref*{sec:symmetriesinqm}} with a recollection of the role of symmetry in quantum mechanics, and in \hyperref[sec:symmetricqm]{Section \ref*{sec:symmetricqm}}, arrive at a plausible definition of a quantum system with a given symmetry $\mathcal{S}$. In \hyperref[sec:categoryofsymmetricquantumsystems]{Section \ref*{sec:categoryofsymmetricquantumsystems}}, we extend this to a definition of a category $\mathsf{QSys}(\mathcal{S})$ of quantum systems with a given symmetry, and show that this is a tensor category of subexponential growth. In \hyperref[sec:implicationsofdelignestheorem]{Section \ref*{sec:implicationsofdelignestheorem}}, we investigate some of the implications of Deligne's theorem to the category $\mathsf{QSys}(\mathcal{S})$.
 
 %\chapter{The Mackey machine}
 %The \emph{Mackey machine} is another name for the so-called \emph{method of induced representations} developed by George Mackey in \cite{mackey-induced-representations}. 
@@ -286,7 +322,7 @@ In the second section, we will apply some of the machinery of algebraic geometry
 
 In the third section, we generalize the ideas of the second section, leading to a definition of an affine supergroup.
 
-In what follows, we will us the language of category theory freely. The necessary definitions and theorems have been relegated to \hyperref[ch:categories]{Appendix \ref*{ch:categories}}.
+In what follows, we will us the language of category theory freely. For completeness, the necessary definitions and theorems have been included in \hyperref[ch:categories]{Appendix \ref*{ch:categories}}.
 
 \section{Supercommutativity} \label{sec:supercommutativity}
 The goal of this section is to explain the ubiquity of supercommutativity (i.e. the Koszul sign rule) in the study of $\Z_{2}$-graded spaces. Stated roughly, the reason is this: it is the only possible `commutative' multiplication law on a $\Z_{2}$-graded algebra which knows about the grading. That is to say, the only other possible commutative multiplication law (up to an appropriate sort of isomorphism) on a $\Z_{2}$-graded algebra is the trivial one, which is equivalent to treating the vector space as ungraded. 
@@ -306,7 +342,7 @@ This section follows the presentation given in \cite{nlab-deligne-theorem}.
 \begin{lemma}
   The $\Z_{2}$-graded tensor product (\hyperref[def:tensorproduttofz2gradedvectorspaces]{Definition \ref*{def:tensorproduttofz2gradedvectorspaces}}) can be extended to a bifunctor 
   \begin{equation*}
-    \otimes\colon \mathsf{Vect}_k^{\Z_{2}} \times \mathsf{Vect}_k^{\Z_{2}} \rightsquigarrow \mathsf{Vect}_k^{\Z_{2}}.
+    \otimes\colon \mathsf{Vect}_k^{\Z_{2}} \times \mathsf{Vect}_k^{\Z_{2}} \to \mathsf{Vect}_k^{\Z_{2}}.
   \end{equation*}
 \end{lemma}
 \begin{proof}
@@ -338,13 +374,13 @@ This section follows the presentation given in \cite{nlab-deligne-theorem}.
 
 \begin{definition}[category of super vector spaces]
   \label{def:categoryofsupervectorspaces}
-  The \defn{category of super vector spaces}, denoted $\mathsf{SVect}_{k}$, is the category $\mathsf{Vect}_{k}^{\Z_{2}}$ together with the super braiding $\gamma$.
+  The symmetric monoidal \defn{category of super vector spaces}, denoted $\mathsf{SVect}_{k}$, is the category $\mathsf{Vect}_{k}^{\Z_{2}}$ together with the super braiding $\gamma$.
 \end{definition}
 
 \begin{lemma}
   The forgetful functor 
   \begin{equation*}
-    \mathcal{U}\colon \mathsf{SVect}_{k} \rightsquigarrow \mathsf{Vect}_{k}
+    \mathcal{U}\colon \mathsf{SVect}_{k} \to \mathsf{Vect}_{k}
   \end{equation*}
   which simply forgets the grading is strong monoidal (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}}).
 \end{lemma}
@@ -518,7 +554,7 @@ This section follows the presentation given in \cite{nlab-deligne-theorem}.
 
 \begin{lemma}
   \label{lemma:monoidalfunctorspreserveinternalmonoids}
-  Let $(\mathsf{C}, \otimes_{\mathsf{C}}, 1_{\mathsf{C}})$ and $(\mathsf{D}, \otimes_{\mathsf{D}}, 1_{\mathsf{D}})$ be monoidal categories, and let $(\mathcal{F}, \Phi, \varphi)$ be a lax monoidal functor $\mathsf{C} \rightsquigarrow \mathsf{D}$ (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}}). Then for any monoid $(A, \mu_{A}, e_{A})$ in $\mathsf{C}$, its image $\mathcal{F}(A)$ in $\mathsf{D}$ can be made a monoid by setting
+  Let $(\mathsf{C}, \otimes_{\mathsf{C}}, 1_{\mathsf{C}})$ and $(\mathsf{D}, \otimes_{\mathsf{D}}, 1_{\mathsf{D}})$ be monoidal categories, and let $(\mathcal{F}, \Phi, \varphi)$ be a lax monoidal functor $\mathsf{C} \to \mathsf{D}$ (\hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}}). Then for any monoid $(A, \mu_{A}, e_{A})$ in $\mathsf{C}$, its image $\mathcal{F}(A)$ in $\mathsf{D}$ can be made a monoid by setting
   \begin{equation*}
     \mu_{\mathcal{F}(A)}\colon 
     \begin{tikzcd}
@@ -542,12 +578,12 @@ This section follows the presentation given in \cite{nlab-deligne-theorem}.
   \end{equation*}
   where $\varphi$ is again the structure morphism of $\mathcal{F}$. This construction extends to a functor 
   \begin{equation*}
-    \mathsf{Mon}(\mathcal{F})\colon \mathsf{Mon}(\mathsf{C}, \otimes_{\mathsf{C}}, 1_{\mathsf{C}}) \rightsquigarrow \mathsf{Mon}(\mathsf{D}, \otimes_{\mathsf{D}}, 1_{\mathsf{D}}).
+    \mathsf{Mon}(\mathcal{F})\colon \mathsf{Mon}(\mathsf{C}, \otimes_{\mathsf{C}}, 1_{\mathsf{C}}) \to \mathsf{Mon}(\mathsf{D}, \otimes_{\mathsf{D}}, 1_{\mathsf{D}}).
   \end{equation*}
 
   Furthermore, if $\mathsf{C}$ and $\mathsf{D}$ are symmetric monoidal categories, $\mathcal{F}$ is a braided monoidal functor, and $A$ is a commutative monoid, then so is $\mathcal{F}(A)$, and this construction extends to a functor
   \begin{equation*}
-    \mathsf{CMon}(\mathcal{F})\colon \mathsf{CMon}(\mathsf{C}, \otimes_{\mathsf{C}}, 1_{\mathsf{C}}) \rightsquigarrow \mathsf{CMon}(\mathsf{D}, \otimes_{\mathsf{D}}, 1_{\mathsf{D}}). 
+    \mathsf{CMon}(\mathcal{F})\colon \mathsf{CMon}(\mathsf{C}, \otimes_{\mathsf{C}}, 1_{\mathsf{C}}) \to \mathsf{CMon}(\mathsf{D}, \otimes_{\mathsf{D}}, 1_{\mathsf{D}}). 
   \end{equation*}
 \end{lemma} 
 \begin{proof}
@@ -819,13 +855,13 @@ The above example is a reflection of the following.
 %  \label{def:functorcinfinity}
 %  Let $M$ be a $C^{\infty}$ manifold (that is, recalling \hyperref[eg:moreexamplesofcategories]{Example \ref*{eg:moreexamplesofcategories}}, an object in the category $\mathsf{SmoothMfd}$.) The functor 
 %  \begin{equation*}
-%    C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}
+%    C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \to \mathsf{Alg}_{\R}
 %  \end{equation*}
 %  is the defined by sending $M$ to the $\R$-algebra of smooth functions $M \to \R$, and morphisms $\varphi\colon M \to N$ to homomorphisms of $\R$-algebras $C^{\infty}(N) \to C^{\infty}(M)$ via the pullback. 
 %\end{definition}
 %
 %\begin{theorem}
-%  The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \rightsquigarrow \mathsf{Alg}_{\R}$ is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}).
+%  The functor $C^{\infty}\colon \mathsf{SmoothMfd}^{\mathrm{op}} \to \mathsf{Alg}_{\R}$ is fully faithful (\hyperref[def:fullfaithfulfunctor]{Definition \ref*{def:fullfaithfulfunctor}}).
 %\end{theorem}
 %\begin{proof}
 %  See \cite{KMS-natural-operations-differential-geometry}, lemma 35.8, corollaries 35.9 and 35.10.
@@ -856,7 +892,7 @@ be a set of polynomials. For any $k$-algebra $R$, we can define the \emph{zero s
   Z_{R}(S) = \left\{ (a_{1}, a_{2}, \ldots, a_{n}) \in R^{n} \,\big|\, f(a_{1}, a_{2}, \ldots, a_{n}) = 0\text{ for all }f \in S \right\}.
 \end{equation*}
 
-We can see that algebraic varieties over $R$ are precisely sets of the type $Z_{R}(S)$.
+We can see that algebraic varieties over $R$ are precisely sets of the type $Z_{R}(S)$.\footnote{We make no demands that varieties be irreducible.}
 
 This is a perfectly good definition of an algebraic variety, but it is poorly suited to the task at hand. In this section we will find a better one. First, we must make a few observations.
 
@@ -1026,17 +1062,17 @@ The generality introduced in the last section allows us to give a slick definiti
 We could equivalently say that an affine $\mathscr{A}$-variety was the formal dual to a commutative $\mathscr{A}$-algebra since by the Yoneda lemma the category of representable functors $\mathscr{A} \to \mathsf{Set}$ is equivalent to $\mathscr{A}^{\mathrm{op}}$.
 
 \begin{notation}
-  If we are given a supervariety in the form of a functor $G\colon \mathsf{SAlg}_{k} \to \mathsf{Set}$, we call the associated superalgebra $\mathscr{O}(G)$. If we are given a supercommutative superalgebra $A$, we call the associated functor $\spec(A)$. For our purposes, both $\mathscr{O}$ and $\spec$ are simply different notations for the opposite functor.
+  If we are given a supervariety in the form of a functor $G\colon \mathsf{SAlg}_{k} \to \mathsf{Set}$, we call the associated superalgebra $\mathscr{O}(G)$. If we are given a supercommutative superalgebra $A$, we call the associated functor $\spec(A)$. For our purposes, both $\mathscr{O}$ and $\spec$ are simply evocative notations for the opposite functor.
 \end{notation}
 
 Since we will be dealing only with affine supervarieties, we will often refer to them as simply supervarieties.
 
 \begin{note}
-  We do not give any definition of an affine \emph{algebraic} supervariety as we did for affine algebraic varieties. The reason for this is that the motivation for the definition of an affine algebraic variety is purely geometrical, and imagining supervarieties as embedded in $\mathbb{A}_{A}^{n}$ for $A$ a supercommutative algebra turns out not to be the correct approach. For the correct geometric interpretation of supervarieties, one needs to the theory of super schemes, which are beyond the scope of these notes. For us, it will suffice to consider supervarieties purely algebraically.
+  We do not give any definition of an affine \emph{algebraic} supervariety as we did for affine algebraic varieties. The reason for this is that the motivation for the definition of an affine algebraic variety is purely geometrical, and imagining supervarieties as embedded in $\mathbb{A}_{A}^{n}$ for $A$ a supercommutative algebra turns out not to be the correct approach. For the correct geometric interpretation of supervarieties, one needs to the theory of super-schemes, which are beyond the scope of these notes. For us, it will suffice to consider supervarieties purely algebraically.
 \end{note}
 
 \section{Supergroups as supercommutative Hopf algebras} \label{sec:supergroupsandsupercommutativehopfalgebras}
-We have seen that a variety $A$ can be viewed as the formal dual of commutative algebra $\mathscr{O}(A)$, and that a supervariety $S$ as the formal dual of a supercommutative superalgebra $\mathscr{O}(S)$. We will soon define affine (super)groups to be (super)varieties which are also groups, i.e. group objects $(A, m, e)$ in the category of affine (super)varieties. This extra structure on $A$ will correspond to extra structure on the algebra $\mathscr{O}(A)$ to which it is formally dual, giving it the structure of a \emph{Hopf algebra}. Roughly speaking, a Hopf algebra is both an algebra and a coalgebra, hence a \emph{bialgebra}, together with some extra structure. We have already seen the definition of an algebra (\hyperref[sec:algebras]{Subsection \ref*{sec:algebras}}); now we need some definitions which lead us to that of a Hopf algebra.
+We have seen that a variety $A$ can be viewed as the formal dual of commutative algebra $\mathscr{O}(A)$, and that a supervariety $S$ as the formal dual of a supercommutative superalgebra $\mathscr{O}(S)$. We will soon define affine (super)groups to be (super)varieties which are also groups, i.e. group objects $(A, m, e)$ in the category of affine (super)varieties. This extra structure on $A$ will correspond to extra structure on the algebra $\mathscr{O}(A)$ to which it is formally dual, giving it the structure of a \emph{Hopf algebra}. Roughly speaking, a Hopf algebra is both an algebra and a coalgebra (hence a \emph{bialgebra}) together with some extra structure. We have already seen the definition of an algebra (\hyperref[sec:algebras]{Subsection \ref*{sec:algebras}}); now we need some definitions which lead us to that of a Hopf algebra.
 
 \subsection{Coalgebras}
 Coalgebras are dual to algebras. In other words, to get the definition of a coalgebra, we take the definition of an algebra and turn the arrows around. More formally, we have the following.
@@ -1339,7 +1375,7 @@ From \hyperref[def:groupobject]{Definition \ref*{def:groupobject}} together with
 By the Yoneda lemma, we could equivalently say that an affine $\mathscr{A}$-group $G$ is a group internal to the category $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$, and this means that it is formally dual to a commutative Hopf algebra. Or to put it another way, there is a contravariant equivalence of categories between the category of affine (super)groups and the category of (super)commutative Hopf algebras.
 
 \begin{note}
-  We can talk about the `points' of an $\mathscr{A}$-group $G$ in terms of morphisms from the terminal object $k \in \Obj(\mathsf{Hopf}(\mathscr{A}))$.
+  We can talk about the `points' of an $\mathscr{A}$-group $G$ in terms of morphisms from the terminal object $\spec(k) \in \Obj(\mathsf{Hopf}(\mathscr{A})^{\mathrm{op}})$ to $G$.
 \end{note}
 
 \begin{example}
@@ -1477,7 +1513,7 @@ The algebraic group $\SL_{n}$ is easier to study than $\GL_{n}$ because its defi
   \end{itemize}
 \end{definition}
 
-\section{Modules and comodules in symmetric monoidal categories}
+\section{Modules and comodules in symmetric monoidal categories} \label{sec:modulesandcomodules}
 For the remainder of this section, $\mathscr{A}$ will stand for either $\mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$.
 
 \subsection{Modules}
@@ -1677,11 +1713,11 @@ For the remainder of this section, $\mathscr{A}$ will stand for either $\mathsf{
 
 \begin{example}
   \label{eg:comoduleincoordinates}
-  Let $V$ be a $k$-vector space and $C$ a $k$-coalgebra. Let $\hat{e}_{i}$ be a basis for $V$. A linear map $\rho\colon V \to V\otimes C$ is given in coordinates as 
+  Let $V$ be a $k$-vector space and $C$ a $k$-coalgebra. Let $\left\{ \hat{e}_{i} \right\}_{i ]in I}$ be a basis for $V$. A linear map $\rho\colon V \to V\otimes C$ is acts on basis vectors via
   \begin{equation*}
     \rho(\hat{e}_{i}) = \sum_{j} \hat{e}_{j} \otimes c_{ji},
   \end{equation*}
-  where the $C_{ji}$ are in $C$.
+  where $c_{ji} \in C$.
 
   In order for $\rho$ to define a comodule structure, we need 
   \begin{equation*}
@@ -2187,7 +2223,7 @@ In this section, we will study the mathematical structure of $\mathcal{S}$-symme
   such that
   \begin{enumerate}
       \setcounter{enumi}{5}
-    \item the tensor product functor $\otimes\colon \mathscr{A} \times \mathscr{A} \rightsquigarrow \mathscr{A}$ is, in both arguments separately,
+    \item the tensor product functor $\otimes\colon \mathscr{A} \times \mathscr{A} \to \mathscr{A}$ is, in both arguments separately,
       \begin{enumerate}
         \item $k$-linear (\hyperref[def:linearfunctor]{Definition \ref*{def:linearfunctor}})
 
@@ -2276,10 +2312,16 @@ Under the conditions of \hyperref[sec:categoryofsymmetricquantumsystems]{Section
   \mathsf{QSys}(\mathcal{S}) \simeq \mathsf{Rep}(G)\qquad\text{for some affine super group }G.
 \end{equation*}
 
-But what does this mean? Spelled out fully, it means we have a fully faithful, essentially surjective, braided, strong monoidal functor 
-\begin{equation*}
-  \mathcal{J}\colon \mathsf{Rep}(G) \to \mathsf{QSys}(\mathcal{S}).
-\end{equation*}
+But what does this mean? Spelled out fully, it means we have a 
+\begin{itemize}
+  \item fully faithful
+  \item essentially surjective
+  \item braided
+  \item strong monoidal 
+\end{itemize}
+functor $\mathcal{J}\colon \mathsf{Rep}(G) \to \mathsf{QSys}(\mathcal{S})$.
+
+The existence of such a functor can tell us quite a lot about the structure of $\mathsf{QSys}(\mathcal{S})$. Since $\mathcal{J}$ is essentially surjective and fully faithful, it is `bijective up to isomorphism'. That is, every object in $\mathsf{QSys}(\mathcal{S})$ is the image of some representation of $G$.
 
 \chapter{Conclusion}
 We have shown that the category $\mathsf{QSys}(\mathcal{S})$ of $\mathcal{S}$-symmetric quantum systems is a tensor category of subexponential growth, and hence by Deligne's theorem on tensor categories tensor-equivalent to the category $\mathsf{Rep}(G)$ for some affine super-group $G$. We investigated some implications of this fact.
@@ -5672,17 +5714,17 @@ Roughly speaking, a functor $\mathsf{C} \rightsquigarrow \mathsf{Set}$ is repres
 \subsection{The Yoneda embedding}
 The Yoneda embedding is a very powerful tool which allows us to prove things about any locally small category by embedding that category into $\mathsf{Set}$, and using the enormous amount of structure that $\mathsf{Set}$ has. 
 
-In the thread \cite{baez-categories-usenet} on the sci.math google group, John Baez explains the importance of the Yoneda lemma in the following way.
-
-\begin{quote}
-  Category theory can be viewed in many ways, but one is as a massive generalization of set theory.  The category $\mathsf{Set}$ has sets as objects and functions between them as morphisms.  In practice, other categories are often built by taking as objects ``sets with extra structure'' and as morphisms ``functions preserving the extra structure.''  For example, $\mathsf{Vect}$ is the category whose objects are vector spaces and whose morphisms are linear functions.  The extra structure in this case is the linear structure.  One can easily list hundreds more such examples.  
-
-  However, an abstract category needn't have as its objects ``sets with structure''---its objects are simply abstract thingamabobs!  (I would have said ``simply abstract objects'', but that would sound circular here, since it is, so I resorted to a more technical term.)  At this point the Yoneda lemma leaps to our rescue by saying that all (small enough) categories can be embedded in categories in which the objects are sets with structure and the morphisms are structure-preserving functions between these.  
-
-  Here's the basic idea of how it works, in watered-down form.  To each object $x$, we associate the set $S(x)$ of all morphisms \textit{to} $x$ from all other objects.  This set has a certain structure which one can work out, and a morphism $f\colon x \to y$ gives rise to a structure-preserving function $S(f)$ from $S(x)$ to $S(y)$ in the obvious way: given a morphism from something to $x$, just compose it with $f$ to get a morphism to $y$.
-
-  So we have taken our original category and embedded in a category of ``sets with structure.''
-\end{quote}
+%In the thread \cite{baez-categories-usenet} on the sci.math google group, John Baez explains the importance of the Yoneda lemma in the following way.
+%
+%\begin{quote}
+%  Category theory can be viewed in many ways, but one is as a massive generalization of set theory.  The category $\mathsf{Set}$ has sets as objects and functions between them as morphisms.  In practice, other categories are often built by taking as objects ``sets with extra structure'' and as morphisms ``functions preserving the extra structure.''  For example, $\mathsf{Vect}$ is the category whose objects are vector spaces and whose morphisms are linear functions.  The extra structure in this case is the linear structure.  One can easily list hundreds more such examples.  
+%
+%  However, an abstract category needn't have as its objects ``sets with structure''---its objects are simply abstract thingamabobs!  (I would have said ``simply abstract objects'', but that would sound circular here, since it is, so I resorted to a more technical term.)  At this point the Yoneda lemma leaps to our rescue by saying that all (small enough) categories can be embedded in categories in which the objects are sets with structure and the morphisms are structure-preserving functions between these.  
+%
+%  Here's the basic idea of how it works, in watered-down form.  To each object $x$, we associate the set $S(x)$ of all morphisms \textit{to} $x$ from all other objects.  This set has a certain structure which one can work out, and a morphism $f\colon x \to y$ gives rise to a structure-preserving function $S(f)$ from $S(x)$ to $S(y)$ in the obvious way: given a morphism from something to $x$, just compose it with $f$ to get a morphism to $y$.
+%
+%  So we have taken our original category and embedded in a category of ``sets with structure.''
+%\end{quote}
 
 \begin{definition}[Yoneda embedding]
   \label{def:yonedaembedding}
