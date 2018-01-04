@@ -98,6 +98,7 @@
 \newcommand{\Spec}{\mathrm{Spec}}
 \newcommand{\spec}{\mathrm{Spec}}
 \newcommand{\id}{\mathrm{id}}
+\newcommand{\abs}[1]{\left|#1\right|}
 
 % Hyphen for names of categories
 \def\mhyp{{\hbox{-}}}
@@ -135,11 +136,11 @@
   \center 
   \vspace*{\fill}
 
-  \textsc{\LARGE University of Liverpool}\\[1.5cm] % Name of your university/college
+  \textsc{\LARGE University of Liverpool}\\[1.5cm] 
 
   \HRule \\[0.4cm]
-  { \huge \bfseries Deligne's Theorem on Tensor Categories}\\[0.4cm] % Title of your document
-  { \Large \bfseries And its Implications for Quantum Mechanics}\\[0.4cm] % Subtitle of your document
+  { \huge \bfseries Deligne's Theorem on Tensor Categories}\\[0.4cm] 
+  { \Large \bfseries And its Implications for Quantum Mechanics}\\[0.4cm] 
   \HRule \\[1.5cm]
 
   \begin{minipage}{0.4\textwidth}
@@ -157,7 +158,7 @@
     \end{flushright}
   \end{minipage}\\[2cm]
 
-  {\large \today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+  {\large \today}\\[2cm] 
 
   \vspace{10em}
 
@@ -170,16 +171,11 @@
 %\tikzexternalize[prefix=figures/]
 
 \chapter{Introduction}
-%\epigraph{Algebra is the offer made by the devil to the mathematician. The devil says: I will give you this powerful machine, it will answer any questions you like. All you need to do is give me your soul: give up geometry and you will have this marvelous machine.}{M. Atiyah, 2002}
+%fakesection epigraph
+\epigraph{Algebra is the offer made by the devil to the mathematician. The devil says: I will give you this powerful machine, it will answer any questions you like. All you need to do is give me your soul: give up geometry and you will have this marvelous machine.}{M. Atiyah (2004).  \textit{Collected Works, Vol. 6}}
 
-%These are the notes I took while learning about Deligne's theorem on tensor categories and its applications to physics, in particular supersymmetry. 
-%
-%Almost none of the material is original, including the order of presentation, which follows \cite{nlab-deligne-theorem} \emph{very} closely.
-%
-%The fact that it's just a collection of notes means that it assumes as background more or less exactly what I knew before I started (although I have made some effort to keep it self-contained). 
-
-\section{History of superalgebra and supergeometry}
-\subsubsection{Supergeometry and the path integral}
+\section{History of superalgebra and supergeometry} \label{sec:historyofsuperalgebraandsupergeometry}
+\subsubsection{Supergeometry and the path integral} 
 Supergeometry as a mathematical structure came into being out of necessity, as an attempt to extend the path integral approach to quantum field theory to allow the treatment of fermionic fields.
 
 In 1948, Richard Feynman published his so-called \emph{path-integral} approach to quantum mechanics (\cite{feynmanpathintegral}). It was quickly extended to bosonic quantum field theory. However, it took quite some time for it to be applied to fermionic quantum fields. The first textbook account, \cite{berezinsecondquantization}, was published by Felix Berezin in 1965.
@@ -192,7 +188,7 @@ It turns out that the way to treat fermionic quantum fields in the path integral
 \end{equation*}
 This is puzzling since we do not know how to interpret the order of classical fields. In classical field theory, field histories are given by sections of a bundle over spacetime, and the value of a field at a point can be thought of as given by a collection of numbers of which represent, for example, the components of a vector located at that point. These numbers by definition commute with each other. The anticommutativity of fermionic classical fields means that they cannot be na\"{i}vely interpreted as classical fields in the standard sense.
 
-The correct implementation of anticommuting classical fields turned out to come from a fundamental reimagining of spacetime. Classically, spacetime is a manifold; if one augments its charts by adding additional coordinates which anticommute instead of commute, then fields, considered locally as a sort of power series in \emph{all} the variables (commuting and anticommuting) can behave non-trivially under comutation.
+The correct implementation of anticommuting classical fields turned out to come from a fundamental reimagining of spacetime. Classically, spacetime is a manifold; if one augments its charts by adding additional coordinates which anticommute instead of commute, then fields, considered locally as a sort of power series in \emph{all} the variables (commuting and anticommuting) can behave non-trivially under commutation.
 
 The mathematical formulation of such an `augmented manifold' is given by what is known as a supermanifold: one takes the standard description of a $C^{\infty}$ manifold as a locally ringed space and allows the sections to be so-called \emph{supercommutative} rings, which contain both commuting and anticommuting elements.
 
@@ -260,9 +256,9 @@ then one finds that the supercommutator satisfies the so-called \emph{super Jaco
 Note that this is simply the Jacobi identity with a factor of $-1$ every time two elements of odd degree are permuted.
 
 \section{Road map}
-In the following chapter, we see that the robustness of the Koszul sign rule is not a coincidence, but instead arises naturally from the fact that supercommutativity is just a different sort of commutativity: more precisely, supercommutativity is commutativity internalized to a different category, the category $\mathsf{SVect}_{k}$ of super vector spaces. We explore this in \hyperref[sec:supercommutativity]{Section \ref*{sec:supercommutativity}}. 
+In \hyperref[ch:superalgebraandsupergeometryincategories]{Chapter \ref*{ch:superalgebraandsupergeometryincategories}}, we will see that the robustness of the Koszul sign rule is not a coincidence, but arises naturally from the fact that supercommutativity is just a different sort of commutativity: more precisely, supercommutativity is commutativity internalized to a different category, the category $\mathsf{SVect}_{k}$ of super vector spaces. We explore this in \hyperref[sec:supercommutativity]{Section \ref*{sec:supercommutativity}}. 
 
-In \hyperref[sec:supervarieties]{Section \ref*{sec:supervarieties}}, we leverage this understanding to generalize the notion of a variety, arriving at the notion of a \emph{supervariety}.\footnote{We follow the terminology in \cite{milne-affine-group-schemes} and \cite{nlab-deligne-theorem}. The objects we define are also commonly known as affine schemes} By studying supervarieties which are also groups (i.e. group objects in the category of supervarieties), we come in \hyperref[sec:supergroupsandsupercommutativehopfalgebras]{Section \ref*{sec:supergroupsandsupercommutativehopfalgebras}} to a definition of an \emph{affine supergroup}.
+In \hyperref[sec:supervarieties]{Section \ref*{sec:supervarieties}}, we re-use the concept of internalization to generalize the notion of a variety to $\mathsf{SVect}_{k}$, arriving at the notion of a \emph{supervariety}.\footnote{We follow the terminology in \cite{milne-affine-group-schemes} and \cite{nlab-deligne-theorem}. The objects we define are also commonly known as affine schemes} By studying supervarieties which are also groups (i.e. group objects in the category of supervarieties), we come in \hyperref[sec:supergroupsandsupercommutativehopfalgebras]{Section \ref*{sec:supergroupsandsupercommutativehopfalgebras}} to a definition of an \emph{affine supergroup}.
 
 In \hyperref[sec:modulesandcomodules]{Section \ref*{sec:modulesandcomodules}}, we introduce a categorical formulation of modules and comodules. In \hyperref[sec:representationsascomodules]{Section \ref*{sec:representationsascomodules}}, we define a representation of an affine supergroup, and show that the definition is equivalent to that of a certain comodule. This allows us to make a slick definition of the category of representations of an affine supergroup by defining it as the appropriate category of comodules.
 
@@ -270,6 +266,7 @@ In \hyperref[ch:delignestheorem]{Chapter \ref*{ch:delignestheorem}}, we give the
 
 In \hyperref[ch:relevancetophysics]{Chapter \ref*{ch:relevancetophysics}}, we examine some of the implications of Deligne's theorem on tensor categories for quantum mechanics. We start in \hyperref[sec:symmetriesinqm]{Section \ref*{sec:symmetriesinqm}} with a recollection of the role of symmetry in quantum mechanics, and in \hyperref[sec:symmetricqm]{Section \ref*{sec:symmetricqm}}, arrive at a plausible definition of a quantum system with a given symmetry $\mathcal{S}$. In \hyperref[sec:categoryofsymmetricquantumsystems]{Section \ref*{sec:categoryofsymmetricquantumsystems}}, we extend this to a definition of a category $\mathsf{QSys}(\mathcal{S})$ of quantum systems with a given symmetry, and show that this is a tensor category of subexponential growth. In \hyperref[sec:implicationsofdelignestheorem]{Section \ref*{sec:implicationsofdelignestheorem}}, we investigate some of the implications of Deligne's theorem to the category $\mathsf{QSys}(\mathcal{S})$.
 
+%%fakechapter
 %\chapter{The Mackey machine}
 %The \emph{Mackey machine} is another name for the so-called \emph{method of induced representations} developed by George Mackey in \cite{mackey-induced-representations}. 
 %
@@ -315,7 +312,7 @@ In \hyperref[ch:relevancetophysics]{Chapter \ref*{ch:relevancetophysics}}, we ex
 %  \end{enumerate}
 %\end{theorem}
 
-\chapter{Superalgebra and supergeometry in categories} \label{ch:superalgebraandsupergeometryincategories}
+\chapter{Superalgebra, Supergeometry, and Super-Groups} \label{ch:superalgebraandsupergeometryincategories}
 Historically, superalgebraic strucutures were defined haphazardly by imposing the Koszul sign rule by hand.\footnote{For a traditional approach to superalgebra, see \hyperref[ch:superalgebra]{Appendix \ref*{ch:superalgebra}}.} Seemingly miraculously, this worked in the sense that if one added the appropriate sign changes to the definitions, they would turn up in the right places in the theorems. In the first part of this chapter, we will see that the appearance of the Koszul sign rule is much more natural: it is a manifestation of the fact that the supercommutativity is really just a different sort of commutativity, one which shows up naturally in the study of $\Z_{2}$-graded vector spaces. We will do this by defining supercommutative structures simply as commutative structures internal to the category of super vector spaces. 
 
 In the second section, we will apply some of the machinery of algebraic geometry to our new understanding of supercommutative algebra, and arrive at a natural definition of a supervariety.
@@ -325,11 +322,9 @@ In the third section, we generalize the ideas of the second section, leading to 
 In what follows, we will us the language of category theory freely. For completeness, the necessary definitions and theorems have been included in \hyperref[ch:categories]{Appendix \ref*{ch:categories}}.
 
 \section{Supercommutativity} \label{sec:supercommutativity}
-The goal of this section is to explain the ubiquity of supercommutativity (i.e. the Koszul sign rule) in the study of $\Z_{2}$-graded spaces. Stated roughly, the reason is this: it is the only possible `commutative' multiplication law on a $\Z_{2}$-graded algebra which knows about the grading. That is to say, the only other possible commutative multiplication law (up to an appropriate sort of isomorphism) on a $\Z_{2}$-graded algebra is the trivial one, which is equivalent to treating the vector space as ungraded. 
+The goal of this section is to explain the ubiquity of supercommutativity (i.e. the Koszul sign rule) in the study of $\Z_{2}$-graded spaces. Stated roughly, the reason is this: it is the only possible `commutative' multiplication law on a $\Z_{2}$-graded algebra which knows about the grading. That is to say, the only other possible commutative multiplication law (up to an appropriate sort of isomorphism) on a $\Z_{2}$-graded algebra is the trivial one. 
 
 \subsection{The category $\mathsf{SVect}_{k}$}
-This section follows the presentation given in \cite{nlab-deligne-theorem}.
-
 \begin{definition}[category of $\Z_{2}$-graded vector spaces]
   \label{def:categoryofz2gradedvectorspaces}
   The \defn{category of $\Z_{2}$-graded vector spaces}, i.e. the category whose objects are $\Z_{2}$-graded vector spaces (\hyperref[def:z2gradedvectorspace]{Definition \ref*{def:z2gradedvectorspace}}) and whose morphisms are $\Z_{2}$-graded vector space morphisms, is notated $\mathsf{Vect}_{k}^{\Z_{2}}$.
@@ -391,7 +386,7 @@ This section follows the presentation given in \cite{nlab-deligne-theorem}.
   \end{equation*}
   and an isomorphism
   \begin{equation*}
-    \varphi\colon 1_{\mathsf{Vect}_{k}} \to \mathcal{U}(\mathsf{SVect}_{k})
+    \varphi\colon 1_{\mathsf{Vect}_{k}} \to \mathcal{U}(1_{\mathsf{SVect}_{k}})
   \end{equation*}
   which make the necessary diagrams in \hyperref[def:monoidalfunctor]{Definition \ref*{def:monoidalfunctor}} commute.
 
@@ -405,11 +400,13 @@ This section follows the presentation given in \cite{nlab-deligne-theorem}.
   The canonical inclusion $\mathcal{I}\colon \mathsf{Vect}_{k} \hookrightarrow \mathsf{SVect}_{k}$, which sends a $k$-vector space $V$ to the super vector space with grading $V \oplus 0$ extends to a strong braided monoidal functor \hyperref[def:braidedmonoidalfunctor]{Definition \ref*{def:braidedmonoidalfunctor}}.
 \end{lemma}
 \begin{proof}
-  First, we need to show that $\mathcal{U}$ is strong monoidal, i.e. that there is a natural isomorphism with components
+  The functor $\mathcal{U}$ is strong monoidal since the obvious isomorphism with components
   \begin{equation*}
-    \Phi_{U,V}\colon (V \otimes W) \oplus 0 \to (V \oplus 0) \otimes (W \oplus 0).
+    \Phi_{U,V}\colon (V \otimes W) \oplus 0 \to (V \oplus 0) \otimes (W \oplus 0)
   \end{equation*}
-  Finding the correct isomorphism is trivial, as is showing that the appropriate diagram commutes.
+  is clearly natural.
+
+  The appropriate diagrams commute trivially with this definition.
 
   Then we need to find a morphism $\varphi\colon 1 \to 1 \oplus 0$. Again, the obvious choice is the correct one.
 
@@ -516,9 +513,7 @@ This section follows the presentation given in \cite{nlab-deligne-theorem}.
 
 \begin{definition}[category of monoids]
   \label{def:categoryofmonoids}
-  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. Denote by $\mathsf{Mon}(\mathsf{C}, \otimes, 1)$ the \defn{category of monoids in $\mathsf{C}$}, i.e. the category whose objects are monoids of $\mathsf{C}$ and whose morphism are homomorphisms.
-
-  Denote by $\mathsf{CMon}(\mathsf{C}, \otimes, 1)$ the full subcategory of $\mathsf{Mon}(\mathsf{C}, \otimes, 1)$ whose objects are commutative monoids.
+  Let $(\mathsf{C}, \otimes, 1)$ be a monoidal category. Denote by $\mathsf{Mon}(\mathsf{C}, \otimes, 1)$ the \defn{category of monoids in $\mathsf{C}$}, i.e. the category whose objects are monoids of $\mathsf{C}$ and whose morphism are homomorphisms. Denote by $\mathsf{CMon}(\mathsf{C}, \otimes, 1)$ the full subcategory of $\mathsf{Mon}(\mathsf{C}, \otimes, 1)$ whose objects are commutative monoids.
 \end{definition}
 
 \begin{lemma}
@@ -530,9 +525,7 @@ This section follows the presentation given in \cite{nlab-deligne-theorem}.
   \begin{equation*}
     e\colon 1 \to A.
   \end{equation*}
-  This is a module homomorphism by
-
-  and it is therefore unique since any other module morphism $\varphi\colon 1 \to A$ would have to make the following diagram commute, forcing $\varphi = e$.
+  This is a module homomorphism, and it is therefore unique since any other module morphism $\varphi\colon 1 \to A$ would have to make the following diagram commute, forcing $\varphi = e$.
   \begin{equation*}
     \begin{tikzcd}
       1
@@ -587,7 +580,9 @@ This section follows the presentation given in \cite{nlab-deligne-theorem}.
   \end{equation*}
 \end{lemma} 
 \begin{proof}
-  All of these are easy to see but hard to write down. The diagrams end up too big to fit comfortably on one page.
+  Omitted.
+
+ %%fakesubsection
 %  We prove that $\mu_{\mathcal{F}(A)}$ makes the associativity diagram commute; everything else is similar.
 %
 %  We want to show that the diagram 
@@ -680,7 +675,7 @@ This section follows the presentation given in \cite{nlab-deligne-theorem}.
       \end{equation*}
   \end{enumerate}
 
-  It is easy to show that these maps make the necessary diagrams commute.
+  It is routine to verify that these maps make the necessary diagrams commute.
 \end{definition}
 
 \begin{theorem}
@@ -690,19 +685,19 @@ This section follows the presentation given in \cite{nlab-deligne-theorem}.
 \begin{proof}
   The canonical injections are given by 
   \begin{equation*}
-    \iota_{1} = e_{1} \circ \rho_{E_{1}}^{-1},\qquad\text{and}\quad \iota_{2} = \lambda_{E_{2}}^{-1} \circ e_{2}.
+    \iota_{1} = (E_{1} \otimes e_{2}) \circ \rho_{E_{1}}^{-1},\qquad\text{and}\quad \iota_{2} = (e_{1} \otimes E_{2}) \circ \lambda_{E_{2}}^{-1}.
   \end{equation*}
 
-  It remains to check that for any commutative monoid $R$ and monoid homomorphisms $f_{i}\colon E_{i} \to R$, there exists a unique map $f\colon E_{1} \otimes E_{2} \to R$ making the following diagram commute.
+  It remains to check that for any commutative monoid $R$ and monoid homomorphisms $f_{i}\colon E_{i} \to R$, $i = 1$, $2$, there exists a unique map $f\colon E_{1} \otimes E_{2} \to R$ making the following diagram commute.
   \begin{equation*}
     \begin{tikzcd}[row sep=large, column sep=large]
       E_{1}
-      \arrow[r, "e_{2} \circ \rho_{E_{1}}^{-1}"]
+      \arrow[r, "\iota_{1}"]
       \arrow[rd, swap, "f_{1}"]
       & E_{1} \otimes E_{2}
       \arrow[d, "\exists!f"]
       & E_{2}
-      \arrow[l, swap, "\lambda_{E_{2}}^{-1} \circ e_{1}"]
+      \arrow[l, swap, "\iota_{2}"]
       \arrow[ld, "f_{2}"]
       \\
       & R
@@ -710,8 +705,48 @@ This section follows the presentation given in \cite{nlab-deligne-theorem}.
   \end{equation*}
 
   The map $f$ is given by the composition $m_{R} \circ (f_{1} \otimes f_{2})$. To see that this indeed makes the diagram commute, consider the composition
+  \begin{align*}
+    f \circ (E_{1} \otimes e_{2}) \circ \rho_{E_{1}}^{-1} &= m_{R} \circ (f_{1} \otimes f_{2}) \circ (E_{1} \otimes e_{2}) \circ \rho_{E_{1}}^{-1} \\
+    &= m_{R} \circ (f_{1} \otimes E_{2}) \circ (E_{1} \otimes e_{R}) \circ \rho_{E_{1}}^{-1} \\
+    &= f_{1} \circ \rho_{E_{1}} \circ \rho_{E_{1}}^{-1} \\
+    &= f_{1}.
+  \end{align*}
+
+  The verification that the triangle on the left commutes is identical.
+
+  Now suppose there exists a second morphism $\theta\colon E_{1} \otimes E_{2} \to R$ which makes the diagram commute. To see this, consider the following diagram. 
   \begin{equation*}
-    m_{R} \circ (f_{1} \otimes f_{2}) \circ e_{2} \circ \rho_{E_{1}}^{-1} = m_{R} \circ (f_{1} \otimes f_{2})(f \otimes 1_{C})
+    \begin{tikzcd}
+      E_{1} \otimes E_{2}
+      \arrow[d, "\rho_{E_{2}}^{-1} \otimes \lambda_{E_{1}}^{-1}"]
+      \arrow[ddd, bend right=90, swap, "E_{1} \otimes E_{2}"]
+      \arrow[rdd, bend left, "f_{1} \otimes f_{2}"]
+      \\
+      (E_{1} \otimes 1) \otimes (1 \otimes E_{2})
+      \arrow[d, "E_{1} \otimes e_{E_{1}} \otimes e_{E_{2}} \otimes E_{2}"]
+      \\
+      (E_{1} \otimes E_{2}) \otimes (E_{1} \otimes E_{2})
+      \arrow[r, "\theta \otimes \theta"]
+      \arrow[d, swap, "\mu_{E_{1} \otimes E_{2}}"]
+      & R \otimes R
+      \arrow[d, "\mu_{E_{R}}"]
+      \\
+      E_{1} \otimes E_{2}
+      \arrow[r, "\theta"]
+      & R
+    \end{tikzcd}
+  \end{equation*}
+  \begin{itemize}
+    \item The bottom right square commutes since $\theta$ is a monoid homomorphism.
+
+    \item The top right square commutes because of the above discussion.
+
+    \item The left square commutes because of the way unitality diagram in \hyperref[def:internalmonoid]{Definition \ref*{def:internalmonoid}}.
+  \end{itemize}
+
+  Thus the two ways of getting from the top left to the bottom right coincide, i.e.
+  \begin{equation*}
+    \theta = \mu_{E_{R}} \circ f_{1} \otimes f_{2}.
   \end{equation*}
 \end{proof}
 
@@ -882,6 +917,7 @@ The objects central to our interests will be so-called \emph{affine super-groups
 First, we must generalize the notion of an algebraic variety. Roughly speaking, an algebraic variety is a surface cut out as the zero set of a set of polynomials. 
 
 \subsection{Varieties as formal duals to algebras}
+In what follows, we will use the terminology from \cite{milne-affine-group-schemes}.
 
 Let $k$ be an algebraically closed field of characteristic zero and let 
 \begin{equation*}
@@ -903,7 +939,7 @@ This is a perfectly good definition of an algebraic variety, but it is poorly su
     \begin{equation*}
       \mathcal{V}_{\mathfrak{a}}\colon k\mhyp\mathsf{Alg} \to \mathsf{Set};\qquad R \mapsto Z_{R}(\mathfrak{a})
     \end{equation*}
-    which takes a $k$-algebra to its zero set.
+    which takes a $k$-algebra $R$ to the zero set of $R$-points of $\mathfrak{a}$.
 \end{itemize}
 
 \begin{theorem}
@@ -929,7 +965,7 @@ This is a perfectly good definition of an algebraic variety, but it is poorly su
   \end{equation*}
   which is natural in $R$.
 
-  We define $\Phi_{R}$ as follows. Let $\eta\in \Hom_{k\mhyp\mathsf{Alg}}(A, R)$. Then $\eta$ extends uniquely to a $k$-algebra homomorphism 
+  We construct $\Phi_{R}$ as follows. Let $\eta\in \Hom_{k\mhyp\mathsf{Alg}}(A, R)$. Then $\eta$ extends uniquely to a $k$-algebra homomorphism 
   \begin{equation*}
     \bar{\eta}\colon k[x_{1}, x_{2}, \ldots, x_{n}] \to R
   \end{equation*}
@@ -953,7 +989,7 @@ This is a perfectly good definition of an algebraic variety, but it is poorly su
 
   To simplify notation, let $\bar{\eta}(x_{i}) = a_{i}$.
 
-  Of course, a priori the codomain of $\Phi_{R}$ is just $R^{n}$. Our first job is to show that our map is well-defined, i.e. that for any $f \in \mathfrak{a}$, $f(a_{1}, a_{2}, \ldots a_{n}) = 0$.
+  Of course, a priori the codomain of $\Phi_{R}$ could be all of $R^{n}$. Our first job is to show that our map is well-defined, i.e. that for any $f \in \mathfrak{a}$, $f(a_{1}, a_{2}, \ldots a_{n}) = 0$.
 
   Any $f \in k[x_{1}, x_{2}, \ldots, x_{n}]$ can be written
   \begin{equation*}
@@ -1001,9 +1037,9 @@ This is a perfectly good definition of an algebraic variety, but it is poorly su
   \end{equation*}
 \end{proof}
 
-The meaning of the above theorem is that we can study the variety cut out by the zeroes of the ideal $\mathfrak{a}$ in $R^{n}$ by studying the hom-set $\Hom_{k\mhyp\mathsf{Alg}}(A = k[x_{i}]/\mathfrak{a}, R)$. There is a lot of benefit to this new perspective: we have studied hom functors in some detail, and we can apply results about them to the study of varieties.
+The meaning of the above theorem is that we can study the variety cut out by the zeroes of the ideal $\mathfrak{a}$ in $R^{n}$ by studying the hom-set $\Hom_{k\mhyp\mathsf{Alg}}(A = k[x_{i}]/\mathfrak{a}, R)$. There is a lot of benefit to this new perspective: hom functors have a lot of structure that we can now apply in the study of varieties.
 
-However, we can take this abstraction further. Since by definition any variety over $R$ is the zero-set $Z_{R}(\mathfrak{a})$ of some ideal $\mathfrak{a}$, we can view the study of varieties over $R$ as equivalent to the study of those functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ which are represented by some finitely-presented $k$-algebra $A = k[x_{i}]/\mathfrak{a}$. The image of $R$ under such a functor would be of the form $\Hom_{k\mhyp\mathsf{Alg}}(A, R)$, hence naturally isomorphic to $Z_{R}(\mathfrak{a})$.
+However, we can take this abstraction further. Since by definition any variety over $R$ is the zero-set $Z_{R}(\mathfrak{a})$ of some ideal $\mathfrak{a}$, we can view the study of varieties over $R$ as equivalent, from a categorical point of view, to the study of those functors $k\mhyp\mathsf{Alg} \to \mathsf{Set}$ which are represented by some finitely-presented $k$-algebra $A = k[x_{i}]/\mathfrak{a}$. The image of $R$ under such a functor would be of the form $\Hom_{k\mhyp\mathsf{Alg}}(A, R)$, hence naturally isomorphic to $Z_{R}(\mathfrak{a})$.
 
 This new perspective allows us to make a new definition, which will be more useful to us.
 
@@ -1045,7 +1081,7 @@ To summarize, the recipe for turning a finitely presented $k$-algebra into a var
 \end{note}
 
 \subsection{Supervarieties}
-The generality introduced in the last section allows us to give a slick definition of a (super)variety, which we will use from now on.
+As we saw in \hyperref[sec:supercommutativity]{Section \ref*{sec:supercommutativity}}, commutative algebra and supercommutative superalgebra are really the same structure internalized to different categories. This means that as long as we restrict ourselves to working categorically and using only with structure that both $\mathsf{Vect}_{k}$ and $\mathsf{SVect}_{k}$ have, we can transplant definitions from geometry directly into supergeometry, and develop both concurrently.
 %
 %\begin{definition}[algebra modelled on a tensor category]
 %  \label{def:algebramodelledonatensorcategory}
@@ -1072,7 +1108,7 @@ Since we will be dealing only with affine supervarieties, we will often refer to
 \end{note}
 
 \section{Supergroups as supercommutative Hopf algebras} \label{sec:supergroupsandsupercommutativehopfalgebras}
-We have seen that a variety $A$ can be viewed as the formal dual of commutative algebra $\mathscr{O}(A)$, and that a supervariety $S$ as the formal dual of a supercommutative superalgebra $\mathscr{O}(S)$. We will soon define affine (super)groups to be (super)varieties which are also groups, i.e. group objects $(A, m, e)$ in the category of affine (super)varieties. This extra structure on $A$ will correspond to extra structure on the algebra $\mathscr{O}(A)$ to which it is formally dual, giving it the structure of a \emph{Hopf algebra}. Roughly speaking, a Hopf algebra is both an algebra and a coalgebra (hence a \emph{bialgebra}) together with some extra structure. We have already seen the definition of an algebra (\hyperref[sec:algebras]{Subsection \ref*{sec:algebras}}); now we need some definitions which lead us to that of a Hopf algebra.
+We have seen that a variety $A$ can be viewed as the formal dual of commutative algebra $\mathscr{O}(A)$, and that a supervariety $S$ as the formal dual of a supercommutative superalgebra $\mathscr{O}(S)$. We will soon define affine (super)groups to be (super)varieties which are also groups, i.e. group objects $(A, m, e)$ in the category of affine (super)varieties. This extra structure on $A$ will correspond to extra structure on the algebra $\mathscr{O}(A)$ to which it is formally dual, giving it the structure of a \emph{Hopf algebra}. Roughly speaking, a Hopf algebra is both an algebra and a coalgebra (hence a \emph{bialgebra}) together with some extra structure. 
 
 \subsection{Coalgebras}
 Coalgebras are dual to algebras. In other words, to get the definition of a coalgebra, we take the definition of an algebra and turn the arrows around. More formally, we have the following.
@@ -1136,7 +1172,7 @@ Coalgebras are dual to algebras. In other words, to get the definition of a coal
 \end{definition}
 
 \subsection{Bialgebras and Hopf algebras}
-Bialgebras are objects $A$ which have both an algebra and coalgebra structure. 
+Bialgebras are objects which have both an algebra and coalgebra structure. 
 \begin{definition}[bialgebra]
   \label{def:bialgebra}
   Let $\mathscr{A}$ be either $\mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$. An \defn{$\mathscr{A}$-bialgebra} is the formal dual of a monoid internal to $\mathsf{CMon}(\mathscr{A})^{\mathrm{op}}$. 
@@ -1227,7 +1263,7 @@ The maps $\Delta$ and $\varepsilon$ are both algebra homomorphisms and coalgebra
     \end{tikzcd}
   \end{equation*}
 
-  The first diagram is the condition for $\Delta$ to be a coalgebra homomorphism, which it is by definition. Since $\Delta\colon 1 \to 1 \otimes 1$ is an isomorphism, we can modify the second slightly.
+  The first diagram is also the condition for $\Delta$ to be a coalgebra homomorphism, which it is by definition. Since $\Delta\colon 1 \to 1 \otimes 1$ is an isomorphism, we can modify the second slightly.
   \begin{equation*}
     \begin{tikzcd}
       1
@@ -1281,7 +1317,7 @@ The maps $\Delta$ and $\varepsilon$ are both algebra homomorphisms and coalgebra
       \arrow[d, "\tilde{\delta}"]
       & H
       \arrow[ld, "H"]
-      \arrow[l, swap, "\lambda_{H}^{-1} \circ e"]
+      \arrow[l, swap, "e \circ \lambda_{H}^{-1}"]
       \\
       & H
     \end{tikzcd}
@@ -1793,8 +1829,7 @@ For the remainder of this section, $\mathscr{A}$ will stand for either $\mathsf{
 \end{definition}
 
 \section{Representations as comodules} \label{sec:representationsascomodules}
-Let $\mathscr{A} = \mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$.
-\begin{definition}[representation of a group]
+\begin{definition}[representation]
   \label{def:representationofgroup}
   Let $G$ be an affine $\mathscr{A}$-group, and let $H = \mathscr{O}(G)$ be its dual $\mathscr{A}$-Hopf algebra. A \defn{representation} of $G$ on $V \in \Obj(\mathscr{A})$ is a natural transformation $r\colon G \to \mathrm{Aut}_{(-)\mhyp\mathsf{Mod}}(V \otimes -)$, where for any commutative $\mathscr{A}$-algebra $R$, $V \otimes R$ has the right module structure from \hyperref[eg:freemodule]{Example \ref*{eg:freemodule}}.
 
@@ -1843,7 +1878,7 @@ Let $\mathscr{A} = \mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$.
 \begin{example}
   Consider an affine algebraic group $G$ with Hopf algebra $\mathscr{O}(G) = A$.
 
-  Consider the simple case $V = k^{n}$. Let $\hat{e}_{i}$ be the canonical basis for $V$. A representation of $G$ on $V$ is a natural transformation $r\colon G \to \Aut_{(-)\mhyp\mathsf{Mod}}$ whose components are group homomorphisms $r_{R}\colon G(R) \to \Aut_{R\mhyp\mathsf{Mod}}(V \otimes R)$. Any such group homomorphism maps each element $g \in G(R)$ to an automorphism of $V \otimes R$, which is given by an $n \times n$ matrix $r_{ij}(g)$ with coefficients in $R$. This acts on elements of $V \otimes R$ via 
+  Consider the simple case $V = k^{n}$. Let $\hat{e}_{i}$ be the canonical basis for $V$. A representation of $G$ on $V$ is a natural transformation $r\colon G \to \Aut_{(-)\mhyp\mathsf{Mod}}(V \otimes (-))$ whose components are group homomorphisms $r_{R}\colon G(R) \to \Aut_{R\mhyp\mathsf{Mod}}(V \otimes R)$. Any such group homomorphism maps each element $g \in G(R)$ to an automorphism of $V \otimes R$, which is given by an $n \times n$ matrix $r_{ij}(g)$ with coefficients in $R$. This acts on elements of $V \otimes R$ via 
   \begin{equation*}
     \sum_{i} \hat{e}_{i} \otimes r_{i} \mapsto \sum_{ij} \hat{e}_{j} \otimes (r_{j}\cdot r_{ji}(g)).
   \end{equation*}
@@ -1871,7 +1906,7 @@ Let $\mathscr{A} = \mathsf{Vect}_{k}$ or $\mathsf{SVect}_{k}$.
 \end{definition}
 
 
-\section{Super fiber functors and their automorphism groups}
+\section{Super fiber functors}
 This section follows \cite{nlab-deligne-theorem} closely, and is included mainly for completeness.
 
 We would like to view tensor categories $\mathscr{A}$ as categories of representations. Thus, we would like to be able to view the objects of $\mathscr{A}$ as being the objects of some other category $\mathscr{V}$, plus some extra structure. The extra structure should be extra in the sense that it is forgettable, so there should be a forgetful functor
@@ -1889,7 +1924,7 @@ For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \
     \item All of the hom-spaces are finite-dimensional as $k$-vector spaces.
   \end{enumerate}
 
-  Let $R \in \mathsf{CMon}(\mathsf{Ind}(\mathscr{T}))$, where $\mathsf{Ind}(\mathscr{T})$ is the \emph{category of inductive objects over $\mathscr{T}$}, see \hyperref[def:categoryofindobjects]{Definition \ref*{def:categoryofindobjects}}.
+  Further, let $R \in \mathsf{CMon}(\mathsf{Ind}(\mathscr{T}))$, where $\mathsf{Ind}(\mathscr{T})$ is the \emph{category of inductive objects over $\mathscr{T}$}, see \hyperref[def:categoryofindobjects]{Definition \ref*{def:categoryofindobjects}}.
 
   A tensor functor (\hyperref[def:tensorfunctor]{Definition \ref*{def:tensorfunctor}})
   \begin{equation*}
@@ -1908,6 +1943,7 @@ For example, the category $\mathsf{FinRep}_{k}(G) = \mathsf{Func}(\mathbf{B}G, \
   \end{equation*}
 \end{definition}
 
+%%fakesection Super-exterior powers and Schur functors
 %\section{Super-exterior powers and Schur functors}
 %One of the core ideas of category theory is that the intrinsic structure of an object can often be best understood by studying its relationships to other objects. For $V$ a vector space, one defines its dimension $\dim(V)$ as the cardinality of any linearly independent spanning subset of $V$. When moving to the category $\mathsf{Vect}_{k}$, one does not have the option of defining things in terms of elements. However, there is an alternate way of defining $\dim(V)$ which does not reference the elements: it is the smallest natural number $n$ such 
 %\begin{equation*}
@@ -1970,7 +2006,7 @@ The following statement of Deligne's theorem was taken, mutatis mutandis, from \
     \item $\mathscr{A}$ is of subexponential growth (\hyperref[def:subexponentialgrowth]{Definition \ref*{def:subexponentialgrowth}}).
   \end{enumerate}
 
-  Then $\mathscr{A}$ is a neutral super Tannakian category (REF), and there exists 
+  Then $\mathscr{A}$ is a neutral super Tannakian category (\hyperref[def:suberfiberfunctorneutralsupertannakiancategory]{Definition \ref*{def:suberfiberfunctorneutralsupertannakiancategory}}), and there exists 
   \begin{enumerate}
     \item an affine supergroup $G$ (\hyperref[def:affinesuperornotgroup]{Definition \ref*{def:affinesuperornotgroup}}) whose algebra of functions $\mathscr{O}(G)$ is a finitely-generated $k$-algebra, and 
 
@@ -1978,7 +2014,7 @@ The following statement of Deligne's theorem was taken, mutatis mutandis, from \
       \begin{equation*}
         \mathscr{A} \simeq \mathsf{Rep}(G)
       \end{equation*}
-      between $\mathscr{A}$ and the category of representations of $G$ of finite-dimension, according to REF.
+      between $\mathscr{A}$ and the category of representations of $G$ of finite-dimension.
   \end{enumerate}
 \end{theorem}
 Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheorem}} (\cite{deligne-categories-tensorielle}) can be broken down into the following steps.
@@ -1997,6 +2033,10 @@ Deligne's proof of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheo
 
 \section{What does it mean?}
 For us, the meaning of \hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheorem}} is the following: given any tensor category $\mathscr{A}$ of subexponential growth, there exists an affine super group $G$ such that $\mathscr{A}$ is categorically equivalent to $\mathsf{Rep}(G)$, where the categorical equivalence is given by tensor functors (that is, braided strong monoidal functors).
+
+\begin{note}
+  In general the group $G$ is not unique; two affine super-groups $G$ and $H$ can have tensor-equivanent categories of representations. This is known as Morita equivalence.
+\end{note}
 
 \chapter{Relevance to physics} \label{ch:relevancetophysics}
 
@@ -2022,7 +2062,7 @@ Consider the non-relativistic free particle in one dimension. For simplicity we 
   H = -\frac{1}{2} \tder{^{2}}{x^{2}}.
 \end{equation*}
 
-According to the standard treatment (e.g. section 4.2 of \cite{binneyphysicsofqm}), an operator on $L^{2}(\R)$ is a symmetry if it commutes with the Hamiltonian. Taking this definition, the free particle propagating in one-dimensional has two important classes of symmetries.
+According to the standard treatment (e.g. section 4.2 of \cite{binneyphysicsofqm}), we say that an operator on $L^{2}(\R)$ is a symmetry if it commutes with the Hamiltonian. Taking this definition, the free particle propagating in one-dimensional has two important classes of symmetries.
 \begin{enumerate}
   \item Translation symmetry, i.e. for each $a \in \R$ an operator 
     \begin{equation*}
@@ -2066,18 +2106,18 @@ As we saw in the last section, the postulate that the state vector $\psi$ evolve
 
 Thus, we should think of a quantum system as consisting of the following.
 \begin{enumerate}
-  \item A separable complex Hilbert space $\mathscr{H}$ in which our state vectors live.\footnote{Note that standard quantum mechanics, the Hilbert space is infinite-dimensional. In this case we do not even really have to think of the Hilbert space as included in the data, since there is only one infinite-dimensional separable Hilbert space up to isomorphism.}
+  \item A separable complex Hilbert space $\mathscr{H}$ in which our state vectors live.\footnote{In standard quantum mechanics, the Hilbert space is almost always assumed to be infinite-dimensional. In this case we do not even really have to think of the Hilbert space as included in the data, since there is only one infinite-dimensional separable Hilbert space up to isomorphism.}
 
   \item A collection of operators which implement symmetry transformations.
 
 \end{enumerate}
 
-We are being intentionally vague about what sort of operators are allowed, and what sort of symmetry transformations we want to include. This is a complicated question to which we hope to present a partial answer. However, we give the following example which illustrates the most common way of specifying such a collection of symmetry transformations.
+We are being intentionally vague about what sort of operators are allowed, and what sort of symmetry transformations we want to include. This is a complicated question to which we hope to present a partial answer. In the meantime, we give the following example which illustrates the most common way of specifying such a collection of symmetry transformations.
 
 \begin{example}
   Suppose we decide that we want to study a quantum mechanical system which is invariant under some group $G$ of symmetries. Fix some state $\psi$. Each element $g \in G$ will map $\psi$ to some other state $\psi' = \hat{g}\psi$; in our example, the time translation $U_{s}$ maps $\psi(t)$ to $\psi(t + s)$. Furthermore, we want the states $\hat{g}\psi$ to obey the reasonable condition that 
   \begin{equation*}
-    h(g\psi) = (hg)\psi.
+    \hat{h}(\hat{g}\psi) = \widehat{hg}\psi.
   \end{equation*}
   This means that the action of $G$ on $\mathscr{H}$ is given by a representation 
   \begin{equation*}
@@ -2118,77 +2158,100 @@ This is rather draconian, but it has an arguably reasonable interpretation: we w
 
 This excludes a great deal of physically interesting quantum mechanical systems from the discussion: for example, the only symmetries of the simple harmonic oscillator in one dimension are time translation and parity, so one would not be justified in talking about the position operator. In practice, when dealing with the harmonic oscillator, we borrow operators from the free theory which has full Galilean invariance. 
 
-This provides another interpretation: we are investigating only the possible sorts of kinematics our quantum theories can exhibit, without restricting the kinetics. That is, we are looking at the possible symmetries that quantum spacetime can have without paying attention to the details of the interactions which can take place.
-
-We can formalize this notion of a symmetric quantum system in a definition.
+This provides another interpretation: we are investigating only the possible sorts of kinematics our quantum theories can exhibit, without restricting the dynamics. That is, we are looking at the possible symmetries that quantum spacetime can have without paying attention to the details of the interactions which can take place.
 
 \begin{definition}
   \label{def:symmetricquantumsystem}
-  For any set $\mathcal{S}$, an \defn{$\mathcal{S}$-symmetric quantum system} is a tuple $(\mathscr{H}, \varphi)$, where
+  Let $S$ be a set. A \defn{symmetric quantum system} is a tuple $(\mathscr{H}, \varphi)$, where
   \begin{itemize}
     \item $\mathscr{H}$ is a separable Hilbert space, and 
 
-    \item $\varphi\colon \mathcal{S} \to \mathcal{L}(\mathscr{H})$ maps the elements of $\mathcal{S}$ to linear operators on $\mathscr{H}$. The elements in the range of $\varphi$ are called the \emph{symmetry operators}.
+    \item $\varphi\colon S \to \Aut(\mathscr{H})$ maps the elements of $S$ to invertible linear operators on $\mathscr{H}$. The elements in the range of $\varphi$ are called the \emph{symmetry operators}.
   \end{itemize}
 \end{definition}
 
-So far we have made no mention of the form that the symmetry operators take: they are just the images of the elements of some set. Now we need to make some assumptions. 
+\begin{note}
+  So far, it would be arguably cleaner (though certainly equivalent) to forget about the set $S$ entirely and talk instead about its image as a set of operators on $\mathscr{H}$. However, we need $S$ for technical reasons, as we will see shortly.
+\end{note}
 
-\begin{itemize}
+So far we have made no mention of the form that the symmetry operators take: they are just the images of the elements of some set. Now we need to make some assumptions.
+
+\begin{enumerate}[label=\Roman*.]
   \item First, we make a \emph{huge} simplifying assumption: we restrict our attention to finite-dimensional quantum systems, i.e. quantum systems whose underlying Hilbert space is finite-dimensional. 
 
-  \item Next, we say that two systems have the same underlying symmetry if the symmetry operators are the images of the same set $\mathcal{S}$. 
-    \begin{itemize}
-      \item Since for any set $\mathcal{S}$ and every Hilbert space $\mathscr{H}$ there is a function which maps every element of $\mathcal{S}$ to $\mathrm{id}_{\mathscr{H}}$, we can view any Hilbert space as possessing any symmetry trivially.
-    \end{itemize}
+  \item Next, we demand that there should be some notion of two quantum systems having the same symmetry $\mathcal{S}$, and that we can speak about the collection of all quantum systems which have the symmetry $\mathcal{S}$. If a quantum system has the symmetry $\mathcal{S}$, we will say that it is \emph{$\mathcal{S}$-symmetric}. We make no assumptions about what `the same symmetry' means as of yet, except that the symmetry operators should be the images of the same set $S$.
 
-  \item We demand that given two $\mathcal{S}$-symmetric quantum systems $(\mathscr{H}, \varphi)$ and $(\mathscr{H}', \varphi')$, we define the $\mathcal{S}$-symmetric composite system $(\mathscr{H}'', \varphi'')$ as follows.
-    \begin{itemize}
-      \item As with regular old quantum mechanics, the Hilbert space $\mathscr{H}''$ underlying the composite system is given by the tensor product $\mathscr{H} \otimes \mathscr{H}'$ of the Hilbert spaces of the component systems. 
+  \item We demand that for any set $S$ and any finite-dimensional Hilbert space $\mathscr{H}$, the symmetric quantum system $(\mathscr{H}, \varphi)$ trivially exhibits \emph{every} symmetry, where $\varphi$ is the function which maps every element of $S$ to $\mathrm{id}_{\mathscr{H}}$.
 
-      \item The function $\varphi''\colon \mathcal{S} \to \mathscr{H}_{1} \otimes \mathscr{H}_{2}$ is given by
-        \begin{equation*}
-          \varphi''(s) = \varphi_{1}(s) \otimes \varphi_{2}(s).
-        \end{equation*}
-    \end{itemize}
+  \item We demand that given two $\mathcal{S}$-symmetric quantum systems $(\mathscr{H}, \varphi)$ and $(\mathscr{H}', \varphi')$, there must be an $\mathcal{S}$-symmetric composite system $(\mathscr{H}'', \varphi'')$ whose underlying Hilbert space is given by the tensor product $\mathscr{H} \otimes \mathscr{H}'$ of the Hilbert spaces of the component systems. We further demand that this creation be functorial.
 
-  \item We can swap the order in which we consider taking the composite system, i.e. for any two  $\mathcal{S}$-symmetric quantum systems $(\mathscr{H}, \varphi)$ and $(\mathscr{H}', \varphi')$ there is a natural isomorphism 
+  \item We demand that we be able to swap the order in which we consider taking the composite system, i.e. that for any two  $\mathcal{S}$-symmetric quantum systems $(\mathscr{H}, \varphi)$ and $(\mathscr{H}', \varphi')$ there be a natural isomorphism\footnote{Of course, for the isomorphism $\gamma$ to be natural, we need to know what the appropriate sort of morphism is; we will come to this shortly.} 
     \begin{equation*}
       \gamma\colon \mathscr{H} \otimes \mathscr{H}' \to \mathscr{H}' \otimes \mathscr{H}.
     \end{equation*}
-    We further demand that $\gamma$ preserve the symmetries in the sense that for any $s \in \mathcal{S}$,
+
+    We further demand that $\gamma$ preserve the symmetries in the sense that for any $s \in S$,
     \begin{equation*}
-      \gamma \circ (\varphi(s) \otimes \varphi'(s)) = (\varphi'(s) \otimes \varphi(s)) \circ \gamma.
+      \gamma \circ \varphi''(s) = \varphi''(s) \circ \gamma.
     \end{equation*}
 
-    Note that we do \emph{not} assume that this is given by the standard braiding of the tensor product which sends $v \otimes w \mapsto w \otimes v$; we allow for more general isomorphisms.
+    Note that we do \emph{not} assume that $\gamma$ is the standard braiding of the tensor product which sends $v \otimes w \mapsto w \otimes v$; we allow for more general isomorphisms.
 
   \item However, we demand that if we swap our systems twice, we get back the system we started with.\footnote{It is not entirely clear that this assumption is justified; for example, 2-$d$ QFTs can exhibit braid group symmetry; see for example \cite{braidstatisticsinlocalqft}.}
 
-  \item Lastly, for any $\mathcal{S}$-symmetric quantum system $\mathscr{H}$ with symmetry operators $\varphi(s)$, we define the dual space to be the space $(\mathscr{H}^{*}, \varphi^{*})$ with symmetry operators $\varphi(s)^{*}$.
-\end{itemize}
+  \item For any $\mathcal{S}$-symmetric quantum system $\mathscr{H}$ with symmetry operators $\varphi(s)$, we demand that the dual space, defined to be the space $(\mathscr{H}^{*}, \left( \varphi^{-1} \right)^{*})$ with symmetry operators $\left( \varphi(s)^{-1} \right)^{*}$, be $\mathcal{S}$-symmetric.
 
-The only other maps we consider on $\mathscr{H}$ are those which commute with the symmetries operators. That is, we allow only linear maps $L\colon \mathscr{H} \to \mathscr{H}$ such that 
-\begin{equation*}
-  \varphi(s)L = L \varphi(s)
-\end{equation*}
-for all $s \in \mathcal{S}$. 
+  \item The only other maps we consider on $\mathscr{H}$ are those which commute with the symmetry operators. That is, we allow only linear maps $L\colon \mathscr{H} \to \mathscr{H}$ such that 
+    \begin{equation*}
+      \varphi(s)L = L \varphi(s)
+    \end{equation*}
+    for all $s \in S$. 
 
-For two $\mathcal{S}$-symmetric quantum systems $(\mathscr{H}, \varphi)$ and $(\mathscr{H}', \varphi')$ we also consider maps $L\colon \mathscr{H} \to \mathscr{H}'$ such that
-\begin{equation*}
-  L \varphi(s) = \varphi'(s) L
-\end{equation*}
+    We can also consider maps between different symmetric quantum systems. For two $\mathcal{S}$-symmetric quantum systems $(\mathscr{H}, \varphi)$ and $(\mathscr{H}', \varphi')$ we also consider maps $L\colon \mathscr{H} \to \mathscr{H}'$ such that
+    \begin{equation*}
+      L \varphi(s) = \varphi'(s) L
+    \end{equation*}
 
-One reason for considering symmetric quantum systems in the generality of \hyperref[def:symmetricquantumsystem]{Definition \ref*{def:symmetricquantumsystem}} as opposed to, say, working with group representations from the beginning is that in practice, physicists do not always work with group representations. For example, one often works only with a representation of a Lie algebra, whose elements are interpreted as infinitesimal transformations. We would like our definition of a symmetric quantum space to be broad enough to include these more general notions of symmetry.
+  \item We demand that given a morphism $L\colon (\mathscr{H}_{1}, \varphi_{1}) \to (\mathscr{H}_{2}, \varphi_{2})$, the kernel and cokernel of $L$ are $\mathcal{S}$-symmetric quantum systems in the following way.
+
+    The kernel of a map $L\colon (\mathscr{H}_{1}, \varphi_{1}) \to (\mathscr{H}_{2}, \varphi_{2})$ is, as a vector space, the subspace $\ker(L) \subset\mathscr{H}_{1}$. Each $\varphi(s)$ fixes the kernel since for any $v \in \ker(L)$
+    \begin{equation*}
+      L \varphi_{1}(s) v = \varphi_{2}(s) L v = 0,
+    \end{equation*}
+    so $\varphi_{1}(s) v$ is also in $\ker(L)$. Thus for each $s \in S$, the map $\varphi(s)$ restricts to a map $\ker(L) \to \ker(L)$, and we demand that $(\ker(L), \varphi_{1}|_{\ker(L)})$ be an $\mathcal{S}$-symmetric quantum space.
+
+    Similarly, if $w \in \im(L)$, then there exists $v \in \mathscr{H}_{1}$ such that $w = Lv$. But then 
+    \begin{equation*}
+      \varphi_{2}(s)w = \varphi_{2}(s) Lv = L(\varphi_{1}(s) v),
+    \end{equation*}
+    so $\varphi_{2}(s) v \in \im(L)$. Thus, $\varphi_{2}$ fixes $\im(L)$, so it descends to a map $\varphi_{2}/L$ on $\mathscr{H}_{2}/\im(L)$ via
+    \begin{equation*}
+      (\varphi_{2}/L)(s)\left( v + \im(L) \right) \equiv \varphi_{2}(s)(v) + \im(L).
+    \end{equation*}
+
+    This is well-defined since if $v' = v + w$ with $w \in \im(L)$, 
+    \begin{align*}
+      (\varphi_{2}/L)(s)\left( v' + \im(L) \right) &= \varphi_{2}(s)(v') + \im(L) \\
+      &= \varphi_{2}(s)(v + w) + \im(L) \\
+      &= \varphi_{2}(s)(v) + \im(L) \\
+      &= (\varphi_{2}/L)(s)\left( v + \im(L) \right).
+    \end{align*}
+
+    Thus, we demand that $(\mathscr{H}_{2}/\im(L), \varphi_{2}/L)$ be an $\mathcal{S}$-symmetric quantum space.
+\end{enumerate}
+
+Clearly, some of these assumptions are more reasonable than others. Assumptions I-VII are the standard properties of finite-dimensional quantum mechanics. Assumption VIII, which assumes the existence of dual systems, can be viewed in certain circumstances as mandating the existence of anti-systems, of which antiparticles are one class of examples. Assumption IX, applied to maps from a symmetric quantum system to itself, reiterates that we are only interested in morphisms which are symmetry-equivariant, but we cannot interpret it in this way when considering maps between different systems.\footnote{One can actually interpret intertwiners between different systems this way in certain circumstances, for example within perturbation theory: one can treat the }
+
+One reason for considering symmetric quantum systems in the generality of \hyperref[def:symmetricquantumsystem]{Definition \ref*{def:symmetricquantumsystem}} as opposed to, say, working with group representations from the beginning is that in practice, physicists do not always work with group representations. For example, one often works only with a representation of a Lie algebra, whose elements are interpreted as infinitesimal transformations, without ever actually exponentiating. We would like our definition of a symmetric quantum space to be broad enough to include these more general notions of symmetry.
 
 \section{The category of $\mathcal{S}$-symmetric quantum systems} \label{sec:categoryofsymmetricquantumsystems}
 In this section, we will study the mathematical structure of $\mathcal{S}$-symmetric quantum systems.
 
 \begin{definition}
   \label{def:categoryofsymmetricquantumsystems}
-  For any set $\mathcal{S}$, let $\mathsf{QSys}(\mathcal{S})$ be the category whose objects are finite-dimensional $\mathcal{S}$-symmetric quantum systems and whose morphisms are linear maps which commute with the symmetry operators in the sense that for two $\mathcal{S}$-symmetric quantum systems $(\mathscr{H}, \varphi)$ and $(\mathscr{H}', \varphi') \in \Obj(\mathsf{QSys}(\mathcal{S}))$, 
+  Let $\mathsf{QSys}(\mathcal{S})$ be the category whose objects are finite-dimensional $\mathcal{S}$-symmetric quantum systems and whose morphisms are linear maps which commute with the symmetry operators in the sense that for two $\mathcal{S}$-symmetric quantum systems $(\mathscr{H}, \varphi)$ and $(\mathscr{H}', \varphi') \in \Obj(\mathsf{QSys}(\mathcal{S}))$, 
   \begin{equation*}
-    \Hom_{\mathsf{QSys}(\mathcal{S})}(\mathscr{H}_{1}, \mathscr{H}_{2}) = \left\{ L\colon \mathscr{H}_{1} \to \mathscr{H}_{2}:\ L\varphi(s) = \varphi'(s)L\text{ for all }s \in \mathcal{S} \right\}.
+    \Hom_{\mathsf{QSys}(\mathcal{S})}(\mathscr{H}_{1}, \mathscr{H}_{2}) = \left\{ L\colon \mathscr{H}_{1} \to \mathscr{H}_{2}:\ L\varphi(s) = \varphi'(s)L\text{ for all }s \in S \right\}.
   \end{equation*}
 
   The unit morphism is the identity map, and we can compose morphisms because for symmetric quantum systems and morphisms as follows
@@ -2201,7 +2264,7 @@ In this section, we will study the mathematical structure of $\mathcal{S}$-symme
       & (C, \varphi'')
     \end{tikzcd}
   \end{equation*}
-  and any $s \in \mathcal{S}$, we have 
+  and any $s \in S$, we have 
   \begin{equation*}
     (\varphi(s) \circ L') \circ L = (L' \circ \varphi'(s)) \circ L = L' \circ (\varphi'(s) \circ L) = L' \circ (L \circ \varphi''(s)).
   \end{equation*}
@@ -2240,15 +2303,15 @@ In this section, we will study the mathematical structure of $\mathcal{S}$-symme
       \begin{equation*}
         L\colon V \to V' \qquad\text{and}\qquad L'\colon V' \to V
       \end{equation*}
-      such that 
+      such that $L' \circ L = \mathrm{id}_{V}$, $L \circ L' = \mathrm{id}_{V'}$ (i.e. $L' = L^{-1}$), and
       \begin{equation*}
-        L \circ \varphi(s) = \varphi'(s) \circ L'\qquad\text{for all }s \in \mathcal{S}.
+        L \circ \varphi(s) \circ L^{-1} = \varphi'(s)\qquad \text{for all }s \in S.
       \end{equation*}
-      That means that for each $n \in \N$ there are at most as many isomorphism classes as there are functions $\mathcal{S} \to k^{n}$. These certainly fit in a set, so $\mathsf{QSys}(\mathcal{S})$ is essentially small.
+      The invertibility of $L$ means that two representation spaces of different dimension can never be isomorphic, and the intertwining condition means that for each $n \in \N$ there are at most as many isomorphism classes as there are functions $S \to \Aut_{\mathsf{QSys}(\mathcal{S})}(k^{n})$. For each $n$ these certainly fit in a set, and since the set of isomorphism classes is the union over $n \in \N$ of the $n$-dimensional isomorphism classes $\mathsf{QSys}(\mathcal{S})$ is essentially small.
 
-    \item 
+    \item We need to check that $\mathsf{QSys}(\mathcal{S})$ is $\mathsf{Ab}$-enriched, has binary coproducts and a zero object, has kernels and cokernels, and is binormal.
       \begin{itemize}
-        \item For any $L$, $M\colon (\mathscr{H}, \varphi) \to (\mathscr{H}', \varphi')$, 
+        \item $\mathsf{Ab}$-enriched: for any $L$, $M\colon (\mathscr{H}, \varphi) \to (\mathscr{H}', \varphi')$, 
           \begin{equation*}
             (L+M)\varphi = L\varphi + M\varphi = \varphi'L + \varphi'M = \varphi'(L+M)
           \end{equation*}
@@ -2258,37 +2321,29 @@ In this section, we will study the mathematical structure of $\mathcal{S}$-symme
           \end{equation*}
           so $\mathsf{QSys}(\mathcal{S})$ is enriched over abelian groups with a compatible $k$-linear structure.
 
-        \item The biproduct of $\mathcal{S}$-symmetric quantum spaces is given by the direct sum of vector spaces:
+        \item The coproduct of $\mathcal{S}$-symmetric quantum spaces is given by the direct sum of vector spaces:
           \begin{equation*}
-            (\mathscr{H}_{1}, \varphi_{1}) \amalg (\mathscr{H}_{2}, \varphi_{2}) = (\mathscr{H}_{1} \oplus \mathscr{H}_{2}, \varphi_{1} \oplus \varphi_{2}),
+            (\mathscr{H}_{1} \oplus \mathscr{H}_{2}, \varphi_{1} \oplus \varphi_{2}),
           \end{equation*}
           where $\varphi_{1} \oplus \varphi_{2}$ is defined by
           \begin{equation*}
             (\varphi_{1} \oplus \varphi_{2})(s) = \varphi_{1}(s) \oplus \varphi_{2}(s).
           \end{equation*}
 
-          The zero object is $(0, \varphi)$, where $0$ is the zero $\C$-vector space.
+          The zero object is $(0, \varphi)$, where $0$ is the zero vector space and $\varphi$ is the unique map to the trivial group $\Aut(0)$.
 
-        \item The kernel of a map $L\colon (\mathscr{H}_{1}, \varphi_{1}) \to (\mathscr{H}_{2}, \varphi_{2})$ is, as a vector space, the subspace $\ker(L) \subset\mathscr{H}_{1}$. Each $\varphi(s)$ fixes the kernel since for any $v \in \ker(L)$
-          \begin{equation*}
-            L \varphi_{1}(s) v = \varphi_{2}(s) L v = 0,
-          \end{equation*}
-          so $\varphi_{1}(s) v$ is also in $\ker(L)$. Thus for each $s \in \mathcal{S}$, the map $\varphi(s)$ restricts to a map $\ker(L) \to \ker(L)$, and $(\ker(L), \varphi_{1}|_{\ker(L)})$ is an $\mathcal{S}$-symmetric quantum space.
+        \item Every morphism has a kernel and a cokernel by condition X.
 
-          Similarly, if $w \in \im(L)$, then there exists $v \in \mathscr{H}_{1}$ such that $w = Lv$. But then 
-          \begin{equation*}
-            \varphi_{2}(s)w = \varphi_{2}(s) Lv = L(\varphi_{1}(s) v),
-          \end{equation*}
-          so $\varphi_{2}(s) v \in \im(L)$. Thus, $\varphi_{2}$ fixes $\im(L)$.
+        \item Binormality: Just like in $\mathsf{Vect}_{k}$, every monomorphism is the kernel of its cokernel, and every epimorphism is the cokernel of its kernel.
       \end{itemize}
 
-    \item For any $\mathcal{S}$-symmetric quantum space $(\mathscr{H}, \varphi)$, the dual object is the 
+    \item For any $\mathcal{S}$-symmetric quantum space $(\mathscr{H}, \varphi)$, the dual object is the system postulated by VIII.
 
     \item[4-5.] The bifunctor is given by the creation of composite systems:
       \begin{equation*}
         (\mathscr{H}_{1}, \mathscr{H}_{2}) \mapsto \mathscr{H}_{1} \otimes \mathscr{H}_{2}.
       \end{equation*}
-      Its functoriality follows from that of the monoidal structure on $\mathsf{FinVect}_{\C}$.
+      It is functorial by assumption.
 
       The associator is also inherited from the tensor product on $\mathsf{FinVect}_{\C}$. The unit element is the trivial quantum system $(\C, \varphi)$, where $\varphi(s) = \mathrm{id}_{\C}$ for all $s$.
 
@@ -2307,7 +2362,7 @@ In this section, we will study the mathematical structure of $\mathcal{S}$-symme
 \end{proof}
 
 \section{Implications of Deligne's theorem} \label{sec:implicationsofdelignestheorem}
-Under the conditions of \hyperref[sec:categoryofsymmetricquantumsystems]{Section \ref*{sec:categoryofsymmetricquantumsystems}}, we have constructed a category $\mathsf{QSys}(\mathcal{S})$ whose objects are finite-dimensional symmetric quantum spaces and whose morphisms are intertwiners, and shown that it is a tensor category of subexponential growth. Deligne's theorem tells us that this category is tensor-equivalent to the category $\mathsf{Rep}(G)$ for some affine algebraic super group $G$. That is, 
+We have constructed a category $\mathsf{QSys}(\mathcal{S})$ whose objects are finite-dimensional symmetric quantum spaces and whose morphisms are intertwiners, and shown that it is a tensor category of subexponential growth. Deligne's theorem (\hyperref[thm:delignestheorem]{Theorem \ref*{thm:delignestheorem}}) tells us that this category is tensor-equivalent to the category $\mathsf{Rep}(G)$ for some affine algebraic super group $G$. That is, 
 \begin{equation*}
   \mathsf{QSys}(\mathcal{S}) \simeq \mathsf{Rep}(G)\qquad\text{for some affine super group }G.
 \end{equation*}
@@ -2321,13 +2376,34 @@ But what does this mean? Spelled out fully, it means we have a
 \end{itemize}
 functor $\mathcal{J}\colon \mathsf{Rep}(G) \to \mathsf{QSys}(\mathcal{S})$.
 
-The existence of such a functor can tell us quite a lot about the structure of $\mathsf{QSys}(\mathcal{S})$. Since $\mathcal{J}$ is essentially surjective and fully faithful, it is `bijective up to isomorphism'. That is, every object in $\mathsf{QSys}(\mathcal{S})$ is the image of some representation of $G$.
+The existence of such a functor can tell us quite a lot about the structure of $\mathsf{QSys}(\mathcal{S})$. Since $\mathcal{J}$ is essentially surjective and fully faithful, it is `bijective up to isomorphism'. That is, every object in $\mathsf{QSys}(\mathcal{S})$ is the image under $\mathcal{J}$ of a representation of $G$ which is unique up to isomorphism. This means that 
+
+\begin{note}
+  \label{note:lackofrigor}
+  The rest of this section is not fully rigorous. In particular, I have not had time to fully flesh out the relationship between bona fide affine groups (i.e. actual algebraic subsets of $\C^{n}$ which are also groups, with group operations given by regular morphisms, etc.) and what I, following \cite{milne-affine-group-schemes}, have been calling affine varieties, i.e. affine group schemes. I am taking for granted that talking about affine group schemes $G$ in terms of their `sets of points' (i.e. the set of morphisms to $G$ from the terminal object) is valid, and that in these terms the category $\mathsf{Rep}(G)$ really behaves like a category whose objects are representations and whose morphisms are intertwiners.
+\end{note}
+
+
 
 \chapter{Conclusion}
-We have shown that the category $\mathsf{QSys}(\mathcal{S})$ of $\mathcal{S}$-symmetric quantum systems is a tensor category of subexponential growth, and hence by Deligne's theorem on tensor categories tensor-equivalent to the category $\mathsf{Rep}(G)$ for some affine super-group $G$. We investigated some implications of this fact.
+%We have shown that the category $\mathsf{QSys}(\mathcal{S})$ of $\mathcal{S}$-symmetric quantum systems is a tensor category of subexponential growth, and hence by Deligne's theorem on tensor categories tensor-equivalent to the category $\mathsf{Rep}(G)$ for some affine super-group $G$. We investigated some implications of this fact.
 
-If one believes that the definition given in \hyperref[sec:categoryofsymmetricquantumsystems]{Section \ref*{sec:categoryofsymmetricquantumsystems}} of the category of quantum systems with a given symmetry is a good one, then Deligne's theorem gives a purely mathematical reason for supergeometry to manifest itself as the 
+If one believes that the definition given in \hyperref[sec:categoryofsymmetricquantumsystems]{Section \ref*{sec:categoryofsymmetricquantumsystems}} of the category of quantum systems with a given symmetry is a good one, then Deligne's theorem looks tantalizingly like a purely mathematical reason for supersymmetry to manifest itself as the type of symmetry exhibited by quantum systems. This is in contrast to the usual arguments for the existence of supersymmetry:
+\begin{enumerate}
+  \item The Coleman-Mandula and Haag-{\L}opusza{\'n}ski-Sohnius theorems\footnote{Item 1 was discussed in \hyperref[sec:historyofsuperalgebraandsupergeometry]{Section \ref*{sec:historyofsuperalgebraandsupergeometry}}.}
 
+  \item The hierarchy problem and the naturality of the Higgs mass.
+\end{enumerate}
+
+Any real description of these arguments would take us too far afield; the important thing to understand is that both rely heavily on quantum dynamics. What the Coleman-Mandula and Haag-{\L}opusza{\'n}ski-Sohnius theorems are really talking about is not the symmetries of the underlying quantum theory, but rather the symmetries of the $S$-matrix. The Higgs mass is unnatural without supersymmetry due to quantum corrections which tend to take it to the mass scale of new physics. Both of these require technical assumptions about the dynamical structure of fundamental quantum mechanical theories.
+
+To use Deligne's theorem on tensor categories as a motivation for the existence of supersymmetry one must also make assumptions, but these assumptions are of a fundamentally different character to those required by the usual arguments in that they rely only on the mathematical structure of quantum mechanics itself.
+
+However, there are several caveats which prevent Deligne's theorem from motivating supersymmetry convincingly. Most glarlingly, Deligne's theorem tells us only about finite-dimensional representations, and very few interesting quantum systems are finite dimensional. It has been suggested (e.g. in \cite{nlab-deligne-theorem}) that by making certain assumptions about the form that the symmetry group of spacetime, one could separate off the infinite-dimensional part of the representations under consideration and apply Deligne's theorem only to the finite-dimensional part. However, it is difficult to do this in a way that is not circular, since in order to do this sort of separation one must assume that the symmetry is given by something which looks very much like a representation of a group.
+
+Additionally, some of the assumptions that one must make in order to ensure that $\mathsf{QSys}(\mathcal{S})$ is a tensor category are rather artificial from a physical perspective. In particular, since tensor categories are abelian, they must have a biproduct (in this case given by the direct sum) must satisfy many requirements that do not have clear physical interpretations, since the taking direct sum of quantum systems is not as natural as taking their tensor product.
+
+It may be that the `correct' definion of the category of $\mathcal{S}$-symmetric quantum systems looks rather different from that given in \hyperref[sec:categoryofsymmetricquantumsystems]{Section \ref*{sec:categoryofsymmetricquantumsystems}}. There are excellent reasons to believe that the definition given is flawed; for example, it does not allow for antilinear, anti-unitary maps, which are known to be permitted due to Wigner's analysis \cite{wigner-little-group}. The problem of finding the correct definition is an interesting one, and investigating it could serve to elucidate the nature of symmetry in quantum mechanics.
 
 %\section{Practicalities of supergeometry}
 %\subsection{The super Lie algebra of an algebraic super-group}
@@ -3661,7 +3737,7 @@ As before elements of $V_{0}$ are \emph{even}, elements of $V_{1}$ are \emph{odd
 \end{definition}
 
 \chapter{Category theory} \label{ch:categories}
-In this chapter, I will do my best to stick to the conventions used at the nLab (\cite{nlab}).
+I will do my best to stick to the conventions used at the nLab (\cite{nlab}).
 
 \section{Categories} \label{sec:categoriesbasicdefinitions}
 \begin{definition}[category] 
@@ -3681,16 +3757,16 @@ In this chapter, I will do my best to stick to the conventions used at the nLab 
 
       \end{enumerate} 
   \end{itemize} 
+
+  If ever it is potentially unclear which category we are talking about, we will add a subscript to $\Hom$, writing for example $\Hom_{\mathsf{C}}(A,B)$ instead of $\Hom(A,B)$.
 \end{definition}
 
 \begin{note}
-  There is a reason we say that the objects and morphisms of a category are a \emph{class} rather than a set. It may be that there may be `too many' objects to be contained in a set. For example, we will see that there is a category of sets, but there is no set of all sets. Categories whose objects and/or morphisms \emph{are} small enough to be contained in a set will play an especially important role.
+  There is a reason we say that the objects and morphisms of a category are a \emph{class} rather than a set. It may be that there may be `too many' objects to be contained in a set. For example, we will see that there is a category of sets, but there is no set of all sets. We will for the most part sidestep foundational questions of size, but in some cases it will be unavoidable; categories whose objects and/or morphisms \emph{are} small enough to be contained in a set will play an especially important role.
 \end{note}
 
 \begin{notation}
   Following Aluffi (\cite{aluffi-algebra-chapter-0}), we will use the sans-serif font \texttt{mathsf} to denote categories. For example $\mathsf{C}$, $\mathsf{Set}$.
-
-  If ever it is potentially unclear which category we are talking about, we will add a subscript to $\Hom$, writing for example $\Hom_{\mathsf{C}}(A,B)$ instead of $\Hom(A,B)$.
 \end{notation}
 
 \begin{notation}
@@ -3782,14 +3858,14 @@ Here are a few ways we can use existing categories to create new ones.
 
 \begin{definition}[full subcategory]
   \label{def:fullsubcategory}
-  Let $\mathsf{C}$ be a category, $\mathcal{I}\colon \mathsf{S} \hookrightarrow \mathsf{C}$ a subcategory. We say that $\mathsf{S}$ is \defn{full} in $\mathsf{C}$ if for every $S$, $T \in \Obj(\mathsf{S})$, $\Hom_{\mathsf{S}}(S, T) \simeq \Hom_{\mathsf{C}}(S, T)$. That is, if there are no morphisms in $\Hom_{\mathsf{C}}(S, T)$ which cannot be written $\mathcal{I}(f)$ for some $f \in \Hom_{\mathsf{S}}(S, T)$.
+  Let $\mathsf{C}$ be a category, $\mathcal{I}\colon \mathsf{S} \hookrightarrow \mathsf{C}$ a subcategory. Write $\mathsf{S} \subset \mathsf{C}$ We say that $\mathsf{S}$ is \defn{full} in $\mathsf{C}$ if for every $S$, $T \in \Obj(\mathsf{S})$, $\Hom_{\mathsf{S}}(S, T) \simeq \Hom_{\mathsf{C}}(S, T)$. That is, if there are no morphisms in $\Hom_{\mathsf{C}}(S, T)$ which cannot be written $\mathcal{I}(f)$ for some $f \in \Hom_{\mathsf{S}}(S, T)$.
 \end{definition}
 
 \begin{example}
   \label{eg:finvectfullsubcategoryofvect}
   Recall that $\mathsf{Vect}_{k}$ is the category of vector spaces over a field $k$, and $\mathsf{FinVect}_{k}$ is the category of finite dimensional vector spaces. 
 
-  It is not difficult to see that $\mathsf{FinVect}_{k} \subseteq \mathsf{Vect}_{k}$: all finite dimensional vector spaces are vector spaces, and all linear maps between finite-dimensional vector spaces are maps between vector spaces. In fact, since for $V$ and $W$ finite-dimensional, one does not gain any maps by moving from $\Hom_{\mathsf{FinVect}_{k}}(V, W)$ to $\Hom_{\mathsf{Vect}_{k}}(V, W)$, $\mathsf{FinVect}_{k}$ is even a \emph{full} subcategory of $\mathsf{Vect}_{k}$.
+  It is not difficult to see that $\mathsf{FinVect}_{k} \subset \mathsf{Vect}_{k}$: all finite dimensional vector spaces are vector spaces, and all linear maps between finite-dimensional vector spaces are maps between vector spaces. In fact, since for $V$ and $W$ finite-dimensional, one does not gain any maps by moving from $\Hom_{\mathsf{FinVect}_{k}}(V, W)$ to $\Hom_{\mathsf{Vect}_{k}}(V, W)$, $\mathsf{FinVect}_{k}$ is even a \emph{full} subcategory of $\mathsf{Vect}_{k}$.
 \end{example}
 
 Category theory has many essences, one of which is as a major generalization of set theory. We would like to upgrade definitions and theorems about functions between sets to definitions and theorems about morphisms between objects in a category. It is here that we run into our first major challenge: in general, the objects of a category are \emph{not} sets, so we cannot talk about their elements. We therefore have to find definitions which we can give purely in terms objects and morphisms between them.
@@ -7472,7 +7548,7 @@ A monoidal category will be a category in which the objects have the structure o
 
   The triangle and pentagon diagram are the first in a long list of hulking coherence diagrams designed to pacify categorical structures into behaving like their algebraic counterparts. For a monoid, multiplication is associative by fiat, and the extension of this to $n$-fold products follows by a trivial application of induction. In monoidal categories, associators are isomorphisms rather than equalities, and we have no a priori guarantee that different ways of composing associators give the same isomorphism. 
 
-  That is exactly what the coherence diagrams do for us, as the below theorem shows.
+  Mac Lane's coherence theorem shows us that this is exactly what the coherence diagrams guarantee.
 \end{note}
 
 \begin{theorem}[Mac Lane's coherence theorem]
@@ -7586,12 +7662,12 @@ The following definition was taken \emph{mutatis mutandis} from \cite{baez-defin
   In much of the literature, a strong monoidal functor is simply called a monoidal functor.
 \end{note}
 
-\begin{lemma}
-  The composition of lax (strong) monoidal functors is lax (strong) monoidal.
-\end{lemma}
-\begin{proof}
-
-\end{proof}
+%\begin{lemma}
+%  The composition of lax (strong) monoidal functors is lax (strong) monoidal.
+%\end{lemma}
+%\begin{proof}
+%
+%\end{proof}
 
 \begin{definition}[monoidal natural transformation]
   \label{def:monoidalnaturatransformation}
@@ -7622,8 +7698,6 @@ The following definition was taken \emph{mutatis mutandis} from \cite{baez-defin
 \end{definition}
 
 \subsection{Braided monoidal categories}
-Any insightful remarks in this section are due to \cite{baez-this-weeks-finds-137}.
-
 Braided monoidal categories capture the idea that we should think of morphisms between tensor products spatially, as diagrams embedded in 3-space. This sounds odd, but it turns out to be the correct way of looking at a wide class of problems. 
 
 To be slightly more precise, we can think of the objects $X$, $Y$, etc. in any monoidal category as little dots.
@@ -8053,14 +8127,14 @@ In a closed monoidal category, the adjunction between the internal hom and the t
 
 \begin{lemma}
   \label{lemma:cantensorbothsidesofinternalhom}
-  Let $(\mathsf{C}, \otimes, 1)$ be a closed symmetric monoidal category. For any $A$, $B$, $R \in \Obj(\mathsf{C})$, there is a transformation
+  Let $(\mathsf{C}, \otimes, 1)$ be a closed symmetric monoidal category. For any $A$, $B$, $R \in \Obj(\mathsf{C})$, there is a natural transformation
   \begin{equation*}
-    [A, B]_{\mathsf{C}} \to [R \otimes A, R \otimes B]_{\mathsf{C}}
+    [A, B]_{\mathsf{C}} \to [R \otimes A, R \otimes B]_{\mathsf{C}},
   \end{equation*}
-  which is natural in $A$ and $B$.
+  natural in $A$ and $B$.
 \end{lemma}
 \begin{proof}
-  The assignment $R \otimes (-)$ is a functor, hence induces a transformation of the regular hom functor
+  The assignment $R \otimes (-)$ is a functor, and induces a transformation of the regular hom functor
   \begin{equation*}
     \Hom_{\mathsf{C}}(A, B) \mapsto \Hom_{\mathsf{C}}(R \otimes A, R \otimes B)
   \end{equation*}
