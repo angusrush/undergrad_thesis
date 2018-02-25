@@ -31,8 +31,7 @@
 \usepackage{appendix}
 
 % Set up hyperref colors
-\hypersetup{
-    colorlinks,
+\hypersetup{colorlinks,
     linkcolor={blue!50!black},
     citecolor={blue!50!black},
     urlcolor={blue!80!black}
@@ -59,7 +58,7 @@
 \setlength{\headheight}{14.0pt}
 
 % My commands
-\newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pder}[2]{\frac{\partial{} #1}{\partial{} #2}}
 \newcommand{\tder}[2]{\frac{d #1}{d #2}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
@@ -67,7 +66,7 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\dd}{\mathrm{d}}
-\newcommand{\Mod}[1]{\(\mathrm{mod}#1\)}
+\newcommand{\Mod}[1]{\(\mod #1\)}
 \newcommand{\defn}[1]{\ul{#1}}
 \newcommand{\cliff}{\mathrm{C}\ell}
 \newcommand{\Ad}{\mathrm{Ad}}
@@ -133,14 +132,14 @@
 \begin{titlepage}
   \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
-  \center
+  \center{}
   \vspace*{\fill}
 
   \textsc{\LARGE University of Liverpool}\\[1.5cm]
 
   \HRule \\[0.4cm]
-  { \huge \bfseries Deligne's Theorem on Tensor Categories}\\[0.4cm]
-  { \Large \bfseries And its Implications for Quantum Mechanics}\\[0.4cm]
+  {\huge \bfseries Deligne's Theorem on Tensor Categories}\\[0.4cm]
+  {\Large \bfseries And its Implications for Quantum Mechanics}\\[0.4cm]
   \HRule \\[1.5cm]
 
   \begin{minipage}{0.4\textwidth}
@@ -150,11 +149,11 @@
       ID 201149990
     \end{flushleft}
   \end{minipage}
-  ~
+ ~
   \begin{minipage}{0.4\textwidth}
     \begin{flushright} \large
       \emph{Supervisor:} \\
-      Dr. Thomas Mohaupt
+      Dr.\ Thomas Mohaupt
     \end{flushright}
   \end{minipage}\\[2cm]
 
@@ -174,25 +173,25 @@
 %fakesection epigraph
 \epigraph{Algebra is the offer made by the devil to the mathematician. The devil says: I will give you this powerful machine, it will answer any questions you like. All you need to do is give me your soul: give up geometry and you will have this marvelous machine.}{M. Atiyah (2004).  \textit{Collected Works, Vol. 6}}
 
-\section{History of superalgebra and supergeometry} \label{sec:historyofsuperalgebraandsupergeometry}
+\section{History of superalgebra and supergeometry}\label{sec:historyofsuperalgebraandsupergeometry}
 \subsubsection{Supergeometry and the path integral}
 Supergeometry as a mathematical structure came into being out of necessity, as an attempt to extend the path integral approach to quantum field theory to allow the treatment of fermionic fields.
 
-In 1948, Richard Feynman published his so-called \emph{path-integral} approach to quantum mechanics (\cite{feynmanpathintegral}). The path integral caught on almost immediately as a way of doing quantum mechanics and was quickly extended to describe bosonic quantum field theory. However, it took quite some time for it to be applied to fermionic quantum fields. The first textbook account \cite{berezinsecondquantization} was published by Felix Berezin in 1965.
+In 1948, Richard Feynman published his so-called \emph{path-integral} approach to quantum mechanics (\cite{feynmanpathintegral}). The path integral caught on almost immediately as a way of doing quantum mechanics and was quickly extended to describe bosonic quantum field theory. However, it took quite some time for it to be applied to fermionic quantum fields. The first textbook account~\cite{berezinsecondquantization} was published by Felix Berezin in 1965.
 
 This slow uptake was due to some extent to a conceptual difficulty. In the path integral approach to quantum field theory, one (roughly speaking) treats a quantum field in terms of classical field states. This means that calculations with quantum fields involve corresponding classical fields. For bosonic fields (fields describing particles with integer spin), it is more or less clear how to do this: bosonic quantum fields have natural classical analogs since in the high particle number limit, the quantum dynamics reduce, roughly, to the classical field equations. However, since fermions (particles with half-integer spin) cannot be in the same state due to the Pauli exclusion principle, fermionic fields do not have a high particle humber limit, so they have no obvious classical analog.
 
-It turns out that the way to treat fermionic quantum fields in the path integral formalism is to allow the classical fields which correspond to fermions to anticommute, i.e. to satisfy the relation
+It turns out that the way to treat fermionic quantum fields in the path integral formalism is to allow the classical fields which correspond to fermions to anticommute, i.e.\ to satisfy the relation
 \begin{equation*}
   \psi(x) \psi(y) = -\psi(y) \psi(x).
 \end{equation*}
-This is puzzling since we do not know how to interpret the order of classical fields. In classical field theory, field histories are given by sections of a bundle over spacetime, and the value of a field at a point can be thought of as given by a collection of numbers of which represent, for example, the components of a vector located at that point. These numbers by definition commute with each other. The anticommutativity of fermionic classical fields means that they cannot be na\"{i}vely interpreted as classical fields in the standard sense.
+This is puzzling since we do not know how to interpret the order of classical fields. In classical field theory, field histories are given by sections of a bundle over spacetime, and the value of a field at a point can be thought of as given by a collection of numbers of which represent, for example, the components of a vector located at that point. These numbers by definition commute with each other. The anticommutativity of fermionic classical fields means that they cannot be na\"{\i}vely interpreted as classical fields in the standard sense.
 
 The correct implementation of anticommuting classical fields turned out to come from a fundamental reimagining of spacetime. Classically, spacetime is a manifold; if one augments its charts by adding additional coordinates which anticommute instead of commute, then fields, considered locally as a sort of power series in \emph{all} the variables (commuting and anticommuting) can behave non-trivially under commutation.
 
 The mathematical formulation of such an `augmented manifold' is given by what is known as a supermanifold: one takes the standard description of a $C^{\infty}$ manifold as a locally ringed space and allows the sections to be so-called \emph{supercommutative} rings, which contain both commuting and anticommuting elements.
 
-Supermanifolds have a rich mathematical theory, explored in e.g. \cite{susy-for-mathematicians}. In many ways, it runs parallel to the classical theory of $C^{\infty}$ manifolds. For instance, one can study a category whose objects are supermanifolds; the group objects in this category are known as Lie super-groups. The tangent space at the identity of a Lie super-group is known as a Lie super-algebra, an algebra with a bracket which is sometimes symmetric and sometimes antisymmetric.
+Supermanifolds have a rich mathematical theory, explored in e.g.\ \cite{susy-for-mathematicians}. In many ways, it runs parallel to the classical theory of $C^{\infty}$ manifolds. For instance, one can study a category whose objects are supermanifolds; the group objects in this category are known as Lie super-groups. The tangent space at the identity of a Lie super-group is known as a Lie super-algebra, an algebra with a bracket which is sometimes symmetric and sometimes antisymmetric.
 
 \subsubsection{Lie superalgebras and the Haag-{\L}opusza{\'n}ski-Sohnius theorem}
 
@@ -210,7 +209,7 @@ However, in 1975 Rudolph Haag, Jan {\L}opusza{\'n}ski, and Martin Sohnius showed
 This so-called Haag-{\L}opusza{\'n}ski-Sohnius theorem was, and to some extent is, taken as a justification for the belief that spacetime fundamentally has the structure of a supermanifold.
 
 \section{A lightning introduction to superalgebra}
-Superalgebra arose as a way of generalizing commutative algebra to allow the sometimes commutative, sometimes anticommutative behavior of certain physical quantities. In this section, we give a brief introduction to superalgebra. For a more complete introduction, see \hyperref[ch:superalgebra]{Appendix \ref*{ch:superalgebra}}.
+Superalgebra arose as a way of generalizing commutative algebra to allow the sometimes commutative, sometimes anticommutative behavior of certain physical quantities. In this section, we give a brief introduction to superalgebra. For a more complete introduction, see \hyperref[ch:superalgebra]{Appendix~\ref*{ch:superalgebra}}.
 
 A commutative algebra is a vector space $V$ together with a bilinear, commutative multiplication\footnote{One often demands that the multiplication is unital and associative, but this is not essential to the discussion at hand.}
 \begin{equation*}
@@ -241,30 +240,30 @@ However, we have not specified how elements from $V_{0}$ interact with elements 
 We then define multiplication on elements of pure degree by
 \begin{equation}
   \label{eq:kosulsignrule}
-  v\cdot w = (-1)^{\tilde{v}\cdot\tilde{w}} w\cdot v,
+  v\cdot w = {(-1)}^{\tilde{v}\cdot\tilde{w}} w\cdot v,
 \end{equation}
 and extend to general elements of $V$ by linearity. \hyperref[eq:kosulsignrule]{Equation \ref*{eq:kosulsignrule}} is known as the \emph{Koszul sign rule}. A superalgebra which obeys the Koszul sign rule is known as \emph{supercommutative}.
 
 The thing that makes superalgebra so interesting is the following: the Koszul sign rule turns out to be natural in the sense that if one inserts it into the standard definitions from commutative algebra, it tends to turns up in the right places in the theorems. For example, if one defines the \emph{supercommutator} of two superalgebra elements of even degree as
 \begin{equation*}
-  [v, w] = v\cdot w - (-1)^{\tilde{v}\cdot\tilde{w}} w\cdot v
+  [v, w] = v\cdot w - {(-1)}^{\tilde{v}\cdot\tilde{w}} w\cdot v
 \end{equation*}
 then one finds that the supercommutator satisfies the so-called \emph{super Jacobi identity}
 \begin{equation*}
-  [u,[v,w]] + (-1)^{\tilde{u}(\tilde{v} + \tilde{w})}[v,[w,u]] + (-1)^{\tilde{w}(\tilde{u}+\tilde{v})}[w,[u,v]] = 0.
+  [u,[v,w]] + {(-1)}^{\tilde{u}(\tilde{v} + \tilde{w})}[v,[w,u]] + {(-1)}^{\tilde{w}(\tilde{u}+\tilde{v})}[w,[u,v]] = 0.
 \end{equation*}
 Note that this is simply the Jacobi identity with a factor of $-1$ every time two elements of odd degree are permuted.
 
 \section{Road map}
-In \hyperref[sec:supercommutativity]{Section \ref*{sec:supercommutativity}}, we will see that the robustness of the Koszul sign rule is not a coincidence, but arises naturally from the fact that supercommutativity is just a different sort of commutativity: more precisely, supercommutativity is commutativity internalized to a different category, the category $\mathsf{SVect}_{k}$ of super vector spaces.
+In \hyperref[sec:supercommutativity]{Section~\ref*{sec:supercommutativity}}, we will see that the robustness of the Koszul sign rule is not a coincidence, but arises naturally from the fact that supercommutativity is just a different sort of commutativity: more precisely, supercommutativity is commutativity internalized to a different category, the category $\mathsf{SVect}_{k}$ of super vector spaces.
 
-In \hyperref[sec:supervarieties]{Section \ref*{sec:supervarieties}}, we re-use the concept of internalization to generalize the notion of a variety to $\mathsf{SVect}_{k}$, arriving at the notion of a \emph{supervariety}.\footnote{We follow the terminology in \cite{milne-affine-group-schemes} and \cite{nlab-deligne-theorem}. The objects we define are also commonly known as affine schemes} By studying supervarieties which are also groups (i.e. group objects in the category of supervarieties), we come in \hyperref[sec:supergroupsandsupercommutativehopfalgebras]{Section \ref*{sec:supergroupsandsupercommutativehopfalgebras}} to a definition of an \emph{affine supergroup}.
+In \hyperref[sec:supervarieties]{Section~\ref*{sec:supervarieties}}, we re-use the concept of internalization to generalize the notion of a variety to $\mathsf{SVect}_{k}$, arriving at the notion of a \emph{supervariety}.\footnote{We follow the terminology in~\cite{milne-affine-group-schemes} and~\cite{nlab-deligne-theorem}. The objects we define are also commonly known as affine schemes} By studying supervarieties which are also groups (i.e.\ group objects in the category of supervarieties), we come in \hyperref[sec:supergroupsandsupercommutativehopfalgebras]{Section~\ref*{sec:supergroupsandsupercommutativehopfalgebras}} to a definition of an \emph{affine supergroup}.
 
-In \hyperref[sec:modulesandcomodules]{Section \ref*{sec:modulesandcomodules}}, we introduce a categorical formulation of modules and comodules. In \hyperref[sec:representationsascomodules]{Section \ref*{sec:representationsascomodules}}, we define a representation of an affine supergroup, and show that the definition is equivalent to that of a certain comodule. This allows us to make a slick definition of the category of representations of an affine supergroup.
+In \hyperref[sec:modulesandcomodules]{Section~\ref*{sec:modulesandcomodules}}, we introduce a categorical formulation of modules and comodules. In \hyperref[sec:representationsascomodules]{Section~\ref*{sec:representationsascomodules}}, we define a representation of an affine supergroup, and show that the definition is equivalent to that of a certain comodule. This allows us to make a slick definition of the category of representations of an affine supergroup.
 
-In \hyperref[ch:delignestheorem]{Chapter \ref*{ch:delignestheorem}}, we give the statement of \emph{Deligne's theorem on tensor categories} (\cite{deligne-categories-tensorielle}) and a quick explanation of its meaning.
+In \hyperref[ch:delignestheorem]{Chapter~\ref*{ch:delignestheorem}}, we give the statement of \emph{Deligne's theorem on tensor categories} (\cite{deligne-categories-tensorielle}) and a quick explanation of its meaning.
 
-In \hyperref[ch:relevancetophysics]{Chapter \ref*{ch:relevancetophysics}}, we examine some of the implications of Deligne's theorem on tensor categories for quantum mechanics. We start in \hyperref[sec:symmetriesinqm]{Section \ref*{sec:symmetriesinqm}} with a recollection of the role of symmetry in quantum mechanics, and in \hyperref[sec:symmetricqm]{Section \ref*{sec:symmetricqm}}, arrive at a plausible definition of a quantum system with a given symmetry $\mathcal{S}$. In \hyperref[sec:categoryofsymmetricquantumsystems]{Section \ref*{sec:categoryofsymmetricquantumsystems}}, we extend this to a definition of a category $\mathsf{QSys}(\mathcal{S})$ of quantum systems with a given symmetry, and show that this is a tensor category of subexponential growth. In \hyperref[sec:implicationsofdelignestheorem]{Section \ref*{sec:implicationsofdelignestheorem}}, we investigate some of the implications of Deligne's theorem to the category $\mathsf{QSys}(\mathcal{S})$.
+In \hyperref[ch:relevancetophysics]{Chapter~\ref*{ch:relevancetophysics}}, we examine some of the implications of Deligne's theorem on tensor categories for quantum mechanics. We start in \hyperref[sec:symmetriesinqm]{Section~\ref*{sec:symmetriesinqm}} with a recollection of the role of symmetry in quantum mechanics, and in \hyperref[sec:symmetricqm]{Section~\ref*{sec:symmetricqm}}, arrive at a plausible definition of a quantum system with a given symmetry $\mathcal{S}$. In \hyperref[sec:categoryofsymmetricquantumsystems]{Section~\ref*{sec:categoryofsymmetricquantumsystems}}, we extend this to a definition of a category $\mathsf{QSys}(\mathcal{S})$ of quantum systems with a given symmetry, and show that this is a tensor category of subexponential growth. In \hyperref[sec:implicationsofdelignestheorem]{Section~\ref*{sec:implicationsofdelignestheorem}}, we investigate some of the implications of Deligne's theorem to the category $\mathsf{QSys}(\mathcal{S})$.
 
 %%fakechapter The Mackey Machine
 %\chapter{The Mackey machine}
@@ -312,24 +311,23 @@ In \hyperref[ch:relevancetophysics]{Chapter \ref*{ch:relevancetophysics}}, we ex
 %  \end{enumerate}
 %\end{theorem}
 
-\chapter{Superalgebra, Supergeometry, and Super-Groups} \label{ch:superalgebraandsupergeometryincategories}
-Historically, superalgebraic strucutures were defined haphazardly by imposing the Koszul sign rule by hand.\footnote{For a traditional approach to superalgebra, see \hyperref[ch:superalgebra]{Appendix \ref*{ch:superalgebra}}.} Seemingly miraculously, this worked in the sense that if one added the appropriate sign changes to the definitions, they would turn up in the right places in the theorems. In the first part of this chapter, we will see that the appearance of the Koszul sign rule is much more natural: it is a manifestation of the fact that the supercommutativity is really just a different sort of commutativity, one which shows up naturally in the study of $\Z_{2}$-graded vector spaces. We will do this by defining supercommutative structures simply as commutative structures internal to the category of super vector spaces.
+\chapter{Superalgebra, Supergeometry, and Super-Groups}\label{ch:superalgebraandsupergeometryincategories}
+Historically, superalgebraic strucutures were defined haphazardly by imposing the Koszul sign rule by hand.\footnote{For a traditional approach to superalgebra, see \hyperref[ch:superalgebra]{Appendix~\ref*{ch:superalgebra}}.} Seemingly miraculously, this worked in the sense that if one added the appropriate sign changes to the definitions, they would turn up in the right places in the theorems. In the first part of this chapter, we will see that the appearance of the Koszul sign rule is much more natural: it is a manifestation of the fact that the supercommutativity is really just a different sort of commutativity, one which shows up naturally in the study of $\Z_{2}$-graded vector spaces. We will do this by defining supercommutative structures simply as commutative structures internal to the category of super vector spaces.
 
 In the second section, we will apply some of the machinery of algebraic geometry to our new understanding of supercommutative algebra, and arrive at a natural definition of a supervariety.
 
 In the third section, we generalize the ideas of the second section, leading to a definition of an affine supergroup.
 
-In what follows, we will us the language of category theory freely. For completeness, the necessary definitions and theorems have been included in \hyperref[ch:categories]{Appendix \ref*{ch:categories}}.
+In what follows, we will us the language of category theory freely. For completeness, the necessary definitions and theorems have been included in \hyperref[ch:categories]{Appendix~\ref*{ch:categories}}.
 
-\section{Supercommutativity} \label{sec:supercommutativity}
-The goal of this section is to explain the ubiquity of supercommutativity (i.e. the Koszul sign rule) in the study of $\Z_{2}$-graded spaces. Stated roughly, the reason is this: it is the only possible `commutative' multiplication law on a $\Z_{2}$-graded algebra which knows about the grading. That is to say, the only other possible commutative multiplication law (up to an appropriate sort of isomorphism) on a $\Z_{2}$-graded algebra is the trivial one.
+\section{Supercommutativity}\label{sec:supercommutativity}
+The goal of this section is to explain the ubiquity of supercommutativity (i.e.\ the Koszul sign rule) in the study of $\Z_{2}$-graded spaces. Stated roughly, the reason is this: it is the only possible `commutative' multiplication law on a $\Z_{2}$-graded algebra which knows about the grading. That is to say, the only other possible commutative multiplication law (up to an appropriate sort of isomorphism) on a $\Z_{2}$-graded algebra is the trivial one.
 
-This section mainly uses ideas from \cite{nlab-deligne-theorem}
+This section mainly uses ideas from~\cite{nlab-deligne-theorem}
 
 \subsection{The category \texorpdfstring{$\mathsf{SVect}_{k}$}{Lg}}
-\begin{definition}[category of $\Z_{2}$-graded vector spaces]
-  \label{def:categoryofz2gradedvectorspaces}
-  The \defn{category of $\Z_{2}$-graded vector spaces}, i.e. the category whose objects are $\Z_{2}$-graded vector spaces (\hyperref[def:z2gradedvectorspace]{Definition \ref*{def:z2gradedvectorspace}}) and whose morphisms are $\Z_{2}$-graded vector space morphisms, is notated $\mathsf{Vect}_{k}^{\Z_{2}}$.
+\begin{definition}[category of $\Z_{2}$-graded vector spaces]\label{def:categoryofz2gradedvectorspaces}
+  The \defn{category of $\Z_{2}$-graded vector spaces}, i.e.\ the category whose objects are $\Z_{2}$-graded vector spaces (\hyperref[def:z2gradedvectorspace]{Definition~\ref*{def:z2gradedvectorspace}}) and whose morphisms are $\Z_{2}$-graded vector space morphisms, is notated $\mathsf{Vect}_{k}^{\Z_{2}}$.
 \end{definition}
 
 \begin{note}
